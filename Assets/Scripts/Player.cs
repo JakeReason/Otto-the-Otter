@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
 
-    private float m_fUpVelocity;
+    private float m_fYVelocity;
 
     private float m_fJumpTimer;
     
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         // Initialises the Move Direction to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
 
-        m_fUpVelocity = 0.0f;
+        m_fYVelocity = 0.0f;
 
         m_fJumpTimer = m_fTimeInAir;
     }
@@ -69,37 +69,18 @@ public class Player : MonoBehaviour
         }
 
         // Checks if the A Button has been pressed and if the player is on the ground
-        if (XCI.GetButtonDown(XboxButton.A, m_controller) && m_cc.isGrounded)
+        if (XCI.GetButton(XboxButton.A, m_controller) && m_cc.isGrounded)
         {
-            m_fUpVelocity = m_fJumpVelocity;            
+            m_fYVelocity = m_fJumpVelocity;            
         }
 
-        if (!m_cc.isGrounded)
-        {
-            m_fJumpTimer -= Time.deltaTime;
-
-            if (m_fJumpTimer <= 0.0f)
-            {
-                m_fUpVelocity = 0.0f;
-                m_fJumpTimer = m_fTimeInAir;
-            }
-        }
-
-        if (XCI.GetButtonUp(XboxButton.A, m_controller))
-        {
-            m_fUpVelocity = 0.0f;
-            m_fJumpTimer = m_fTimeInAir;
-        }
-
-        m_v3MoveDirection.y += m_fUpVelocity;
+        m_v3MoveDirection.y += m_fYVelocity;
 
         // Adds movement to CharacterController based on move direction, speed and time
         m_cc.Move(m_v3MoveDirection * m_fSpeed * Time.deltaTime);
 
         // Applies gravity to the CharacterController
         m_cc.SimpleMove(Physics.gravity);
-
-        Debug.Log(m_fJumpTimer);
 	}
 
     public void Damage()
