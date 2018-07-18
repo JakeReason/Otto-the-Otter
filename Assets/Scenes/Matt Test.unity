@@ -376,7 +376,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_fSpeed: 10
-  m_fJumpSpeed: 2
+  m_fJumpVelocity: 3
+  m_fTimeInAir: 0.2
 --- !u!1 &2060180030
 GameObject:
   m_ObjectHideFlags: 0
