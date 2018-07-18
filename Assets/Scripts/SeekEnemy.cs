@@ -26,7 +26,7 @@ public class SeekEnemy : MonoBehaviour {
             m_fDistanceFromPlayer = Vector3.Distance(transform.position, m_player.position);
             if(m_fDistanceFromPlayer <= m_fDistance)
             {
-				m_player.position.x = 
+				//m_player.position.x = 
                 m_agent.SetDestination(m_player.position);
 
             }

@@ -9,8 +9,11 @@ public class BasicEnemy : MonoBehaviour {
     private float m_fOriginalCooldown;
 	private float m_fOriginalAttackCooldown;
 	private float m_fDistanceFromPlayer;
+	private Player m_playerScript;
 	[SerializeField]
-	private Transform m_player;
+	private GameObject m_player;
+	[SerializeField]
+	private Transform m_playerTransform;
 	[SerializeField]
     private Transform[] m_targetPoints;
     [SerializeField]
@@ -39,6 +42,8 @@ public class BasicEnemy : MonoBehaviour {
 		m_fOriginalAttackCooldown = m_fAttackCooldown;
 		// Sets the attack cooldown to 0.
 		m_fAttackCooldown = 0;
+
+		m_playerScript = m_player.GetComponent<Player>();
     }
     void GotoNextPoint()
     {
@@ -58,9 +63,9 @@ public class BasicEnemy : MonoBehaviour {
     void Update ()
     {
 		// Sets the target rotation to the player.
-		var targetRotation = Quaternion.LookRotation(m_player.position - transform.position);
+		var targetRotation = Quaternion.LookRotation(m_playerTransform.position - transform.position);
 		// Sets the distance from the player to the enemy.
-		m_fDistanceFromPlayer = Vector3.Distance(transform.position, m_player.position);
+		m_fDistanceFromPlayer = Vector3.Distance(transform.position, m_playerTransform.position);
 		// Checks if the agent is on the navmesh.
 		if (m_agent.isOnNavMesh)
         {
@@ -80,7 +85,7 @@ public class BasicEnemy : MonoBehaviour {
 			if (m_fDistanceFromPlayer <= m_fDistance && m_fDistanceFromPlayer >= m_fAttackDistance)
 			{
 				// Sets the destination to the player position.
-				m_agent.SetDestination(m_player.position);
+				m_agent.SetDestination(m_playerTransform.position);
 			}
 			// When the enemy is in range of attack stop moving, look at player and attack. 
 			if(m_fDistanceFromPlayer <= m_fAttackDistance)
@@ -95,7 +100,7 @@ public class BasicEnemy : MonoBehaviour {
 				if (m_fAttackCooldown <= 0)
 				{
 					m_fAttackCooldown = m_fOriginalAttackCooldown;
-					Debug.Log("Attack");
+					m_playerScript.Damage();
 				}
 			}
 		}
