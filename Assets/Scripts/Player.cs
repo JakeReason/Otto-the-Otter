@@ -17,13 +17,19 @@ public class Player : MonoBehaviour
     public float m_fSpeed = 10.0f;
 
     // Float utilised to add a jump force to the player
-    public float m_fJumpSpeed = 8.0f;
+    public float m_fJumpVelocity = 8.0f;
+
+    public float m_fTimeInAir = 0.1f;
 
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
 
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
+
+    private float m_fYVelocity;
+
+    private float m_fJumpTimer;
     
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
@@ -35,7 +41,11 @@ public class Player : MonoBehaviour
 
         // Initialises the Move Direction to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
-	}
+
+        m_fYVelocity = 0.0f;
+
+        m_fJumpTimer = m_fTimeInAir;
+    }
 
     //--------------------------------------------------------------------------------
     // Function is called once every frame.
@@ -58,10 +68,13 @@ public class Player : MonoBehaviour
             m_v3MoveDirection.z = 0.0f;
         }
 
-        if (XCI.GetButtonDown(XboxButton.A, m_controller) && m_cc.isGrounded)
+        // Checks if the A Button has been pressed and if the player is on the ground
+        if (XCI.GetButton(XboxButton.A, m_controller) && m_cc.isGrounded)
         {
-            m_v3MoveDirection.y += m_fJumpSpeed;
+            m_fYVelocity = m_fJumpVelocity;            
         }
+
+        m_v3MoveDirection.y += m_fYVelocity;
 
         // Adds movement to CharacterController based on move direction, speed and time
         m_cc.Move(m_v3MoveDirection * m_fSpeed * Time.deltaTime);
@@ -69,4 +82,9 @@ public class Player : MonoBehaviour
         // Applies gravity to the CharacterController
         m_cc.SimpleMove(Physics.gravity);
 	}
+
+    public void Damage()
+    {
+        Debug.Log("Ouch");
+    }
 }
