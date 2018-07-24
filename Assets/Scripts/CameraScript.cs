@@ -5,35 +5,37 @@ using XboxCtrlrInput;
 
 public class CameraScript : MonoBehaviour {
 
+	[Header("Camera Settings")]
 	[SerializeField]
 	private XboxController controller;
-
-	[SerializeField]
-	private const float Y_ANGLE_MIN = -89.9f;
-	[SerializeField]
-	private const float Y_ANGLE_MAX = 89.9f;
-
 	[SerializeField]
 	private Transform m_lookAt;
 	[SerializeField]
 	private Transform m_cameraTransform;
-
-	private Camera m_camera;
-	float changeTime = 1.0f;
-
 	[SerializeField]
-	private float m_fDistance = 10.0f;
+	private const float Y_ANGLE_MIN = -45.9f;
 	[SerializeField]
-	private float m_fCurrentX = 0.0f;
+	private const float Y_ANGLE_MAX = 89.9f;
 	[SerializeField]
-	private float m_fCurrentY = 0.0f;
+	private float m_fDistance;
+	[SerializeField]
+	private float m_fMinDistance = 1.0f;
+	[SerializeField]
+	private float m_fMaxDistance = 10.0f;
 	[SerializeField]
 	private float m_fSensitivityX = 4.0f;
 	[SerializeField]
 	private float m_fSensitivityY = 1.0f;
+	[SerializeField]
+	private float m_fCurrentX = 0.0f;
+	[SerializeField]
+	private float m_fCurrentY = 0.0f;
+
+	private Camera m_camera;
+	private float m_fChangeTime = 1.0f;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		m_cameraTransform = transform;
 		m_fCurrentY = 20.0f;
 		m_camera = Camera.main;
@@ -47,27 +49,69 @@ public class CameraScript : MonoBehaviour {
 
 		m_fCurrentY = Mathf.Clamp(m_fCurrentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
+
 		if (XCI.GetButton(XboxButton.RightStick))
 		{
 			m_fCurrentX = m_lookAt.rotation.eulerAngles.y;
 			m_fCurrentY = 20.0f;
+			m_fDistance = 10.0f;
 		}
 
 		RaycastHit Hit;
 		Vector3 forward = transform.TransformDirection(Vector3.forward);
-		changeTime -= Time.deltaTime;
-		if (changeTime <= 0.5f)
+		m_fChangeTime -= Time.deltaTime;
+
+		if (m_fChangeTime <= 0.5f)
 		{
-			changeTime = 0.5f;
+			m_fChangeTime = 0.5f;
 		}
+
 		if (Physics.Raycast(transform.position, forward, out Hit, m_fDistance - 0.8f))
 		{
-			Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, changeTime);
+			if(Hit.collider.gameObject.layer == 8)
+			{
+				Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, m_fChangeTime);
+			}
 		}
 		else
 		{
-				changeTime = 1.0f;
+			m_fChangeTime = 1.0f;
 		}
+
+		if(Physics.Linecast(transform.position, m_lookAt.position, out Hit))
+		{
+			if(Hit.collider.gameObject.tag == "Floor")
+			{
+				if(XCI.GetAxis(XboxAxis.RightStickY) < 0.5f)
+				{
+					m_fDistance -= Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+				}
+			}
+			else
+			{
+				if (XCI.GetAxis(XboxAxis.RightStickY) > 0.5f)
+				{
+					m_fDistance += Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+
+				}
+			}
+		}
+		if (m_fDistance > m_fMaxDistance)
+		{
+			m_fDistance = m_fMaxDistance;
+		}
+		if (m_fDistance < m_fMinDistance)
+		{
+			m_fDistance = m_fMinDistance;
+		}
+
+		//if(m_cameraTransform.position.y <= -0.80f)
+		//{
+		//	float x = m_cameraTransform.position.x;
+		//	float z = m_cameraTransform.position.z;
+		//	Vector3 v3AboveGroud = new Vector3(x, -0.7f, z);
+		//	m_cameraTransform.position = v3AboveGroud; 
+		//}
 	}
 
 	private void LateUpdate()
@@ -76,5 +120,12 @@ public class CameraScript : MonoBehaviour {
 		Quaternion rotation = Quaternion.Euler(m_fCurrentY, m_fCurrentX, 0);
 		m_cameraTransform.position = m_lookAt.position + rotation * v3Dir;
 		m_cameraTransform.LookAt(m_lookAt.position);
+		//if (m_cameraTransform.position.y <= -0.80f)
+		//{
+		//	float x = m_cameraTransform.position.x;
+		//	float z = m_cameraTransform.position.z;
+		//	Vector3 v3AboveGroud = new Vector3(x, -0.7f, z);
+		//	m_cameraTransform.position = v3AboveGroud;
+		//}
 	}
 }
