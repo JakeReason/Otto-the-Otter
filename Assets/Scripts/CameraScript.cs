@@ -13,7 +13,7 @@ public class CameraScript : MonoBehaviour {
 	[SerializeField]
 	private Transform m_cameraTransform;
 	[SerializeField]
-	private const float Y_ANGLE_MIN = -45.9f;
+	private const float Y_ANGLE_MIN = -19.0f;
 	[SerializeField]
 	private const float Y_ANGLE_MAX = 89.9f;
 	[SerializeField]
@@ -78,24 +78,25 @@ public class CameraScript : MonoBehaviour {
 			m_fChangeTime = 1.0f;
 		}
 
-		if(Physics.Linecast(transform.position, m_lookAt.position, out Hit))
-		{
-			if(Hit.collider.gameObject.tag == "Floor")
-			{
-				if(XCI.GetAxis(XboxAxis.RightStickY) < 0.5f)
-				{
-					m_fDistance -= Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
-				}
-			}
-			else
-			{
-				if (XCI.GetAxis(XboxAxis.RightStickY) > 0.5f)
-				{
-					m_fDistance += Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+		//if(Physics.Linecast(transform.position, m_lookAt.position, out Hit))
+		//{
+		//	if(Hit.collider.gameObject.tag == "Floor")
+		//	{
+		//		if(XCI.GetAxis(XboxAxis.RightStickY) < 0.5f)
+		//		{
+		//			m_fDistance -= Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+		//		}
+		//	}
+		//	else
+		//	{
+		//		if (XCI.GetAxis(XboxAxis.RightStickY) > 0.5f)
+		//		{
+		//			m_fDistance += Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
 
-				}
-			}
-		}
+		//		}
+		//	}
+		//}
+		
 		if (m_fDistance > m_fMaxDistance)
 		{
 			m_fDistance = m_fMaxDistance;
@@ -104,14 +105,6 @@ public class CameraScript : MonoBehaviour {
 		{
 			m_fDistance = m_fMinDistance;
 		}
-
-		//if(m_cameraTransform.position.y <= -0.80f)
-		//{
-		//	float x = m_cameraTransform.position.x;
-		//	float z = m_cameraTransform.position.z;
-		//	Vector3 v3AboveGroud = new Vector3(x, -0.7f, z);
-		//	m_cameraTransform.position = v3AboveGroud; 
-		//}
 	}
 
 	private void LateUpdate()
@@ -120,12 +113,6 @@ public class CameraScript : MonoBehaviour {
 		Quaternion rotation = Quaternion.Euler(m_fCurrentY, m_fCurrentX, 0);
 		m_cameraTransform.position = m_lookAt.position + rotation * v3Dir;
 		m_cameraTransform.LookAt(m_lookAt.position);
-		//if (m_cameraTransform.position.y <= -0.80f)
-		//{
-		//	float x = m_cameraTransform.position.x;
-		//	float z = m_cameraTransform.position.z;
-		//	Vector3 v3AboveGroud = new Vector3(x, -0.7f, z);
-		//	m_cameraTransform.position = v3AboveGroud;
-		//}
+		m_fDistance = GetComponent<CameraCollision>().m_fDistance;
 	}
 }

@@ -7,7 +7,7 @@ public class CameraCollision : MonoBehaviour {
 	[SerializeField]
 	private Transform m_player;
 	[SerializeField]
-	private float m_fDistance;
+	public float m_fDistance;
 	[SerializeField]
 	private float m_fMinDistance = 1.0f;
 	[SerializeField]
@@ -35,7 +35,8 @@ public class CameraCollision : MonoBehaviour {
 
 		if (Physics.Linecast(transform.parent.position, v3DesiredCameraPos, out Hit))
 		{
-			m_fDistance = Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+			if(Hit.collider.gameObject.tag == "Floor")
+				m_fDistance = Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
 		}
 		else
 		{
@@ -43,6 +44,5 @@ public class CameraCollision : MonoBehaviour {
 		}
 
 		transform.localPosition = Vector3.Lerp(transform.localPosition, m_v3DollyDir * m_fDistance, Time.deltaTime * m_fSmooth);
-		transform.LookAt(m_player.position);
 	}
 }
