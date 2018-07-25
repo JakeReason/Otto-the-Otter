@@ -5,8 +5,6 @@ using UnityEngine;
 public class CameraCollision : MonoBehaviour {
 
 	[SerializeField]
-	private Transform m_player;
-	[SerializeField]
 	public float m_fDistance;
 	[SerializeField]
 	private float m_fMinDistance = 1.0f;
@@ -15,34 +13,37 @@ public class CameraCollision : MonoBehaviour {
 	[SerializeField]
 	private float m_fSmooth = 10.0f;
 	[SerializeField]
-	private Vector3 m_v3DollyDir;
-	[SerializeField]
-	private Vector3 m_v3DollyAdjusted;
+	private Vector3 m_v3CameraPosNormalized;
 
 	// Use this for initialization
 	void Awake ()
 	{
-		m_v3DollyDir = transform.localPosition.normalized;
-		m_fDistance = transform.localPosition.magnitude;
+		m_v3CameraPosNormalized = transform.localPosition.normalized;
+		//m_fDistance = transform.localPosition.magnitude;
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-		RaycastHit Hit;
-		Vector3 v3DesiredCameraPos = transform.TransformPoint(m_v3DollyDir * m_fMaxDistance);
-		m_v3DollyDir = transform.localPosition.normalized;
+		RaycastHit hit;
+		Vector3 v3DesiredCameraPos = transform.position;
 
-		if (Physics.Linecast(transform.parent.position, v3DesiredCameraPos, out Hit))
+		Debug.DrawLine(transform.parent.position, transform.position, Color.red);
+
+		if (Physics.Linecast(transform.parent.position, v3DesiredCameraPos, out hit))
 		{
-			if(Hit.collider.gameObject.tag == "Floor")
-				m_fDistance = Mathf.Clamp((Hit.distance * 0.9f), m_fMinDistance, m_fMaxDistance);
+			//if(hit.collider.gameObject.tag != "Player")
+			//{
+				m_fDistance = Mathf.Clamp(hit.distance, m_fMinDistance, m_fMaxDistance);
+			//}
 		}
-		else
+		else if(hit.distance >= 10) // Wring Logic Keeps setting camera to 10 when it should not be
 		{
 			m_fDistance = m_fMaxDistance;
 		}
 
-		transform.localPosition = Vector3.Lerp(transform.localPosition, m_v3DollyDir * m_fDistance, Time.deltaTime * m_fSmooth);
+		transform.localPosition = Vector3.Lerp(transform.localPosition, m_v3CameraPosNormalized * m_fDistance, Time.deltaTime * m_fSmooth);
+		m_v3CameraPosNormalized = transform.localPosition.normalized;
+		GetComponent<CameraScript>().m_fDistance = m_fDistance;
 	}
 }
