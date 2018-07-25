@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 7308561bea6f8064786d66ccc49c0111, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d3bc295864ebc7048bcf607b33b8b4b7, type: 2}
 --- !u!1 &100116300
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +809,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1989541555 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1374903530207184, guid: 1141cb9e07eeae6419e43e1fb721d7c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1013521106}
+--- !u!114 &1989541557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1989541555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215c13e9bd071f74989b78b094e2e6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fDistance: 0
+  m_fMinDistance: 1
+  m_fMaxDistance: 10
+  m_fSmooth: 10
+  m_v3CameraPosNormalized: {x: 0, y: 0, z: 0}
 --- !u!1 &2043062931
 GameObject:
   m_ObjectHideFlags: 0

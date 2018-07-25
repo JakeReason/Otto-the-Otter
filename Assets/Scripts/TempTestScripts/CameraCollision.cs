@@ -37,7 +37,14 @@ public class CameraCollision : MonoBehaviour {
 				m_fDistance = Mathf.Clamp(hit.distance, m_fMinDistance, m_fMaxDistance);
 			//}
 		}
-		else if(hit.distance >= 10) // Wring Logic Keeps setting camera to 10 when it should not be
+		//else if(hit.distance >= 10) // Wring Logic Keeps setting camera to 10 when it should not be
+		//{
+		//	m_fDistance = m_fMaxDistance;
+		//}
+
+		Physics.Linecast(transform.parent.position, v3DesiredCameraPos, out hit);
+
+		if(hit.distance >= 10 || hit.collider == null)
 		{
 			m_fDistance = m_fMaxDistance;
 		}
