@@ -19,6 +19,15 @@ public class Player : MonoBehaviour
     // Float indicates the speed of the player's jump
     public float m_fJumpSpeed = 8.0f;
 
+    [Range(1.0f, 10.0f)]
+    public float m_fExtraGravity = 4.0f;
+
+    [Range(0.1f, 1.0f)]
+    public float m_fJumpTimeLimit = 0.4f;
+
+    [Range(0.1f, 1.0f)]
+    public float m_fJumpMoveLimit = 0.5f;
+
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
 
@@ -35,7 +44,11 @@ public class Player : MonoBehaviour
 
     private float m_fJumpTimer;
 
+    private float m_fMovementX;
+
     private bool m_bJumped;
+
+    private bool m_bJumping;
 
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
@@ -52,7 +65,11 @@ public class Player : MonoBehaviour
 
         m_fJumpTimer = 0.0f;
 
+        m_fMovementX = 0.0f;
+
         m_bJumped = false;
+
+        m_bJumping = false;
     }
 
     //--------------------------------------------------------------------------------
@@ -63,6 +80,8 @@ public class Player : MonoBehaviour
         // Creates a new Vector3 indicating which direction the left stick is facing
         m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 
                                         Input.GetAxis("Vertical"));
+
+        m_fMovementX = m_v3MoveDirection.x;
 
         m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
 
@@ -79,16 +98,19 @@ public class Player : MonoBehaviour
         {
             m_v3Gravity.y = m_fJumpSpeed;
             m_bJumped = true;
-            m_fJumpTimer += Time.deltaTime;
+            m_bJumping = true;
         }
         else if (!Input.GetButton("Jump") && m_cc.isGrounded)
         {
             m_bJumped = false;
+            m_bJumping = false;
             m_fJumpTimer = 0.0f;
         }
-        else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) || m_fJumpTimer > 0.03f)
+        else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) || 
+                  m_fJumpTimer > m_fJumpTimeLimit)
         {
-            m_v3Gravity += Physics.gravity * 10.0f * Time.deltaTime;
+            m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
+            //m_bJumping = false;
         }
         else if (!m_cc.isGrounded)
         {
@@ -99,22 +121,19 @@ public class Player : MonoBehaviour
             m_v3Gravity = Vector3.zero;
         }
 
-        Debug.Log(m_fJumpTimer);
-
-        if (m_fJumpTimer > 0.03f)
+        if (m_bJumping)
         {
-            Debug.Log("LOL");
+            m_fJumpTimer += Time.deltaTime;
+            m_v3MoveDirection.x = m_fMovementX * m_fJumpMoveLimit;
         }
 
-        float itsy = m_v3MoveDirection.y;
+        float fCurrentMoveY = m_v3MoveDirection.y;
         m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
-        //transform.eulerAngles = new Vector3(0, transform.rotation.y, 0);
-        m_v3MoveDirection.y = itsy;
+        m_v3MoveDirection.y = fCurrentMoveY;
 
         m_v3MoveDirection *= m_fSpeed;
 
         m_v3MoveDirection += m_v3Gravity;
-
 
         // Adds movement to CharacterController based on move direction and delta time
         m_cc.Move(m_v3MoveDirection * Time.deltaTime);
