@@ -16,10 +16,7 @@ public class Player : MonoBehaviour
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
 
-    // Float utilised to add a jump force to the player
-    public float m_fJumpVelocity = 8.0f;
-
-    public float m_fTimeInAir = 0.1f;
+    public float m_fJumpSpeed = 8.0f;
 
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
@@ -27,10 +24,10 @@ public class Player : MonoBehaviour
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
 
-    private float m_fYVelocity;
+    private Vector3 m_v3LookDirection;
 
-    private float m_fJumpTimer;
-    
+    private Vector3 m_v3Gravity;
+
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
     //--------------------------------------------------------------------------------
@@ -42,9 +39,9 @@ public class Player : MonoBehaviour
         // Initialises the Move Direction to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
 
-        m_fYVelocity = 0.0f;
+        m_v3LookDirection = Vector3.zero;
 
-        m_fJumpTimer = m_fTimeInAir;
+        m_v3Gravity = Vector3.zero;
     }
 
     //--------------------------------------------------------------------------------
@@ -54,7 +51,9 @@ public class Player : MonoBehaviour
     {
         // Creates a new Vector3 indicating which direction the left stick is facing
         m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 
-                                        -Input.GetAxis("Vertical"));
+                                        Input.GetAxis("Vertical"));
+
+        m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
 
         // Caps the x value of move direction to 0 if the value is between 0.4f and -0.4f
         if (m_v3MoveDirection.x < 0.4f && m_v3MoveDirection.x > -0.4f)
@@ -68,19 +67,35 @@ public class Player : MonoBehaviour
             m_v3MoveDirection.z = 0.0f;
         }
 
-        // Checks if the A Button has been pressed and if the player is on the ground
-        if (XCI.GetButton(XboxButton.A, m_controller) && m_cc.isGrounded)
+        if (Input.GetButtonDown("Jump") && m_cc.isGrounded)
         {
-            m_fYVelocity = m_fJumpVelocity;            
+            m_v3Gravity.y = m_fJumpSpeed;
+        }
+        else if (Input.GetButtonUp("Jump"))
+        {
+            m_v3Gravity += Physics.gravity * 10.0f * Time.deltaTime;
+        }
+        else if (!m_cc.isGrounded)
+        {
+            m_v3Gravity += Physics.gravity * Time.deltaTime;
+        }
+        else
+        {
+            m_v3Gravity = Vector3.zero;
         }
 
-        m_v3MoveDirection.y += m_fYVelocity;
+        // Applies the speed float to the move direction
+        m_v3MoveDirection *= m_fSpeed;
 
-        // Adds movement to CharacterController based on move direction, speed and time
-        m_cc.Move(m_v3MoveDirection * m_fSpeed * Time.deltaTime);
+        m_v3MoveDirection += m_v3Gravity;
 
-        // Applies gravity to the CharacterController
-        m_cc.SimpleMove(Physics.gravity);
+        // Adds movement to CharacterController based on move direction and delta time
+        m_cc.Move(m_v3MoveDirection * Time.deltaTime);
+
+        if (m_v3LookDirection.x != 0 || m_v3LookDirection.z != 0)
+        {
+            transform.rotation = Quaternion.LookRotation(m_v3LookDirection);
+        }
 	}
 
     public void Damage()
