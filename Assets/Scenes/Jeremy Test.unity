@@ -625,7 +625,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 159e513a1957e6c4ba8dc291b36a5636, type: 2}
+  - {fileID: 2100000, guid: 6f6015bc22bd7cd42a3003e1184fd757, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -895,6 +895,21 @@ Prefab:
       propertyPath: CameraFollowObj
       value: 
       objectReference: {fileID: 1330769293}
+    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: HiderMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 159e513a1957e6c4ba8dc291b36a5636, type: 2}
+    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: WallMateriral
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f6015bc22bd7cd42a3003e1184fd757, type: 2}
+    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: WallMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f6015bc22bd7cd42a3003e1184fd757, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291fe07367ffe8440a2a2446e6a04a35, type: 2}
   m_IsPrefabParent: 0

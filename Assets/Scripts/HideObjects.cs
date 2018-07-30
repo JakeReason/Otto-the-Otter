@@ -30,7 +30,7 @@ public class HideObjects : MonoBehaviour
 			_LastTransforms.Clear();
 		}
 
-		//Cast a ray from this object's transform the the watch target's transform.
+		//Cast a ray from this object's transform to the watch target's transform.
 		RaycastHit[] hits = Physics.RaycastAll(
 		  transform.position,
 		  WatchTarget.transform.position - transform.position,

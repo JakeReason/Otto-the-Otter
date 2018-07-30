@@ -23,26 +23,26 @@ public class CameraCollision2 : MonoBehaviour {
 
 		Vector3 desiredCameraPos = transform.parent.TransformPoint (dollyDir * maxDistance);
 		RaycastHit hit;
-		RaycastHit Hit;
-		Vector3 forward = transform.TransformDirection(Vector3.forward);
-		m_fChangeTime -= Time.deltaTime;
+		//RaycastHit Hit;
+		//Vector3 forward = transform.TransformDirection(Vector3.forward);
+		//m_fChangeTime -= Time.deltaTime;
 
-		if (m_fChangeTime <= 0.5f)
-		{
-			m_fChangeTime = 0.5f;
-		}
+		//if (m_fChangeTime <= 0.5f)
+		//{
+		//	m_fChangeTime = 0.5f;
+		//}
 
-		if (Physics.Raycast(transform.position, forward, out Hit, distance - 0.8f))
-		{
-			if (Hit.collider.gameObject.layer == 8)
-			{
-				Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, m_fChangeTime);
-			}
-		}
-		else
-		{
-			m_fChangeTime = 1.0f;
-		}
+		//if (Physics.Raycast(transform.position, forward, out Hit, distance - 0.8f))
+		//{
+		//	if (Hit.collider.gameObject.layer == 8)
+		//	{
+		//		Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, m_fChangeTime);
+		//	}
+		//}
+		//else
+		//{
+		//	m_fChangeTime = 1.0f;
+		//}
 		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
 
 		if (Physics.Linecast (transform.parent.position, desiredCameraPos, out hit))
