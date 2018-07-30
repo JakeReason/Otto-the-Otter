@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
 
+    // Float indicates the speed of the player's jump
     public float m_fJumpSpeed = 8.0f;
 
     // Private variable used to store the player's CharacterController in
@@ -24,9 +25,15 @@ public class Player : MonoBehaviour
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
 
+    // Vector3 represents the direction the player will look in
     private Vector3 m_v3LookDirection;
 
+    private Vector3 m_v3PreviousLook;
+
+    // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Gravity;
+
+    private bool m_bJumped;
 
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
@@ -36,12 +43,12 @@ public class Player : MonoBehaviour
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
 
-        // Initialises the Move Direction to equal the zero Vector3
+        // Initialises the Move, Look and Gravity Direction all to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
-
         m_v3LookDirection = Vector3.zero;
-
         m_v3Gravity = Vector3.zero;
+
+        m_bJumped = false;
     }
 
     //--------------------------------------------------------------------------------
@@ -67,15 +74,25 @@ public class Player : MonoBehaviour
             m_v3MoveDirection.z = 0.0f;
         }
 
-        if (Input.GetButtonDown("Jump") && m_cc.isGrounded)
+        if (m_v3LookDirection.x < 0.1f && m_v3LookDirection.z < 0.1f)
+        {
+            m_v3LookDirection = m_v3PreviousLook;
+        }
+        else
+        {
+            m_v3PreviousLook = m_v3LookDirection;
+        }
+
+        if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
         {
             m_v3Gravity.y = m_fJumpSpeed;
+            m_bJumped = true;
         }
-        else if (Input.GetButtonUp("Jump"))
+        else if (!Input.GetButton("Jump") && m_cc.isGrounded)
         {
-            m_v3Gravity += Physics.gravity * 10.0f * Time.deltaTime;
+            m_bJumped = false;
         }
-        else if (!m_cc.isGrounded)
+        else if (!Input.GetButton("Jump") && !m_cc.isGrounded)
         {
             m_v3Gravity += Physics.gravity * Time.deltaTime;
         }
@@ -84,17 +101,23 @@ public class Player : MonoBehaviour
             m_v3Gravity = Vector3.zero;
         }
 
-        // Applies the speed float to the move direction
+        float itsy = m_v3MoveDirection.y;
+        m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
+        transform.eulerAngles = new Vector3(0, transform.rotation.y, 0);
+        m_v3MoveDirection.y = itsy;
+
         m_v3MoveDirection *= m_fSpeed;
 
         m_v3MoveDirection += m_v3Gravity;
 
+
         // Adds movement to CharacterController based on move direction and delta time
         m_cc.Move(m_v3MoveDirection * Time.deltaTime);
-
-        if (m_v3LookDirection.x != 0 || m_v3LookDirection.z != 0)
+        if (m_v3MoveDirection.sqrMagnitude > 0.1f)
         {
-            transform.rotation = Quaternion.LookRotation(m_v3LookDirection);
+            m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
+            m_v3LookDirection.y = transform.position.y;
+            transform.LookAt(m_v3LookDirection, Vector3.up);
         }
 	}
 
