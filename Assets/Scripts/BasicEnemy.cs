@@ -10,6 +10,7 @@ public class BasicEnemy : MonoBehaviour {
 	private float m_fOriginalAttackCooldown;
 	private float m_fDistanceFromPlayer;
 	private Player m_playerScript;
+
 	[SerializeField]
 	private GameObject m_player;
 	[SerializeField]

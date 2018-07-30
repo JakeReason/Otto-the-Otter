@@ -5,16 +5,27 @@ using XboxCtrlrInput;
 
 public class CameraFollow2 : MonoBehaviour {
 
-	public float CameraMoveSpeed = 120.0f;
-	public GameObject CameraFollowObj;
-	public float MaxClampAngle = 80.0f;
-	public float MinClampAngle = -45.0f;
-	public float inputSensitivity = 150.0f;
-	public float mouseX;
-	public float mouseY;
-	public float finalInputX;
-	public float finalInputZ;
+	[SerializeField]
+	private float CameraMoveSpeed = 120.0f;
+	[SerializeField]
+	private GameObject CameraFollowObj;
+	[SerializeField]
+	private float MaxClampAngle = 80.0f;
+	[SerializeField]
+	private float MinClampAngle = -45.0f;
+	[SerializeField]
+	private float inputSensitivity = 150.0f;
+	[SerializeField]
+	private float mouseX;
+	[SerializeField]
+	private float mouseY;
+	[SerializeField]
+	private float finalInputX;
+	[SerializeField]
+	private float finalInputZ;
+	[SerializeField]
 	private float rotY = 0.0f;
+	[SerializeField]
 	private float rotX = 0.0f;
 
 	// Use this for initialization

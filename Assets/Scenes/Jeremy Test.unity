@@ -156,8 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_fSpeed: 10
-  m_fJumpVelocity: 8
-  m_fTimeInAir: 0.1
+  m_fJumpSpeed: 8
 --- !u!143 &100116303
 CharacterController:
   m_ObjectHideFlags: 0
@@ -606,7 +605,7 @@ GameObject:
   - component: {fileID: 1094653049}
   m_Layer: 8
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -712,8 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_fSpeed: 10
-  m_fJumpVelocity: 3
-  m_fTimeInAir: 0.2
+  m_fJumpSpeed: 8
 --- !u!143 &1170908934
 CharacterController:
   m_ObjectHideFlags: 0
@@ -841,7 +839,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4525273562514576, guid: 3ab082472953d59479ff0296b5e9decf, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ab082472953d59479ff0296b5e9decf, type: 2}
@@ -910,6 +908,11 @@ Prefab:
       propertyPath: WallMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6f6015bc22bd7cd42a3003e1184fd757, type: 2}
+    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291fe07367ffe8440a2a2446e6a04a35, type: 2}
   m_IsPrefabParent: 0
