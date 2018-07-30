@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Gravity;
 
+    private float m_fJumpTimer;
+
     private bool m_bJumped;
 
     //--------------------------------------------------------------------------------
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
         m_v3LookDirection = Vector3.zero;
         m_v3Gravity = Vector3.zero;
 
+        m_fJumpTimer = 0.0f;
+
         m_bJumped = false;
     }
 
@@ -62,18 +66,6 @@ public class Player : MonoBehaviour
 
         m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
 
-        // Caps the x value of move direction to 0 if the value is between 0.4f and -0.4f
-        if (m_v3MoveDirection.x < 0.4f && m_v3MoveDirection.x > -0.4f)
-        {
-            m_v3MoveDirection.x = 0.0f;
-        }
-
-        // Caps the z value of move direction to 0 if the value is between 0.4f and -0.4f
-        if (m_v3MoveDirection.z < 0.4f && m_v3MoveDirection.z > -0.4f)
-        {
-            m_v3MoveDirection.z = 0.0f;
-        }
-
         if (m_v3LookDirection.x < 0.1f && m_v3LookDirection.z < 0.1f)
         {
             m_v3LookDirection = m_v3PreviousLook;
@@ -87,12 +79,18 @@ public class Player : MonoBehaviour
         {
             m_v3Gravity.y = m_fJumpSpeed;
             m_bJumped = true;
+            m_fJumpTimer += Time.deltaTime;
         }
         else if (!Input.GetButton("Jump") && m_cc.isGrounded)
         {
             m_bJumped = false;
+            m_fJumpTimer = 0.0f;
         }
-        else if (!Input.GetButton("Jump") && !m_cc.isGrounded)
+        else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) || m_fJumpTimer > 0.03f)
+        {
+            m_v3Gravity += Physics.gravity * 10.0f * Time.deltaTime;
+        }
+        else if (!m_cc.isGrounded)
         {
             m_v3Gravity += Physics.gravity * Time.deltaTime;
         }
@@ -101,9 +99,16 @@ public class Player : MonoBehaviour
             m_v3Gravity = Vector3.zero;
         }
 
+        Debug.Log(m_fJumpTimer);
+
+        if (m_fJumpTimer > 0.03f)
+        {
+            Debug.Log("LOL");
+        }
+
         float itsy = m_v3MoveDirection.y;
         m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
-        transform.eulerAngles = new Vector3(0, transform.rotation.y, 0);
+        //transform.eulerAngles = new Vector3(0, transform.rotation.y, 0);
         m_v3MoveDirection.y = itsy;
 
         m_v3MoveDirection *= m_fSpeed;
