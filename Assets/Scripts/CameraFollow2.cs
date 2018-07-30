@@ -39,8 +39,8 @@ public class CameraFollow2 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+	{
 		// We setup the rotation of the sticks here
 		float inputX = Input.GetAxis ("RightStickHorizontal");
 		float inputZ = Input.GetAxis ("RightStickVertical");
@@ -54,7 +54,7 @@ public class CameraFollow2 : MonoBehaviour {
 
 		rotX = Mathf.Clamp (rotX, MinClampAngle, MaxClampAngle);
 
-		if(XCI.GetButton(XboxButton.RightStick))
+		if(XCI.GetButtonDown(XboxButton.RightStick))
 		{
 			rotX = 20.0f;
 			rotY = CameraFollowObj.transform.rotation.eulerAngles.y;

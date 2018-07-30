@@ -37,7 +37,7 @@ public class CameraCollision2 : MonoBehaviour {
 		{
 			if (Hit.collider.gameObject.layer == 8)
 			{
-				Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, m_fChangeTime);
+				//Hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.5f, 0.5f, 0.5f, m_fChangeTime);
 			}
 		}
 		else
