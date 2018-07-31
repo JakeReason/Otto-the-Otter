@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 81903486571935052}
   - component: {fileID: 114802670909009308}
   - component: {fileID: 114892647642201422}
+  - component: {fileID: 114382915399807668}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1083483285457314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.35, z: 0}
+  m_LocalPosition: {x: 32.2, y: 1.35, z: 39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536253097577996}
@@ -68,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863110195149464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0, z: -2.16}
+  m_LocalPosition: {x: 0.15000153, y: 0, z: -2.1599998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4346767127312300}
@@ -117,6 +118,46 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863110195149464}
   m_Enabled: 1
+--- !u!114 &114382915399807668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863110195149464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaterLevel: 1
+  WetnessAmount: 0.32135808
+  flowTimeScale: 0
+  FlowBumpStrength: 0.4028847
+  RainIntensity: 0
+  SnowLevel: 1
+  Frost: 1
+  SnowDissolve: 2
+  SnowBumpMicro: 0.08
+  SnowSpecGloss: {r: 0.1, g: 0.1, b: 0.1, a: 0.15}
+  SnowGlitterColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
+  SnowDissolveCover: 2
+  SnowBumpMicroCover: 0.08
+  SnowSpecGlossCover: {r: 0.1, g: 0.1, b: 0.1, a: 0.15}
+  SnowGlitterColorCover: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
+  SnowDissolveMelt: 0.3
+  SnowBumpMicroMelt: 0.02
+  SnowSpecGlossMelt: {r: 0.15, g: 0.15, b: 0.15, a: 0.6}
+  SnowGlitterColorMelt: {r: 0.1, g: 0.1, b: 0.1, a: 0.03}
+  Simulate: 1
+  fallIntensity: 0.202
+  temperature: -3.5
+  wind: 0
+  weatherTimeScale: 1
+  FreezeWetWhenSnowPresent: 1
+  AddWetWhenSnowPresent: 1
+  UseParticleSystem: 1
+  rainGameObject: {fileID: 177056, guid: 4f8f196b45b21dc4292c6f03987e8c39, type: 2}
+  snowGameObject: {fileID: 151460, guid: c42faef0e81a2ce44850bf01c985eab9, type: 2}
 --- !u!114 &114657759260248980
 MonoBehaviour:
   m_ObjectHideFlags: 1
