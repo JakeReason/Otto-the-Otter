@@ -28,8 +28,14 @@ public class Player : MonoBehaviour
     [Range(0.1f, 1.0f)]
     public float m_fJumpMoveLimit = 0.5f;
 
+    public float m_fDamageTimeLimit = 3.0f;
+
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
+
+    private BasicEnemy m_be;
+
+    private GrapplingHook m_gh;
 
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
@@ -46,9 +52,16 @@ public class Player : MonoBehaviour
 
     private float m_fMovementX;
 
+    private float m_fDamageTimer;
+
+    [SerializeField]
+    private int m_nHealth;
+
     private bool m_bJumped;
 
     private bool m_bJumping;
+
+    private bool m_bHit;
 
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
@@ -57,6 +70,10 @@ public class Player : MonoBehaviour
     {
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
+
+        m_be = GetComponent<BasicEnemy>();
+
+        m_gh = GetComponent<GrapplingHook>();
 
         // Initialises the Move, Look and Gravity Direction all to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
@@ -67,9 +84,13 @@ public class Player : MonoBehaviour
 
         m_fMovementX = 0.0f;
 
+        m_nHealth = 2;
+
         m_bJumped = false;
 
         m_bJumping = false;
+
+        m_bHit = false;
     }
 
     //--------------------------------------------------------------------------------
@@ -94,31 +115,37 @@ public class Player : MonoBehaviour
             m_v3PreviousLook = m_v3LookDirection;
         }
 
-        if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
+        if (m_gh.m_bHooked)
         {
-            m_v3Gravity.y = m_fJumpSpeed;
-            m_bJumped = true;
-            m_bJumping = true;
-        }
-        else if (!Input.GetButton("Jump") && m_cc.isGrounded)
-        {
-            m_bJumped = false;
-            m_bJumping = false;
-            m_fJumpTimer = 0.0f;
-        }
-        else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) || 
-                  m_fJumpTimer > m_fJumpTimeLimit)
-        {
-            m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
-            //m_bJumping = false;
-        }
-        else if (!m_cc.isGrounded)
-        {
-            m_v3Gravity += Physics.gravity * Time.deltaTime;
+            m_v3Gravity = Vector3.zero;
         }
         else
         {
-            m_v3Gravity = Vector3.zero;
+            if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
+            {
+                m_v3Gravity.y = m_fJumpSpeed;
+                m_bJumped = true;
+                m_bJumping = true;
+            }
+            else if (!Input.GetButton("Jump") && m_cc.isGrounded)
+            {
+                m_bJumped = false;
+                m_bJumping = false;
+                m_fJumpTimer = 0.0f;
+            }
+            else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) ||
+                      m_fJumpTimer > m_fJumpTimeLimit)
+            {
+                m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
+            }
+            else if (!m_cc.isGrounded)
+            {
+                m_v3Gravity += Physics.gravity * Time.deltaTime;
+            }
+            else
+            {
+                m_v3Gravity = Vector3.zero;
+            }
         }
 
         if (m_bJumping)
@@ -137,16 +164,52 @@ public class Player : MonoBehaviour
 
         // Adds movement to CharacterController based on move direction and delta time
         m_cc.Move(m_v3MoveDirection * Time.deltaTime);
+
         if (m_v3MoveDirection.sqrMagnitude > 0.1f)
         {
             m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
             m_v3LookDirection.y = transform.position.y;
             transform.LookAt(m_v3LookDirection, Vector3.up);
         }
+
+        //if (m_bHit)
+        //{
+        //    m_fDamageTimer += Time.deltaTime;
+
+        //    if 
+        //}
 	}
 
     public void Damage()
     {
-        Debug.Log("Ouch");
+        if (m_fDamageTimer <= 0.0f)
+        {
+            --m_nHealth;
+            m_bHit = true;
+            //m_fDamageTimer += Time.deltaTime;
+        }
+
+        //if (m_fDamageTimer >= m_fDamageTimeLimit)
+        //{
+        //    m_fDamageTimer = 0.0f;
+        //}
+
+        if (m_nHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        Debug.Log("Game Over.");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Respawn")
+        {
+            transform.position = Vector3.zero;
+        }
     }
 }
