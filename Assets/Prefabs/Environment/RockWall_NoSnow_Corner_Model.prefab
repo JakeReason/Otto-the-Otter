@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33516326549353016}
   - component: {fileID: 23629577740783614}
   - component: {fileID: 95383815494457540}
+  - component: {fileID: 64622497831067634}
   m_Layer: 0
   m_Name: RockWall_NoSnow_Corner_Model
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802976088470694}
   m_LocalRotation: {x: -0, y: -0.25881857, z: -0, w: 0.965926}
-  m_LocalPosition: {x: 52.7, y: 0.033903122, z: 43.16}
+  m_LocalPosition: {x: 14.9722395, y: -1.8154869, z: 84.56588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802976088470694}
+  m_Mesh: {fileID: 4300000, guid: 249f4c589631e554b92da9e26498fa35, type: 3}
+--- !u!64 &64622497831067634
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802976088470694}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 249f4c589631e554b92da9e26498fa35, type: 3}
 --- !u!95 &95383815494457540
 Animator:
