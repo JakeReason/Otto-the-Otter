@@ -27,6 +27,8 @@ public class CameraFollow2 : MonoBehaviour {
 	private float rotY = 0.0f;
 	[SerializeField]
 	private float rotX = 0.0f;
+	[SerializeField]
+	private float m_fLerpSpeed = 0.1f;
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +43,9 @@ public class CameraFollow2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		// Set the camera up to move behind the player when they are moving and the camera is not moving.
+		// Make the camera do a smooth movetowards when the player falls.
+
 		// We setup the rotation of the sticks here
 		float inputX = Input.GetAxis ("RightStickHorizontal");
 		float inputZ = Input.GetAxis ("RightStickVertical");
@@ -54,6 +59,16 @@ public class CameraFollow2 : MonoBehaviour {
 
 		rotX = Mathf.Clamp (rotX, MinClampAngle, MaxClampAngle);
 
+		//if (((XCI.GetAxis(XboxAxis.LeftStickX) >= 0.40f || XCI.GetAxis(XboxAxis.LeftStickY) >= 0.40f) 
+		//	|| (XCI.GetAxis(XboxAxis.LeftStickX) <= -0.40f || XCI.GetAxis(XboxAxis.LeftStickY) <= -0.40f)) // Left Stick moving
+		//	&& ((XCI.GetAxis(XboxAxis.RightStickX) <= 0.40f && XCI.GetAxis(XboxAxis.RightStickY) <= 0.40f) 
+		//	&& (XCI.GetAxis(XboxAxis.RightStickX) >= -0.40f && XCI.GetAxis(XboxAxis.RightStickY) >= -0.40f))) // Right Stick not moving
+		//{
+		//	rotX = 20.0f;
+		//	rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
+		//	m_fLerpSpeed = 0.001f;
+		//}
+
 		if(XCI.GetButtonDown(XboxButton.RightStick))
 		{
 			rotX = 20.0f;
@@ -61,7 +76,7 @@ public class CameraFollow2 : MonoBehaviour {
 		}
 
 		Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		transform.rotation = localRotation;
+		transform.rotation = localRotation; //Quaternion.Lerp( transform.rotation, localRotation, Time.time * m_fLerpSpeed);
 
 	}
 
