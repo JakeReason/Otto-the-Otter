@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33223452428371816}
   - component: {fileID: 23147469714056670}
   - component: {fileID: 95724418434695176}
+  - component: {fileID: 65216592151924322}
   m_Layer: 0
   m_Name: Mushroom_Snow_Model_1 (1)
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444865819850858}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.6, y: 0.125, z: 41.87}
+  m_LocalPosition: {x: 6.594178, y: 4.9789896, z: 90.80766}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444865819850858}
   m_Mesh: {fileID: 4300000, guid: dd9dbbd5d541cf048a6e1deab56930a4, type: 3}
+--- !u!65 &65216592151924322
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1444865819850858}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7126538, y: 0.74846613, z: 0.61726356}
+  m_Center: {x: 0, y: 0.374233, z: -0.019117177}
 --- !u!95 &95724418434695176
 Animator:
   serializedVersion: 3

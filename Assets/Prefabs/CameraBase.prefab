@@ -133,17 +133,12 @@ MonoBehaviour:
   MaxClampAngle: 80
   MinClampAngle: -45
   inputSensitivity: 150
-  CameraObj: {fileID: 0}
-  PlayerObj: {fileID: 0}
-  camDistanceXToPlayer: 0
-  camDistanceYToPlayer: 0
-  camDistanceZToPlayer: 0
   mouseX: 0
   mouseY: 0
   finalInputX: 0
   finalInputZ: 0
-  smoothX: 0
-  smoothY: 0
+  rotY: 0
+  rotX: 0
 --- !u!114 &114802670909009308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,6 +155,7 @@ MonoBehaviour:
   smooth: 10
   dollyDirAdjusted: {x: 0, y: 0, z: 0}
   distance: 0
+  m_fChangeTime: 0
 --- !u!114 &114892647642201422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,6 +172,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   HiderMaterial: {fileID: 2100000, guid: 159e513a1957e6c4ba8dc291b36a5636, type: 2}
+  WallMaterial: {fileID: 0}
+  duration: 2
+  rend: {fileID: 0}
 --- !u!124 &124186638203424042
 Behaviour:
   m_ObjectHideFlags: 1

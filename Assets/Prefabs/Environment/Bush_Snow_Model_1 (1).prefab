@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33245568144663366}
   - component: {fileID: 23644912625758332}
   - component: {fileID: 95208835906202556}
+  - component: {fileID: 64631005836896306}
   m_Layer: 0
   m_Name: Bush_Snow_Model_1 (1)
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751738723819398}
   m_LocalRotation: {x: -0, y: 0.60876083, z: -0, w: 0.7933538}
-  m_LocalPosition: {x: 47.680614, y: 0.20000005, z: 47.715767}
+  m_LocalPosition: {x: -4.584612, y: 6.7943983, z: 148.08185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751738723819398}
+  m_Mesh: {fileID: 4300000, guid: c19cc587cf3be344396573df5e1f5587, type: 3}
+--- !u!64 &64631005836896306
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751738723819398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: c19cc587cf3be344396573df5e1f5587, type: 3}
 --- !u!95 &95208835906202556
 Animator:

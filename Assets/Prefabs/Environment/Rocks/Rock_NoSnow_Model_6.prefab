@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33106928079996074}
   - component: {fileID: 23723990755144494}
   - component: {fileID: 95464196769085530}
+  - component: {fileID: 64964466027746946}
   m_Layer: 0
   m_Name: Rock_NoSnow_Model_6
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1604191646144202}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.56, y: -0.051355436, z: 28.01}
+  m_LocalPosition: {x: 32.202858, y: 5.7297487, z: 84.78496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1604191646144202}
+  m_Mesh: {fileID: 4300000, guid: d4fecd2dad920a544acc843f909b071d, type: 3}
+--- !u!64 &64964466027746946
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1604191646144202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d4fecd2dad920a544acc843f909b071d, type: 3}
 --- !u!95 &95464196769085530
 Animator:
