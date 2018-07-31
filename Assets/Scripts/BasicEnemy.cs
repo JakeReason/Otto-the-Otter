@@ -12,6 +12,8 @@ public class BasicEnemy : MonoBehaviour {
 	private Player m_playerScript;
 
 	[SerializeField]
+	private float m_fHealth = 1;
+	[SerializeField]
 	private GameObject m_player;
 	[SerializeField]
 	private Transform m_playerTransform;
@@ -29,6 +31,8 @@ public class BasicEnemy : MonoBehaviour {
 	private float m_fRotateSpeed = 1;
 	[SerializeField]
 	private float m_fAttackCooldown = 1;
+	[SerializeField]
+	private bool m_bGoBackWards = false;
 
 	// Use this for initialization
 	void Start ()
@@ -38,7 +42,7 @@ public class BasicEnemy : MonoBehaviour {
 		// Stores the original cooldown time.
         m_fOriginalCooldown = m_fCooldown;
 		// Sets the first point to go to.
-        GotoNextPoint();
+        GoToNextPoint();
 		// Stores the attack cooldwon time.
 		m_fOriginalAttackCooldown = m_fAttackCooldown;
 		// Sets the attack cooldown to 0.
@@ -46,7 +50,7 @@ public class BasicEnemy : MonoBehaviour {
 
 		m_playerScript = m_player.GetComponent<Player>();
     }
-    void GotoNextPoint()
+    void GoToNextPoint()
     {
         // Returns if no points have been set up
         if (m_targetPoints.Length == 0)
@@ -59,14 +63,32 @@ public class BasicEnemy : MonoBehaviour {
         // cycling to the start if necessary.
         m_nDestPoint = (m_nDestPoint + 1) % m_targetPoints.Length;
     }
+	void GoToLastPoint()
+	{
+		// Returns if no points have been set up
+		if (m_targetPoints.Length == 0)
+			return;
 
-    // Update is called once per frame
-    void Update ()
+		// Set the agent to go to the currently selected destination.
+		m_agent.destination = m_targetPoints[m_nDestPoint].position;
+
+		// Choose the next point in the array as the destination,
+		// cycling to the start if necessary.
+		m_nDestPoint = (m_nDestPoint - 1) % m_targetPoints.Length;
+	}
+
+	// Update is called once per frame
+	void Update ()
     {
 		// Sets the target rotation to the player.
 		var targetRotation = Quaternion.LookRotation(m_playerTransform.position - transform.position);
 		// Sets the distance from the player to the enemy.
 		m_fDistanceFromPlayer = Vector3.Distance(transform.position, m_playerTransform.position);
+		// Checks if the enemy is dead.
+		if(m_fHealth <= 0)
+		{
+			gameObject.SetActive(false);
+		}
 		// Checks if the agent is on the navmesh.
 		if (m_agent.isOnNavMesh)
         {
@@ -78,7 +100,28 @@ public class BasicEnemy : MonoBehaviour {
 				// When the cooldown is over move to next point and resets cooldown time.
                 if (m_fCooldown <= 0)
                 {
-                    GotoNextPoint();
+					// If the last waypoint has been reached turn around.
+					if(m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
+					{
+						m_bGoBackWards = true;
+					}
+					// If the First waypoint has been reached turn around.
+					if (m_targetPoints[m_nDestPoint].tag == "FirstWaypoint")
+					{
+						m_bGoBackWards = false;
+					}
+					// If the enemy is going backwards then go to the next waypoint
+					// going backwards from the array of waypoints.
+					if(m_bGoBackWards)
+					{
+						GoToLastPoint();
+					}
+					// If the enemy is not going backwards then go to the next waypoint
+					// in order of the array of waypoints.
+					if (!m_bGoBackWards)
+					{
+						GoToNextPoint();
+					}
                     m_fCooldown = m_fOriginalCooldown;
                 }
             }
@@ -106,4 +149,9 @@ public class BasicEnemy : MonoBehaviour {
 			}
 		}
     }
+
+	public void TakeDamage()
+	{
+		--m_fHealth;
+	}
 }
