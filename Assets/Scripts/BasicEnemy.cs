@@ -149,9 +149,11 @@ public class BasicEnemy : MonoBehaviour {
 			}
 		}
     }
-
-	public void TakeDamage()
+	private void OnTriggerEnter(Collider other)
 	{
-		--m_fHealth;
+		if(other.tag == "Hook")
+		{
+			--m_fHealth;
+		}
 	}
 }
