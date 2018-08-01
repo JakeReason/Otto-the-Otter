@@ -15,6 +15,7 @@ public class HideObjects : MonoBehaviour
 	public Renderer rend;
 	private Dictionary<Transform, Material> _LastTransforms;
 	float lerp = 0.0f;
+
 	void Start()
 	{
 		_LastTransforms = new Dictionary<Transform, Material>();
@@ -23,7 +24,7 @@ public class HideObjects : MonoBehaviour
 	void Update()
 	{
 		
-		//reset and clear all the previous objects
+		// Reset and clear all the previous objects and materials.
 		if (_LastTransforms.Count > 0)
 		{
 			foreach (Transform t in _LastTransforms.Keys)
@@ -34,7 +35,7 @@ public class HideObjects : MonoBehaviour
 			_LastTransforms.Clear();
 		}
 
-		//Cast a ray from this object's transform to the watch target's transform.
+		// Cast a ray from this object's transform to the watch target's transform.
 		RaycastHit[] hits = Physics.RaycastAll(
 		  transform.position,
 		  WatchTarget.transform.position - transform.position,
@@ -42,7 +43,7 @@ public class HideObjects : MonoBehaviour
 		  OccluderMask
 		);
 
-		//Loop through all overlapping objects and disable their mesh renderer
+		// Loop through all overlapping objects and lerp between materials.
 		if (hits.Length > 0)
 		{
 			foreach (RaycastHit hit in hits)

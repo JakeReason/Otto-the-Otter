@@ -47,7 +47,7 @@ public class BasicEnemy : MonoBehaviour {
 		m_fOriginalAttackCooldown = m_fAttackCooldown;
 		// Sets the attack cooldown to 0.
 		m_fAttackCooldown = 0;
-
+		// Sets the playerScript reference up.
 		m_playerScript = m_player.GetComponent<Player>();
     }
     void GoToNextPoint()

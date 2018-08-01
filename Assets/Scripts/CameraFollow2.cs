@@ -33,7 +33,8 @@ public class CameraFollow2 : MonoBehaviour {
 	public bool m_bWorldSpace = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake ()
+	{
 		Vector3 rot = transform.localRotation.eulerAngles;
 		rot.x = 20.0f;
 		rotY = rot.y;
@@ -48,17 +49,18 @@ public class CameraFollow2 : MonoBehaviour {
 		// Set the camera up to move behind the player when they are moving and the camera is not moving.
 		// Make the camera do a smooth movetowards when the player falls.
 
-		// We setup the rotation of the sticks here
+		// Setup the rotation of the right sticks axis.
 		float inputX = Input.GetAxis ("RightStickHorizontal");
 		float inputZ = Input.GetAxis ("RightStickVertical");
+		// Setup the rotation of the mouse axis.
 		mouseX = Input.GetAxis ("Mouse X");
 		mouseY = Input.GetAxis ("Mouse Y");
 		finalInputX = inputX + mouseX;
 		finalInputZ = inputZ + mouseY;
-
+		// Sets the rotation based on the input and sensitivity.
 		rotY += finalInputX * inputSensitivity * Time.deltaTime;
 		rotX += finalInputZ * inputSensitivity * Time.deltaTime;
-
+		// Clamps the rotation so gimble lock does not occur including other problems.
 		rotX = Mathf.Clamp (rotX, MinClampAngle, MaxClampAngle);
 
 		//if (((XCI.GetAxis(XboxAxis.LeftStickX) >= 0.40f || XCI.GetAxis(XboxAxis.LeftStickY) >= 0.40f) 
@@ -76,26 +78,30 @@ public class CameraFollow2 : MonoBehaviour {
 		//	m_bWorldSpace = false;
 		//}
 
+		// If the right stick button is pressed then set the camera to be behind the player.
 		if(XCI.GetButtonDown(XboxButton.RightStick))
 		{
 			rotX = 20.0f;
 			rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
 		}
-
+		// Set localRotation to rotx and roty.
 		Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
+		// Lerp between current rotation to new rotation.
 		transform.rotation = Quaternion.Lerp( transform.rotation, localRotation, Time.time * m_fLerpSpeed);
 
 	}
 
-	void LateUpdate () {
+	void LateUpdate ()
+	{
 		CameraUpdater ();
 	}
 
-	void CameraUpdater() {
-		// set the target object to follow
+	void CameraUpdater()
+	{
+		// Set the target object to the follow object.
 		Transform target = CameraFollowObj.transform;
 
-		//move towards the game object that is the target
+		// Move towards the game object that is the target.
 		float step = CameraMoveSpeed * Time.deltaTime;
 		transform.position = Vector3.MoveTowards (transform.position, target.position, step);
 	}
