@@ -61,6 +61,7 @@ public class GrapplingHook : MonoBehaviour
         if (m_bHooked && m_bFired)
         {
             m_hook.transform.parent = m_hookedObj.transform;
+            m_hook.transform.localScale = new Vector3(1, 1, 1);
             transform.position = Vector3.MoveTowards(transform.position, m_hook.transform.position, m_fTravelSpeed * Time.deltaTime);
             float fDistanceToHook = Vector3.Distance(transform.position, m_hook.transform.position);
 
@@ -68,8 +69,8 @@ public class GrapplingHook : MonoBehaviour
             {
                 if (!m_cc.isGrounded)
                 {
-                    transform.Translate(Vector3.forward * Time.deltaTime * 13.0f);
-                    transform.Translate(Vector3.up * Time.deltaTime * 17.0f);
+                    transform.Translate(Vector3.up * Time.deltaTime * 60.0f);
+                    transform.Translate(Vector3.forward * Time.deltaTime * 50.0f);                  
                 }
 
                 StartCoroutine("Climb");
@@ -98,5 +99,10 @@ public class GrapplingHook : MonoBehaviour
         m_hook.transform.localScale = new Vector3(1, 1, 1);
         m_bFired = false;
         m_bHooked = false;
+    }
+
+    public bool GetFired()
+    {
+        return m_bFired;
     }
 }

@@ -103,9 +103,12 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
-        // Creates a new Vector3 indicating which direction the left stick is facing
-        m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 
-                                        Input.GetAxis("Vertical"));
+        if (!m_gh.GetFired())
+        {
+            // Creates a new Vector3 indicating which direction the left stick is facing
+            m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
+                                            Input.GetAxis("Vertical"));
+        }
 
         // Stores the x value of Move Direction into the float for use when jumping
         m_fMovementX = m_v3MoveDirection.x;
@@ -187,11 +190,7 @@ public class Player : MonoBehaviour
         // Stores the y movement direction in local float
         float fCurrentMoveY = m_v3MoveDirection.y;
 
-        // Sets the move direction to be based in camera space
-        //if(m_cf.m_bWorldSpace)
-        //{
-            m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
-        //}
+        m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
 
         // Stores local float value as the y value for the Move Direction
         m_v3MoveDirection.y = fCurrentMoveY;
