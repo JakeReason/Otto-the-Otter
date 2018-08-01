@@ -61,20 +61,20 @@ public class CameraFollow2 : MonoBehaviour {
 
 		rotX = Mathf.Clamp (rotX, MinClampAngle, MaxClampAngle);
 
-		if (((XCI.GetAxis(XboxAxis.LeftStickX) >= 0.40f || XCI.GetAxis(XboxAxis.LeftStickY) >= 0.40f) 
-			|| (XCI.GetAxis(XboxAxis.LeftStickX) <= -0.40f || XCI.GetAxis(XboxAxis.LeftStickY) <= -0.40f)) // Left Stick moving
-			&& ((XCI.GetAxis(XboxAxis.RightStickX) <= 0.40f && XCI.GetAxis(XboxAxis.RightStickY) <= 0.40f) 
-			&& (XCI.GetAxis(XboxAxis.RightStickX) >= -0.40f && XCI.GetAxis(XboxAxis.RightStickY) >= -0.40f))) // Right Stick not moving
-		{
-			rotX = 20.0f;
-			rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
-			m_fLerpSpeed = 0.001f;
-			m_bWorldSpace = true;
-		}
-		else
-		{
-			m_bWorldSpace = false;
-		}
+		//if (((XCI.GetAxis(XboxAxis.LeftStickX) >= 0.40f || XCI.GetAxis(XboxAxis.LeftStickY) >= 0.40f) 
+		//	|| (XCI.GetAxis(XboxAxis.LeftStickX) <= -0.40f || XCI.GetAxis(XboxAxis.LeftStickY) <= -0.40f)) // Left Stick moving
+		//	&& ((XCI.GetAxis(XboxAxis.RightStickX) <= 0.40f && XCI.GetAxis(XboxAxis.RightStickY) <= 0.40f) 
+		//	&& (XCI.GetAxis(XboxAxis.RightStickX) >= -0.40f && XCI.GetAxis(XboxAxis.RightStickY) >= -0.40f))) // Right Stick not moving
+		//{
+		//	rotX = 20.0f;
+		//	rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
+		//	m_fLerpSpeed = 0.05f;
+		//	m_bWorldSpace = true;
+		//}
+		//else
+		//{
+		//	m_bWorldSpace = false;
+		//}
 
 		if(XCI.GetButtonDown(XboxButton.RightStick))
 		{
@@ -83,7 +83,7 @@ public class CameraFollow2 : MonoBehaviour {
 		}
 
 		Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		transform.rotation = localRotation; //Quaternion.Lerp( transform.rotation, localRotation, Time.time * m_fLerpSpeed);
+		transform.rotation = Quaternion.Lerp( transform.rotation, localRotation, Time.time * m_fLerpSpeed);
 
 	}
 
