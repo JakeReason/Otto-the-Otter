@@ -6,14 +6,15 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Branch
-  m_Shader: {fileID: 4800000, guid: fd1b0c2328cad6942aa89eb15af421f0, type: 3}
-  m_ShaderKeywords: _SNOW _WETNESS_NONE
+  m_Name: White
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _SNOW _WETNESS_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -47,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e1b6bd5989bbe424e9c85482f2b3ea4a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
@@ -143,10 +144,10 @@ Material:
     - _DistStepsShadows: 64
     - _DropletsAnimSpeed: 10
     - _DropletsTiling: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _EmissionPulsateSpeed: 0
     - _FlowCycleScale: 2
-    - _Frost: 1
+    - _Frost: 0
     - _FrostFromGlobal: 0
     - _Glitter: 0
     - _GlitterAnimationFrequency: 0.02
@@ -166,7 +167,7 @@ Material:
     - _Metallic: 0
     - _Metallic2: 1
     - _MinPulseBrightness: 0
-    - _Mode: 0
+    - _Mode: 3
     - _OcclusionStrength: 1
     - _OcclusionStrength2: 0
     - _Occlusion_from_albedo_alpha: 1
@@ -210,20 +211,20 @@ Material:
     - _SnowBumpMacro: 0.001
     - _SnowBumpMicro: 0.001
     - _SnowBumpMicroFromGlobal: 0
-    - _SnowDeepSmoothen: 4
+    - _SnowDeepSmoothen: 0
     - _SnowDiffuseScatteringExponent: 6
-    - _SnowDiffuseScatteringOffset: 0.4
+    - _SnowDiffuseScatteringOffset: 0.5
     - _SnowDissolve: 0
     - _SnowDissolveFromGlobal: 0
     - _SnowDissolveMaskOcclusion: 0
     - _SnowGlitterColorFromGlobal: 0
     - _SnowHeightThreshold: -10000
-    - _SnowHeightThresholdTransition: 1100
+    - _SnowHeightThresholdTransition: 10
     - _SnowLevelFromGlobal: 1
     - _SnowMacroTiling: 1
     - _SnowMicroTiling: 4
     - _SnowShown: 1
-    - _SnowSlopeDamp: 3.36
+    - _SnowSlopeDamp: 0
     - _SnowSpecGlossFromGlobal: 0
     - _SnowWorldMapping: 0
     - _Softness: 2
@@ -270,7 +271,7 @@ Material:
     - _WetnessNormalInfluence: 0.5
     - _WetnessShown: 1
     - _WetnessUVMult: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     - maxDist: 10
     - minDist: 1
     m_Colors:
@@ -285,7 +286,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlitterColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
     - _GlitterColor2: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
-    - _SnowColorAndCoverage: {r: 1, g: 1, b: 1, a: 1}
+    - _SnowColorAndCoverage: {r: 0.7490196, g: 1, b: 1, a: 1}
     - _SnowDiffuseScatteringColor: {r: 1, g: 1, b: 1, a: 0}
     - _SnowEmissionTransparency: {r: 0.09999997, g: 0.09999997, b: 0.09999997, a: 1}
     - _SnowGlitterColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
