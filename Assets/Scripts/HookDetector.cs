@@ -10,7 +10,7 @@ public class HookDetector : MonoBehaviour
     {
         if (other.tag == "Hookable")
         {
-            m_player.GetComponent<GrapplingHook>().m_bHooked = true;
+            m_player.GetComponent<GrapplingHook>().SetHooked(true);
             m_player.GetComponent<GrapplingHook>().m_hookedObj = other.gameObject;
         }
     }

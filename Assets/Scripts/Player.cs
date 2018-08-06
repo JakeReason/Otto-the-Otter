@@ -103,12 +103,9 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
-        if (!m_gh.GetFired())
-        {
-            // Creates a new Vector3 indicating which direction the left stick is facing
-            m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
-                                            Input.GetAxis("Vertical"));
-        }
+        // Creates a new Vector3 indicating which direction the left stick is facing
+        m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
+                                        Input.GetAxis("Vertical"));
 
         // Stores the x value of Move Direction into the float for use when jumping
         m_fMovementX = m_v3MoveDirection.x;
@@ -130,7 +127,7 @@ public class Player : MonoBehaviour
         }
 
         // Detects if Grappling Hook is hooked on an object
-        if (m_gh.m_bHooked)
+        if (m_gh.GetHooked())
         {
             // Sets gravity to equal the zero Vector3
             m_v3Gravity = Vector3.zero;
@@ -186,7 +183,7 @@ public class Player : MonoBehaviour
             // Restricts the movement on the x axis while jumping
             m_v3MoveDirection.x = m_fMovementX * m_fJumpMoveLimit;
         }
-
+        
         // Stores the y movement direction in local float
         float fCurrentMoveY = m_v3MoveDirection.y;
 
@@ -200,6 +197,11 @@ public class Player : MonoBehaviour
 
         // Applies the gravity to the move direction
         m_v3MoveDirection += m_v3Gravity;
+
+        if (m_gh.GetHooked() || m_gh.GetFired())
+        {
+            m_v3MoveDirection = Vector3.zero;
+        } 
 
         // Adds movement to CharacterController based on move direction and delta time
         m_cc.Move(m_v3MoveDirection * Time.deltaTime);
