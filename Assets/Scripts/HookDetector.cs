@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//--------------------------------------------------------------------------------
+// Author: Matthew Le Nepveu.
+//--------------------------------------------------------------------------------
+
 using UnityEngine;
 
 public class HookDetector : MonoBehaviour

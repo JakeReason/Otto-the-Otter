@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//--------------------------------------------------------------------------------
+// Author: Matthew Le Nepveu.
+//--------------------------------------------------------------------------------
+
+using System.Collections;
 using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour

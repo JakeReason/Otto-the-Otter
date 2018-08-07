@@ -4,6 +4,7 @@
 
 // Accesses the plugins from Unity folder
 using UnityEngine;
+using UnityEngine.UI;
 using XboxCtrlrInput;
 
 // Creates a class for the Player script requiring a CharacterController
@@ -13,9 +14,13 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
-    public GameObject m_cameraObj;
-
     public Color m_flashColour;
+
+    public Image m_healthImage;
+
+    public Sprite m_halfHealth;
+
+    public Sprite m_fullHealth;
 
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
@@ -102,6 +107,10 @@ public class Player : MonoBehaviour
 
         m_animator.SetBool("Walking", false);
 
+        m_animator.SetBool("Jumping", false);
+
+        m_healthImage.sprite = m_fullHealth;
+
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
 
@@ -110,10 +119,6 @@ public class Player : MonoBehaviour
 
         // Gets the GrapplingHook script and stores it in the variable
         m_grapplingScript = GetComponent<GrapplingHook>();
-
-        m_cameraFollow = m_cameraObj.GetComponent<CameraFollow2>();
-
-        //m_meshRenderer = GetComponent<SkinnedMeshRenderer>();
 
         m_originalColour = m_meshRenderer.material.color;
 
@@ -217,6 +222,12 @@ public class Player : MonoBehaviour
         {
             // Adds the jump timer to deltaTime every second
             m_fJumpTimer += Time.deltaTime;
+
+            m_animator.SetBool("Jumping", true);
+        }
+        else
+        {
+            m_animator.SetBool("Jumping", false);
         }
         
         // Stores the y movement direction in local float
@@ -283,6 +294,7 @@ public class Player : MonoBehaviour
         if (m_fHealthTimer <= 0.0f || !m_bRecovering)
         {
             m_nHealth -= 1;
+            m_healthImage.sprite = m_halfHealth;
 
             if (m_nHealth <= 0)
             {
@@ -301,6 +313,7 @@ public class Player : MonoBehaviour
         if (m_nHealth != 2)
         {
             m_nHealth = 2;
+            m_healthImage.sprite = m_fullHealth;
         }
     }
 
@@ -311,6 +324,7 @@ public class Player : MonoBehaviour
     {
         transform.position = Vector3.zero;
         m_nHealth = 2;
+        m_healthImage.sprite = m_fullHealth;
     }
 
     //--------------------------------------------------------------------------------
