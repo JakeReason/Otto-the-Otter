@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 public class HideObjects : MonoBehaviour
 {
-
 	public Transform WatchTarget;
 	public LayerMask OccluderMask;
-	//This is the material with the Transparent/Diffuse With Shadow shader
 	public Material HiderMaterial;
 	public Material WallMaterial;
 	public float duration = 2.0F;
@@ -50,9 +48,12 @@ public class HideObjects : MonoBehaviour
 			{
 				if (hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget)
 				{
+					// lerp equals the change time from the camera collision so it goes from visible to half invisible.
 					lerp = GetComponent<CameraCollision2>().m_fChangeTime;
 					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<MeshRenderer>().material);
+					// Gets the hit gameObjects renderer.
 					rend = hit.collider.gameObject.GetComponent<Renderer>();
+					// Lerps between the original material and the hidden one.
 					rend.material.Lerp(WallMaterial, HiderMaterial, lerp);
 				}
 			}

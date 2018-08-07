@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
 
-public class CameraFollow2 : MonoBehaviour {
-
+public class CameraFollow2 : MonoBehaviour
+{
 	[SerializeField]
 	private float CameraMoveSpeed = 120.0f;
 	[SerializeField]
@@ -93,6 +93,7 @@ public class CameraFollow2 : MonoBehaviour {
 
 	void LateUpdate ()
 	{
+		// Updates the camera.
 		CameraUpdater ();
 	}
 

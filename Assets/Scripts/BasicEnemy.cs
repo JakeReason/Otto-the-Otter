@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicEnemy : MonoBehaviour {
-
-    private NavMeshAgent m_agent;
-    private float m_fOriginalCooldown;
-	private float m_fOriginalAttackCooldown;
-	private float m_fDistanceFromPlayer;
-	private Player m_playerScript;
-
+public class BasicEnemy : MonoBehaviour
+{
 	[SerializeField]
 	private float m_fHealth = 1;
 	[SerializeField]
@@ -33,6 +27,12 @@ public class BasicEnemy : MonoBehaviour {
 	private float m_fAttackCooldown = 1;
 	[SerializeField]
 	private bool m_bGoBackWards = false;
+
+    private NavMeshAgent m_agent;
+    private float m_fOriginalCooldown;
+	private float m_fOriginalAttackCooldown;
+	private float m_fDistanceFromPlayer;
+	private Player m_playerScript;
 
 	// Use this for initialization
 	void Start ()
@@ -151,8 +151,10 @@ public class BasicEnemy : MonoBehaviour {
     }
 	private void OnTriggerEnter(Collider other)
 	{
+		// Checks if the hook hits the enemy.
 		if(other.tag == "Hook")
 		{
+			// Takes damage.
 			--m_fHealth;
 		}
 	}
