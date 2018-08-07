@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+    public GameObject m_cameraObj;
+
+    public Color m_flashColour;
+
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
 
@@ -23,6 +27,10 @@ public class Player : MonoBehaviour
     [Range(1.0f, 10.0f)]
     public float m_fExtraGravity = 4.0f;
 
+    // Float indicates the time when player cannot be hit (allows floats from 1-5)
+    [Range(1.0f, 5.0f)]
+    public float m_fHealthRecoveryTime = 3.0f;
+
     // Indicates maximum time for player to jump before falling (range from 0.1-1)
     [Range(0.1f, 1.0f)]
     public float m_fJumpTimeLimit = 0.4f;
@@ -31,18 +39,21 @@ public class Player : MonoBehaviour
     [Range(0.1f, 1.0f)]
     public float m_fJumpMoveLimit = 0.5f;
 
+    [Range(10.0f, 100.0f)]
+    public float m_fFlashRate = 10.0f;
+
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
 
     // Allows access to the BasicEnemy script
-    private BasicEnemy m_be;
+    private BasicEnemy m_enemyScript;
 
     // Variable is used to store the player's Grappling Hook script in
-    private GrapplingHook m_gh;
+    private GrapplingHook m_grapplingScript;
 
-    private CameraFollow2 m_cf;
+    private CameraFollow2 m_cameraFollow;
 
-    public GameObject m_cameraObj;
+    private MeshRenderer m_meshRenderer;
 
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
@@ -62,27 +73,43 @@ public class Player : MonoBehaviour
     // Private float indicates the movement on the x axis while jumping
     private float m_fMovementX;
 
+    private float m_fHealthTimer;
+
+    private float m_fFlashingRate;
+
+    private int m_nHealth;
+
     // Bool used to let the script know if the player has jumped from ground
     private bool m_bJumped;
 
     // Private bool indicates if the player is currently jumping
     private bool m_bJumping;
 
+    private bool m_bRecovering;
+
+    private Color m_originalColour;
+
     //--------------------------------------------------------------------------------
     // Function is called when script first runs.
     //--------------------------------------------------------------------------------
     void Awake()
     {
+        m_fFlashingRate = 1 / m_fFlashRate;
+
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
 
         // When script is called, the BasicEnemy script is obtained and stored
-        m_be = GetComponent<BasicEnemy>();
+        m_enemyScript = GetComponent<BasicEnemy>();
 
         // Gets the GrapplingHook script and stores it in the variable
-        m_gh = GetComponent<GrapplingHook>();
+        m_grapplingScript = GetComponent<GrapplingHook>();
 
-        m_cf = m_cameraObj.GetComponent<CameraFollow2>();
+        m_cameraFollow = m_cameraObj.GetComponent<CameraFollow2>();
+
+        m_meshRenderer = GetComponent<MeshRenderer>();
+
+        m_originalColour = m_meshRenderer.material.color;
 
         // Initialises the Move, Look and Gravity Direction all to equal the zero Vector3
         m_v3MoveDirection = Vector3.zero;
@@ -92,10 +119,15 @@ public class Player : MonoBehaviour
         // Initialises private floats to equal zero
         m_fJumpTimer = 0.0f;
         m_fMovementX = 0.0f;
+        m_fHealthTimer = 0.0f;
+
+        // Sets the health of the player to equal two when script is called
+        m_nHealth = 2;
 
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bJumping = false;
+        m_bRecovering = false;
     }
 
     //--------------------------------------------------------------------------------
@@ -127,7 +159,7 @@ public class Player : MonoBehaviour
         }
 
         // Detects if Grappling Hook is hooked on an object
-        if (m_gh.GetHooked())
+        if (m_grapplingScript.GetHooked())
         {
             // Sets gravity to equal the zero Vector3
             m_v3Gravity = Vector3.zero;
@@ -179,9 +211,6 @@ public class Player : MonoBehaviour
         {
             // Adds the jump timer to deltaTime every second
             m_fJumpTimer += Time.deltaTime;
-
-            // Restricts the movement on the x axis while jumping
-            m_v3MoveDirection.x = m_fMovementX * m_fJumpMoveLimit;
         }
         
         // Stores the y movement direction in local float
@@ -198,7 +227,7 @@ public class Player : MonoBehaviour
         // Applies the gravity to the move direction
         m_v3MoveDirection += m_v3Gravity;
 
-        if (m_gh.GetHooked() || m_gh.GetFired())
+        if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
         {
             m_v3MoveDirection = Vector3.zero;
         } 
@@ -212,6 +241,27 @@ public class Player : MonoBehaviour
             m_v3LookDirection.y = transform.position.y;
             transform.LookAt(m_v3LookDirection, Vector3.up);
         }
+
+        if (m_bRecovering)
+        {
+            m_fHealthTimer += Time.deltaTime;
+
+            if (Mathf.Sin(m_fHealthTimer / m_fFlashingRate) >= 0)
+            {
+                m_meshRenderer.material.color = m_flashColour;
+            }
+            else
+            {
+                m_meshRenderer.material.color = m_originalColour;
+            }
+
+            if (m_fHealthTimer >= m_fHealthRecoveryTime)
+            {
+                m_fHealthTimer = 0.0f;
+                m_bRecovering = false;
+                m_meshRenderer.material.color = m_originalColour;
+            }
+        }
 	}
 
     //--------------------------------------------------------------------------------
@@ -219,7 +269,28 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Damage()
     {
-        Debug.Log("Ouch.");
+        if (m_fHealthTimer <= 0.0f || !m_bRecovering)
+        {
+            m_nHealth -= 1;
+
+            if (m_nHealth <= 0)
+            {
+                Death();
+            }
+            else
+            {
+                m_bRecovering = true;
+            }           
+        }
+    }
+
+    public void RestoreHealth()
+    {
+        // WILL NEED TO ADD UI LATER FOR HEALTH
+        if (m_nHealth != 2)
+        {
+            m_nHealth = 2;
+        }
     }
 
     //--------------------------------------------------------------------------------
@@ -227,7 +298,8 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
-        Debug.Log("Game Over.");
+        transform.position = Vector3.zero;
+        m_nHealth = 2;
     }
 
     //--------------------------------------------------------------------------------
@@ -240,7 +312,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Respawn")
         {
-            transform.position = Vector3.zero;
+            Death();
         }
     }
 }

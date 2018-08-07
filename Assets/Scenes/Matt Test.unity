@@ -338,6 +338,11 @@ Prefab:
       propertyPath: m_playerTransform
       value: 
       objectReference: {fileID: 299821461}
+    - target: {fileID: 114097459363220166, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_fAttackDistance
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cab407df967b0f440a4ddac013542740, type: 2}
   m_IsPrefabParent: 0
@@ -385,6 +390,26 @@ Prefab:
       propertyPath: m_cameraObj
       value: 
       objectReference: {fileID: 1886886956}
+    - target: {fileID: 114374827184472540, guid: 1141cb9e07eeae6419e43e1fb721d7c5,
+        type: 2}
+      propertyPath: m_fFlashRate
+      value: 28.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374827184472540, guid: 1141cb9e07eeae6419e43e1fb721d7c5,
+        type: 2}
+      propertyPath: m_flashColour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374827184472540, guid: 1141cb9e07eeae6419e43e1fb721d7c5,
+        type: 2}
+      propertyPath: m_flashColour.g
+      value: 0.5735294
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374827184472540, guid: 1141cb9e07eeae6419e43e1fb721d7c5,
+        type: 2}
+      propertyPath: m_flashColour.b
+      value: 0.5735294
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1141cb9e07eeae6419e43e1fb721d7c5, type: 2}
   m_IsPrefabParent: 0
