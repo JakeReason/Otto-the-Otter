@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     [Range(10.0f, 100.0f)]
     public float m_fFlashRate = 10.0f;
 
+    private Animator m_animator;
+
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
 
@@ -53,7 +55,7 @@ public class Player : MonoBehaviour
 
     private CameraFollow2 m_cameraFollow;
 
-    private MeshRenderer m_meshRenderer;
+    public SkinnedMeshRenderer m_meshRenderer;
 
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
@@ -96,6 +98,10 @@ public class Player : MonoBehaviour
     {
         m_fFlashingRate = 1 / m_fFlashRate;
 
+        m_animator = GetComponent<Animator>();
+
+        m_animator.SetBool("Walking", false);
+
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
 
@@ -107,7 +113,7 @@ public class Player : MonoBehaviour
 
         m_cameraFollow = m_cameraObj.GetComponent<CameraFollow2>();
 
-        m_meshRenderer = GetComponent<MeshRenderer>();
+        //m_meshRenderer = GetComponent<SkinnedMeshRenderer>();
 
         m_originalColour = m_meshRenderer.material.color;
 
@@ -237,9 +243,14 @@ public class Player : MonoBehaviour
 
         if (m_v3MoveDirection.sqrMagnitude > 0.1f)
         {
+            m_animator.SetBool("Walking", true);
             m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
             m_v3LookDirection.y = transform.position.y;
             transform.LookAt(m_v3LookDirection, Vector3.up);
+        }
+        else
+        {
+            m_animator.SetBool("Walking", false);
         }
 
         if (m_bRecovering)
