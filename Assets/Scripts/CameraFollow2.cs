@@ -46,8 +46,8 @@ public class CameraFollow2 : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		// Set the camera up to move behind the player when they are moving and the camera is not moving.
-		// Make the camera do a smooth movetowards when the player falls.
+		// TODO: Set the camera up to move behind the player when they are moving and the camera is not moving.
+		// TODO: Make the camera do a smooth movetowards when the player falls.
 
 		// Setup the rotation of the right sticks axis.
 		float inputX = Input.GetAxis ("RightStickHorizontal");

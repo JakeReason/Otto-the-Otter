@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishBiscuit : MonoBehaviour {
-
+public class FishBiscuit : MonoBehaviour
+{
 	private GameObject m_player;
 	private Player m_playerScript;
 
 	// Use this for initialization
 	void Awake()
 	{
-		// Gets reference to the collectable manager gameObject.
+		// Gets reference to the player gameObject.
 		m_player = GameObject.FindGameObjectWithTag("Player");
-		// Gets reference to the collectable manager script.
+		// Gets reference to the player script.
 		m_playerScript = m_player.GetComponent<Player>();
 	}
 
@@ -21,8 +21,9 @@ public class FishBiscuit : MonoBehaviour {
 		// Checks if the player picks/runs into the collectable.
 		if (other.tag == "Player")
 		{
-			// Adds the family member to the collectable manager.
+			// Restores health to the player.
 			m_playerScript.RestoreHealth();
 			gameObject.SetActive(false);
 		}
 	}
+}
