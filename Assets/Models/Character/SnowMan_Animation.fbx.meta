@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: 4cb729e5dba35e144b8910b9d5089da4
+timeCreated: 1533603524
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: SnowMan:CNT_Hat
+    100002: SnowMan:CNT_Head
+    100004: SnowMan:CNT_Root
+    100006: SnowMan:CNT_Waist
+    100008: SnowMan:JNT_Base
+    100010: SnowMan:JNT_Chest
+    100012: SnowMan:JNT_Elbow_L
+    100014: SnowMan:JNT_Elbow_R
+    100016: SnowMan:JNT_Hat
+    100018: SnowMan:JNT_Neck
+    100020: SnowMan:JNT_Shoulder_L1
+    100022: SnowMan:JNT_Shoulder_R
+    100024: SnowMan:JNT_Waist
+    100026: SnowMan:JNT_Wrist_L
+    100028: SnowMan:JNT_Wrist_R
+    100030: SnowMan:nurbsCircle1
+    100032: SnowMan:nurbsCircle2
+    100034: SnowMan:nurbsCircle3
+    100036: SnowMan:nurbsCircle4
+    100038: SnowMan:nurbsCircle5
+    100040: SnowMan:nurbsCircle6
+    100042: SnowMan:nurbsCircle7
+    100044: SnowMan:SnowMan
+    100046: //RootNode
+    400000: SnowMan:CNT_Hat
+    400002: SnowMan:CNT_Head
+    400004: SnowMan:CNT_Root
+    400006: SnowMan:CNT_Waist
+    400008: SnowMan:JNT_Base
+    400010: SnowMan:JNT_Chest
+    400012: SnowMan:JNT_Elbow_L
+    400014: SnowMan:JNT_Elbow_R
+    400016: SnowMan:JNT_Hat
+    400018: SnowMan:JNT_Neck
+    400020: SnowMan:JNT_Shoulder_L1
+    400022: SnowMan:JNT_Shoulder_R
+    400024: SnowMan:JNT_Waist
+    400026: SnowMan:JNT_Wrist_L
+    400028: SnowMan:JNT_Wrist_R
+    400030: SnowMan:nurbsCircle1
+    400032: SnowMan:nurbsCircle2
+    400034: SnowMan:nurbsCircle3
+    400036: SnowMan:nurbsCircle4
+    400038: SnowMan:nurbsCircle5
+    400040: SnowMan:nurbsCircle6
+    400042: SnowMan:nurbsCircle7
+    400044: SnowMan:SnowMan
+    400046: //RootNode
+    2100000: SnowMan_SnowMan_TEX
+    4300000: SnowMan:SnowMan
+    7400000: Hit
+    7400002: Idle
+    7400004: Wave
+    9500000: //RootNode
+    13700000: SnowMan:SnowMan
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Hit
+      takeName: Hit
+      firstFrame: 1
+      lastFrame: 51
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: 101
+      lastFrame: 159
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wave
+      takeName: Wave
+      firstFrame: 201
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
