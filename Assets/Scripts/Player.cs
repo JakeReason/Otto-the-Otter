@@ -14,12 +14,16 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+	// Public color indicates what colour the player will flash after getting hit
     public Color m_flashColour;
 
+	// Image stores the Image that represents the player's health
     public Image m_healthImage;
 
+	// Sprite represents when the player is on half of its health
     public Sprite m_halfHealth;
 
+	// Indicates the sprite shown when the player is at full health
     public Sprite m_fullHealth;
 
     // Public float represents the speed of the player's movement
@@ -44,9 +48,11 @@ public class Player : MonoBehaviour
     [Range(0.1f, 1.0f)]
     public float m_fJumpMoveLimit = 0.5f;
 
-    [Range(10.0f, 100.0f)]
+	// Float used to demonstrate the rate the player flashes (range from 10-100)
+	[Range(10.0f, 100.0f)]
     public float m_fFlashRate = 10.0f;
 
+	// Used to access the animator component from the player
     private Animator m_animator;
 
     // Private variable used to store the player's CharacterController in
@@ -58,8 +64,7 @@ public class Player : MonoBehaviour
     // Variable is used to store the player's Grappling Hook script in
     private GrapplingHook m_grapplingScript;
 
-    private CameraFollow2 m_cameraFollow;
-
+	// Used to access the SkinnedMeshRenderer component from the player
     public SkinnedMeshRenderer m_meshRenderer;
 
     // Private Vector3 stores the direction the player should move
@@ -80,10 +85,13 @@ public class Player : MonoBehaviour
     // Private float indicates the movement on the x axis while jumping
     private float m_fMovementX;
 
+	// Keeps track of how long the playercan be invicible for after getting hit
     private float m_fHealthTimer;
 
+	// Private float indicates the rate the player flashes after being hit
     private float m_fFlashingRate;
 
+	// Int keeps track of the player's current health
     private int m_nHealth;
 
     // Bool used to let the script know if the player has jumped from ground
@@ -92,24 +100,31 @@ public class Player : MonoBehaviour
     // Private bool indicates if the player is currently jumping
     private bool m_bJumping;
 
+	// Indicates if the player is recovering after a hit or not
     private bool m_bRecovering;
 
+	// Records the original colour of the player
     private Color m_originalColour;
 
     //--------------------------------------------------------------------------------
-    // Function is called when script first runs.
+    // Function is used for initialization.
     //--------------------------------------------------------------------------------
     void Awake()
     {
+		// Calculates the flashing rate from the reciprocal of public float flash rate
         m_fFlashingRate = 1 / m_fFlashRate;
 
+		// Gets the Animator component and stores it in the animator variable
         m_animator = GetComponent<Animator>();
 
+		// Sets all bools in the animator controller to false
         m_animator.SetBool("Walking", false);
-
         m_animator.SetBool("Jumping", false);
+		m_animator.SetBool("Falling", false);
+		m_animator.SetBool("Landing", false);
 
-        m_healthImage.sprite = m_fullHealth;
+		// Stores the full heath sprite as the current health image
+		m_healthImage.sprite = m_fullHealth;
 
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
@@ -120,6 +135,7 @@ public class Player : MonoBehaviour
         // Gets the GrapplingHook script and stores it in the variable
         m_grapplingScript = GetComponent<GrapplingHook>();
 
+		// Obtains the original colour for the player from the mesh renderer's material
         m_originalColour = m_meshRenderer.material.color;
 
         // Initialises the Move, Look and Gravity Direction all to equal the zero Vector3
@@ -188,6 +204,7 @@ public class Player : MonoBehaviour
                 m_bJumped = true;
                 m_bJumping = true;
 
+				// Sets Jumping bool to true and Landing bool to false in the animator
                 m_animator.SetBool("Jumping", true);
                 m_animator.SetBool("Landing", false);
             }
@@ -199,6 +216,7 @@ public class Player : MonoBehaviour
                 m_bJumping = false;
                 m_fJumpTimer = 0.0f;
 
+				// Sets Landing bool to true and Jumping and falling bool to false in animator
                 m_animator.SetBool("Landing", true);
                 m_animator.SetBool("Falling", false);
                 m_animator.SetBool("Jumping", false);
@@ -210,6 +228,7 @@ public class Player : MonoBehaviour
                 // Applies gravity to player with an extra multiplier to fall quicker
                 m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
 
+				// Sets Falling bool to true in the animator
                 m_animator.SetBool("Falling", true);
             }
             // Else if the player is falling
@@ -218,17 +237,8 @@ public class Player : MonoBehaviour
                 // Apply gravity to the player without miltiplier
                 m_v3Gravity += Physics.gravity * Time.deltaTime;
 
-                m_animator.SetBool("Falling", true);
-            }
-            // Else if the player is grounded
-            else if (m_cc.isGrounded)
-            {
-                // Sets the gravity to zero
-                m_v3Gravity = Vector3.zero;
-
-                m_animator.SetBool("Landing", true);
-                m_animator.SetBool("Falling", false);
-                m_animator.SetBool("Jumping", false);
+				// Sets Falling bool to true in the animator
+				m_animator.SetBool("Falling", true);
             }
         }
 
@@ -242,6 +252,7 @@ public class Player : MonoBehaviour
         // Stores the y movement direction in local float
         float fCurrentMoveY = m_v3MoveDirection.y;
 
+		// Calculates the move direction in camera space rather than world space
         m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
 
         // Stores local float value as the y value for the Move Direction
@@ -253,6 +264,7 @@ public class Player : MonoBehaviour
         // Applies the gravity to the move direction
         m_v3MoveDirection += m_v3Gravity;
 
+		// Makes player stop moving if the Grappling Hook has been fired or hooked
         if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
         {
             m_v3MoveDirection = Vector3.zero;
@@ -261,12 +273,20 @@ public class Player : MonoBehaviour
         // Adds movement to CharacterController based on move direction and delta time
         m_cc.Move(m_v3MoveDirection * Time.deltaTime);
 
+		// Checks if the magnitude of the move direction is greater than 0.1
         if (m_v3MoveDirection.sqrMagnitude > 0.1f)
         {
+			// Sets Walking bool to true in the animator for the player
             m_animator.SetBool("Walking", true);
+
+			// Calculates the look direction by adding the position with the move direction
             m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
+
+			// Sets the y value of look direction to equal the player's y position
             m_v3LookDirection.y = transform.position.y;
-            transform.LookAt(m_v3LookDirection, Vector3.up);
+
+			// Makes the player face the direction that they are walking
+			transform.LookAt(m_v3LookDirection, Vector3.up);
         }
         else
         {
