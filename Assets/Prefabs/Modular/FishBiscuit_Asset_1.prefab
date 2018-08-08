@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33355203203150042}
   - component: {fileID: 23230592234828400}
   - component: {fileID: 95080899294301646}
+  - component: {fileID: 65499822279962610}
   m_Layer: 0
   m_Name: FishBiscuit_Asset_1
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126697253091292}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.581629, y: 0.15295842, z: 17.16117}
+  m_LocalPosition: {x: 27.937962, y: 11.167263, z: 87.856895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126697253091292}
   m_Mesh: {fileID: 4300000, guid: 0a4013d7403818346877add58d5334cf, type: 3}
+--- !u!65 &65499822279962610
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126697253091292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.11885119, y: 1.0128002, z: 0.65610474}
+  m_Center: {x: 0.0000000037252903, y: 0.35344166, z: 0.031309992}
 --- !u!95 &95080899294301646
 Animator:
   serializedVersion: 3

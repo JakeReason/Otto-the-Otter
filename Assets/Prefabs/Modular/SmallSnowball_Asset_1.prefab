@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4621651192260608}
   - component: {fileID: 33131646795957134}
   - component: {fileID: 23814866396295566}
-  - component: {fileID: 95033825650882792}
+  - component: {fileID: 135761355968848458}
+  - component: {fileID: 54834663772080772}
   m_Layer: 0
   m_Name: SmallSnowball_Asset_1
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713286046538048}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 46.58209, y: 0.000000010728836, z: 33.93598}
+  m_LocalPosition: {x: 47.84472, y: 8.184963, z: 79.302795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,20 +84,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713286046538048}
   m_Mesh: {fileID: 4300000, guid: 7a6a85b20feb94d498b0311560df2f20, type: 3}
---- !u!95 &95033825650882792
-Animator:
-  serializedVersion: 3
+--- !u!54 &54834663772080772
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713286046538048}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &135761355968848458
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713286046538048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7a6a85b20feb94d498b0311560df2f20, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  serializedVersion: 2
+  m_Radius: 0.30951422
+  m_Center: {x: -0.0041283965, y: 0.29952922, z: -0.0111468285}

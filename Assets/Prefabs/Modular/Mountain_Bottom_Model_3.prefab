@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33935755870279922}
   - component: {fileID: 23559195506482850}
   - component: {fileID: 95637884930894448}
+  - component: {fileID: 64048523053201936}
   m_Layer: 0
   m_Name: Mountain_Bottom_Model_3
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748462143008606}
   m_LocalRotation: {x: -0, y: -0.6050803, z: -0, w: 0.7961645}
-  m_LocalPosition: {x: 31.283033, y: 0.0000014305115, z: 3.4328547}
+  m_LocalPosition: {x: 43.87201, y: 9.025145, z: 87.46186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e21417d5e7815bf43942f9b3d55e3601, type: 3}
+  - {fileID: 2100000, guid: c9b15fdea11b9814cbda01244466de15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748462143008606}
+  m_Mesh: {fileID: 4300000, guid: e21417d5e7815bf43942f9b3d55e3601, type: 3}
+--- !u!64 &64048523053201936
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748462143008606}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e21417d5e7815bf43942f9b3d55e3601, type: 3}
 --- !u!95 &95637884930894448
 Animator:

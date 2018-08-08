@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33402145779951082}
   - component: {fileID: 23699944129858712}
   - component: {fileID: 95176465812612560}
+  - component: {fileID: 65062069988972306}
+  - component: {fileID: 65364907422783360}
   m_Layer: 0
   m_Name: MushroomBouncy_Asset_1 (1)
   m_TagString: Untagged
@@ -36,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445126975490460}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.866829, y: 0.017080935, z: 19.581923}
+  m_LocalPosition: {x: 47.574432, y: 8.402232, z: 81.975044}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +85,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445126975490460}
   m_Mesh: {fileID: 4300000, guid: 505ad0fbfffe36540ba07385aa35f014, type: 3}
+--- !u!65 &65062069988972306
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445126975490460}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0417929, y: 0.50263417, z: 2.0804873}
+  m_Center: {x: 0, y: 0.9666653, z: 0}
+--- !u!65 &65364907422783360
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445126975490460}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0417929, y: 0.72851336, z: 2.0804873}
+  m_Center: {x: 0, y: 0.34717578, z: 0}
 --- !u!95 &95176465812612560
 Animator:
   serializedVersion: 3
