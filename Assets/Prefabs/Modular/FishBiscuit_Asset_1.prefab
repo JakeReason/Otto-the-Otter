@@ -9,45 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1352754214718820}
+  m_RootGameObject: {fileID: 1126697253091292}
   m_IsPrefabParent: 1
---- !u!1 &1352754214718820
+--- !u!1 &1126697253091292
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4249951377643938}
-  - component: {fileID: 33723944345952438}
-  - component: {fileID: 23818777046046160}
-  - component: {fileID: 95933805331382894}
+  - component: {fileID: 4731013151433494}
+  - component: {fileID: 33355203203150042}
+  - component: {fileID: 23230592234828400}
+  - component: {fileID: 95080899294301646}
   m_Layer: 0
-  m_Name: Mountain_Top_Model_3
+  m_Name: FishBiscuit_Asset_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4249951377643938
+--- !u!4 &4731013151433494
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352754214718820}
-  m_LocalRotation: {x: -0, y: 0.9897158, z: -0, w: 0.14304788}
-  m_LocalPosition: {x: -12.32613, y: -4.455103, z: -28.331165}
+  m_GameObject: {fileID: 1126697253091292}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.581629, y: 0.15295842, z: 17.16117}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 163.55101, z: 0}
---- !u!23 &23818777046046160
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23230592234828400
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352754214718820}
+  m_GameObject: {fileID: 1126697253091292}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c9b15fdea11b9814cbda01244466de15, type: 2}
+  - {fileID: 2100000, guid: dfdf19df380ae7e4f999d1c6fb464a87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,22 +76,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33723944345952438
+--- !u!33 &33355203203150042
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352754214718820}
-  m_Mesh: {fileID: 4300000, guid: 4c9d67f14ed42ed4f9efb3ee091d2bcb, type: 3}
---- !u!95 &95933805331382894
+  m_GameObject: {fileID: 1126697253091292}
+  m_Mesh: {fileID: 4300000, guid: 0a4013d7403818346877add58d5334cf, type: 3}
+--- !u!95 &95080899294301646
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352754214718820}
+  m_GameObject: {fileID: 1126697253091292}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4c9d67f14ed42ed4f9efb3ee091d2bcb, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 0a4013d7403818346877add58d5334cf, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
