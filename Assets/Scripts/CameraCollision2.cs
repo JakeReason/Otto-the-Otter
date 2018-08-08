@@ -1,23 +1,38 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Jeremy Zoitas.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraCollision2 : MonoBehaviour
 {
 	[SerializeField]
+	// Min distance from the player.
 	private float minDistance = 1.0f;
+
 	[SerializeField]
+	// Max distance from the player.
 	private float maxDistance = 4.0f;
+
 	[SerializeField]
+	// Used for setting the postion.
 	private float smooth = 10.0f;
+
 	[SerializeField]
+	// Distance from the camera to the player.
 	private float distance;
+
 	[HideInInspector]
+	// Used to change the aplha of walls in another script.
 	public float m_fChangeTime = 0.0f;
 
+	// Normalized local position.
 	Vector3 dollyDir;
 
-	// Use this for initialization
+	//--------------------------------------------------------------------------------
+	// Awake used for initialization.
+	//--------------------------------------------------------------------------------
 	void Awake ()
 	{
 		// Sets the dolly direction.
@@ -25,8 +40,12 @@ public class CameraCollision2 : MonoBehaviour
 		// Sets the distance.
 		distance = transform.localPosition.magnitude;
 	}
-	
-	// Update is called once per frame
+
+	//--------------------------------------------------------------------------------
+	// Update is called once per frame, Updates the camera's position if it is 
+	// colliding with anything as well as sets a variable used to set some walls to
+	// be slightly invisible.
+	//--------------------------------------------------------------------------------
 	void Update ()
 	{
 		// Sets the desiredCameraPos.

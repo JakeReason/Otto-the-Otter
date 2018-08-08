@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Jeremy Zoitas.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,36 +9,68 @@ using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
 	[SerializeField]
+	// Enemies health
 	private float m_fHealth = 1;
+
 	[SerializeField]
+	// Player GameObject used to access the player.
 	private GameObject m_player;
+
 	[SerializeField]
+	// Player Transform used to access the player transform.
 	private Transform m_playerTransform;
+
 	[SerializeField]
+	// An array of transform used to create a patrol route.
     private Transform[] m_targetPoints;
+
     [SerializeField]
+	// Keeps track of the current waypoint number.
     private int m_nDestPoint = 0;
+
     [SerializeField]
+	// How long the enemy waits till moving to the next waypoint.
     private float m_fCooldown = 1;
+
 	[SerializeField]
+	// Distance to seek the player.
 	private float m_fDistance = 5;
+
 	[SerializeField]
+	// Distance to attack the player
 	private float m_fAttackDistance = 1;
+
 	[SerializeField]
+	// Speed of rotation.
 	private float m_fRotateSpeed = 1;
+
 	[SerializeField]
+	// The cooldown on the attack.
 	private float m_fAttackCooldown = 1;
+
 	[SerializeField]
+	// Used to keep track of whether the enemy of going backwards. 
 	private bool m_bGoBackWards = false;
 
+	// Used to gain access to the NavMeshAgent.
     private NavMeshAgent m_agent;
+
+	// Used to store the originalCooldown.
     private float m_fOriginalCooldown;
+
+	// Used to store the originalAttackCooldown.
 	private float m_fOriginalAttackCooldown;
+
+	// Stores the distance from the player.
 	private float m_fDistanceFromPlayer;
+
+	// Player Script used to access the player script.
 	private Player m_playerScript;
 
-	// Use this for initialization
-	void Start ()
+	//--------------------------------------------------------------------------------
+	// Awake used for initialization.
+	//--------------------------------------------------------------------------------
+	void Awake ()
     {
 		// Gets the NavMeshAgent on the gameobject.
         m_agent = GetComponent<NavMeshAgent>();
@@ -50,7 +85,11 @@ public class BasicEnemy : MonoBehaviour
 		// Sets the playerScript reference up.
 		m_playerScript = m_player.GetComponent<Player>();
     }
-    void GoToNextPoint()
+
+	//--------------------------------------------------------------------------------
+	// Sets the enemies new waypoint to the next waypoint.
+	//--------------------------------------------------------------------------------
+	void GoToNextPoint()
     {
         // Returns if no points have been set up
         if (m_targetPoints.Length == 0)
@@ -63,6 +102,10 @@ public class BasicEnemy : MonoBehaviour
         // cycling to the start if necessary.
         m_nDestPoint = (m_nDestPoint + 1) % m_targetPoints.Length;
     }
+
+	//--------------------------------------------------------------------------------
+	// Sets the enemies new waypoint to the last waypoint.
+	//--------------------------------------------------------------------------------
 	void GoToLastPoint()
 	{
 		// Returns if no points have been set up
@@ -77,7 +120,10 @@ public class BasicEnemy : MonoBehaviour
 		m_nDestPoint = (m_nDestPoint - 1) % m_targetPoints.Length;
 	}
 
-	// Update is called once per frame
+	//--------------------------------------------------------------------------------
+	// Update is called once per frame, Updates the enemy making it patrol between 
+	// waypoints or attack the player if the player is in attack range.
+	//--------------------------------------------------------------------------------
 	void Update ()
     {
 		// Sets the target rotation to the player.
@@ -149,6 +195,14 @@ public class BasicEnemy : MonoBehaviour
 			}
 		}
     }
+
+	//--------------------------------------------------------------------------------
+	// OnTriggerEnter checks when the hook collides with this object and takes damage.
+	//
+	// Param:
+	//		other: used to find the other colliding object.
+	//
+	//--------------------------------------------------------------------------------
 	private void OnTriggerEnter(Collider other)
 	{
 		// Checks if the hook hits the enemy.
