@@ -54,14 +54,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1083483285457314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.2, y: 1.35, z: 39}
+  m_LocalRotation: {x: 0.025665376, y: -0.6984513, z: 0.015997753, w: 0.7150184}
+  m_LocalPosition: {x: 91.3, y: 3.76, z: -57.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536253097577996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.3850002, y: -88.679, z: -0.74500006}
 --- !u!4 &4536253097577996
 Transform:
   m_ObjectHideFlags: 1
@@ -180,6 +180,8 @@ MonoBehaviour:
   finalInputZ: 0
   rotY: 0
   rotX: 0
+  m_fLerpSpeed: 0.1
+  m_bWorldSpace: 0
 --- !u!114 &114802670909009308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,7 +196,6 @@ MonoBehaviour:
   minDistance: 2
   maxDistance: 10
   smooth: 10
-  dollyDirAdjusted: {x: 0, y: 0, z: 0}
   distance: 0
   m_fChangeTime: 0
 --- !u!114 &114892647642201422
