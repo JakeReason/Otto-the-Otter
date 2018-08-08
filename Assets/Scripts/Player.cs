@@ -187,6 +187,9 @@ public class Player : MonoBehaviour
                 // Sets jumped and jumping bools to be true
                 m_bJumped = true;
                 m_bJumping = true;
+
+                m_animator.SetBool("Jumping", true);
+                m_animator.SetBool("Landing", false);
             }
             // Else if Jump button isn't pressed and the player is grounded
             else if (!Input.GetButton("Jump") && m_cc.isGrounded)
@@ -195,6 +198,10 @@ public class Player : MonoBehaviour
                 m_bJumped = false;
                 m_bJumping = false;
                 m_fJumpTimer = 0.0f;
+
+                m_animator.SetBool("Landing", true);
+                m_animator.SetBool("Falling", false);
+                m_animator.SetBool("Jumping", false);
             }
             // Else if Jump isn't pressed and player is in air or player has jumped too long
             else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) ||
@@ -202,18 +209,26 @@ public class Player : MonoBehaviour
             {
                 // Applies gravity to player with an extra multiplier to fall quicker
                 m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
+
+                m_animator.SetBool("Falling", true);
             }
             // Else if the player is falling
             else if (!m_cc.isGrounded)
             {
                 // Apply gravity to the player without miltiplier
                 m_v3Gravity += Physics.gravity * Time.deltaTime;
+
+                m_animator.SetBool("Falling", true);
             }
-            // Else if the player is grounded without pressing jump
-            else
+            // Else if the player is grounded
+            else if (m_cc.isGrounded)
             {
                 // Sets the gravity to zero
                 m_v3Gravity = Vector3.zero;
+
+                m_animator.SetBool("Landing", true);
+                m_animator.SetBool("Falling", false);
+                m_animator.SetBool("Jumping", false);
             }
         }
 
@@ -222,14 +237,8 @@ public class Player : MonoBehaviour
         {
             // Adds the jump timer to deltaTime every second
             m_fJumpTimer += Time.deltaTime;
+        }
 
-            m_animator.SetBool("Jumping", true);
-        }
-        else
-        {
-            m_animator.SetBool("Jumping", false);
-        }
-        
         // Stores the y movement direction in local float
         float fCurrentMoveY = m_v3MoveDirection.y;
 
