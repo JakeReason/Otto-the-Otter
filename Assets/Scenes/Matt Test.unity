@@ -809,7 +809,7 @@ Prefab:
         type: 2}
       propertyPath: m_fullHealth
       value: 
-      objectReference: {fileID: 21300000, guid: 748f578edc8d54f43b2b445120a03b36,
+      objectReference: {fileID: 21300000, guid: 10eabfd1b8cc49a4c9ad861c4a62819c,
         type: 3}
     - target: {fileID: 114992121933932572, guid: fa045dabe965ad145b764c6cfe1cf4bc,
         type: 2}
@@ -845,6 +845,15 @@ Prefab:
         type: 2}
       propertyPath: m_flashColour.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342028832845516, guid: fa045dabe965ad145b764c6cfe1cf4bc, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992121933932572, guid: fa045dabe965ad145b764c6cfe1cf4bc,
+        type: 2}
+      propertyPath: m_fExtraGravity
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa045dabe965ad145b764c6cfe1cf4bc, type: 2}
