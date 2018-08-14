@@ -36,8 +36,11 @@ public class Player : MonoBehaviour
     [Range(1.0f, 10.0f)]
     public float m_fExtraGravity = 4.0f;
 
-    // Float indicates the time when player cannot be hit (allows floats from 1-5)
-    [Range(1.0f, 5.0f)]
+	[Range(2.0f, 8.0f)]
+	public float m_fBounceForce = 4.0f;
+
+	// Float indicates the time when player cannot be hit (allows floats from 1-5)
+	[Range(1.0f, 5.0f)]
     public float m_fHealthRecoveryTime = 3.0f;
 
     // Indicates maximum time for player to jump before falling (range from 0.1-1)
@@ -66,6 +69,8 @@ public class Player : MonoBehaviour
 
 	// Used to access the SkinnedMeshRenderer component from the player
     public SkinnedMeshRenderer m_meshRenderer;
+
+	public LayerMask m_mushroomLayer;
 
     // Private Vector3 stores the direction the player should move
     private Vector3 m_v3MoveDirection;
@@ -155,7 +160,8 @@ public class Player : MonoBehaviour
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bRecovering = false;
-    }
+
+	}
 
     //--------------------------------------------------------------------------------
     // Function is called once every frame.
@@ -199,10 +205,19 @@ public class Player : MonoBehaviour
 			// Sets gravity to equal the zero Vector3
 			m_v3Gravity = Vector3.zero;
 		}
+		else if (Bounce())
+		{
+			m_v3Gravity.y = m_fJumpSpeed * m_fBounceForce;
+
+			m_fJumpTimer = 0.0f;
+
+			// Sets jumped bool to be true
+			m_bJumped = true;
+		}
 		// Else if the grappling hook hasn't hooked an object
 		else
 		{
-			m_animator.SetBool("Grapple", false);
+			//m_animator.SetBool("Grapple", false);
 
 			// Checks if Jump is pressed, the player is grounded and if they haven't jumped
 			if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
@@ -214,21 +229,21 @@ public class Player : MonoBehaviour
 				m_bJumped = true;
 
 				// Sets Jumping bool to true and Landing bool to false in the animator
-				m_animator.SetBool("Jumping", true);
-				m_animator.SetBool("Landing", false);
+				//m_animator.SetBool("Jumping", true);
+				//m_animator.SetBool("Landing", false);
 			}
 			// Else if Jump button isn't pressed and the player is grounded
-			else if (!Input.GetButton("Jump") && m_cc.isGrounded)
-			{
+			//else if (!Input.GetButton("Jump") && m_cc.isGrounded)
+			//{
 				// Sets jumped and jumping bools back to false
 				//m_bJumped = false;
 				//m_fJumpTimer = 0.0f;
 
 				// Sets Landing bool to true and Jumping and falling bool to false in animator
-				m_animator.SetBool("Landing", true);
-				m_animator.SetBool("Falling", false);
-				m_animator.SetBool("Jumping", false);
-			}
+				//m_animator.SetBool("Landing", true);
+				//m_animator.SetBool("Falling", false);
+				//m_animator.SetBool("Jumping", false);
+			//}
 			// Else if Jump isn't pressed and player is in air or player has jumped too long
 			else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) ||
 					  m_fJumpTimer > m_fJumpTimeLimit)
@@ -237,7 +252,7 @@ public class Player : MonoBehaviour
 				m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
 
 				// Sets Falling bool to true in the animator
-				m_animator.SetBool("Falling", true);
+				//m_animator.SetBool("Falling", true);
 			}
 		}
 
@@ -380,7 +395,6 @@ public class Player : MonoBehaviour
 
     public void RestoreHealth()
     {
-        // WILL NEED TO ADD UI LATER FOR HEALTH
         if (m_nHealth != 2)
         {
             m_nHealth = 2;
@@ -397,6 +411,11 @@ public class Player : MonoBehaviour
         m_nHealth = 2;
         m_healthImage.sprite = m_fullHealth;
     }
+
+	private bool Bounce()
+	{
+		return Physics.Raycast(transform.position, Vector3.down, 0.3f, m_mushroomLayer);
+	}
 
     //--------------------------------------------------------------------------------
     // Function is called when the player is enters a trigger.
