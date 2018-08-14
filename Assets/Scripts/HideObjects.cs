@@ -8,11 +8,12 @@ public class HideObjects : MonoBehaviour
 	public Transform WatchTarget;
 	public LayerMask OccluderMask;
 	public Material HiderMaterial;
-	public Material WallMaterial;
+	public Material HitMaterial;
 	public float duration = 2.0F;
 	public Renderer rend;
 	private Dictionary<Transform, Material> _LastTransforms;
 	float lerp = 0.0f;
+	Color color;
 
 	void Start()
 	{
@@ -21,14 +22,19 @@ public class HideObjects : MonoBehaviour
 
 	void Update()
 	{
-		
 		// Reset and clear all the previous objects and materials.
 		if (_LastTransforms.Count > 0)
 		{
 			foreach (Transform t in _LastTransforms.Keys)
 			{
 				t.GetComponent<MeshRenderer>().material = _LastTransforms[t];
-				rend.material = WallMaterial;
+				//if(rend.material.color.a <= 0.5f)
+				//{
+				//	color = rend.material.color;
+				//	color.a = 1.0f;
+				//	rend.material.color = color;
+				//}
+				//rend.material = HitMaterial;
 			}
 			_LastTransforms.Clear();
 		}
@@ -40,7 +46,7 @@ public class HideObjects : MonoBehaviour
 		  Vector3.Distance(WatchTarget.transform.position, transform.position),
 		  OccluderMask
 		);
-
+		Debug.DrawRay(transform.position, WatchTarget.transform.position - transform.position);
 		// Loop through all overlapping objects and lerp between materials.
 		if (hits.Length > 0)
 		{
@@ -53,8 +59,28 @@ public class HideObjects : MonoBehaviour
 					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<MeshRenderer>().material);
 					// Gets the hit gameObjects renderer.
 					rend = hit.collider.gameObject.GetComponent<Renderer>();
+					rend.material.SetFloat("_Mode", 3f);
+					rend.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+					rend.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+					rend.material.SetInt("_ZWrite", 0);
+					rend.material.DisableKeyword("_ALPHATEST_ON");
+					rend.material.EnableKeyword("_ALPHABLEND_ON");
+					rend.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+					rend.material.renderQueue = 3000;
 					// Lerps between the original material and the hidden one.
-					rend.material.Lerp(WallMaterial, HiderMaterial, lerp);
+					//rend.material.Lerp(rend.material, HiderMaterial, lerp);
+					if (rend.material.color.a >= 0.5f)
+					{
+						color = rend.material.color;
+						color.a -= 0.01f;
+						rend.material.color = color;
+					}
+				}
+				else
+				{
+					color = rend.material.color;
+					color.a = 1.0f;
+					rend.material.color = color;
 				}
 			}
 		}
