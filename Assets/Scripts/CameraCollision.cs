@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraCollision2 : MonoBehaviour
+public class CameraCollision : MonoBehaviour
 {
 	[SerializeField]
 	// Min distance from the player.
@@ -28,7 +28,7 @@ public class CameraCollision2 : MonoBehaviour
 	public float m_fChangeTime = 0.0f;
 
 	// Normalized local position.
-	Vector3 dollyDir;
+	public Vector3 dollyDir;
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
@@ -46,7 +46,7 @@ public class CameraCollision2 : MonoBehaviour
 	// colliding with anything as well as sets a variable used to set some walls to
 	// be slightly invisible.
 	//--------------------------------------------------------------------------------
-	void Update ()
+	void FixedUpdate ()
 	{
 		// Sets the desiredCameraPos.
 		Vector3 desiredCameraPos = transform.parent.TransformPoint (dollyDir * maxDistance);
@@ -93,6 +93,6 @@ public class CameraCollision2 : MonoBehaviour
 		}
 
 		// Sets the new position for the camera.
-		transform.localPosition = Vector3.Lerp (transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
+		transform.localPosition = Vector3.Lerp (transform.localPosition, dollyDir * distance, smooth * Time.deltaTime);
 	}
 }

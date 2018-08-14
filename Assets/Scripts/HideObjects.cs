@@ -49,7 +49,7 @@ public class HideObjects : MonoBehaviour
 				if (hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget)
 				{
 					// lerp equals the change time from the camera collision so it goes from visible to half invisible.
-					lerp = GetComponent<CameraCollision2>().m_fChangeTime;
+					lerp = GetComponent<CameraCollision>().m_fChangeTime;
 					_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<MeshRenderer>().material);
 					// Gets the hit gameObjects renderer.
 					rend = hit.collider.gameObject.GetComponent<Renderer>();
