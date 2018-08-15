@@ -28,13 +28,6 @@ public class HideObjects : MonoBehaviour
 			foreach (Transform t in _LastTransforms.Keys)
 			{
 				t.GetComponent<MeshRenderer>().material = _LastTransforms[t];
-				//if(rend.material.color.a <= 0.5f)
-				//{
-				//	color = rend.material.color;
-				//	color.a = 1.0f;
-				//	rend.material.color = color;
-				//}
-				//rend.material = HitMaterial;
 			}
 			_LastTransforms.Clear();
 		}
@@ -52,7 +45,7 @@ public class HideObjects : MonoBehaviour
 		{
 			foreach (RaycastHit hit in hits)
 			{
-				if (hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget)
+				if (hit.collider.gameObject.transform != WatchTarget /*&& hit.collider.transform.root != WatchTarget*/)
 				{
 					// lerp equals the change time from the camera collision so it goes from visible to half invisible.
 					lerp = GetComponent<CameraCollision>().m_fChangeTime;
@@ -68,7 +61,6 @@ public class HideObjects : MonoBehaviour
 					rend.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 					rend.material.renderQueue = 3000;
 					// Lerps between the original material and the hidden one.
-					//rend.material.Lerp(rend.material, HiderMaterial, lerp);
 					if (rend.material.color.a >= 0.5f)
 					{
 						color = rend.material.color;
@@ -76,12 +68,18 @@ public class HideObjects : MonoBehaviour
 						rend.material.color = color;
 					}
 				}
-				else
-				{
-					color = rend.material.color;
-					color.a = 1.0f;
-					rend.material.color = color;
-				}
+				
+			}
+		}
+		else
+		{
+			if(rend)
+			{
+				color = rend.material.color;
+				color.a = 1.0f;
+				rend.material.color = color;
+				rend.material.SetFloat("_Mode", 0f);
+				rend.material.renderQueue = 2001;
 			}
 		}
 	}
