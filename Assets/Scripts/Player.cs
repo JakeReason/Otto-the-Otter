@@ -70,11 +70,13 @@ public class Player : MonoBehaviour
 	// Used to access the SkinnedMeshRenderer component from the player
     public SkinnedMeshRenderer m_meshRenderer;
 
+	// Indicates the layer mask of a mushroom object
 	public LayerMask m_mushroomLayer;
 
-    // Private Vector3 stores the direction the player should move
+    // Vector3 represents the input direction from the analog stick
     private Vector3 m_v3MoveDirection;
 
+	// Private Vector3 stores the direction the player should move
 	private Vector3 m_v3MoveVector;
 
     // Vector3 represents the direction the player will look in
@@ -168,10 +170,14 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
+		// Calls both Move and Animate functions in conjunction per frame
 		Move();
 		Animate();
 	}
 
+	//--------------------------------------------------------------------------------
+	// Function allows the player to Move and Jump.
+	//--------------------------------------------------------------------------------
 	private void Move()
 	{
 		// Creates a new Vector3 indicating which direction the left stick is facing
@@ -200,25 +206,26 @@ public class Player : MonoBehaviour
 		// Detects if Grappling Hook is hooked on an object
 		if (m_grapplingScript.GetHooked())
 		{
-			m_animator.SetBool("Grapple", true);
+			//animator.SetBool("Grapple", true);
 
 			// Sets gravity to equal the zero Vector3
 			m_v3Gravity = Vector3.zero;
 		}
+		// Else if a mushroom is directly under the player
 		else if (Bounce())
 		{
+			// Sets the y value of gravity to equal jump speed multipled by bounce force
 			m_v3Gravity.y = m_fJumpSpeed * m_fBounceForce;
 
+			// Resets Jump timer to equal zero
 			m_fJumpTimer = 0.0f;
 
 			// Sets jumped bool to be true
 			m_bJumped = true;
 		}
-		// Else if the grappling hook hasn't hooked an object
+		// Else if the hook hasn't hooked an object or if the player hasn't bounced
 		else
 		{
-			//m_animator.SetBool("Grapple", false);
-
 			// Checks if Jump is pressed, the player is grounded and if they haven't jumped
 			if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
 			{
@@ -227,32 +234,13 @@ public class Player : MonoBehaviour
 
 				// Sets jumped bool to be true
 				m_bJumped = true;
-
-				// Sets Jumping bool to true and Landing bool to false in the animator
-				//m_animator.SetBool("Jumping", true);
-				//m_animator.SetBool("Landing", false);
 			}
-			// Else if Jump button isn't pressed and the player is grounded
-			//else if (!Input.GetButton("Jump") && m_cc.isGrounded)
-			//{
-				// Sets jumped and jumping bools back to false
-				//m_bJumped = false;
-				//m_fJumpTimer = 0.0f;
-
-				// Sets Landing bool to true and Jumping and falling bool to false in animator
-				//m_animator.SetBool("Landing", true);
-				//m_animator.SetBool("Falling", false);
-				//m_animator.SetBool("Jumping", false);
-			//}
 			// Else if Jump isn't pressed and player is in air or player has jumped too long
 			else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) ||
 					  m_fJumpTimer > m_fJumpTimeLimit)
 			{
 				// Applies gravity to player with an extra multiplier to fall quicker
 				m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
-
-				// Sets Falling bool to true in the animator
-				//m_animator.SetBool("Falling", true);
 			}
 		}
 
@@ -300,8 +288,10 @@ public class Player : MonoBehaviour
 			transform.LookAt(m_v3LookDirection, Vector3.up);
 		}
 
+		// Detects if the player is in recovery mode
 		if (m_bRecovering)
 		{
+			// Updates the health timer every second by deltaTime
 			m_fHealthTimer += Time.deltaTime;
 
 			if (Mathf.Sin(m_fHealthTimer / m_fFlashingRate) >= 0)
@@ -322,50 +312,66 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//--------------------------------------------------------------------------------
+	// Function animates Otto based on the player's actions.
+	//--------------------------------------------------------------------------------
 	private void Animate()
 	{
+		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
 		if (m_bJumped && m_v3Gravity.y == m_fJumpSpeed)
 		{
 			m_animator.SetBool("Jumping", true);
 		}
+		// Sets Jumping bool in animator to false otherwise
 		else
 		{
 			m_animator.SetBool("Jumping", false);
 		}
-
+		
+		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
 		if (m_bJumped && m_v3Gravity.y != m_fJumpSpeed)
 		{
 			m_animator.SetBool("Falling", true);
 		}
+		// Sets Falling bool in animator to false otherwise
 		else
 		{
 			m_animator.SetBool("Falling", false);
 		}
 
+		// Checks if the player has jumped and is grounded
 		if (m_bJumped && m_cc.isGrounded)
 		{
+			// Sets Landing bool in animator to true
 			m_animator.SetBool("Landing", true);
+
+			// Resets Jumped bool back to false and and Jump Timer to zero
 			m_bJumped = false;
 			m_fJumpTimer = 0.0f;
 		}
+		// Sets Landing bool in animator to false otherwise
 		else
 		{
 			m_animator.SetBool("Landing", false);
 		}
 
+		// Sets Grapple bool in animator to true if player has launched hook or is hooked
 		if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
 		{
 			m_animator.SetBool("Grapple", true);
 		}
+		// Sets Grapple bool in animator to false otherwise
 		else
 		{
 			m_animator.SetBool("Grapple", false);
 		}
 
+		// Sets Moving bool in animator to true if the player has any movement
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
 		{
 			m_animator.SetBool("Moving", true);
 		}
+		// Sets Moving bool in animator to falseif player is still
 		else
 		{
 			m_animator.SetBool("Moving", false);
@@ -377,15 +383,19 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void Damage()
     {
+		// Detects if the health timer is at zero or if the player isn't recovering
         if (m_fHealthTimer <= 0.0f || !m_bRecovering)
         {
+			// Deducts one bar of health from the player and updates UI
             m_nHealth -= 1;
             m_healthImage.sprite = m_halfHealth;
 
+			// Calls the death function if the player's health is zero
             if (m_nHealth <= 0)
             {
                 Death();
             }
+			// Sets the player to be recovering if the player still has health
             else
             {
                 m_bRecovering = true;
@@ -393,8 +403,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void RestoreHealth()
+	//--------------------------------------------------------------------------------
+	// Function restores the player's health when called.
+	//--------------------------------------------------------------------------------
+	public void RestoreHealth()
     {
+		// Updates health and UI if the player is not already at full health
         if (m_nHealth != 2)
         {
             m_nHealth = 2;
@@ -407,13 +421,23 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
+		// Sets the player's position back to Vector3 zero
         transform.position = Vector3.zero;
+
+		// Resets health back to full health and updates the UI
         m_nHealth = 2;
         m_healthImage.sprite = m_fullHealth;
     }
 
+	//--------------------------------------------------------------------------------
+	// Function checks if a Mushroom is under the player using a raycast.
+	//
+	// Return:
+	//		Returns if the raycast is true or false
+	//--------------------------------------------------------------------------------
 	private bool Bounce()
 	{
+		// Raycasts 0.3 metres down from player and finds objects with mushroom layer mask
 		return Physics.Raycast(transform.position, Vector3.down, 0.3f, m_mushroomLayer);
 	}
 
@@ -425,6 +449,7 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
+		// Calls the death function if the colliding object has the "Respawn" tag
         if (other.tag == "Respawn")
         {
             Death();
