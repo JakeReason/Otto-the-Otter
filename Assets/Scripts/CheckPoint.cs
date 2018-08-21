@@ -1,11 +1,8 @@
-﻿//--------------------------------------------------------------------------------
-// Author: Jeremy Zoitas.
-//--------------------------------------------------------------------------------
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FamilyMember : MonoBehaviour
+public class CheckPoint : MonoBehaviour
 {
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
@@ -16,7 +13,7 @@ public class FamilyMember : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
-	void Awake ()
+	void Awake()
 	{
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
@@ -25,8 +22,8 @@ public class FamilyMember : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// OnTriggerEnter checks if the player collides with this object and adds
-	// a family member to the collectable manager and sets itself not to be active.
+	// OnTriggerEnter checks if the player collides with this object and adds an 
+	// amount of sticks to the collectable manager and sets itself not to be active.
 	//
 	// Param:
 	//		other: used to find the other colliding object.
@@ -35,10 +32,10 @@ public class FamilyMember : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		// Checks if the player picks/runs into the collectable.
-		if(other.tag == "Player")
+		if (other.CompareTag("Player"))
 		{
-			// Adds the family member to the collectable manager.
-			m_CM.AddFamilyMember(gameObject);
+			// Adds the stick to the collectable manager.
+			m_CM.SetCurrentCheckPoint(transform);
 			gameObject.SetActive(false);
 		}
 	}

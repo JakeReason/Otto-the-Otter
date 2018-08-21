@@ -5,28 +5,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishBiscuit : MonoBehaviour
+public class Clam : MonoBehaviour
 {
-	// Player GameObject used to access the player.
-	private GameObject m_player;
+	[SerializeField]
+	// The amount of sticks to add when collected.
+	private int m_nClamAmount;
 
-	// Player Script used to access the player script.
-	private Player m_playerScript;
+	// Collectable manager GameObject used to get access to the collectable manager.
+	private GameObject m_collectableManager;
+
+	// Collectable manager Script used to get access to the collectable manager script.
+	private CollectableManager m_CM;
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
 	{
-		// Gets reference to the player gameObject.
-		m_player = GameObject.FindGameObjectWithTag("Player");
-		// Gets reference to the player script.
-		m_playerScript = m_player.GetComponent<Player>();
+		// Gets reference to the collectable manager gameObject.
+		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
+		// Gets reference to the collectable manager script.
+		m_CM = m_collectableManager.GetComponent<CollectableManager>();
 	}
 
 	//--------------------------------------------------------------------------------
-	// OnTriggerEnter checks when the player collides with this object and restores
-	// health to the player and sets itself not to be active.
+	// OnTriggerEnter checks if the player collides with this object and adds an 
+	// amount of sticks to the collectable manager and sets itself not to be active.
 	//
 	// Param:
 	//		other: used to find the other colliding object.
@@ -37,8 +41,8 @@ public class FishBiscuit : MonoBehaviour
 		// Checks if the player picks/runs into the collectable.
 		if (other.CompareTag("Player"))
 		{
-			// Restores health to the player.
-			m_playerScript.RestoreHealth();
+			// Adds the stick to the collectable manager.
+			m_CM.AddClams(m_nClamAmount);
 			gameObject.SetActive(false);
 		}
 	}

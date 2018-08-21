@@ -5,14 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StickCollectable : MonoBehaviour
+public class Flower : MonoBehaviour
 {
-	[SerializeField]
-	// The amount of sticks to add when collected.
-	private int m_nAddStickAmount;
-
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
+
+	public int m_nFlowerToCollect;
 
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_CM;
@@ -20,7 +18,7 @@ public class StickCollectable : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
-	void Awake()
+	void Awake ()
 	{
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
@@ -29,8 +27,8 @@ public class StickCollectable : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// OnTriggerEnter checks if the player collides with this object and adds an 
-	// amount of sticks to the collectable manager and sets itself not to be active.
+	// OnTriggerEnter checks if the player collides with this object and adds
+	// a family member to the collectable manager and sets itself not to be active.
 	//
 	// Param:
 	//		other: used to find the other colliding object.
@@ -39,10 +37,10 @@ public class StickCollectable : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		// Checks if the player picks/runs into the collectable.
-		if (other.tag == "Player")
+		if(other.CompareTag("Player"))
 		{
-			// Adds the stick to the collectable manager.
-			m_CM.AddSticks(m_nAddStickAmount);
+			// Adds the family member to the collectable manager.
+			m_CM.AddFlower(m_nFlowerToCollect);
 			gameObject.SetActive(false);
 		}
 	}
