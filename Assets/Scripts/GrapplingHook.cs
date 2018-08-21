@@ -2,19 +2,35 @@
 // Author: Matthew Le Nepveu.
 //--------------------------------------------------------------------------------
 
+// Accesses the plugins from Unity folder
 using System.Collections;
 using UnityEngine;
 
+// Creates a class for the GrapplingHook
 public class GrapplingHook : MonoBehaviour
 {
+    // Allows for access to the hook object itself
     public GameObject m_hook;
+
+    // Represents where the hook object is being held in
     public GameObject m_hookHolder;
+
+    // Indicates an object of which the hook has hooked onto
     public GameObject m_hookedObj;
+
+    // Float represents the speed of the hook once launched
     public float m_fHookTravelSpeed;
+
+    // Indicates the speed the player travels once hook is hooked on an object
     public float m_fTravelSpeed;
+
+    // Represents the maximum distance the hook travels before retreating
     public float m_fMaxDistance;
 
+    // Lists if the hook has been fired or not
     private bool m_bFired;
+
+    // Bool lists if the hook has been fired or not
     private bool m_bHooked;
     private float m_fCurrentDistance;
     private CharacterController m_cc;
