@@ -37,7 +37,7 @@ public class CollectableManager : MonoBehaviour
 	private Sprite[] m_flowerSprites;
 
 	// An array of GameObjects which will keep track of the flowers.
-	public GameObject[] m_flowers;
+	//public GameObject[] m_flowers;
 
 	public Transform m_checkPoint;
 
@@ -126,13 +126,18 @@ public class CollectableManager : MonoBehaviour
 		m_flowerImage.sprite = m_flowerSprites[nFlowerToFind];
 	}
 
-	public void SetCurrentCheckPoint(Transform nCheckPoint)
+	public void SetCurrentCheckPoint(Transform checkPoint)
 	{
-		m_checkPoint = nCheckPoint;
+		m_checkPoint = checkPoint;
 	}
 
 	public float GetLives()
 	{
 		return m_fLives;
+	}
+
+	public Transform GetCheckPoint()
+	{
+		return m_checkPoint;
 	}
 }
