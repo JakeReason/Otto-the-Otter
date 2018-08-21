@@ -112,13 +112,25 @@ public class Player : MonoBehaviour
 	// Records the original colour of the player
     private Color m_originalColour;
 
-    //--------------------------------------------------------------------------------
-    // Function is used for initialization.
-    //--------------------------------------------------------------------------------
-    void Awake()
+	// Collectable manager GameObject used to get access to the collectable manager.
+	private GameObject m_collectableManager;
+
+	// Collectable manager Script used to get access to the collectable manager script.
+	private CollectableManager m_CM;
+
+	//--------------------------------------------------------------------------------
+	// Function is used for initialization.
+	//--------------------------------------------------------------------------------
+	void Awake()
     {
+		// Gets reference to the collectable manager gameObject.
+		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
+
+		// Gets reference to the collectable manager script.
+		m_CM = m_collectableManager.GetComponent<CollectableManager>();
+
 		// Calculates the flashing rate from the reciprocal of public float flash rate
-        m_fFlashingRate = 1 / m_fFlashRate;
+		m_fFlashingRate = 1 / m_fFlashRate;
 
 		// Gets the Animator component and stores it in the animator variable
         m_animator = GetComponent<Animator>();
@@ -421,9 +433,18 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
-		// Sets the player's position back to Vector3 zero
-        transform.position = Vector3.zero;
+		m_CM.RemoveLife();
 
+		if (m_CM.GetLives() > 0)
+		{
+			transform.position = m_CM.GetCheckPoint().position;
+		}
+		else
+		{
+			// Sets the player's position back to Vector3 zero
+			transform.position = Vector3.zero;
+		}
+		
 		// Resets health back to full health and updates the UI
         m_nHealth = 2;
         m_healthImage.sprite = m_fullHealth;
