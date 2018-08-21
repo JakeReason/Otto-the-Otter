@@ -74,52 +74,33 @@ public class CameraFollow : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void FixedUpdate ()
 	{
-		// TODO: Set the camera up to move behind the player when they are moving and the camera is not moving.
+		// TODO: Smooth the camera collision with teh ground.
 		// TODO: Make the camera do a smooth movetowards when the player falls.
-		// TODO: Make a first person camera.
-		// TODO: Fix the diagonal distance bug.
+		// TODO: Fix the diagonal distance bug. Check if fixed should be fixed.
 
-		// Setup the rotation of the right sticks axis.
-		float inputX = Input.GetAxis ("RightStickHorizontal");
-		float inputZ = Input.GetAxis ("RightStickVertical");
-		// Setup the rotation of the mouse axis.
-		mouseX = Input.GetAxis ("Mouse X");
-		mouseY = Input.GetAxis ("Mouse Y");
-		finalInputX = inputX + mouseX;
-		finalInputZ = inputZ + mouseY;
-		// Sets the rotation based on the input and sensitivity.
-		rotY += finalInputX * inputSensitivity * Time.deltaTime;
-		rotX += finalInputZ * inputSensitivity * Time.deltaTime;
-		// Clamps the rotation so gimble lock does not occur including other problems.
-		rotX = Mathf.Clamp (rotX, MinClampAngle, MaxClampAngle);
-
-		//if (((XCI.GetAxis(XboxAxis.LeftStickX) >= 0.40f || XCI.GetAxis(XboxAxis.LeftStickY) >= 0.40f)
-		//	|| (XCI.GetAxis(XboxAxis.LeftStickX) <= -0.40f || XCI.GetAxis(XboxAxis.LeftStickY) <= -0.40f)) // Left Stick moving
-		//	&& ((XCI.GetAxis(XboxAxis.RightStickX) <= 0.40f && XCI.GetAxis(XboxAxis.RightStickY) <= 0.40f)
-		//	&& (XCI.GetAxis(XboxAxis.RightStickX) >= -0.40f && XCI.GetAxis(XboxAxis.RightStickY) >= -0.40f))) // Right Stick not moving
+		CameraInput();
+		// TODO: Set the camera up to move behind the player when they are moving and the camera is not moving. 
+		// May not be needed if this works.
+		// Set finalinput to euqual a value so the camera slowly turns as the player runs.
+		//if(XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0)
 		//{
-		//	//rotX = 20.0f;
-		//	rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
-		//	m_fLerpSpeed = 1.0f;
-		//	//m_bWorldSpace = true;
+		//	finalInputX = -0.05f;
 		//}
-		//else
+		//else if(XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0)
 		//{
-		//	m_fLerpSpeed = 10.0f;
-		//	//m_bWorldSpace = false;
+		//	finalInputX = 0.05f;
+		//}
+		//else if(XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0)
+		//{
+		//	finalInputX = -0.05f;
+		//}
+		//else if(XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0)
+		//{
+		//	finalInputX = 0.05f;
 		//}
 
-		// If the right stick button is pressed then set the camera to be behind the player.
-		if (XCI.GetButtonDown(XboxButton.RightStick))
-		{
-			rotX = 20.0f;
-			rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
-		}
-		// Set localRotation to rotx and roty.
-		Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		// Lerp between current rotation to new rotation.
-		transform.rotation = Quaternion.Lerp( transform.rotation, localRotation, m_fLerpSpeed * Time.deltaTime);
-
+		SetRotation();
+		RotateCamera();
 	}
 
 	//--------------------------------------------------------------------------------
@@ -142,5 +123,45 @@ public class CameraFollow : MonoBehaviour
 		// Move towards the game object that is the target.
 		float step = CameraMoveSpeed * Time.deltaTime;
 		transform.position = Vector3.Lerp (transform.position, target.position, step);
+	}
+
+	void CameraInput()
+	{
+		// Setup the rotation of the right sticks axis.
+		float inputX = Input.GetAxis("RightStickHorizontal");
+		float inputZ = Input.GetAxis("RightStickVertical");
+		// Setup the rotation of the mouse axis.
+		mouseX = Input.GetAxis("Mouse X");
+		mouseY = Input.GetAxis("Mouse Y");
+		// Sets the final input for rotation.
+		finalInputX = inputX + mouseX;
+		finalInputZ = inputZ + mouseY;
+	}
+
+	void SetRotation()
+	{
+		// Sets the rotation based on the input and sensitivity.
+		rotY += finalInputX * inputSensitivity * Time.deltaTime;
+		rotX += finalInputZ * inputSensitivity * Time.deltaTime;
+		// Clamps the rotation so gimble lock does not occur including other problems.
+		rotX = Mathf.Clamp(rotX, MinClampAngle, MaxClampAngle);
+	}
+
+	void RotateCamera()
+	{
+		// Set localRotation to rotx and roty.
+		Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+		// Lerp between current rotation to new rotation.
+		transform.rotation = Quaternion.Lerp(transform.rotation, localRotation, m_fLerpSpeed * Time.deltaTime);
+	}
+
+	private void ResetCamera()
+	{
+		// If the right stick button is pressed then set the camera to be behind the player.
+		if (XCI.GetButtonDown(XboxButton.RightStick))
+		{
+			rotX = 20.0f;
+			rotY = CameraFollowObj.transform.rotation.eulerAngles.y;
+		}
 	}
 }

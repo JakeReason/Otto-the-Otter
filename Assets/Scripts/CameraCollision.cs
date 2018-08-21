@@ -30,6 +30,8 @@ public class CameraCollision : MonoBehaviour
 	// Normalized local position.
 	public Vector3 dollyDir;
 
+	public float m_fDistanceFromGround = 1.0f;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -75,8 +77,18 @@ public class CameraCollision : MonoBehaviour
 			m_fChangeTime = 0.0f;
 		}
 
+		// Checks if the camera has floor is below of it, and slides up towards the player.
+		if (Physics.Raycast(transform.position, -transform.up, out Hit, m_fDistanceFromGround))
+		{
+			//dollyDir.y += 0.01f;
+		}
+		else
+		{
+		}
+
 		// Draws a debug line in the scene. TODO: Remove later on.
 		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
+		Debug.DrawRay(transform.position, -transform.up);
 
 		// Line cast checking for any obstruction that is not on layer 8.
 		if (Physics.Linecast (transform.parent.position, desiredCameraPos, out hit))
