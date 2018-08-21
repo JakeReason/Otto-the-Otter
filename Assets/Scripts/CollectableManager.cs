@@ -33,10 +33,10 @@ public class CollectableManager : MonoBehaviour
 	private Image m_flowerImage;
 
 	[SerializeField]
-	// Used to change the family member UI sprite.
+	// Used to change the flower UI sprites.
 	private Sprite[] m_flowerSprites;
 
-	// An array of 4 GameObjects which will keep track of the family members.
+	// An array of GameObjects which will keep track of the flowers.
 	public GameObject[] m_flowers;
 
 	public Transform m_checkPoint;
@@ -52,7 +52,7 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// Update is called once per frame, this updates the UI to match the collectables.
 	//--------------------------------------------------------------------------------
-	// TODO: may need to change ui for stick count.
+	// TODO: may need to change ui for clam count.
 	void Update ()
 	{
 		// Changes the ui here when that gets around to bein done.
@@ -72,7 +72,7 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void AddClams(int AmountAdded)
 	{
-		// Adds an amount to the stick score.
+		// Adds an amount to the clam score.
 		m_fClams += AmountAdded;
 	}
 
@@ -84,7 +84,7 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void RemoveClams(int AmountRemoved)
 	{
-		// Removes an amount from the stick score.
+		// Removes an amount from the clam score.
 		m_fClams -= AmountRemoved;
 	}
 
@@ -93,7 +93,7 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void ResetClams()
 	{
-		// Resets the stick count.
+		// Resets the clam count.
 		m_fClams = 0;
 	}
 
@@ -103,11 +103,11 @@ public class CollectableManager : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// Used to add family members the collectable manager and change the family member
+	// Used to add flowers to the collectable manager and change the flower
 	// image to found.
 	//
 	// Param:
-	//		FamilyMember: used to determine which family member has been found.
+	//		nFlowerToCollect: used to determine which has been found.
 	//--------------------------------------------------------------------------------
 	public void AddFlower(int nFlowerToCollect)
 	{
@@ -116,10 +116,10 @@ public class CollectableManager : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// Used to set which family member the image should display for the level.
+	// Used to set which flowers the image should display for the level.
 	//
 	// Param:
-	//		FamilMember: used to set which family member image is displayed.
+	//		nFlowerToFind: used to set which flower image is displayed.
 	//--------------------------------------------------------------------------------
 	public void SetCurrentFlowerToFind(int nFlowerToFind)
 	{
