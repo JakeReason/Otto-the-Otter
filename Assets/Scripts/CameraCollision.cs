@@ -32,6 +32,8 @@ public class CameraCollision : MonoBehaviour
 
 	public float m_fDistanceFromGround = 1.0f;
 
+	public LayerMask CollisionLayers;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -88,12 +90,24 @@ public class CameraCollision : MonoBehaviour
 
 		// Draws a debug line in the scene. TODO: Remove later on.
 		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
+		Vector3 linpos = desiredCameraPos;
+		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 1, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 2, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 3, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 4, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = desiredCameraPos, Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 1, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 2, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 3, linpos.y, linpos.z), Color.green);
+		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 4, linpos.y, linpos.z), Color.green);
+
 		Debug.DrawRay(transform.position, -transform.up);
 
 		// Line cast checking for any obstruction that is not on layer 8.
 		if (Physics.Linecast (transform.parent.position, desiredCameraPos, out hit))
 		{
-			if(hit.collider.gameObject.layer != 8)
+			if(hit.collider.gameObject.layer != 10)
 			{
 				// Set the distance to the hit distance of the object clamped.
 				distance = Mathf.Clamp ((hit.distance * 0.87f), minDistance, maxDistance);

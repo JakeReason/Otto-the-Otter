@@ -9,57 +9,44 @@ using UnityEngine.UI;
 public class CollectableManager : MonoBehaviour
 {
 	[SerializeField]
-	// Amount of sticks collected.
-	int m_nSticks;
+	// Amount of Clams collected.
+	float m_fClams;
 
 	[SerializeField]
-	// Used to update the UI counter for the sticks.
+	// Amount of Clams collected.
+	float m_fFlowersCollected;
+
+	[SerializeField]
+	// Amount of Lives collected.
+	float m_fLives;
+
+	[SerializeField]
+	// Amount untill next Life.
+	float m_fNextLife;
+
+	[SerializeField]
+	// Used to update the UI counter for the Clams.
 	private Text m_text;
 
 	[SerializeField]
 	// Used to change the family member UI image.
-	private Image m_image;
+	private Image m_flowerImage;
 
 	[SerializeField]
 	// Used to change the family member UI sprite.
-	private Sprite m_fatherNotFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_fatherFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_motherNotFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_motherFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_grandfatherNotFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_grandfatherFoundImage;
-
-	[SerializeField]
-	// Used to change the family member UI sprite.
-	private Sprite m_youngerbrotherNotFoundImage;
-
-	[SerializeField]
-	private Sprite m_youngerbrotherFoundImage;
+	private Sprite[] m_flowerSprites;
 
 	// An array of 4 GameObjects which will keep track of the family members.
-	GameObject[] m_familyMembers = new GameObject[4];
+	public GameObject[] m_flowers;
+
+	public Transform m_checkPoint;
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake ()
 	{
-		ResetCollectables();
+		ResetClams();
 	}
 
 	//--------------------------------------------------------------------------------
@@ -69,45 +56,50 @@ public class CollectableManager : MonoBehaviour
 	void Update ()
 	{
 		// Changes the ui here when that gets around to bein done.
-		m_text.text = "Sticks:" + m_nSticks;
+		m_text.text = "Clams:" + m_fClams;
+		if(m_fClams >= m_fNextLife)
+		{
+			m_fLives += 1.0f;
+			ResetClams();
+		}
 	}
 
 	//--------------------------------------------------------------------------------
-	// Used to add sticks.
+	// Used to add Clams.
 	//
 	// Param:
-	//		AmountAdded: set amount of sticks to add from the player's score.
+	//		AmountAdded: set amount of Clams to add from the player's score.
 	//--------------------------------------------------------------------------------
-	public void AddSticks(int AmountAdded)
+	public void AddClams(int AmountAdded)
 	{
 		// Adds an amount to the stick score.
-		m_nSticks += AmountAdded;
+		m_fClams += AmountAdded;
 	}
 
 	//--------------------------------------------------------------------------------
-	// Used to remove sticks.
+	// Used to remove Clams.
 	//
 	// Param:
-	//		AmountRemoved: set amount of sticks to remove from the player's score.
+	//		AmountRemoved: set amount of Clams to remove from the player's score.
 	//--------------------------------------------------------------------------------
-	public void RemoveSticks(int AmountRemoved)
+	public void RemoveClams(int AmountRemoved)
 	{
 		// Removes an amount from the stick score.
-		m_nSticks -= AmountRemoved;
+		m_fClams -= AmountRemoved;
 	}
 
 	//--------------------------------------------------------------------------------
 	// Used to reset all collectables back to 0.
 	//--------------------------------------------------------------------------------
-	public void ResetCollectables()
+	public void ResetClams()
 	{
 		// Resets the stick count.
-		m_nSticks = 0;
-		// Resets the family members.
-		for(int i = 0; i < m_familyMembers.Length; ++i)
-		{
-			m_familyMembers[i] = null;
-		}
+		m_fClams = 0;
+	}
+
+	public void RemoveLife()
+	{
+		m_fLives -= 1;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -117,36 +109,10 @@ public class CollectableManager : MonoBehaviour
 	// Param:
 	//		FamilyMember: used to determine which family member has been found.
 	//--------------------------------------------------------------------------------
-	public void AddFamilyMember(GameObject FamilyMember)
+	public void AddFlower(int nFlowerToCollect)
 	{
-		// If the Father has been collected then store it in the array.
-		// Also change the image from the not collect to collected.
-		if (FamilyMember.tag == "Father")
-		{
-			m_familyMembers[0] = FamilyMember;
-			m_image.sprite = m_fatherFoundImage;
-		}
-		// If the Mother has been collected then store it in the array.
-		// Also change the image from the not collect to collected.
-		if (FamilyMember.tag == "Mother")
-		{
-			m_familyMembers[1] = FamilyMember;
-			m_image.sprite = m_motherFoundImage;
-		}
-		// If the Grandfather has been collected then store it in the array.
-		// Also change the image from the not collect to collected.
-		if (FamilyMember.tag == "Grandfather")
-		{
-			m_familyMembers[2] = FamilyMember;
-			m_image.sprite = m_grandfatherFoundImage;
-		}
-		// If the Younger Brother has been collected then store it in the array.
-		// Also change the image from the not collect to collected.
-		if (FamilyMember.tag == "Younger Brother")
-		{
-			m_familyMembers[3] = FamilyMember;
-			m_image.sprite = m_youngerbrotherFoundImage;
-		}
+		m_fFlowersCollected += 1;
+		m_flowerImage.sprite = m_flowerSprites[nFlowerToCollect];
 	}
 
 	//--------------------------------------------------------------------------------
@@ -155,27 +121,18 @@ public class CollectableManager : MonoBehaviour
 	// Param:
 	//		FamilMember: used to set which family member image is displayed.
 	//--------------------------------------------------------------------------------
-	public void SetFamilyMemberToFind(int FamilyMember)
+	public void SetCurrentFlowerToFind(int nFlowerToFind)
 	{
-		// Sets the image to the father which indicates what family member to find.
-		if (FamilyMember == 1)
-		{
-			m_image.sprite = m_fatherNotFoundImage;
-		}
-		// Sets the image to the mother which indicates what family member to find.
-		if (FamilyMember == 2)
-		{
-			m_image.sprite = m_motherNotFoundImage;
-		}
-		// Sets the image to the grandfather which indicates what family member to find.
-		if (FamilyMember == 3)
-		{
-			m_image.sprite = m_grandfatherNotFoundImage;
-		}
-		// Sets the image to the younger brother which indicates what family member to find.
-		if (FamilyMember == 4)
-		{
-			m_image.sprite = m_youngerbrotherNotFoundImage;
-		}
+		m_flowerImage.sprite = m_flowerSprites[nFlowerToFind];
+	}
+
+	public void SetCurrentCheckPoint(Transform nCheckPoint)
+	{
+		m_checkPoint = nCheckPoint;
+	}
+
+	public float GetLives()
+	{
+		return m_fLives;
 	}
 }

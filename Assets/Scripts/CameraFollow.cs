@@ -56,6 +56,8 @@ public class CameraFollow : MonoBehaviour
 	// Speed of the lerp rotation.
 	private float m_fLerpSpeed = 0.1f;
 
+	public float m_fTurnSmoothSpeed = 0.5f;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -77,27 +79,37 @@ public class CameraFollow : MonoBehaviour
 		// TODO: Smooth the camera collision with teh ground.
 		// TODO: Make the camera do a smooth movetowards when the player falls.
 		// TODO: Fix the diagonal distance bug. Check if fixed should be fixed.
-
+		Debug.Log("X");
+		Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickX));
+		Debug.Log("Y");
+		Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickY));
 		CameraInput();
-		// TODO: Set the camera up to move behind the player when they are moving and the camera is not moving. 
+		// TODO: Slowly rotate the camera when the player runs away left and right aswell as towards. 
 		// May not be needed if this works.
 		// Set finalinput to euqual a value so the camera slowly turns as the player runs.
-		//if(XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0)
-		//{
-		//	finalInputX = -0.05f;
-		//}
-		//else if(XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0)
-		//{
-		//	finalInputX = 0.05f;
-		//}
-		//else if(XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0)
-		//{
-		//	finalInputX = -0.05f;
-		//}
-		//else if(XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0)
-		//{
-		//	finalInputX = 0.05f;
-		//}
+		// use velocity to determine if the player os moving.
+		// make the camera slow down when hitting the angle clamps
+		if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0 
+			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		{
+			finalInputX = -m_fTurnSmoothSpeed;
+			
+		}
+		else if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
+			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		{
+			finalInputX = m_fTurnSmoothSpeed;
+		}
+		else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0
+			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		{
+			finalInputX = -m_fTurnSmoothSpeed;
+		}
+		else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
+			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		{
+			finalInputX = m_fTurnSmoothSpeed;
+		}
 
 		SetRotation();
 		RotateCamera();
