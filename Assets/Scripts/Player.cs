@@ -126,8 +126,11 @@ public class Player : MonoBehaviour
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
 
-		// Gets reference to the collectable manager script.
-		m_CM = m_collectableManager.GetComponent<CollectableManager>();
+		if (m_collectableManager)
+		{
+			// Gets reference to the collectable manager script.
+			m_CM = m_collectableManager.GetComponent<CollectableManager>();
+		}
 
 		// Calculates the flashing rate from the reciprocal of public float flash rate
 		m_fFlashingRate = 1 / m_fFlashRate;

@@ -23,6 +23,11 @@ public class HookDetector : MonoBehaviour
 
     void Update()
     {
+		if (m_player.GetComponent<GrapplingHook>())
+		{
+			Debug.Log("NO HOOK SON!");
+		}
+
         if (m_player.GetComponent<GrapplingHook>().GetFired())
         {
             m_collider.enabled = true;
