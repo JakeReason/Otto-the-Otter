@@ -1023,11 +1023,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 18fb6b955c602b542a64dd64aaee800c, type: 3}
   - {fileID: 21300000, guid: 756f12c241c03774bb8a4b116d94856f, type: 3}
   - {fileID: 21300000, guid: d17d34fd38a5dfd44825d2207457ee41, type: 3}
-  m_flowers:
-  - {fileID: 1554989524}
-  - {fileID: 2107197629}
-  - {fileID: 86189073}
-  - {fileID: 4063988}
   m_checkPoint: {fileID: 1799322616}
 --- !u!4 &533462338
 Transform:
@@ -1051,7 +1046,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4001990027299574, guid: cab407df967b0f440a4ddac013542740, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 17.33
+      value: 11.82
       objectReference: {fileID: 0}
     - target: {fileID: 4001990027299574, guid: cab407df967b0f440a4ddac013542740, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1699,7 +1694,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1088616774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.01, y: 1.1657001, z: 2.84}
+  m_LocalPosition: {x: 0.61, y: 1.1657001, z: 2.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1957,12 +1952,12 @@ Prefab:
     - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
         type: 2}
       propertyPath: inputSensitivity
-      value: 75
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
         type: 2}
@@ -2024,6 +2019,36 @@ Prefab:
       propertyPath: playerpos
       value: 
       objectReference: {fileID: 2042668317}
+    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: MinClampAngleY
+      value: -181
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: MaxClampAngleY
+      value: 181
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: MinClampAngleX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: MaxClampAngleX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: maxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
+        type: 2}
+      propertyPath: OccluderMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291fe07367ffe8440a2a2446e6a04a35, type: 2}
   m_IsPrefabParent: 0
@@ -2986,7 +3011,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sticks:'
+  m_Text: 'Clams:'
 --- !u!222 &2054408199
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,38 +17,34 @@ public class CameraFollow : MonoBehaviour
 	private GameObject CameraFollowObj;
 
 	[SerializeField]
-	// Clamps the max up angle.
-	private float MaxClampAngle = 80.0f;
-
-	[SerializeField]
 	// Clamps the min down angle.
-	private float MinClampAngle = -45.0f;
+	private float AngleHieght = 30.0f;
+
+	// Clamps the max up angle.
+	private float MaxClampAngleX = 80.0f;
+
+	// Clamps the min down angle.
+	private float MinClampAngleX = -45.0f;
 
 	[SerializeField]
 	// Used to apply the rotation with the input from the analog stick or mouse.
 	private float inputSensitivity = 150.0f;
 
-	[SerializeField]
 	// Mouse X input used for looking around.
 	private float mouseX;
 
-	[SerializeField]
 	// Mouse Y input used for looking around.
 	private float mouseY;
 
-	[SerializeField]
 	// Final input for rotation on the X axis.
 	private float finalInputX;
 
-	[SerializeField]
 	// Final input for rotation on the Y axis.
 	private float finalInputZ;
 
-	[SerializeField]
 	// Rotation on the Y.
 	private float rotY = 0.0f;
 
-	[SerializeField]
 	// Rotation on the X.
 	private float rotX = 0.0f;
 
@@ -69,6 +65,8 @@ public class CameraFollow : MonoBehaviour
 		rotX = rot.x;
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		MaxClampAngleX = AngleHieght;
+		MinClampAngleX = AngleHieght;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -79,38 +77,38 @@ public class CameraFollow : MonoBehaviour
 		// TODO: Smooth the camera collision with teh ground.
 		// TODO: Make the camera do a smooth movetowards when the player falls.
 		// TODO: Fix the diagonal distance bug. Check if fixed should be fixed.
-		Debug.Log("X");
-		Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickX));
-		Debug.Log("Y");
-		Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickY));
-		CameraInput();
+		//Debug.Log("X");
+		//Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickX));
+		//Debug.Log("Y");
+		//Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickY));
 		// TODO: Slowly rotate the camera when the player runs away left and right aswell as towards. 
 		// May not be needed if this works.
 		// Set finalinput to euqual a value so the camera slowly turns as the player runs.
 		// use velocity to determine if the player os moving.
 		// make the camera slow down when hitting the angle clamps
-		if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0 
-			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		{
-			finalInputX = -m_fTurnSmoothSpeed;
+		//if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0 
+		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		//{
+		//	finalInputX = -m_fTurnSmoothSpeed;
 			
-		}
-		else if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
-			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		{
-			finalInputX = m_fTurnSmoothSpeed;
-		}
-		else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0
-			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		{
-			finalInputX = -m_fTurnSmoothSpeed;
-		}
-		else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
-			&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		{
-			finalInputX = m_fTurnSmoothSpeed;
-		}
+		//}
+		//else if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
+		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		//{
+		//	finalInputX = m_fTurnSmoothSpeed;
+		//}
+		//else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0
+		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		//{
+		//	finalInputX = -m_fTurnSmoothSpeed;
+		//}
+		//else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
+		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
+		//{
+		//	finalInputX = m_fTurnSmoothSpeed;
+		//}
 
+		CameraInput();
 		SetRotation();
 		RotateCamera();
 	}
@@ -156,7 +154,7 @@ public class CameraFollow : MonoBehaviour
 		rotY += finalInputX * inputSensitivity * Time.deltaTime;
 		rotX += finalInputZ * inputSensitivity * Time.deltaTime;
 		// Clamps the rotation so gimble lock does not occur including other problems.
-		rotX = Mathf.Clamp(rotX, MinClampAngle, MaxClampAngle);
+		rotX = Mathf.Clamp(rotX, MinClampAngleX, MaxClampAngleX);
 	}
 
 	void RotateCamera()

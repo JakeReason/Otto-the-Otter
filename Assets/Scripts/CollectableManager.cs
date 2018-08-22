@@ -55,9 +55,13 @@ public class CollectableManager : MonoBehaviour
 	// TODO: may need to change ui for clam count.
 	void Update ()
 	{
+	}
+
+	public void UpdateUI()
+	{
 		// Changes the ui here when that gets around to bein done.
 		m_text.text = "Clams:" + m_fClams;
-		if(m_fClams >= m_fNextLife)
+		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
 			ResetClams();

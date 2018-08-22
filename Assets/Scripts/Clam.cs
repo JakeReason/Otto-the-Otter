@@ -43,6 +43,7 @@ public class Clam : MonoBehaviour
 		{
 			// Adds the stick to the collectable manager.
 			m_CM.AddClams(m_nClamAmount);
+			m_CM.UpdateUI();
 			gameObject.SetActive(false);
 		}
 	}

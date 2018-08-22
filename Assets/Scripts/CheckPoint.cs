@@ -36,7 +36,6 @@ public class CheckPoint : MonoBehaviour
 		{
 			// Adds the stick to the collectable manager.
 			m_CM.SetCurrentCheckPoint(transform);
-			gameObject.SetActive(false);
 		}
 	}
 }
