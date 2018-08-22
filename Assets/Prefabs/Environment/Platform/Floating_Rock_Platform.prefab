@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 33231878079022576}
   - component: {fileID: 23849482489291070}
   - component: {fileID: 95085393132454064}
+  - component: {fileID: 64823289320679358}
   m_Layer: 0
   m_Name: Floating_Rock_1
   m_TagString: Untagged
@@ -250,8 +251,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998052536178230}
-  m_LocalRotation: {x: -0, y: 0.72502226, z: -0, w: -0.68872553}
-  m_LocalPosition: {x: -10.13, y: -6.25, z: 22.15}
+  m_LocalRotation: {x: -0, y: -0.99868256, z: -0, w: -0.051314436}
+  m_LocalPosition: {x: 16.120695, y: -5.53, z: 22.226511}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4004703253859088}
@@ -551,6 +552,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1659423875566596}
   m_Mesh: {fileID: 4300000, guid: 5ad9cebfa17122f4289bccfdd90b3185, type: 3}
+--- !u!64 &64823289320679358
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1061717242557522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 313fc4b074c06d64396dc38afb5dc9b3, type: 3}
 --- !u!95 &95085393132454064
 Animator:
   serializedVersion: 3
