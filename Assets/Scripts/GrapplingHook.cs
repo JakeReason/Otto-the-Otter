@@ -104,7 +104,7 @@ public class GrapplingHook : MonoBehaviour
 		// Defines the original transform to equal the hook's transform
 		m_originalTransform = m_hook.transform;
 
-		m_hookableText.text = "No Objects Nearby.";
+		//m_hookableText.text = "No Objects Nearby.";
 	}
 
 	//--------------------------------------------------------------------------------
@@ -116,11 +116,11 @@ public class GrapplingHook : MonoBehaviour
 		HookRangeCheck();
 
 		// Checks if there are any GameObjects in Hooks In Range lists
-		if (m_hooksInRange[0] != null)
-		{
-			m_hookableText.text = "Objects Nearby!";
-			m_target = m_hooksInRange[0].transform;			
-		}
+		//if (m_hooksInRange[0] != null)
+		//{
+		//	m_hookableText.text = "Objects Nearby!";
+		//	m_target = m_hooksInRange[0].transform;			
+		//}
 
 		// Sets fired bool to equal true if fire button has been pressed
 		if (Input.GetButtonDown("Fire1") && !m_bFired)
@@ -149,19 +149,20 @@ public class GrapplingHook : MonoBehaviour
 		// Runs if fired book is true but hooked bool is false
 		if (m_bFired && !m_bHooked)
 		{
-			// Fires hook forward if the player has no target
-			if (m_target == null)
-			{
-				m_hook.transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
-			}
-			// Otherwise fires hook towards the target if there is a target
-			else
-			{
-				m_hook.transform.position = Vector3.MoveTowards(m_hook.transform.position,
-																m_target.position,
-																m_fHookTravelSpeed *
-																Time.deltaTime);
-			}
+			m_hook.transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
+			//// Fires hook forward if the player has no target
+			//if (m_target == null)
+			//{
+			//	m_hook.transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
+			//}
+			//// Otherwise fires hook towards the target if there is a target
+			//else
+			//{
+			//	m_hook.transform.position = Vector3.MoveTowards(m_hook.transform.position,
+			//													m_target.position,
+			//													m_fHookTravelSpeed *
+			//													Time.deltaTime);
+			//}
 
 			// Detects distance between the player and the hook and stores in float
 			m_fCurrentDistance = Vector3.Distance(transform.position,

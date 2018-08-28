@@ -21,10 +21,10 @@ public class Player : MonoBehaviour
     public Image m_healthImage;
 
 	// Sprite represents when the player is on half of its health
-    public Sprite m_halfHealth;
+    public Image m_halfHealth;
 
 	// Indicates the sprite shown when the player is at full health
-    public Sprite m_fullHealth;
+    public Image m_fullHealth;
 
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
 		m_animator.SetBool("Landing", false);
 
 		// Stores the full heath sprite as the current health image
-		m_healthImage.sprite = m_fullHealth;
+		m_healthImage = m_fullHealth;
 
         // Gets the CharacterController component on awake
         m_cc = GetComponent<CharacterController>();
@@ -403,7 +403,7 @@ public class Player : MonoBehaviour
         {
 			// Deducts one bar of health from the player and updates UI
             m_nHealth -= 1;
-            m_healthImage.sprite = m_halfHealth;
+            m_healthImage = m_halfHealth;
 
 			// Calls the death function if the player's health is zero
             if (m_nHealth <= 0)
@@ -427,7 +427,7 @@ public class Player : MonoBehaviour
         if (m_nHealth != 2)
         {
             m_nHealth = 2;
-            m_healthImage.sprite = m_fullHealth;
+            m_healthImage = m_fullHealth;
         }
     }
 
@@ -450,7 +450,7 @@ public class Player : MonoBehaviour
 		
 		// Resets health back to full health and updates the UI
         m_nHealth = 2;
-        m_healthImage.sprite = m_fullHealth;
+        m_healthImage = m_fullHealth;
     }
 
 	//--------------------------------------------------------------------------------
