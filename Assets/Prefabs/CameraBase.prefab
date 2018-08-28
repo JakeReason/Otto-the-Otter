@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1083483285457314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.23635519, z: 0}
+  m_LocalPosition: {x: 0, y: 1.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536253097577996}
@@ -171,16 +171,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraMoveSpeed: 10
   CameraFollowObj: {fileID: 0}
-  MaxClampAngle: 80
-  MinClampAngle: -25
-  inputSensitivity: 75
-  mouseX: 0
-  mouseY: 0
-  finalInputX: 0
-  finalInputZ: 0
-  rotY: 0
-  rotX: 0
+  AngleHieght: 30
+  inputSensitivity: 150
   m_fLerpSpeed: 10
+  m_fTurnSmoothSpeed: 0.5
 --- !u!114 &114802670909009308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -193,11 +187,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistance: 2
-  maxDistance: 10
+  maxDistance: 5
   smooth: 1000
-  distance: 0
+  distance: 10
   m_fChangeTime: 0
   dollyDir: {x: 0, y: 0, z: 0}
+  m_fDistanceFromGround: 1
+  CollisionLayers:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!114 &114892647642201422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,11 +210,16 @@ MonoBehaviour:
   WatchTarget: {fileID: 0}
   OccluderMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4294967295
   HiderMaterial: {fileID: 2100000, guid: 159e513a1957e6c4ba8dc291b36a5636, type: 2}
-  HitMaterial: {fileID: 0}
-  duration: 2
+  HitMaterial: {fileID: 2100000, guid: 6d00050dcb96db04abf6d7f6f43ce063, type: 2}
+  duration: 1
   rend: {fileID: 0}
+  dollyDir: {x: 0, y: 0, z: 0}
+  m_fDistance: 5
+  m_fSmooth: 10
+  m_fChangeTime: 0
+  m_fCamDistance: 10
 --- !u!124 &124186638203424042
 Behaviour:
   m_ObjectHideFlags: 1

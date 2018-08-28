@@ -1919,11 +1919,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: WatchTarget
-      value: 
-      objectReference: {fileID: 2042668317}
     - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
         type: 2}
       propertyPath: CameraFollowObj
@@ -1931,124 +1926,9 @@ Prefab:
       objectReference: {fileID: 2042668316}
     - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
         type: 2}
-      propertyPath: HiderMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 159e513a1957e6c4ba8dc291b36a5636, type: 2}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: WallMateriral
-      value: 
-      objectReference: {fileID: 2100000, guid: 6f6015bc22bd7cd42a3003e1184fd757, type: 2}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: WallMaterial
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: duration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: inputSensitivity
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: distance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: m_fLerpSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: smooth
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: MinClampAngle
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: CameraMoveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: CollisionLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: HitMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 6d00050dcb96db04abf6d7f6f43ce063, type: 2}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: m_CollisionHandler.m_collisionLayer.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: CollisionLayers.m_Bits
-      value: 1280
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: playerpos
+      propertyPath: WatchTarget
       value: 
       objectReference: {fileID: 2042668317}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: MinClampAngleY
-      value: -181
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: MaxClampAngleY
-      value: 181
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: MinClampAngleX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657759260248980, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: MaxClampAngleX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802670909009308, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: maxDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892647642201422, guid: 291fe07367ffe8440a2a2446e6a04a35,
-        type: 2}
-      propertyPath: OccluderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291fe07367ffe8440a2a2446e6a04a35, type: 2}
   m_IsPrefabParent: 0
