@@ -115,7 +115,7 @@ public class GrapplingHook : MonoBehaviour
 		// Calls function to check if a hookable object is in range
 		HookRangeCheck();
 
-		// Checks if there are any GameObjects in Hooks In Range lists
+		//// Checks if there are any GameObjects in Hooks In Range lists
 		//if (m_hooksInRange[0] != null)
 		//{
 		//	m_hookableText.text = "Objects Nearby!";
@@ -178,7 +178,6 @@ public class GrapplingHook : MonoBehaviour
 		// If statement runs if both hooked and fired bools are true
 		if (m_bHooked && m_bFired)
 		{
-
 			// Sets the hook's parent transform to equal the transform as the hooked object
 			m_hook.transform.parent = m_hookedObj.transform;
 

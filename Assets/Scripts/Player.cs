@@ -91,9 +91,6 @@ public class Player : MonoBehaviour
     // Jump Timer represents how long the player has been jumping for
     private float m_fJumpTimer;
 
-    // Private float indicates the movement on the x axis while jumping
-    private float m_fMovementX;
-
 	// Keeps track of how long the playercan be invicible for after getting hit
     private float m_fHealthTimer;
 
@@ -168,7 +165,6 @@ public class Player : MonoBehaviour
 
         // Initialises private floats to equal zero
         m_fJumpTimer = 0.0f;
-        m_fMovementX = 0.0f;
         m_fHealthTimer = 0.0f;
 
         // Sets the health of the player to equal two when script is called
@@ -199,8 +195,39 @@ public class Player : MonoBehaviour
 		m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
 										Input.GetAxis("Vertical"));
 
-		// Stores the x value of Move Direction into the float for use when jumping
-		m_fMovementX = m_v3MoveDirection.x;
+		//if (m_v3MoveDirection.x > -0.3f && m_v3MoveDirection.x < 0.3f)
+		//{
+		//	m_v3MoveDirection.x = 0.0f;
+		//}
+
+		//if (m_v3MoveDirection.z > -0.3f && m_v3MoveDirection.z < 0.3f)
+		//{
+		//	m_v3MoveDirection.z = 0.0f;
+		//}
+
+		// Top right
+		if (m_v3MoveDirection.x > 0.9f && m_v3MoveDirection.z > 0.9f)
+		{
+			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
+		}
+
+		// Bottom right
+		if (m_v3MoveDirection.x > 0.9f && m_v3MoveDirection.z < -0.9f)
+		{
+			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
+		}
+
+		// Top left
+		if (m_v3MoveDirection.x < -0.9f && m_v3MoveDirection.z > 0.9f)
+		{
+			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
+		}
+
+		// Bottom left
+		if (m_v3MoveDirection.x < -0.9f && m_v3MoveDirection.z < -0.9f)
+		{
+			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
+		}
 
 		// Sets the look direction to equal the direction the control stick is facing
 		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
@@ -287,8 +314,15 @@ public class Player : MonoBehaviour
 			m_v3MoveDirection = Vector3.zero;
 		}
 
+		Quaternion previous = Quaternion.Euler(m_v3PreviousLook.x, 0.0f, m_v3PreviousLook.z);
+		Quaternion current = Quaternion.Euler(m_v3LookDirection.x, 0.0f, m_v3LookDirection.z);
+
+		transform.rotation = Quaternion.Lerp(previous, current, 0.1f * Time.deltaTime);
+
+		//transform.Rotate(m_v3MoveDirection);
+
 		// Adds movement to CharacterController based on move direction and delta time
-		m_cc.Move(m_v3MoveVector * Time.deltaTime);
+		//m_cc.Move(m_v3MoveVector * Time.deltaTime);
 
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
