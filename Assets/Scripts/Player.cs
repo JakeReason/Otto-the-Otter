@@ -197,16 +197,16 @@ public class Player : MonoBehaviour
 		m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
 										Input.GetAxis("Vertical"));
 
-		if (m_v3MoveDirection.magnitude < m_fDeadZone)
-		{
-			m_v3MoveDirection = Vector3.zero;
-		}
+		//if (m_v3MoveDirection.magnitude < m_fDeadZone)
+		//{
+		//	m_v3MoveDirection = Vector3.zero;
+		//}
 
-		float fAngle = Vector3.Angle(Vector3.forward, m_v3MoveDirection);
+		//float fAngle = Vector3.Angle(Vector3.forward, m_v3MoveDirection);
 
-		fAngle = (m_v3MoveDirection.x > 0) ? fAngle : fAngle * -1;
+		//fAngle = (m_v3MoveDirection.x > 0) ? fAngle : fAngle * -1;
 
-		transform.rotation = Quaternion.Euler(0, fAngle, 0);
+		//transform.rotation = Quaternion.Euler(0, fAngle, 0);
 
 		// Sets the look direction to equal the direction the control stick is facing
 		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
