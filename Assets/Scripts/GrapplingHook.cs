@@ -52,12 +52,6 @@ public class GrapplingHook : MonoBehaviour
 	// Indicates the initial transform of the hook
 	private Transform m_originalTransform;
 
-	// List contains all hookable objects as GameObjects
-	private List<GameObject> m_hookList;
-
-	// Contains all of the hookable objects in range of the player
-	private List<GameObject> m_hooksInRange;
-
 	// Transform represents the transform of the locked on target
 	private Transform m_target;
 
@@ -72,39 +66,11 @@ public class GrapplingHook : MonoBehaviour
 		// Gets the Line Renderer component from the hook child
 		m_rope = m_hook.GetComponent<LineRenderer>();
 
-		// Declares a "new" list of hookable objects
-		m_hookList = new List<GameObject>();
-
-		// Creates a "new" list of all in range hookable objects
-		m_hooksInRange = new List<GameObject>();
-
-		// If statement runs if the list of hookable objects is empty
-		if (m_hookList == null)
-		{
-			// Stores all GameObjects with the tag "Hookable" in local array
-			GameObject[] hookables = GameObject.FindGameObjectsWithTag("Hookable");
-
-			// Runs for every GameObject in the hookables local array
-			for (int i = 0; i < (hookables.Length - 1); ++i)
-			{
-				// Adds the hookable object to the hookable list if the slot is not null
-				if (hookables[i] != null)
-				{
-					m_hookList.Add(hookables[i]);
-				}
-			}
-		}
-
-		// Sets the hookable objects in range list to initially be empty
-		m_hooksInRange.Add(null);
-
 		// Declares the target transform to be null
 		m_target = null;
 
 		// Defines the original transform to equal the hook's transform
 		m_originalTransform = m_hook.transform;
-
-		//m_hookableText.text = "No Objects Nearby.";
 	}
 
 	//--------------------------------------------------------------------------------
@@ -112,16 +78,6 @@ public class GrapplingHook : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update()
 	{
-		// Calls function to check if a hookable object is in range
-		HookRangeCheck();
-
-		//// Checks if there are any GameObjects in Hooks In Range lists
-		//if (m_hooksInRange[0] != null)
-		//{
-		//	m_hookableText.text = "Objects Nearby!";
-		//	m_target = m_hooksInRange[0].transform;			
-		//}
-
 		// Sets fired bool to equal true if fire button has been pressed
 		if (Input.GetButtonDown("Fire1") && !m_bFired)
 		{
@@ -150,19 +106,6 @@ public class GrapplingHook : MonoBehaviour
 		if (m_bFired && !m_bHooked)
 		{
 			m_hook.transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
-			//// Fires hook forward if the player has no target
-			//if (m_target == null)
-			//{
-			//	m_hook.transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
-			//}
-			//// Otherwise fires hook towards the target if there is a target
-			//else
-			//{
-			//	m_hook.transform.position = Vector3.MoveTowards(m_hook.transform.position,
-			//													m_target.position,
-			//													m_fHookTravelSpeed *
-			//													Time.deltaTime);
-			//}
 
 			// Detects distance between the player and the hook and stores in float
 			m_fCurrentDistance = Vector3.Distance(transform.position,
@@ -225,50 +168,6 @@ public class GrapplingHook : MonoBehaviour
 
 		// Calls the return hook function after yielding for 0.1 seconds
 		ReturnHook();
-	}
-
-	//--------------------------------------------------------------------------------
-	// Waits for one second before continuing running code.
-	//
-	// Return:
-	//		Returns the amount of time program needs to wait for.
-	//--------------------------------------------------------------------------------
-	IEnumerator RangeCheck()
-	{
-		yield return new WaitForSeconds(0.1f);
-	}
-
-	//--------------------------------------------------------------------------------
-	// Detects if any hookable objects are in range.
-	//--------------------------------------------------------------------------------
-	private void HookRangeCheck()
-	{
-		// Runs for every hookable object in the hook list
-		for (int i = 0; i < m_hookList.Count; ++i)
-		{
-			// Records distance between player and current hookable object in local float
-			float fDist = Vector3.Distance(transform.position,
-										   m_hookList[i].transform.position);
-
-			//Debug.Log("Distance: " + fDist + ", Range: " + m_fHookDistance);
-
-			// Checks if the hookable object is in range from player
-			if (fDist < m_fHookDistance)
-			{
-				// Adds the currently selected object to hook in range list
-				m_hooksInRange.Add(m_hookList[i]);
-			}
-
-			// Else if the hooks in range list has object and hookable object isn't in range
-			if (m_hooksInRange.Contains(m_hookList[i]) && fDist >= m_fHookDistance)
-			{
-				// Removes that object from the hook 
-				m_hooksInRange.Remove(m_hookList[i]);
-			}
-		}
-
-		// Calls the RangeCheck coroutine by calling RangeCheck function
-		//StartCoroutine("RangeCheck");
 	}
 
 	//--------------------------------------------------------------------------------

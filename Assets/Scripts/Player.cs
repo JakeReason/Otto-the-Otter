@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
     // Float indicates the speed of the player's jump
     public float m_fJumpSpeed = 8.0f;
 
+	[Range(0.01f, 1.0f)]
+	public float m_fDeadZone;
+
     // Public float adds more gravity when player is falling (allows floats from 1-10)
     [Range(1.0f, 10.0f)]
     public float m_fExtraGravity = 4.0f;
@@ -173,7 +176,6 @@ public class Player : MonoBehaviour
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bRecovering = false;
-
 	}
 
     //--------------------------------------------------------------------------------
@@ -195,38 +197,9 @@ public class Player : MonoBehaviour
 		m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
 										Input.GetAxis("Vertical"));
 
-		//if (m_v3MoveDirection.x > -0.3f && m_v3MoveDirection.x < 0.3f)
-		//{
-		//	m_v3MoveDirection.x = 0.0f;
-		//}
-
-		//if (m_v3MoveDirection.z > -0.3f && m_v3MoveDirection.z < 0.3f)
-		//{
-		//	m_v3MoveDirection.z = 0.0f;
-		//}
-
-		// Top right
-		if (m_v3MoveDirection.x > 0.9f && m_v3MoveDirection.z > 0.9f)
+		if (m_v3MoveDirection.magnitude < m_fDeadZone)
 		{
-			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
-		}
-
-		// Bottom right
-		if (m_v3MoveDirection.x > 0.9f && m_v3MoveDirection.z < -0.9f)
-		{
-			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
-		}
-
-		// Top left
-		if (m_v3MoveDirection.x < -0.9f && m_v3MoveDirection.z > 0.9f)
-		{
-			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
-		}
-
-		// Bottom left
-		if (m_v3MoveDirection.x < -0.9f && m_v3MoveDirection.z < -0.9f)
-		{
-			Debug.Log("x = " + m_v3MoveDirection.x + ", z = " + m_v3MoveDirection.z);
+			m_v3MoveDirection = Vector3.zero; 
 		}
 
 		// Sets the look direction to equal the direction the control stick is facing
@@ -248,8 +221,6 @@ public class Player : MonoBehaviour
 		// Detects if Grappling Hook is hooked on an object
 		if (m_grapplingScript.GetHooked())
 		{
-			//animator.SetBool("Grapple", true);
-
 			// Sets gravity to equal the zero Vector3
 			m_v3Gravity = Vector3.zero;
 		}
@@ -317,12 +288,21 @@ public class Player : MonoBehaviour
 		Quaternion previous = Quaternion.Euler(m_v3PreviousLook.x, 0.0f, m_v3PreviousLook.z);
 		Quaternion current = Quaternion.Euler(m_v3LookDirection.x, 0.0f, m_v3LookDirection.z);
 
-		transform.rotation = Quaternion.Lerp(previous, current, 0.1f * Time.deltaTime);
+		//transform.rotation = Quaternion.Lerp(previous, current, 0.1f * Time.deltaTime);
 
-		//transform.Rotate(m_v3MoveDirection);
+		transform.Rotate(m_v3MoveDirection);
+
+		if (m_v3MoveDirection.sqrMagnitude > 1.0f)
+		{
+			//Debug.Log("Magnitude needs normalising!!");
+
+			m_v3MoveDirection.Normalize();
+
+			Debug.Log(m_v3MoveDirection.magnitude);
+		}
 
 		// Adds movement to CharacterController based on move direction and delta time
-		//m_cc.Move(m_v3MoveVector * Time.deltaTime);
+		m_cc.Move(m_v3MoveVector * Time.deltaTime);
 
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
@@ -437,7 +417,8 @@ public class Player : MonoBehaviour
         {
 			// Deducts one bar of health from the player and updates UI
             m_nHealth -= 1;
-            m_healthImage = m_halfHealth;
+			m_halfHealth.enabled = true;
+			m_fullHealth.enabled = false;
 
 			// Calls the death function if the player's health is zero
             if (m_nHealth <= 0)
@@ -461,8 +442,10 @@ public class Player : MonoBehaviour
         if (m_nHealth != 2)
         {
             m_nHealth = 2;
-            m_healthImage = m_fullHealth;
-        }
+
+			m_halfHealth.enabled = false;
+			m_fullHealth.enabled = true;
+		}
     }
 
     //--------------------------------------------------------------------------------
@@ -470,22 +453,26 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
-		m_CM.RemoveLife();
+		//m_CM.RemoveLife();
 
-		if (m_CM.GetLives() > 0)
-		{
-			transform.position = m_CM.GetCheckPoint().position;
-		}
-		else
-		{
-			// Sets the player's position back to Vector3 zero
-			transform.position = Vector3.zero;
-		}
+		//if (m_CM.GetLives() > 0)
+		//{
+		//	transform.position = m_CM.GetCheckPoint().position;
+		//}
+		//else
+		//{
+		//	// Sets the player's position back to Vector3 zero
+		//	transform.position = Vector3.zero;
+		//}
+
+		transform.position = Vector3.zero;
 		
 		// Resets health back to full health and updates the UI
         m_nHealth = 2;
-        m_healthImage = m_fullHealth;
-    }
+
+		m_halfHealth.enabled = false;
+		m_fullHealth.enabled = true;
+	}
 
 	//--------------------------------------------------------------------------------
 	// Function checks if a Mushroom is under the player using a raycast.

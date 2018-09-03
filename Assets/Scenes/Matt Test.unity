@@ -557,6 +557,15 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1965086397261482, guid: 700765bffb4b447408b84d8063e739c3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114249480391074826, guid: 700765bffb4b447408b84d8063e739c3,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 700765bffb4b447408b84d8063e739c3, type: 2}
   m_IsPrefabParent: 0
@@ -1625,6 +1634,16 @@ Prefab:
         type: 2}
       propertyPath: m_flashColour.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135458797090802492, guid: fa045dabe965ad145b764c6cfe1cf4bc,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135458797090802492, guid: fa045dabe965ad145b764c6cfe1cf4bc,
+        type: 2}
+      propertyPath: m_Radius
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa045dabe965ad145b764c6cfe1cf4bc, type: 2}
