@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using XboxCtrlrInput;
 
 public class CollectableManager : MonoBehaviour
 {
@@ -40,6 +41,18 @@ public class CollectableManager : MonoBehaviour
 	// Used to change the flower UI image.
 	private Image[] m_collectedFlowerImages;
 
+	[SerializeField]
+	// 
+	private GameObject m_flowerUI;
+
+	[SerializeField]
+	// 
+	private GameObject m_clamUI;
+
+	[SerializeField]
+	// 
+	private float m_fUITimer;
+
 	// An array of GameObjects which will keep track of the flowers.
 	//public GameObject[] m_flowers;
 
@@ -52,6 +65,8 @@ public class CollectableManager : MonoBehaviour
 	{
 		ResetClams();
 		UpdateUI();
+		m_flowerUI.SetActive(false);
+		m_clamUI.SetActive(false);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -60,6 +75,18 @@ public class CollectableManager : MonoBehaviour
 	// TODO: may need to change ui for clam count.
 	void Update()
 	{
+		m_fUITimer += Time.deltaTime;
+		if (XCI.GetButtonDown(XboxButton.Back))
+		{
+			m_fUITimer = 0;
+			m_flowerUI.SetActive(true);
+			m_clamUI.SetActive(true);
+		}
+		if(m_fUITimer >= 2)
+		{
+			m_flowerUI.SetActive(false);
+			m_clamUI.SetActive(false);
+		}
 	}
 
 	public void UpdateUI()
@@ -67,6 +94,11 @@ public class CollectableManager : MonoBehaviour
 		// Changes the ui here when that gets around to bein done.
 		m_clamText.text = m_fClams + "/" + m_fNextLife;
 		m_flowerText.text = m_fFlowersCollected + "";
+
+		m_fUITimer = 0;
+		m_flowerUI.SetActive(true);
+		m_clamUI.SetActive(true);
+
 		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
