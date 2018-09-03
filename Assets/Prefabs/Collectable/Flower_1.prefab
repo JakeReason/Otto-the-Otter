@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 33640495892762800}
   - component: {fileID: 23956675855333458}
   - component: {fileID: 95116296766722876}
+  - component: {fileID: 114550369954820202}
   m_Layer: 0
   m_Name: Flower_1
   m_TagString: Untagged
@@ -117,7 +118,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1626582120318310}
   m_LocalRotation: {x: -0.7071068, y: 0.000000029802322, z: 0.000000029802322, w: 0.7071068}
-  m_LocalPosition: {x: -0.07199097, y: -0.02180481, z: 0.0019989014}
+  m_LocalPosition: {x: -0.07199097, y: 0.186, z: 0.0019989014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4192428005574806}
@@ -132,8 +133,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847887701158926}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150.98, y: 19.729805, z: 138.48}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -161.9955, y: -5.683, z: -14.950527}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4571017902974278}
@@ -224,6 +225,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114550369954820202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847887701158926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nFlowerToCollect: 1
 --- !u!198 &198074874144329848
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -6921,7 +6934,7 @@ ParticleSystem:
   simulationSpeed: 2
   stopAction: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -6977,7 +6990,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 6
       minScalar: 5
       maxCurve:
         serializedVersion: 2

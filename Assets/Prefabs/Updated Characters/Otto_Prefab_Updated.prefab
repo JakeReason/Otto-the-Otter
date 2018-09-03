@@ -665,21 +665,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1598051933644376
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4343265779815772}
-  m_Layer: 10
-  m_Name: Follow Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1609128831072926
 GameObject:
   m_ObjectHideFlags: 1
@@ -1290,7 +1275,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1047887089260066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.090473175, y: 1.0680001, z: -0.13321686}
+  m_LocalPosition: {x: -0.090473175, y: 2.56, z: -0.13321686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4161207773635570}
@@ -1408,7 +1393,6 @@ Transform:
   - {fileID: 4054923592974624}
   - {fileID: 4233760225926788}
   - {fileID: 4090915535706866}
-  - {fileID: 4343265779815772}
   m_Father: {fileID: 4828379428708172}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1579,19 +1563,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4054923592974624}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4343265779815772
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1598051933644376}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.039741516, y: 2.275, z: 0.046863556}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4161207773635570}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4359054277360522
 Transform:
@@ -1969,7 +1940,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.19185, y: 1.03, z: 40.8}
+  m_LocalPosition: {x: 171.95093, y: 1.02, z: 49.70981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161207773635570}
@@ -2299,8 +2270,8 @@ MonoBehaviour:
   m_healthImage: {fileID: 0}
   m_halfHealth: {fileID: 0}
   m_fullHealth: {fileID: 0}
-  m_fSpeed: 5
-  m_fJumpSpeed: 3
+  m_fSpeed: 7
+  m_fJumpSpeed: 4
   m_fDeadZone: 0
   m_fExtraGravity: 4
   m_fBounceForce: 3

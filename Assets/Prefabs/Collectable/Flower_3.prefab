@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 33418187638875664}
   - component: {fileID: 23295920906976124}
   - component: {fileID: 95374423278037122}
+  - component: {fileID: 114802589610531590}
   m_Layer: 0
   m_Name: Flower_3
   m_TagString: Untagged
@@ -116,8 +117,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637057234509736}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 148.1, y: 25.92, z: 142.91}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -114.149, y: -6.3361025, z: 62.083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4749761750684678}
@@ -144,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350193741016950}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.11543274, y: -0.090890884, z: -0.052}
+  m_LocalPosition: {x: 0.11543274, y: 0.017, z: -0.052}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4534979317381376}
@@ -224,6 +225,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114802589610531590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637057234509736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nFlowerToCollect: 3
 --- !u!198 &198183026356146936
 ParticleSystem:
   m_ObjectHideFlags: 1
