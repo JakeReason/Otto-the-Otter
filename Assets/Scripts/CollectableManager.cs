@@ -26,15 +26,19 @@ public class CollectableManager : MonoBehaviour
 
 	[SerializeField]
 	// Used to update the UI counter for the Clams.
-	private Text m_text;
+	private Text m_clamText;
+
+	[SerializeField]
+	// Used to update the UI counter for the Clams.
+	private Text m_flowerText;
 
 	[SerializeField]
 	// Used to change the family member UI image.
-	private Image m_flowerImage;
+	private Image[] m_notCollectedflowerImages;
 
 	[SerializeField]
-	// Used to change the flower UI sprites.
-	private Sprite[] m_flowerSprites;
+	// Used to change the flower UI image.
+	private Image[] m_collectedFlowerImages;
 
 	// An array of GameObjects which will keep track of the flowers.
 	//public GameObject[] m_flowers;
@@ -44,23 +48,25 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
-	void Awake ()
+	void Awake()
 	{
 		ResetClams();
+		UpdateUI();
 	}
 
 	//--------------------------------------------------------------------------------
 	// Update is called once per frame, this updates the UI to match the collectables.
 	//--------------------------------------------------------------------------------
 	// TODO: may need to change ui for clam count.
-	void Update ()
+	void Update()
 	{
 	}
 
 	public void UpdateUI()
 	{
 		// Changes the ui here when that gets around to bein done.
-		m_text.text = "Clams:" + m_fClams;
+		m_clamText.text = m_fClams + "/" + m_fNextLife;
+		m_flowerText.text = m_fFlowersCollected + "";
 		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
@@ -116,7 +122,8 @@ public class CollectableManager : MonoBehaviour
 	public void AddFlower(int nFlowerToCollect)
 	{
 		m_fFlowersCollected += 1;
-		m_flowerImage.sprite = m_flowerSprites[nFlowerToCollect];
+		m_collectedFlowerImages[nFlowerToCollect].enabled = true;
+		m_notCollectedflowerImages[nFlowerToCollect].enabled = false;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -125,9 +132,19 @@ public class CollectableManager : MonoBehaviour
 	// Param:
 	//		nFlowerToFind: used to set which flower image is displayed.
 	//--------------------------------------------------------------------------------
-	public void SetCurrentFlowerToFind(int nFlowerToFind)
+	public void ResetFlowersToFind(int nFlowerToFind)
 	{
-		m_flowerImage.sprite = m_flowerSprites[nFlowerToFind];
+		for (int i = 0; i < m_collectedFlowerImages.Length; ++i)
+		{
+			m_notCollectedflowerImages[i].enabled = true;
+			m_collectedFlowerImages[i].enabled = false;
+		}
+	}
+
+	public void SetFlowerToFind(int nFlowerToFind)
+	{
+		m_notCollectedflowerImages[nFlowerToFind].enabled = true;
+		m_collectedFlowerImages[nFlowerToFind].enabled = false;
 	}
 
 	public void SetCurrentCheckPoint(Transform checkPoint)
