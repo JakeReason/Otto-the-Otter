@@ -199,8 +199,14 @@ public class Player : MonoBehaviour
 
 		if (m_v3MoveDirection.magnitude < m_fDeadZone)
 		{
-			m_v3MoveDirection = Vector3.zero; 
+			m_v3MoveDirection = Vector3.zero;
 		}
+
+		float fAngle = Vector3.Angle(Vector3.forward, m_v3MoveDirection);
+
+		fAngle = (m_v3MoveDirection.x > 0) ? fAngle : fAngle * -1;
+
+		transform.rotation = Quaternion.Euler(0, fAngle, 0);
 
 		// Sets the look direction to equal the direction the control stick is facing
 		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
@@ -285,20 +291,9 @@ public class Player : MonoBehaviour
 			m_v3MoveDirection = Vector3.zero;
 		}
 
-		Quaternion previous = Quaternion.Euler(m_v3PreviousLook.x, 0.0f, m_v3PreviousLook.z);
-		Quaternion current = Quaternion.Euler(m_v3LookDirection.x, 0.0f, m_v3LookDirection.z);
-
-		//transform.rotation = Quaternion.Lerp(previous, current, 0.1f * Time.deltaTime);
-
-		transform.Rotate(m_v3MoveDirection);
-
 		if (m_v3MoveDirection.sqrMagnitude > 1.0f)
 		{
-			//Debug.Log("Magnitude needs normalising!!");
-
 			m_v3MoveDirection.Normalize();
-
-			Debug.Log(m_v3MoveDirection.magnitude);
 		}
 
 		// Adds movement to CharacterController based on move direction and delta time
