@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4997615127781910}
   - component: {fileID: 95528477221742748}
+  - component: {fileID: 114097431557778420}
   m_Layer: 0
   m_Name: Floating_Rock_Platform
   m_TagString: Untagged
@@ -251,8 +252,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998052536178230}
-  m_LocalRotation: {x: -0, y: -0.99868256, z: -0, w: -0.051314436}
-  m_LocalPosition: {x: 16.120695, y: -5.53, z: 22.226511}
+  m_LocalRotation: {x: -0, y: 0.72502226, z: -0, w: -0.68872553}
+  m_LocalPosition: {x: -7.5664673, y: 0.9485278, z: 6.3392677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4004703253859088}
@@ -702,3 +703,34 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114097431557778420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998052536178230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd32f34e52e7424093697227aa75133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bOrbit: 0
+  m_bMoveUp: 0
+  m_bMoveDown: 0
+  m_bMoveLeft: 0
+  m_bMoveRight: 0
+  m_bMoveForward: 0
+  m_bMoveBackward: 0
+  m_bRotateUp: 0
+  m_bRotateDown: 0
+  m_bRotateLeft: 0
+  m_bRotateRight: 0
+  m_bRotateForward: 0
+  m_bRotateBackward: 0
+  m_bFollowPath: 0
+  m_fSpeed: 1
+  m_fRotationSpeed: 10
+  m_fReturnTime: 3
+  m_fWaitTime: 1
+  m_fStartWaitTime: 1
+  m_targetPoints: []
