@@ -2828,6 +2828,36 @@ Prefab:
       propertyPath: m_targetPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1600278458}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_bMoveLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_bMoveForward
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_bRotateRight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_bMoveRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_bRotateUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828908731068902, guid: 02a1e6e9f83ecab44b35946d22227d66,
+        type: 2}
+      propertyPath: m_fStartWaitTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02a1e6e9f83ecab44b35946d22227d66, type: 2}
   m_IsPrefabParent: 0

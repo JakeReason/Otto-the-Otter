@@ -77,14 +77,16 @@ public class Platforms : MonoBehaviour
 	private float m_fWaitTime = 1;
 
 	[SerializeField]
+	//
+	private float m_fStartWaitTime = 1;
+
+	[SerializeField]
 	// An array of transform used to create a patrol route.
 	private Transform[] m_targetPoints;
 
 	//
 	private float m_fMoveTimer = 0;
 
-	//
-	private float m_fOriginalTime = 1;
 
 	//
 	private float m_fResetTime;
@@ -99,8 +101,7 @@ public class Platforms : MonoBehaviour
 	void Awake()
 	{
 		m_fResetTime += m_fReturnTime * 2 + m_fWaitTime * m_fWaitTime;
-		m_fWaitTime += m_fReturnTime;
-		m_fOriginalTime = m_fWaitTime;
+		m_fWaitTime += m_fReturnTime + m_fStartWaitTime;
 	}
 
 	// Update is called once per frame
@@ -117,7 +118,7 @@ public class Platforms : MonoBehaviour
 	{
 		if (m_bRotateForward)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(Vector3.forward * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -132,7 +133,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bRotateBackward)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(-Vector3.forward * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -147,7 +148,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bRotateUp)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(Vector3.up * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -162,7 +163,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bRotateDown)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(-Vector3.up * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -177,7 +178,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bRotateRight)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(Vector3.right * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -192,7 +193,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bRotateLeft)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.Rotate(-Vector3.right * (m_fRotationSpeed * Time.deltaTime));
 			}
@@ -211,7 +212,7 @@ public class Platforms : MonoBehaviour
 	{
 		if (m_bMoveForward)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position += transform.forward * m_fSpeed * Time.deltaTime;
 			}
@@ -226,7 +227,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bMoveBackward)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position -= transform.forward * m_fSpeed * Time.deltaTime;
 			}
@@ -241,7 +242,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bMoveUp)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position += transform.up * m_fSpeed * Time.deltaTime;
 			}
@@ -256,7 +257,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bMoveDown)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position -= transform.up * m_fSpeed * Time.deltaTime;
 			}
@@ -271,7 +272,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bMoveRight)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position += transform.right * m_fSpeed * Time.deltaTime;
 			}
@@ -286,7 +287,7 @@ public class Platforms : MonoBehaviour
 		}
 		if (m_bMoveLeft)
 		{
-			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fOriginalTime)
+			if (m_fMoveTimer < m_fReturnTime && m_fMoveTimer > m_fStartWaitTime)
 			{
 				transform.position -= transform.right * m_fSpeed * Time.deltaTime;
 			}
