@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 23956675855333458}
   - component: {fileID: 95116296766722876}
   - component: {fileID: 114550369954820202}
+  - component: {fileID: 65475830031186148}
   m_Layer: 0
   m_Name: Flower_1
   m_TagString: Untagged
@@ -208,6 +209,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847887701158926}
   m_Mesh: {fileID: 4300000, guid: f5d69718ed5b80c4fbf08a898e91b40a, type: 3}
+--- !u!65 &65475830031186148
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847887701158926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.43608686, y: 1.1727971, z: 0.5222425}
+  m_Center: {x: -0.047501907, y: 0.58639854, z: 0.061879538}
 --- !u!95 &95116296766722876
 Animator:
   serializedVersion: 3
@@ -236,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nFlowerToCollect: 1
+  m_nFlowerToCollect: 0
 --- !u!198 &198074874144329848
 ParticleSystem:
   m_ObjectHideFlags: 1
