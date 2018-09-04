@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 
 // Creates a class for the HookDetector
-public class HookDetector : MonoBehaviour
+public class Hook : MonoBehaviour
 {
 	// Allows the script to access the player
     public GameObject m_player;
@@ -19,7 +19,7 @@ public class HookDetector : MonoBehaviour
 	public GameObject m_hookHolder;
 
 	// Indicates an object of which the hook has hooked onto
-	//[HideInInspector]
+	[HideInInspector]
 	public GameObject m_hookedObj;
 
 	// Float represents the speed of the hook once launched
@@ -33,6 +33,10 @@ public class HookDetector : MonoBehaviour
 
 	// Detects if a hookable object is within a certain distance from player
 	public float m_fHookDistance = 5.0f;
+
+	public float m_fClimbUp;
+	
+	public float m_fClimbForward;
 
 	// Lists if the hook has been fired or not
 	private bool m_bFired;
@@ -72,10 +76,10 @@ public class HookDetector : MonoBehaviour
         }
 
 		// Logs to the console if there is no grappling hook script attached to player
-		if (!m_player.GetComponent<GrapplingHook>())
-		{
-			Debug.Log("NO HOOK!");
-		}
+		//if (!m_player.GetComponent<GrapplingHook>())
+		//{
+		//	Debug.Log("NO HOOK!");
+		//}
 
 		// Disables the hook's collider initially
 		m_collider.enabled = false;
@@ -98,17 +102,6 @@ public class HookDetector : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Update()
     {
-		//// Enables hook collider if fired bool in Grappling Hook script is true
-		//if (m_player.GetComponent<GrapplingHook>().GetFired())
-		//{
-		//	m_collider.enabled = true;
-		//}
-		//// Else hook collider is not enabled if fired bool is false
-		//else
-		//{
-		//	m_collider.enabled = false;
-		//}
-
 		// Sets fired bool to equal true if fire button has been pressed
 		if (Input.GetButtonDown("Fire1") && !m_bFired)
 		{
@@ -175,8 +168,8 @@ public class HookDetector : MonoBehaviour
 				if (!m_cc.isGrounded)
 				{
 					// Translates the player up and forward to represent climbing
-					m_player.transform.Translate(Vector3.up * Time.deltaTime * 600.0f);
-					m_player.transform.Translate(Vector3.forward * Time.deltaTime * 500.0f);
+					m_player.transform.Translate(Vector3.up * Time.deltaTime * m_fClimbUp);
+					m_player.transform.Translate(Vector3.forward * Time.deltaTime * m_fClimbForward);
 				}
 
 				// Calls the climb coroutine by calling climb function

@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     private BasicEnemy m_enemyScript;
 
     // Variable is used to store the player's Grappling Hook script in
-    private HookDetector m_grapplingScript;
+    private Hook m_grapplingScript;
 
 	// Used to access the SkinnedMeshRenderer component from the player
     public SkinnedMeshRenderer m_meshRenderer;
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         m_enemyScript = GetComponent<BasicEnemy>();
 
         // Gets the GrapplingHook script and stores it in the variable
-        m_grapplingScript = m_hook.GetComponent<HookDetector>();
+        m_grapplingScript = m_hook.GetComponent<Hook>();
 
 		// Obtains the original colour for the player from the mesh renderer's material
         m_originalColour = m_meshRenderer.material.color;
