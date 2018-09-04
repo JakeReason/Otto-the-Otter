@@ -7,6 +7,8 @@ public class Mushroom : MonoBehaviour
 	[Range(2.0f, 8.0f)]
 	public float m_fBounceForce = 3.0f;
 
+	public LayerMask m_nPlayerLayer;
+
 	private GameObject m_player;
 	private Player m_playerScript;
 
@@ -31,7 +33,7 @@ public class Mushroom : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Physics.Raycast(transform.position, Vector3.up, 1.0f))
+		if (Physics.Raycast(transform.position, Vector3.up, 1.0f, m_nPlayerLayer))
 		{
 			m_playerScript.Bounce(m_fBounceForce);
 		}
