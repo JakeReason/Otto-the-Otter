@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+	public GameObject m_hook;
+
 	// Public color indicates what colour the player will flash after getting hit
     public Color m_flashColour;
 
@@ -38,9 +40,6 @@ public class Player : MonoBehaviour
     // Public float adds more gravity when player is falling (allows floats from 1-10)
     [Range(1.0f, 10.0f)]
     public float m_fExtraGravity = 4.0f;
-
-	//[Range(2.0f, 8.0f)]
-	//public float m_fBounceForce = 4.0f;
 
 	// Float indicates the time when player cannot be hit (allows floats from 1-5)
 	[Range(1.0f, 5.0f)]
@@ -68,7 +67,7 @@ public class Player : MonoBehaviour
     private BasicEnemy m_enemyScript;
 
     // Variable is used to store the player's Grappling Hook script in
-    private GrapplingHook m_grapplingScript;
+    private HookDetector m_grapplingScript;
 
 	// Used to access the SkinnedMeshRenderer component from the player
     public SkinnedMeshRenderer m_meshRenderer;
@@ -155,7 +154,7 @@ public class Player : MonoBehaviour
         m_enemyScript = GetComponent<BasicEnemy>();
 
         // Gets the GrapplingHook script and stores it in the variable
-        m_grapplingScript = GetComponent<GrapplingHook>();
+        m_grapplingScript = m_hook.GetComponent<HookDetector>();
 
 		// Obtains the original colour for the player from the mesh renderer's material
         m_originalColour = m_meshRenderer.material.color;

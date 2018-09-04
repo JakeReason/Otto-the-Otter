@@ -245,4 +245,14 @@ public class HookDetector : MonoBehaviour
 			m_hookedObj = other.gameObject;
         }
     }
+
+	public bool GetHooked()
+	{
+		return m_bHooked;
+	}
+
+	public bool GetFired()
+	{
+		return m_bFired;
+	}
 }
