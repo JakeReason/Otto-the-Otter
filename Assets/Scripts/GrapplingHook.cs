@@ -56,6 +56,8 @@ public class GrapplingHook : MonoBehaviour
 	// Transform represents the transform of the locked on target
 	private Transform m_target;
 
+	private Collider m_detector;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------

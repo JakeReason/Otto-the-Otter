@@ -29,11 +29,10 @@ public class Mushroom : MonoBehaviour
 			Debug.Log("No Player Script!");
 		}
 	}
-	
-	// Update is called once per frame
-	void Update()
+
+	private void OnTriggerEnter(Collider other)
 	{
-		if (Physics.Raycast(transform.position, Vector3.up, 1.0f, m_nPlayerLayer))
+		if (other.CompareTag("Player"))
 		{
 			m_playerScript.Bounce(m_fBounceForce);
 		}
