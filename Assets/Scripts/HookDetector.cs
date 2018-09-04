@@ -19,7 +19,7 @@ public class HookDetector : MonoBehaviour
 	public GameObject m_hookHolder;
 
 	// Indicates an object of which the hook has hooked onto
-	[HideInInspector]
+	//[HideInInspector]
 	public GameObject m_hookedObj;
 
 	// Float represents the speed of the hook once launched
@@ -99,15 +99,15 @@ public class HookDetector : MonoBehaviour
 	void Update()
     {
 		//// Enables hook collider if fired bool in Grappling Hook script is true
-  //      if (m_player.GetComponent<GrapplingHook>().GetFired())
-  //      {
-  //          m_collider.enabled = true;
-  //      }
+		//if (m_player.GetComponent<GrapplingHook>().GetFired())
+		//{
+		//	m_collider.enabled = true;
+		//}
 		//// Else hook collider is not enabled if fired bool is false
-  //      else
-  //      {
-  //          m_collider.enabled = false;
-  //      }
+		//else
+		//{
+		//	m_collider.enabled = false;
+		//}
 
 		// Sets fired bool to equal true if fire button has been pressed
 		if (Input.GetButtonDown("Fire1") && !m_bFired)
@@ -160,7 +160,7 @@ public class HookDetector : MonoBehaviour
 			transform.parent = m_hookedObj.transform;
 
 			// Allows player to move towards the hook by a certain travel speed
-			transform.position = Vector3.MoveTowards(m_player.transform.position,
+			m_player.transform.position = Vector3.MoveTowards(m_player.transform.position,
 													 transform.position,
 													 m_fTravelSpeed * Time.deltaTime);
 
@@ -175,8 +175,8 @@ public class HookDetector : MonoBehaviour
 				if (!m_cc.isGrounded)
 				{
 					// Translates the player up and forward to represent climbing
-					m_player.transform.Translate(Vector3.up * Time.deltaTime * 60.0f);
-					m_player.transform.Translate(Vector3.forward * Time.deltaTime * 50.0f);
+					m_player.transform.Translate(Vector3.up * Time.deltaTime * 600.0f);
+					m_player.transform.Translate(Vector3.forward * Time.deltaTime * 500.0f);
 				}
 
 				// Calls the climb coroutine by calling climb function
@@ -210,6 +210,8 @@ public class HookDetector : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void ReturnHook()
 	{
+		transform.parent = m_hookHolder.transform;
+
 		// Sets the hook's transform position and rotation to equal that of the holder
 		transform.position = m_hookHolder.transform.position;
 		transform.rotation = m_hookHolder.transform.rotation;
@@ -234,7 +236,7 @@ public class HookDetector : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
     {
 		// Checks if the object's tag is "Hookable"
-        if (other.tag == "Hookable")
+        if (other.CompareTag("Hookable"))
         {
 			// Sets hooked bool to true in Grappling Hook script
 			m_bHooked = true;
