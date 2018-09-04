@@ -18,6 +18,7 @@ public class GrapplingHook : MonoBehaviour
 	public GameObject m_hookHolder;
 
 	// Indicates an object of which the hook has hooked onto
+	[HideInInspector]
 	public GameObject m_hookedObj;
 
 	public Text m_hookableText;
