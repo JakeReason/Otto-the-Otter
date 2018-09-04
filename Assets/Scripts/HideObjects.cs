@@ -93,6 +93,7 @@ public class HideObjects : MonoBehaviour
 		);
 		//Debug.DrawRay(transform.position, WatchTarget.transform.position - transform.position);
 		// Loop through all overlapping objects and lerp between materials.
+		// rend element 0 equals the first it object and never changes.
 		if (hits.Length > 0)
 		{
 			//rend = new Renderer[hits.Length];
@@ -124,7 +125,7 @@ public class HideObjects : MonoBehaviour
 							rend[m_fHitCount].material.color = color;
 						}
 					}
-
+					// had in for loop like the else forgot what happened.
 					if (rend[m_fHitCount] && hit.collider.gameObject.GetComponent<MeshRenderer>() != rend[m_fHitCount])
 					{
 						color = rend[m_fHitCount].material.color;
@@ -135,14 +136,13 @@ public class HideObjects : MonoBehaviour
 					}
 					m_fHitCount++;
 				}
-				m_fHitCount = hits.Length;
+				m_fHitCount = hits.Length - 1;
 			}
 		}
 		else
 		{
 			for (int i = 0; i < rend.Length; ++i)
 			{
-
 				if (rend[i])
 				{
 					color = rend[i].material.color;
