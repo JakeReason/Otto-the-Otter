@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4275178137174234}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ear_01_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4272632889298456}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4574345993726794}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hook_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,8 +64,24 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4807588610168264}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Wrist_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1064219266857514
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4535852515012222}
+  - component: {fileID: 65358477097131874}
+  m_Layer: 10
+  m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +95,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968822348051400}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Knee_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +110,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4287608010794104}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Elbow_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +125,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4022343689666338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ear_02_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +142,7 @@ GameObject:
   - component: {fileID: 4159725854841918}
   - component: {fileID: 33426771281934622}
   - component: {fileID: 65094205404932206}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hook Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +157,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4237599164552984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: transform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +172,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4803672147355592}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Finger_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +187,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4882597988940590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Finger_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +204,7 @@ GameObject:
   - component: {fileID: 4457126443584920}
   - component: {fileID: 33578433311268766}
   - component: {fileID: 23883491953650642}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hook_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +219,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4877852707303284}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Mouth_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +234,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4852974392836556}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Chest_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +249,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4639334701379400}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Heel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +264,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4262802934158364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otto_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +279,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4991317690362344}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +294,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4557743561357600}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ear_02_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +309,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4743470646194574}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Shoulder_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +324,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4797449013178248}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +339,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4036172618519922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Thumb_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +358,7 @@ GameObject:
   - component: {fileID: 143879056048630170}
   - component: {fileID: 114992121933932572}
   - component: {fileID: 114724531632630702}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otto_Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -357,7 +373,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4002448449462826}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +388,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4910661417551406}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +403,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4860517742136790}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Toe_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +418,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4818258761128146}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Heel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +433,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4872922983244448}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Camera Follow Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +454,7 @@ GameObject:
   - component: {fileID: 114819820625770518}
   - component: {fileID: 54449321008776534}
   - component: {fileID: 120532982832738508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hook
   m_TagString: Hook
   m_Icon: {fileID: 0}
@@ -453,7 +469,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4836023394015358}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hook_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +484,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4193075234927658}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ankle_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +499,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4231056830570950}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Elbow_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +514,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4384767433972294}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Hip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4891021728503768}
   - component: {fileID: 95830763815790962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otto_Scarf_Model_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +545,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4305653347088772}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4082214326095948}
   - component: {fileID: 137998253446092568}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:Otto_Character_Presentation_Model_1:Mesh_Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +576,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4352326950362704}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Shoulder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +591,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4366492984151818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Mouth_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +606,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4647760760817634}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Stomach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +621,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4158612479798590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4798893211049636}
   - component: {fileID: 137646173169253058}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:Otto_Character_Presentation_Model_1:Mesh_Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +652,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4975052381451886}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:Otto_Character_Presentation_Model_1:Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +667,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4483244820850766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ankle_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +682,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4661088598488376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Waist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +697,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4282926434244542}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +712,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4591620913031256}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,7 +728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4038420373486506}
   - component: {fileID: 137312607175373926}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:Otto_Character_Presentation_Model_1:Otto_Character_Finished_blockout_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +743,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4842721479675212}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +758,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4612950138080798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Toe_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +773,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4236988982363118}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,7 +788,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4341007841834558}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +803,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4270233588293062}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Wrist_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +818,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4731254078925798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +833,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4137863709880350}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Chest_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -832,7 +848,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4938759627292724}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Knee_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,7 +863,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4698965476544728}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,7 +878,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4015515848882706}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Thumb_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +893,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4609409192078576}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Ear_01_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,7 +908,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4277963311404644}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +923,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4149238957465680}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Otter_Rig:JNT_Hip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1301,6 +1317,19 @@ Transform:
   m_Father: {fileID: 4968822348051400}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4535852515012222
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064219266857514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 0.5, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4725918697006418}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4557743561357600
 Transform:
   m_ObjectHideFlags: 1
@@ -1437,7 +1466,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4535852515012222}
   m_Father: {fileID: 4159725854841918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1855,6 +1885,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65358477097131874
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064219266857514}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 5, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95463605635407908
 Animator:
   serializedVersion: 3
@@ -1903,9 +1945,11 @@ MonoBehaviour:
   m_hook: {fileID: 1451335102616512}
   m_hookHolder: {fileID: 1114270559455912}
   m_hookedObj: {fileID: 0}
+  m_hookableText: {fileID: 0}
   m_fHookTravelSpeed: 50
   m_fTravelSpeed: 50
   m_fMaxDistance: 20
+  m_fHookDistance: 5
 --- !u!114 &114819820625770518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1932,16 +1976,16 @@ MonoBehaviour:
   m_controller: 0
   m_flashColour: {r: 1, g: 0, b: 0, a: 0}
   m_healthImage: {fileID: 0}
-  m_halfHealth: {fileID: 21300000, guid: c4bbae12ebe53f745827e039b090066e, type: 3}
-  m_fullHealth: {fileID: 21300000, guid: 10eabfd1b8cc49a4c9ad861c4a62819c, type: 3}
-  m_fSpeed: 15
+  m_halfHealth: {fileID: 0}
+  m_fullHealth: {fileID: 0}
+  m_fSpeed: 10
   m_fJumpSpeed: 8
+  m_fDeadZone: 0.01
   m_fExtraGravity: 4
-  m_fBounceForce: 5.96
   m_fHealthRecoveryTime: 3
   m_fJumpTimeLimit: 0.4
   m_fJumpMoveLimit: 0.5
-  m_fFlashRate: 28.9
+  m_fFlashRate: 10
   m_meshRenderer: {fileID: 137312607175373926}
   m_mushroomLayer:
     serializedVersion: 2
@@ -2044,7 +2088,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137312607175373926
 SkinnedMeshRenderer:

@@ -22,15 +22,15 @@ public class BasicEnemy : MonoBehaviour
 
 	[SerializeField]
 	// An array of transform used to create a patrol route.
-    private Transform[] m_targetPoints;
+	private Transform[] m_targetPoints;
 
-    [SerializeField]
+	[SerializeField]
 	// Keeps track of the current waypoint number.
-    private int m_nDestPoint = 0;
+	private int m_nDestPoint = 0;
 
-    [SerializeField]
+	[SerializeField]
 	// How long the enemy waits till moving to the next waypoint.
-    private float m_fCooldown = 1;
+	private float m_fCooldown = 1;
 
 	[SerializeField]
 	// Distance to seek the player.
@@ -53,10 +53,10 @@ public class BasicEnemy : MonoBehaviour
 	private bool m_bGoBackWards = false;
 
 	// Used to gain access to the NavMeshAgent.
-    private NavMeshAgent m_agent;
+	private NavMeshAgent m_agent;
 
 	// Used to store the originalCooldown.
-    private float m_fOriginalCooldown;
+	private float m_fOriginalCooldown;
 
 	// Used to store the originalAttackCooldown.
 	private float m_fOriginalAttackCooldown;
@@ -67,41 +67,48 @@ public class BasicEnemy : MonoBehaviour
 	// Player Script used to access the player script.
 	private Player m_playerScript;
 
+	[SerializeField]
+	private AudioClip m_enemyDeathAudioClip;
+
+	private AudioSource m_audioSource;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
-	void Awake ()
-    {
+	void Awake()
+	{
 		// Gets the NavMeshAgent on the gameobject.
-        m_agent = GetComponent<NavMeshAgent>();
+		m_agent = GetComponent<NavMeshAgent>();
 		// Stores the original cooldown time.
-        m_fOriginalCooldown = m_fCooldown;
+		m_fOriginalCooldown = m_fCooldown;
 		// Sets the first point to go to.
-        GoToNextPoint();
+		GoToNextPoint();
 		// Stores the attack cooldwon time.
 		m_fOriginalAttackCooldown = m_fAttackCooldown;
 		// Sets the attack cooldown to 0.
 		m_fAttackCooldown = 0;
 		// Sets the playerScript reference up.
 		m_playerScript = m_player.GetComponent<Player>();
-    }
+
+		m_audioSource = GetComponent<AudioSource>();
+	}
 
 	//--------------------------------------------------------------------------------
 	// Sets the enemies new waypoint to the next waypoint.
 	//--------------------------------------------------------------------------------
 	void GoToNextPoint()
-    {
-        // Returns if no points have been set up
-        if (m_targetPoints.Length == 0)
-            return;
+	{
+		// Returns if no points have been set up
+		if (m_targetPoints.Length == 0)
+			return;
 
-        // Set the agent to go to the currently selected destination.
-        m_agent.destination = m_targetPoints[m_nDestPoint].position;
+		// Set the agent to go to the currently selected destination.
+		m_agent.destination = m_targetPoints[m_nDestPoint].position;
 
-        // Choose the next point in the array as the destination,
-        // cycling to the start if necessary.
-        m_nDestPoint = (m_nDestPoint + 1) % m_targetPoints.Length;
-    }
+		// Choose the next point in the array as the destination,
+		// cycling to the start if necessary.
+		m_nDestPoint = (m_nDestPoint + 1) % m_targetPoints.Length;
+	}
 
 	//--------------------------------------------------------------------------------
 	// Sets the enemies new waypoint to the last waypoint.
@@ -124,30 +131,37 @@ public class BasicEnemy : MonoBehaviour
 	// Update is called once per frame, Updates the enemy making it patrol between 
 	// waypoints or attack the player if the player is in attack range.
 	//--------------------------------------------------------------------------------
-	void Update ()
-    {
+	void Update()
+	{
 		// Sets the target rotation to the player.
 		var targetRotation = Quaternion.LookRotation(m_playerTransform.position - transform.position);
 		// Sets the distance from the player to the enemy.
 		m_fDistanceFromPlayer = Vector3.Distance(transform.position, m_playerTransform.position);
 		// Checks if the enemy is dead.
-		if(m_fHealth <= 0)
+		if (m_fHealth <= 0)
 		{
-			gameObject.SetActive(false);
+			// TODO: test this.
+			m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
+			Renderer rend = GetComponent<MeshRenderer>();
+			rend.enabled = false;
+			if (!m_audioSource.isPlaying)
+			{
+				gameObject.SetActive(false);
+			}
 		}
 		// Checks if the agent is on the navmesh.
 		if (m_agent.isOnNavMesh)
-        {
+		{
 			// Choose the next destination point when the agent gets
 			// close to the current one and start a cooldown.
 			if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
-            {
-                m_fCooldown -= Time.deltaTime;
+			{
+				m_fCooldown -= Time.deltaTime;
 				// When the cooldown is over move to next point and resets cooldown time.
-                if (m_fCooldown <= 0)
-                {
+				if (m_fCooldown <= 0)
+				{
 					// If the last waypoint has been reached turn around.
-					if(m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
+					if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
 					{
 						m_bGoBackWards = true;
 					}
@@ -158,7 +172,7 @@ public class BasicEnemy : MonoBehaviour
 					}
 					// If the enemy is going backwards then go to the next waypoint
 					// going backwards from the array of waypoints.
-					if(m_bGoBackWards)
+					if (m_bGoBackWards)
 					{
 						GoToLastPoint();
 					}
@@ -168,9 +182,9 @@ public class BasicEnemy : MonoBehaviour
 					{
 						GoToNextPoint();
 					}
-                    m_fCooldown = m_fOriginalCooldown;
-                }
-            }
+					m_fCooldown = m_fOriginalCooldown;
+				}
+			}
 			// If the player is in range and not in attack range the enemy moves closer.
 			if (m_fDistanceFromPlayer <= m_fDistance && m_fDistanceFromPlayer >= m_fAttackDistance)
 			{
@@ -178,7 +192,7 @@ public class BasicEnemy : MonoBehaviour
 				m_agent.SetDestination(m_playerTransform.position);
 			}
 			// When the enemy is in range of attack stop moving, look at player and attack. 
-			if(m_fDistanceFromPlayer <= m_fAttackDistance)
+			if (m_fDistanceFromPlayer <= m_fAttackDistance)
 			{
 				// Sets the destination of the enemies position to stop movement.
 				m_agent.SetDestination(transform.position);
@@ -194,7 +208,7 @@ public class BasicEnemy : MonoBehaviour
 				}
 			}
 		}
-    }
+	}
 
 	//--------------------------------------------------------------------------------
 	// OnTriggerEnter checks when the hook collides with this object and takes damage.
@@ -206,10 +220,11 @@ public class BasicEnemy : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		// Checks if the hook hits the enemy.
-		if(other.tag == "Hook")
+		if (other.tag == "Hook")
 		{
 			// Takes damage.
 			--m_fHealth;
+
 		}
 	}
 }

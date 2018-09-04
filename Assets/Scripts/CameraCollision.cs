@@ -88,20 +88,6 @@ public class CameraCollision : MonoBehaviour
 		{
 		}
 
-		// Draws a debug line in the scene. TODO: Remove later on.
-		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
-		Vector3 linpos = desiredCameraPos;
-		Debug.DrawLine(transform.parent.position, desiredCameraPos, Color.red);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 1, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 2, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 3, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x + 4, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = desiredCameraPos, Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 1, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 2, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 3, linpos.y, linpos.z), Color.green);
-		Debug.DrawLine(transform.parent.position, linpos = new Vector3(linpos.x - 4, linpos.y, linpos.z), Color.green);
-
 		Debug.DrawRay(transform.position, -transform.up);
 
 		// Line cast checking for any obstruction that is not on layer 8.

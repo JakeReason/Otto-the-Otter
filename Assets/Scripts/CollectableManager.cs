@@ -58,11 +58,23 @@ public class CollectableManager : MonoBehaviour
 
 	public Transform m_checkPoint;
 
+	[SerializeField]
+	private AudioClip m_flowerPickAudioClip;
+	[SerializeField]
+	private AudioClip m_clamPickAudioClip;
+	[SerializeField]
+	private AudioClip m_newLifeAudioClip;
+	[SerializeField]
+	private AudioClip m_checkPointAudioClip;
+
+	private AudioSource m_audioSource;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
 	{
+		m_audioSource = gameObject.GetComponent<AudioSource>();
 		ResetClams();
 		UpdateUI();
 		m_flowerUI.SetActive(false);
@@ -102,6 +114,7 @@ public class CollectableManager : MonoBehaviour
 		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
+			m_audioSource.PlayOneShot(m_newLifeAudioClip);
 			ResetClams();
 		}
 	}
@@ -116,6 +129,7 @@ public class CollectableManager : MonoBehaviour
 	{
 		// Adds an amount to the clam score.
 		m_fClams += AmountAdded;
+		m_audioSource.PlayOneShot(m_clamPickAudioClip);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -154,6 +168,7 @@ public class CollectableManager : MonoBehaviour
 	public void AddFlower(int nFlowerToCollect)
 	{
 		m_fFlowersCollected += 1;
+		m_audioSource.PlayOneShot(m_flowerPickAudioClip);
 		m_collectedFlowerImages[nFlowerToCollect].enabled = true;
 		m_notCollectedflowerImages[nFlowerToCollect].enabled = false;
 	}
@@ -182,6 +197,7 @@ public class CollectableManager : MonoBehaviour
 	public void SetCurrentCheckPoint(Transform checkPoint)
 	{
 		m_checkPoint = checkPoint;
+		m_audioSource.PlayOneShot(m_checkPointAudioClip);
 	}
 
 	public float GetLives()

@@ -39,8 +39,8 @@ public class Player : MonoBehaviour
     [Range(1.0f, 10.0f)]
     public float m_fExtraGravity = 4.0f;
 
-	[Range(2.0f, 8.0f)]
-	public float m_fBounceForce = 4.0f;
+	//[Range(2.0f, 8.0f)]
+	//public float m_fBounceForce = 4.0f;
 
 	// Float indicates the time when player cannot be hit (allows floats from 1-5)
 	[Range(1.0f, 5.0f)]
@@ -197,17 +197,6 @@ public class Player : MonoBehaviour
 		m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
 										Input.GetAxis("Vertical"));
 
-		if (m_v3MoveDirection.magnitude < m_fDeadZone)
-		{
-			m_v3MoveDirection = Vector3.zero;
-		}
-
-		float fAngle = Vector3.Angle(Vector3.forward, m_v3MoveDirection);
-
-		fAngle = (m_v3MoveDirection.x > 0) ? fAngle : fAngle * -1;
-
-		transform.rotation = Quaternion.Euler(0, fAngle, 0);
-
 		// Sets the look direction to equal the direction the control stick is facing
 		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
 
@@ -231,17 +220,17 @@ public class Player : MonoBehaviour
 			m_v3Gravity = Vector3.zero;
 		}
 		// Else if a mushroom is directly under the player
-		else if (Bounce())
-		{
-			// Sets the y value of gravity to equal jump speed multipled by bounce force
-			m_v3Gravity.y = m_fJumpSpeed * m_fBounceForce;
+		//else if (Bounce())
+		//{
+		//	// Sets the y value of gravity to equal jump speed multipled by bounce force
+		//	m_v3Gravity.y = m_fJumpSpeed * m_fBounceForce;
 
-			// Resets Jump timer to equal zero
-			m_fJumpTimer = 0.0f;
+		//	// Resets Jump timer to equal zero
+		//	m_fJumpTimer = 0.0f;
 
-			// Sets jumped bool to be true
-			m_bJumped = true;
-		}
+		//	// Sets jumped bool to be true
+		//	m_bJumped = true;
+		//}
 		// Else if the hook hasn't hooked an object or if the player hasn't bounced
 		else
 		{
@@ -353,7 +342,7 @@ public class Player : MonoBehaviour
 		}
 		
 		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-		if (m_bJumped && m_v3Gravity.y != m_fJumpSpeed)
+		if (m_bJumped && m_v3Gravity.y >= m_fJumpSpeed)
 		{
 			m_animator.SetBool("Falling", true);
 		}
@@ -469,16 +458,16 @@ public class Player : MonoBehaviour
 		m_fullHealth.enabled = true;
 	}
 
-	//--------------------------------------------------------------------------------
-	// Function checks if a Mushroom is under the player using a raycast.
-	//
-	// Return:
-	//		Returns if the raycast is true or false
-	//--------------------------------------------------------------------------------
-	private bool Bounce()
+	public void Bounce(float fBounceForce)
 	{
-		// Raycasts 0.3 metres down from player and finds objects with mushroom layer mask
-		return Physics.Raycast(transform.position, Vector3.down, 0.3f, m_mushroomLayer);
+		// Sets the y value of gravity to equal jump speed multipled by bounce force
+		m_v3Gravity.y = m_fJumpSpeed * fBounceForce;
+
+		// Resets Jump timer to equal zero
+		m_fJumpTimer = 0.0f;
+
+		// Sets jumped bool to be true
+		m_bJumped = true;
 	}
 
     //--------------------------------------------------------------------------------
