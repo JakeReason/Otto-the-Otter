@@ -53,6 +53,14 @@ public class CollectableManager : MonoBehaviour
 	// 
 	private float m_fUITimer;
 
+	[SerializeField]
+	// 
+	private Animator[] m_flowerAnimation;
+
+	[SerializeField]
+	// 
+	private GameObject[] m_flowerAnimationUI;
+
 	// An array of GameObjects which will keep track of the flowers.
 	//public GameObject[] m_flowers;
 
@@ -79,6 +87,11 @@ public class CollectableManager : MonoBehaviour
 		UpdateUI();
 		m_flowerUI.SetActive(false);
 		m_clamUI.SetActive(false);
+		for(int i = 0; i < m_flowerAnimation.Length; ++i)
+		{
+			//m_flowerAnimation[i] = m_flowerAnimationUI[i].GetComponent<Animator>();
+			m_flowerAnimation[i].enabled = false;
+		}
 	}
 
 	//--------------------------------------------------------------------------------
@@ -168,6 +181,7 @@ public class CollectableManager : MonoBehaviour
 	public void AddFlower(int nFlowerToCollect)
 	{
 		m_fFlowersCollected += 1;
+		m_flowerAnimation[nFlowerToCollect].enabled = true;
 		m_audioSource.PlayOneShot(m_flowerPickAudioClip);
 		m_collectedFlowerImages[nFlowerToCollect].enabled = true;
 		m_notCollectedflowerImages[nFlowerToCollect].enabled = false;
