@@ -2222,8 +2222,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8173523, y: 3.2297444, z: 1}
-  m_Center: {x: 0.06965637, y: -0.11305499, z: 0}
+  m_Size: {x: 3.5699754, y: 3.2297444, z: 2.381957}
+  m_Center: {x: 0.043898106, y: -0.11305499, z: -0.047271192}
 --- !u!65 &65853512200656566
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2313,7 +2313,7 @@ MonoBehaviour:
   m_player: {fileID: 1521883657207734}
   m_hookHolder: {fileID: 1432093287595304}
   m_hookedObj: {fileID: 0}
-  m_fHookTravelSpeed: 60
+  m_fHookTravelSpeed: 120
   m_fTravelSpeed: 50
   m_fMaxDistance: 30
   m_fHookDistance: 5
