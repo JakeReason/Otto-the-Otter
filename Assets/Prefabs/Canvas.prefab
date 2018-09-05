@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114162564829214298}
   - component: {fileID: 114258477148689940}
   - component: {fileID: 114704165700062404}
+  - component: {fileID: 95941395106147148}
   m_Layer: 5
   m_Name: Flower 3 (Coloured)
   m_TagString: Untagged
@@ -169,6 +170,7 @@ GameObject:
   - component: {fileID: 114313105612515010}
   - component: {fileID: 114767399162187180}
   - component: {fileID: 114749071855674792}
+  - component: {fileID: 95690870107489582}
   m_Layer: 5
   m_Name: Flower 4 (Coloured)
   m_TagString: Untagged
@@ -207,6 +209,7 @@ GameObject:
   - component: {fileID: 114343692788904024}
   - component: {fileID: 114168258282072662}
   - component: {fileID: 114193585418599138}
+  - component: {fileID: 95259349300675856}
   m_Layer: 5
   m_Name: Flower 5 (Coloured)
   m_TagString: Untagged
@@ -263,6 +266,7 @@ GameObject:
   - component: {fileID: 114142323940196368}
   - component: {fileID: 114439033325715092}
   - component: {fileID: 114914891867302530}
+  - component: {fileID: 95419654950289492}
   m_Layer: 5
   m_Name: Flower 2 (Colored)
   m_TagString: Untagged
@@ -320,6 +324,7 @@ GameObject:
   - component: {fileID: 114060156971008958}
   - component: {fileID: 114579126409059218}
   - component: {fileID: 114833920897031800}
+  - component: {fileID: 95754062325346276}
   m_Layer: 5
   m_Name: Flower 1 (Colored)
   m_TagString: Untagged
@@ -458,6 +463,91 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95259349300675856
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573442934252320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 895a65307f07f474d8f933355a46191d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95419654950289492
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661700886829774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 38b33fb6ae7dfa64da66388162f6e512, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95690870107489582
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1516992280537528}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98ae9cbea6fd1bb4fa117ac04941b110, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95754062325346276
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955198117865306}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b000f2ef12308e4395b5ac6b871a6f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95941395106147148
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203348215267232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 898fe05b4240b4c409abe2586c8aed85, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114033611375382636
 MonoBehaviour:
   m_ObjectHideFlags: 1
