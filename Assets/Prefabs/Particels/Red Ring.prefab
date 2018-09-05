@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681927599441994}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.724, y: -2.4687753, z: 13.111}
+  m_LocalPosition: {x: -0.9841934, y: 2.08, z: 3.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4436235716687320}
@@ -194,7 +194,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1789467100
+  randomSeed: -800512165
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3555,7 +3555,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1410534804
+  randomSeed: -1088944436
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6916,14 +6916,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 919000230
+  randomSeed: -1656447265
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -7575,9 +7575,9 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 0.99780273
-          value: 0.4237919
-          inSlope: 0
-          outSlope: 0
+          value: 0.48319435
+          inSlope: -0.29990488
+          outSlope: -0.29990488
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -7836,7 +7836,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 13107
-        atime2: 61487
+        atime2: 48188
         atime3: 65535
         atime4: 65535
         atime5: 0
@@ -10277,7 +10277,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1824712946
+  randomSeed: -139472316
   InitialModule:
     serializedVersion: 3
     enabled: 1

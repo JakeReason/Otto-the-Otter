@@ -85,7 +85,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908662528696010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -98,21 +98,21 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951017011812778}
-  m_LocalRotation: {x: -0, y: -0.009725423, z: -0, w: 0.99995273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4878187970844806}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -1.1140001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4627592967866220
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336932098570832}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004, y: -0, z: 0.216}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4878187970844806}
@@ -125,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536450206692354}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.6601038, y: -2.4687753, z: 11.816457}
+  m_LocalPosition: {x: 2.4236984, y: 2.709, z: 2.532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4627592967866220}
@@ -194,7 +194,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1601429349
+  randomSeed: 1044580531
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3519,7 +3519,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1159187482
+  randomSeed: 837512280
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4177,10 +4177,10 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.99780273
-          value: 0.4237919
-          inSlope: 0
-          outSlope: 0
+          time: 1
+          value: 0.60396034
+          inSlope: -0.52065605
+          outSlope: -0.52065605
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -4423,23 +4423,23 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
         key1: {r: 0, g: 1, b: 0.91724133, a: 0.91222537}
-        key2: {r: 0.3303809, g: 0.9355508, b: 0.99015266, a: 0.5882353}
+        key2: {r: 0.3303809, g: 0.9355508, b: 0.99015266, a: 0.34509805}
         key3: {r: 0.3085972, g: 0.96164316, b: 0.9898323, a: 0}
         key4: {r: 0, g: 0.9852941, b: 0.94452316, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 13107
+        ctime1: 15806
         ctime2: 47802
-        ctime3: 60716
+        ctime3: 59174
         ctime4: 65342
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 13107
-        atime2: 61487
+        atime1: 9830
+        atime2: 51272
         atime3: 65535
         atime4: 65535
         atime5: 0
@@ -6880,7 +6880,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 74180491
+  randomSeed: 1779689324
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10241,7 +10241,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1631140035
+  randomSeed: -1358582818
   InitialModule:
     serializedVersion: 3
     enabled: 1
