@@ -85,12 +85,12 @@ public class HideObjects : MonoBehaviour
 	void RayCastMaterialChange()
 	{
 		// Cast a ray from this object's transform to the watch target's transform.
-		RaycastHit[] hits = Physics.RaycastAll(transform.position, WatchTarget.transform.position - transform.position,
-		  Vector3.Distance(WatchTarget.transform.position, transform.position), OccluderMask);
-
-		Renderer[] rendremem = new Renderer[hits.Length];
-		rend.CopyTo(rendremem, 0);
-
+		RaycastHit[] hits = Physics.RaycastAll(
+		  transform.position,
+		  WatchTarget.transform.position - transform.position,
+		  Vector3.Distance(WatchTarget.transform.position, transform.position),
+		  OccluderMask
+		);
 		//Debug.DrawRay(transform.position, WatchTarget.transform.position - transform.position);
 		// Loop through all overlapping objects and lerp between materials.
 		// rend element 0 equals the first it object and never changes.
@@ -98,7 +98,6 @@ public class HideObjects : MonoBehaviour
 		{
 			m_fHitCount = 0;
 			//rend = new Renderer[hits.Length];
-			int i = 0;
 			foreach (RaycastHit hit in hits)
 			{
 				if (hit.collider.gameObject.transform != WatchTarget /*&& hit.collider.transform.root != WatchTarget*/)
@@ -110,25 +109,27 @@ public class HideObjects : MonoBehaviour
 						_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<MeshRenderer>().material);
 					if (hit.collider.gameObject.GetComponent<Renderer>())
 					{
-						// had a for loop here
-						// Gets the hit gameObjects renderer.
-						rend[i] = hit.collider.gameObject.GetComponent<Renderer>();
-						rend[i].material.SetFloat("_Mode", 3f);
-						rend[i].material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-						rend[i].material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-						rend[i].material.SetInt("_ZWrite", 0);
-						rend[i].material.DisableKeyword("_ALPHATEST_ON");
-						rend[i].material.EnableKeyword("_ALPHABLEND_ON");
-						rend[i].material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						rend[i].material.renderQueue = 3000;
-						// Lerps between the original material and the hidden one.
-						if (rend[i].material.color.a >= 0.5f)
+						for (int i = 0; i <= m_fHitCount; ++i)
 						{
-							color = rend[i].material.color;
-							color.a -= 0.01f;
-							rend[i].material.color = color;
+							// Gets the hit gameObjects renderer.
+							rend[i] = hit.collider.gameObject.GetComponent<Renderer>();
+							rend[i].material.SetFloat("_Mode", 3f);
+							rend[i].material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+							rend[i].material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+							rend[i].material.SetInt("_ZWrite", 0);
+							rend[i].material.DisableKeyword("_ALPHATEST_ON");
+							rend[i].material.EnableKeyword("_ALPHABLEND_ON");
+							rend[i].material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+							rend[i].material.renderQueue = 3000;
+							// Lerps between the original material and the hidden one.
+							if (rend[i].material.color.a >= 0.5f)
+							{
+								color = rend[i].material.color;
+								color.a -= 0.01f;
+								rend[i].material.color = color;
+							}
 						}
-
+							
 					}
 					//for (int i = 0; i <= m_fHitCount; ++i)
 					//{
@@ -145,9 +146,8 @@ public class HideObjects : MonoBehaviour
 					m_fHitCount++;
 				}
 				//m_fHitCount = hits.Length - 1;
-				++i;
 			}
-
+			
 		}
 		else
 		{
@@ -165,6 +165,5 @@ public class HideObjects : MonoBehaviour
 				}
 			}
 		}
-
 	}
 }
