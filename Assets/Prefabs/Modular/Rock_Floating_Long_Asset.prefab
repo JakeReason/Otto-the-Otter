@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33306081565546438}
   - component: {fileID: 23584234787067980}
   - component: {fileID: 95689971361455098}
-  - component: {fileID: 65762618874455688}
+  - component: {fileID: 64156451062588694}
   m_Layer: 0
   m_Name: Rock_Floating_Long_Asset
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366777185185432}
   m_Mesh: {fileID: 4300000, guid: e24ab4237c99afb48b102faec0267d8e, type: 3}
---- !u!65 &65762618874455688
-BoxCollider:
+--- !u!64 &64156451062588694
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -93,9 +93,11 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.386734, y: 2.4704766, z: 7.810203}
-  m_Center: {x: -0.07440901, y: 1.0238714, z: -0.07343578}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: e24ab4237c99afb48b102faec0267d8e, type: 3}
 --- !u!95 &95689971361455098
 Animator:
   serializedVersion: 3
