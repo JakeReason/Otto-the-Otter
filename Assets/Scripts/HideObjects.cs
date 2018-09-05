@@ -96,6 +96,7 @@ public class HideObjects : MonoBehaviour
 		// rend element 0 equals the first it object and never changes.
 		if (hits.Length > 0)
 		{
+			m_fHitCount = 0;
 			//rend = new Renderer[hits.Length];
 			foreach (RaycastHit hit in hits)
 			{
@@ -103,41 +104,50 @@ public class HideObjects : MonoBehaviour
 				{
 					// lerp equals the change time from the camera collision so it goes from visible to half invisible.
 					lerp = m_fChangeTime;
+					rend = new Renderer[hits.Length];
 					if (hit.collider.gameObject.GetComponent<MeshRenderer>())
 						_LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<MeshRenderer>().material);
-					// Gets the hit gameObjects renderer.
 					if (hit.collider.gameObject.GetComponent<Renderer>())
 					{
-						rend[m_fHitCount] = hit.collider.gameObject.GetComponent<Renderer>();
-						rend[m_fHitCount].material.SetFloat("_Mode", 3f);
-						rend[m_fHitCount].material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-						rend[m_fHitCount].material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-						rend[m_fHitCount].material.SetInt("_ZWrite", 0);
-						rend[m_fHitCount].material.DisableKeyword("_ALPHATEST_ON");
-						rend[m_fHitCount].material.EnableKeyword("_ALPHABLEND_ON");
-						rend[m_fHitCount].material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						rend[m_fHitCount].material.renderQueue = 3000;
-						// Lerps between the original material and the hidden one.
-						if (rend[m_fHitCount].material.color.a >= 0.5f)
+						for (int i = 0; i <= m_fHitCount; ++i)
 						{
-							color = rend[m_fHitCount].material.color;
-							color.a -= 0.01f;
-							rend[m_fHitCount].material.color = color;
+							// Gets the hit gameObjects renderer.
+							rend[i] = hit.collider.gameObject.GetComponent<Renderer>();
+							rend[i].material.SetFloat("_Mode", 3f);
+							rend[i].material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+							rend[i].material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+							rend[i].material.SetInt("_ZWrite", 0);
+							rend[i].material.DisableKeyword("_ALPHATEST_ON");
+							rend[i].material.EnableKeyword("_ALPHABLEND_ON");
+							rend[i].material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+							rend[i].material.renderQueue = 3000;
+							// Lerps between the original material and the hidden one.
+							if (rend[i].material.color.a >= 0.5f)
+							{
+								color = rend[i].material.color;
+								color.a -= 0.01f;
+								rend[i].material.color = color;
+							}
 						}
+							
 					}
-					// had in for loop like the else forgot what happened.
-					if (rend[m_fHitCount] && hit.collider.gameObject.GetComponent<MeshRenderer>() != rend[m_fHitCount])
-					{
-						color = rend[m_fHitCount].material.color;
-						color.a = 1.0f;
-						rend[m_fHitCount].material.color = color;
-						rend[m_fHitCount].material.SetFloat("_Mode", 0f);
-						rend[m_fHitCount].material.renderQueue = 2001;
-					}
+					//for (int i = 0; i <= m_fHitCount; ++i)
+					//{
+					//	// had in for loop like the else forgot what happened.
+					//	if (rend[i] && hit.collider.gameObject.GetComponent<MeshRenderer>() != rend[i])
+					//	{
+					//		color = rend[i].material.color;
+					//		color.a = 1.0f;
+					//		rend[i].material.color = color;
+					//		rend[i].material.SetFloat("_Mode", 0f);
+					//		rend[i].material.renderQueue = 2001;
+					//	}
+					//}
 					m_fHitCount++;
 				}
-				m_fHitCount = hits.Length - 1;
+				//m_fHitCount = hits.Length - 1;
 			}
+			
 		}
 		else
 		{
@@ -145,11 +155,13 @@ public class HideObjects : MonoBehaviour
 			{
 				if (rend[i])
 				{
+					m_fHitCount = 0;
 					color = rend[i].material.color;
 					color.a = 1.0f;
 					rend[i].material.color = color;
 					rend[i].material.SetFloat("_Mode", 0f);
 					rend[i].material.renderQueue = 2001;
+					rend = new Renderer[hits.Length];
 				}
 			}
 		}

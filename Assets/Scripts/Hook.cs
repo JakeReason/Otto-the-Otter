@@ -5,6 +5,7 @@
 // Accesses the plugins from Unity folder
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Creates a class for the HookDetector
 public class Hook : MonoBehaviour
@@ -61,6 +62,8 @@ public class Hook : MonoBehaviour
 
 	private Collider m_detector;
 
+	private Detector m_detectorScript;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -74,12 +77,6 @@ public class Hook : MonoBehaviour
         {
             Debug.Log("NO COLLIDER!");
         }
-
-		// Logs to the console if there is no grappling hook script attached to player
-		//if (!m_player.GetComponent<GrapplingHook>())
-		//{
-		//	Debug.Log("NO HOOK!");
-		//}
 
 		// Disables the hook's collider initially
 		m_collider.enabled = false;
@@ -95,6 +92,20 @@ public class Hook : MonoBehaviour
 
 		// Defines the original transform to equal the hook's transform
 		m_originalTransform = transform;
+
+		m_detector = gameObject.GetComponentInChildren<Collider>();
+
+		if (!m_detector)
+		{
+			Debug.Log("GET COLLIDER FAILED!");
+		}
+
+		m_detectorScript = gameObject.GetComponentInChildren<Detector>();
+
+		if (!m_detectorScript)
+		{
+			Debug.Log("GET DETECTOR FAILED!");
+		}
 	}
 
 	//--------------------------------------------------------------------------------
@@ -133,7 +144,23 @@ public class Hook : MonoBehaviour
 		// Runs if fired book is true but hooked bool is false
 		if (m_bFired && !m_bHooked)
 		{
-			transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
+			//if (m_detectorScript.GetInRange())
+			//{
+			//	if (!m_detectorScript.GetTarget())
+			//	{
+			//		Debug.Log("TARGET SYSTEM NOT WORKING!");
+			//	}
+			//	else
+			//	{
+			//		transform.position = Vector3.MoveTowards(transform.position,
+			//												 m_detectorScript.GetTarget().position,
+			//												 m_fHookTravelSpeed * Time.deltaTime);
+			//	}
+			//}
+			//else
+			//{
+				transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
+			//}
 
 			// Detects distance between the player and the hook and stores in float
 			m_fCurrentDistance = Vector3.Distance(m_player.transform.position,

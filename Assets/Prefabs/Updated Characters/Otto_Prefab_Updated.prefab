@@ -615,7 +615,6 @@ GameObject:
   - component: {fileID: 95184276776365318}
   - component: {fileID: 143023964517837558}
   - component: {fileID: 114239526922102704}
-  - component: {fileID: 114812354991684476}
   m_Layer: 0
   m_Name: Player_Model
   m_TagString: Player
@@ -1944,14 +1943,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 171.95093, y: 1.02, z: 55.5}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 195.9, y: -0.7, z: 65.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161207773635570}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4838359731698382
 Transform:
   m_ObjectHideFlags: 1
@@ -2283,6 +2282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_controller: 0
+  m_hook: {fileID: 1702867675390412}
   m_flashColour: {r: 1, g: 0, b: 0, a: 0}
   m_healthImage: {fileID: 0}
   m_halfHealth: {fileID: 0}
@@ -2313,29 +2313,12 @@ MonoBehaviour:
   m_player: {fileID: 1521883657207734}
   m_hookHolder: {fileID: 1432093287595304}
   m_hookedObj: {fileID: 0}
-  m_fHookTravelSpeed: 0
-  m_fTravelSpeed: 0
-  m_fMaxDistance: 0
-  m_fHookDistance: 5
---- !u!114 &114812354991684476
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1521883657207734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27326b68c3cce6b45a057384c3f580ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_hook: {fileID: 1702867675390412}
-  m_hookHolder: {fileID: 1432093287595304}
-  m_hookedObj: {fileID: 0}
-  m_hookableText: {fileID: 0}
-  m_fHookTravelSpeed: 50
+  m_fHookTravelSpeed: 60
   m_fTravelSpeed: 50
-  m_fMaxDistance: 20
+  m_fMaxDistance: 30
   m_fHookDistance: 5
+  m_fClimbUp: 0
+  m_fClimbForward: 0
 --- !u!120 &120039088039862842
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -2532,8 +2515,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4869416270905476}
   m_AABB:
-    m_Center: {x: 0.007080078, y: 1.2738647, z: -0.83330154}
-    m_Extent: {x: 1.0390862, y: 0.31251538, z: 1.2803159}
+    m_Center: {x: 0.0070877075, y: 1.2738724, z: -0.8332977}
+    m_Extent: {x: 1.0390875, y: 0.31251556, z: 1.2803195}
   m_DirtyAABB: 0
 --- !u!137 &137510616660132916
 SkinnedMeshRenderer:

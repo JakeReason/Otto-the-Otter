@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33306081565546438}
   - component: {fileID: 23584234787067980}
   - component: {fileID: 95689971361455098}
+  - component: {fileID: 64156451062588694}
   m_Layer: 0
   m_Name: Rock_Floating_Long_Asset
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366777185185432}
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 84.27, y: 5.99, z: 13.38}
+  m_LocalPosition: {x: -8.930244, y: 1.2921467, z: 0.9337158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366777185185432}
+  m_Mesh: {fileID: 4300000, guid: e24ab4237c99afb48b102faec0267d8e, type: 3}
+--- !u!64 &64156451062588694
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1366777185185432}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e24ab4237c99afb48b102faec0267d8e, type: 3}
 --- !u!95 &95689971361455098
 Animator:
