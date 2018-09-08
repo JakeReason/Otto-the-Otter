@@ -87,7 +87,7 @@ public class CollectableManager : MonoBehaviour
 		UpdateUI();
 		m_flowerUI.SetActive(false);
 		m_clamUI.SetActive(false);
-		for(int i = 0; i < m_flowerAnimation.Length; ++i)
+		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
 			//m_flowerAnimation[i] = m_flowerAnimationUI[i].GetComponent<Animator>();
 			m_flowerAnimation[i].enabled = false;
@@ -101,17 +101,23 @@ public class CollectableManager : MonoBehaviour
 	void Update()
 	{
 		m_fUITimer += Time.deltaTime;
-		if (XCI.GetButtonDown(XboxButton.Back))
+		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
-			m_fUITimer = 0;
-			m_flowerUI.SetActive(true);
-			m_clamUI.SetActive(true);
+			if (XCI.GetButtonDown(XboxButton.Back) || Input.GetKeyDown(KeyCode.KeypadEnter))
+			{
+				m_fUITimer = 0;
+				m_flowerUI.SetActive(true);
+				m_clamUI.SetActive(true);
+				m_flowerAnimation[i].enabled = false;
+			}
+			if (m_fUITimer >= 2)
+			{
+				m_flowerUI.SetActive(false);
+				m_clamUI.SetActive(false);
+				//m_flowerAnimation[i].enabled = true;
+			}
 		}
-		if(m_fUITimer >= 2)
-		{
-			m_flowerUI.SetActive(false);
-			m_clamUI.SetActive(false);
-		}
+
 	}
 
 	public void UpdateUI()
