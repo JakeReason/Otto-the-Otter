@@ -218,18 +218,6 @@ public class Player : MonoBehaviour
 			// Sets gravity to equal the zero Vector3
 			m_v3Gravity = Vector3.zero;
 		}
-		// Else if a mushroom is directly under the player
-		//else if (Bounce())
-		//{
-		//	// Sets the y value of gravity to equal jump speed multipled by bounce force
-		//	m_v3Gravity.y = m_fJumpSpeed * m_fBounceForce;
-
-		//	// Resets Jump timer to equal zero
-		//	m_fJumpTimer = 0.0f;
-
-		//	// Sets jumped bool to be true
-		//	m_bJumped = true;
-		//}
 		// Else if the hook hasn't hooked an object or if the player hasn't bounced
 		else
 		{
