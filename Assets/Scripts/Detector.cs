@@ -4,11 +4,12 @@ using System.Collections.Generic;
 
 public class Detector : MonoBehaviour
 {
+	public Transform m_player;
+
 	private float m_fPrevDistance;
 	private bool m_bInRange;
 	private List<GameObject> m_hookables;
 	private Transform m_target;
-	private Transform m_player;
 
 	// Use this for initialization
 	void Awake()
@@ -20,22 +21,23 @@ public class Detector : MonoBehaviour
 		m_hookables = new List<GameObject>();
 
 		m_target = null;
-
-		m_player = transform.parent.parent.parent;
 	}
 
 	void Update()
 	{
 		if (m_hookables.Count == 0)
 		{
+			Debug.Log("No Hookables nearby...");
 			m_target = null;
 		}
 		else if (m_hookables.Count == 1)
 		{
+			Debug.Log("One Hookable in range!");
 			m_target = m_hookables[0].transform;
 		}
 		else if (m_hookables.Count > 1)
 		{
+			Debug.Log("Mutiple Hookables in range!");
 			DistanceCheck();
 		}
 		else

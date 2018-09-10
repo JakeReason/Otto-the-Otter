@@ -13,11 +13,10 @@ public class Hook : MonoBehaviour
 	// Allows the script to access the player
     public GameObject m_player;
 
-	// Collider used to switch on and off, depending on if it has been fired
-    private Collider m_collider;
-
 	// Represents where the hook object is being held in
 	public GameObject m_hookHolder;
+
+	public GameObject m_detector;
 
 	// Indicates an object of which the hook has hooked onto
 	[HideInInspector]
@@ -58,9 +57,10 @@ public class Hook : MonoBehaviour
 	private Transform m_originalTransform;
 
 	// Transform represents the transform of the locked on target
-	private Transform m_target;
+	private Transform m_hookTarget;
 
-	private Collider m_detector;
+	// Collider used to switch on and off, depending on if it has been fired
+	private Collider m_collider;
 
 	private Detector m_detectorScript;
 
@@ -88,19 +88,12 @@ public class Hook : MonoBehaviour
 		m_rope = GetComponent<LineRenderer>();
 
 		// Declares the target transform to be null
-		m_target = null;
+		m_hookTarget = null;
 
 		// Defines the original transform to equal the hook's transform
 		m_originalTransform = transform;
 
-		m_detector = gameObject.GetComponentInChildren<Collider>();
-
-		if (!m_detector)
-		{
-			Debug.Log("GET COLLIDER FAILED!");
-		}
-
-		m_detectorScript = gameObject.GetComponentInChildren<Detector>();
+		m_detectorScript = m_detector.GetComponent<Detector>();
 
 		if (!m_detectorScript)
 		{
@@ -152,9 +145,13 @@ public class Hook : MonoBehaviour
 				}
 				else
 				{
-					transform.position = Vector3.MoveTowards(transform.position,
-															 m_detectorScript.GetTarget().position,
-															 m_fHookTravelSpeed * Time.deltaTime);
+					if (!m_hookTarget)
+					{
+						m_hookTarget = m_detectorScript.GetTarget();
+					}
+
+					transform.position = Vector3.MoveTowards(transform.position, m_hookTarget.position,
+																 m_fHookTravelSpeed * Time.deltaTime);
 				}
 			}
 			else
