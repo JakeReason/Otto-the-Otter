@@ -117,6 +117,9 @@ public class Player : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_CM;
 
+	[SerializeField]
+	private LayerMask PlatformLayer;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -184,6 +187,7 @@ public class Player : MonoBehaviour
     {
 		// Calls both Move and Animate functions in conjunction per frame
 		Move();
+		PlatformDetection();
 		Animate();
 	}
 
@@ -455,6 +459,22 @@ public class Player : MonoBehaviour
 
 		// Sets jumped bool to be true
 		m_bJumped = true;
+	}
+
+	void PlatformDetection()
+	{
+		RaycastHit Hit;
+		// Sets forward vector to the transforms forward.
+		Vector3 down = transform.TransformDirection(Vector3.down);
+		if (Physics.Raycast(transform.position, down, out Hit, 1, PlatformLayer))
+		{
+			transform.parent = Hit.transform;
+			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+		}
+		else
+		{
+			transform.parent = null;
+		}
 	}
 
     //--------------------------------------------------------------------------------
