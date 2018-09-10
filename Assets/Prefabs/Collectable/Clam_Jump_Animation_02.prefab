@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 4199213526407780}
   - component: {fileID: 95485067411237128}
   - component: {fileID: 114675212520134704}
+  - component: {fileID: 65476818706886988}
   m_Layer: 0
   m_Name: Clam_Jump_Animation_02
   m_TagString: Untagged
@@ -382,8 +383,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1388360387807930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.841148, y: 1.213, z: 43.57211}
+  m_LocalRotation: {x: -0, y: 0.6087605, z: -0, w: 0.79335415}
+  m_LocalPosition: {x: 50.37039, y: -22.072807, z: -13.155022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908035322493352}
@@ -392,7 +393,7 @@ Transform:
   - {fileID: 4760752543095486}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
 --- !u!4 &4203206382050352
 Transform:
   m_ObjectHideFlags: 1
@@ -655,6 +656,18 @@ Transform:
   m_Father: {fileID: 4760752543095486}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65476818706886988
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388360387807930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95485067411237128
 Animator:
   serializedVersion: 3
