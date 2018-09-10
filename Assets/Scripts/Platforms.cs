@@ -87,6 +87,12 @@ public class Platforms : MonoBehaviour
 	//
 	private float m_fMoveTimer = 0;
 
+	//
+	private float m_fFollowMoveTimer = 2;
+
+	[SerializeField]
+	// 
+	private float m_fFollowWaitTime = 1;
 
 	//
 	private float m_fResetTime;
@@ -102,6 +108,7 @@ public class Platforms : MonoBehaviour
 	{
 		m_fResetTime += m_fReturnTime * 2 + m_fWaitTime * m_fWaitTime;
 		m_fWaitTime += m_fReturnTime + m_fStartWaitTime;
+		m_fFollowMoveTimer = m_fFollowWaitTime;
 	}
 
 	// Update is called once per frame
@@ -304,7 +311,7 @@ public class Platforms : MonoBehaviour
 
 	public void Orbit()
 	{
-		if(m_bOrbit)
+		if (m_bOrbit)
 		{
 			transform.position += transform.right * m_fSpeed * Time.deltaTime;
 			transform.Rotate(Vector3.up * (m_fRotationSpeed * Time.deltaTime));
@@ -347,31 +354,35 @@ public class Platforms : MonoBehaviour
 			{
 				if (transform.position == m_targetPoints[i].position)
 				{
-					// If the last waypoint has been reached turn around.
-					if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
+					m_fFollowMoveTimer -= Time.deltaTime;
+					if(m_fFollowMoveTimer <= 0)
 					{
-						m_bGoBackWards = true;
-					}
-					// If the First waypoint has been reached turn around.
-					if (m_targetPoints[m_nDestPoint].tag == "FirstWaypoint")
-					{
-						m_bGoBackWards = false;
-					}
-					// If the enemy is going backwards then go to the next waypoint
-					// going backwards from the array of waypoints.
-					if (m_bGoBackWards)
-					{
-						GoToLastPoint();
-					}
-					// If the enemy is not going backwards then go to the next waypoint
-					// in order of the array of waypoints.
-					if (!m_bGoBackWards)
-					{
-						GoToNextPoint();
+						// If the last waypoint has been reached turn around.
+						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
+						{
+							m_bGoBackWards = true;
+						}
+						// If the First waypoint has been reached turn around.
+						if (m_targetPoints[m_nDestPoint].tag == "FirstWaypoint")
+						{
+							m_bGoBackWards = false;
+						}
+						// If the enemy is going backwards then go to the next waypoint
+						// going backwards from the array of waypoints.
+						if (m_bGoBackWards)
+						{
+							GoToLastPoint();
+						}
+						// If the enemy is not going backwards then go to the next waypoint
+						// in order of the array of waypoints.
+						if (!m_bGoBackWards)
+						{
+							GoToNextPoint();
+						}
+						m_fFollowMoveTimer = m_fFollowWaitTime;
 					}
 				}
 			}
-			// Set the agent to go to the currently selected destination.
 			transform.position = Vector3.MoveTowards(transform.position, m_targetPoints[m_nDestPoint].position, m_fSpeed * Time.deltaTime);
 		}
 
