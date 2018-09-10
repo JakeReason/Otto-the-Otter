@@ -186,6 +186,10 @@ public class CollectableManager : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void AddFlower(int nFlowerToCollect)
 	{
+		for(int i = 0; i < m_flowerAnimation.Length; ++i)
+		{
+			m_flowerAnimation[i].enabled = false;
+		}
 		m_fFlowersCollected += 1;
 		m_flowerAnimation[nFlowerToCollect].enabled = true;
 		m_audioSource.PlayOneShot(m_flowerPickAudioClip);
