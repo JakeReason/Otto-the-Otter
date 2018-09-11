@@ -57,6 +57,7 @@ public class Hook : MonoBehaviour
 	private Transform m_originalTransform;
 
 	// Transform represents the transform of the locked on target
+	[SerializeField]
 	private Transform m_hookTarget;
 
 	// Collider used to switch on and off, depending on if it has been fired
@@ -127,11 +128,13 @@ public class Hook : MonoBehaviour
 			m_rope.SetPosition(1, transform.position);
 		}
 		// Else rope is not created if fired bool is false
-		else
+		else if (!m_bHooked || !m_bFired)
 		{
 			m_collider.enabled = false;
 
 			m_rope.positionCount = 0;
+
+			m_hookTarget = m_detectorScript.GetTarget();
 		}
 
 		// Runs if fired book is true but hooked bool is false
@@ -145,11 +148,6 @@ public class Hook : MonoBehaviour
 				}
 				else
 				{
-					if (!m_hookTarget)
-					{
-						m_hookTarget = m_detectorScript.GetTarget();
-					}
-
 					transform.position = Vector3.MoveTowards(transform.position, m_hookTarget.position,
 																 m_fHookTravelSpeed * Time.deltaTime);
 				}
@@ -158,6 +156,8 @@ public class Hook : MonoBehaviour
 			{
 				transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
 			}
+
+			//m_detector.GetComponent<Collider>().enabled = false;
 
 			// Detects distance between the player and the hook and stores in float
 			m_fCurrentDistance = Vector3.Distance(m_player.transform.position,
@@ -239,6 +239,10 @@ public class Hook : MonoBehaviour
 		// Initialises fired and hooked bools back to false
 		m_bFired = false;
 		m_bHooked = false;
+
+		m_hookTarget = null;
+
+		//m_detector.GetComponent<Collider>().enabled = true;
 
 		// Deletes the rope to have no positions
 		m_rope.positionCount = 0;

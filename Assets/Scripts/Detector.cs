@@ -68,9 +68,14 @@ public class Detector : MonoBehaviour
 	{
 		if (other.CompareTag("Hookable"))
 		{
-			m_bInRange = true;
-
 			m_hookables.Add(other.gameObject);
+
+			m_bInRange = true;
+		}
+
+		if (m_hookables.Count <= 0)
+		{
+			m_bInRange = false;
 		}
 	}
 
