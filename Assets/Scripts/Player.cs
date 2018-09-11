@@ -369,16 +369,25 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Grapple", false);
 		}
-
-		// Sets Moving bool in animator to true if the player has any movement
-		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
+		// Sets Running bool in animator to true if the player has any running movement
+		if (m_v3MoveDirection.sqrMagnitude > 0.4f)
 		{
-			m_animator.SetBool("Moving", true);
+			m_animator.SetBool("Running", true);
+		}
+		// Sets Running bool in animator to false if player is not running
+		else
+		{
+			m_animator.SetBool("Running", false);
+		}
+		// Sets Moving bool in animator to true if the player has any movement
+		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.4f)
+		{
+			m_animator.SetBool("Walking", true);
 		}
 		// Sets Moving bool in animator to falseif player is still
 		else
 		{
-			m_animator.SetBool("Moving", false);
+			m_animator.SetBool("Walking", false);
 		}
 	}
 
