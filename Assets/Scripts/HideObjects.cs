@@ -28,20 +28,24 @@ public class HideObjects : MonoBehaviour
 
 	public float m_fCamDistance = 10;
 
+	Camera m_camera;
+
 	void Start()
 	{
 		// Sets the dolly direction.
 		dollyDir = transform.localPosition.normalized;
 		_LastTransforms = new Dictionary<Transform, Material>();
+		m_camera = Camera.main;
 	}
 
 	void Update()
 	{
 		// Sets the new position for the camera.
-		transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * m_fDistance, m_fSmooth * Time.deltaTime);
+		//transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * m_fDistance, m_fSmooth * Time.deltaTime);
 		UpdateChangeTime();
 		ResetMaterials();
 		RayCastMaterialChange();
+		Debug.DrawRay(m_camera.transform.position, WatchTarget.transform.position - transform.position, Color.green);
 	}
 
 	void UpdateChangeTime()
@@ -86,7 +90,7 @@ public class HideObjects : MonoBehaviour
 	{
 		// Cast a ray from this object's transform to the watch target's transform.
 		RaycastHit[] hits = Physics.RaycastAll(
-		  transform.position,
+		  m_camera.transform.position,
 		  WatchTarget.transform.position - transform.position,
 		  Vector3.Distance(WatchTarget.transform.position, transform.position),
 		  OccluderMask
@@ -129,7 +133,7 @@ public class HideObjects : MonoBehaviour
 								rend[i].material.color = color;
 							}
 						}
-							
+
 					}
 					//for (int i = 0; i <= m_fHitCount; ++i)
 					//{
@@ -147,7 +151,7 @@ public class HideObjects : MonoBehaviour
 				}
 				//m_fHitCount = hits.Length - 1;
 			}
-			
+
 		}
 		else
 		{
