@@ -38,6 +38,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4725949128768696}
+  - component: {fileID: 114074066974790238}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -56,6 +57,8 @@ GameObject:
   - component: {fileID: 33181978960474052}
   - component: {fileID: 23980246004288924}
   - component: {fileID: 95606055395560624}
+  - component: {fileID: 65218542007217584}
+  - component: {fileID: 114367622749333342}
   m_Layer: 0
   m_Name: Spinning_Log_Support_Asset_Modular Set
   m_TagString: Untagged
@@ -200,6 +203,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 5d1665c3c206f3d4790e2b238136e1aa, type: 3}
+--- !u!65 &65218542007217584
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930020414412112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.77794814, y: 1.2791437, z: 6.924344}
+  m_Center: {x: 0, y: 1.47, z: 0}
 --- !u!95 &95067776034168772
 Animator:
   serializedVersion: 3
@@ -234,3 +249,48 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114074066974790238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928541092386106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd32f34e52e7424093697227aa75133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bOrbit: 0
+  m_bMoveUp: 0
+  m_bMoveDown: 0
+  m_bMoveLeft: 0
+  m_bMoveRight: 0
+  m_bMoveForward: 0
+  m_bMoveBackward: 0
+  m_bRotateUp: 0
+  m_bRotateDown: 0
+  m_bRotateLeft: 0
+  m_bRotateRight: 0
+  m_bRotateForward: 1
+  m_bRotateBackward: 0
+  m_bFollowPath: 0
+  m_fSpeed: 1
+  m_fRotationSpeed: 60
+  m_fReturnTime: 1e+13
+  m_fWaitTime: 0
+  m_fStartWaitTime: 0
+  m_targetPoints: []
+  m_fFollowWaitTime: 1
+  m_fPushBackSpeed: 1
+--- !u!114 &114367622749333342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930020414412112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600ce74ca654f234bb08042f66e58629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_platformObject: {fileID: 1928541092386106}
