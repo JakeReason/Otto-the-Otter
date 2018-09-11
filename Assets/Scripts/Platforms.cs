@@ -97,6 +97,10 @@ public class Platforms : MonoBehaviour
 	//
 	private float m_fResetTime;
 
+	[SerializeField]
+	//
+	private float m_fPushBackSpeed = 1;
+
 	// Keeps track of the current waypoint number.
 	private int m_nDestPoint = 0;
 
@@ -355,7 +359,7 @@ public class Platforms : MonoBehaviour
 				if (transform.position == m_targetPoints[i].position)
 				{
 					m_fFollowMoveTimer -= Time.deltaTime;
-					if(m_fFollowMoveTimer <= 0)
+					if (m_fFollowMoveTimer <= 0)
 					{
 						// If the last waypoint has been reached turn around.
 						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
@@ -388,5 +392,32 @@ public class Platforms : MonoBehaviour
 
 	}
 
+	public void PushBack(Collider other)
+	{
+		if (m_bRotateForward)
+		{
+			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+			other.transform.position += -transform.right * m_fPushBackSpeed * Time.deltaTime;
+		}
+		if (m_bRotateBackward)
+		{
+			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+			other.transform.position += transform.right * m_fPushBackSpeed * Time.deltaTime;
+		}
+		if (m_bRotateDown)
+		{
+			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+			other.transform.position += transform.right * m_fPushBackSpeed * Time.deltaTime;
+		}
+		if (m_bRotateUp)
+		{
+			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+			other.transform.position += -transform.right * m_fPushBackSpeed * Time.deltaTime;
+		}
+	}
 
+	private void OnTriggerStay(Collider other)
+	{
+		PushBack(other);
+	}
 }

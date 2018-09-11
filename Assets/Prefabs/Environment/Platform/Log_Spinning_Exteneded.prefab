@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 4127350622480034}
   - component: {fileID: 33135474398195198}
   - component: {fileID: 23553598923550472}
+  - component: {fileID: 65783928972923118}
+  - component: {fileID: 114763691756114058}
   m_Layer: 0
   m_Name: Log_Spinning_Supports
   m_TagString: Untagged
@@ -125,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887909840025322}
   m_LocalRotation: {x: -0, y: 0.729926, z: -0, w: -0.6835263}
-  m_LocalPosition: {x: 8.31, y: -5.72, z: 24.64}
+  m_LocalPosition: {x: -2.5519311, y: 0.3918631, z: 7.8037806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4127350622480034}
@@ -215,6 +217,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1197733943428762}
   m_Mesh: {fileID: 4300000, guid: 72a1ffb33a4e8234ca9d866019773553, type: 3}
+--- !u!65 &65783928972923118
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502676823972922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5391263, y: 1.0805974, z: 10}
+  m_Center: {x: 0.09268534, y: 1.0402987, z: -4.0434045e-11}
 --- !u!95 &95558435872531656
 Animator:
   serializedVersion: 3
@@ -232,6 +246,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114763691756114058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502676823972922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600ce74ca654f234bb08042f66e58629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_platformObject: {fileID: 1154011849649206}
 --- !u!114 &114841424720917150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,6 +289,8 @@ MonoBehaviour:
   m_fWaitTime: 0
   m_fStartWaitTime: 0
   m_targetPoints: []
+  m_fFollowWaitTime: 1
+  m_fPushBackSpeed: 1
 --- !u!136 &136960777413446600
 CapsuleCollider:
   m_ObjectHideFlags: 1
