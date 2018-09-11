@@ -28,14 +28,11 @@ public class Detector : MonoBehaviour
 		}
 		else if (m_hookables.Count == 1)
 		{
-			if (!ObjectsBetween(m_hookables[0].transform))
-			{
-				m_target = m_hookables[0].transform;
-			}
-			else
-			{
-				m_target = null;
-			}
+			m_target = m_hookables[0].transform;
+			//else
+			//{
+			//	m_target = null;
+			//}
 		}
 		else if (m_hookables.Count > 1)
 		{
