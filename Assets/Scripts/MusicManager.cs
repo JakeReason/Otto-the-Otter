@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public class MusicManager : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class MusicManager : MonoBehaviour
 			{
 				nextClip = GetNextClip();
 			}
-			m_nCurrentClipIndex = ArrayUtility.IndexOf(m_musicClips, nextClip);
+			//m_nCurrentClipIndex = ArrayUtility.IndexOf(m_musicClips, nextClip);
 			m_audioSource.clip = nextClip;
 			m_audioSource.Play();
 		}
