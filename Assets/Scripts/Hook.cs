@@ -22,6 +22,8 @@ public class Hook : MonoBehaviour
 	[HideInInspector]
 	public GameObject m_hookedObj;
 
+	public LayerMask m_playerLayer;
+
 	// Float represents the speed of the hook once launched
 	public float m_fHookTravelSpeed;
 
@@ -258,6 +260,15 @@ public class Hook : MonoBehaviour
 			// Sets the hooked object in Grappling Hook script to equal the colliding object
 			m_hookedObj = other.gameObject;
         }
+		//--------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------
+		// WEIRD COLLISION LAYER BUG! CHECK BACK ON IT LATER!!!
+		//--------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------
+		else if (other.gameObject.layer != 10)
+		{
+			ReturnHook();
+		}
     }
 
 	public bool GetHooked()
