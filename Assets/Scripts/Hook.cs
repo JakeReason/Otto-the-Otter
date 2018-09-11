@@ -140,17 +140,10 @@ public class Hook : MonoBehaviour
 		// Runs if fired book is true but hooked bool is false
 		if (m_bFired && !m_bHooked)
 		{
-			if (m_detectorScript.GetInRange())
+			if (m_hookTarget)
 			{
-				if (!m_detectorScript.GetTarget())
-				{
-					Debug.Log("TARGET SYSTEM NOT WORKING!");
-				}
-				else
-				{
-					transform.position = Vector3.MoveTowards(transform.position, m_hookTarget.position,
+				transform.position = Vector3.MoveTowards(transform.position, m_hookTarget.position,
 																 m_fHookTravelSpeed * Time.deltaTime);
-				}
 			}
 			else
 			{

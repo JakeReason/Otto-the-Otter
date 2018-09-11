@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Detector : MonoBehaviour
 {
 	public Transform m_player;
+	public LayerMask m_default;
 
 	private float m_fPrevDistance;
-	private bool m_bInRange;
 	private List<GameObject> m_hookables;
 	private Transform m_target;
 
@@ -15,8 +14,6 @@ public class Detector : MonoBehaviour
 	void Awake()
 	{
 		m_fPrevDistance = 0.0f;
-
-		m_bInRange = false;
 
 		m_hookables = new List<GameObject>();
 
@@ -27,22 +24,40 @@ public class Detector : MonoBehaviour
 	{
 		if (m_hookables.Count == 0)
 		{
-			Debug.Log("No Hookables nearby...");
 			m_target = null;
 		}
 		else if (m_hookables.Count == 1)
 		{
-			Debug.Log("One Hookable in range!");
-			m_target = m_hookables[0].transform;
+			if (!ObjectsBetween(m_hookables[0].transform))
+			{
+				m_target = m_hookables[0].transform;
+			}
+			else
+			{
+				m_target = null;
+			}
 		}
 		else if (m_hookables.Count > 1)
 		{
-			Debug.Log("Mutiple Hookables in range!");
 			DistanceCheck();
 		}
 		else
 		{
 			Debug.Log("HOOKABLES LIST HAS INVALID COUNT!");
+		}
+	}
+
+	private bool ObjectsBetween(Transform desiredTarget)
+	{
+		Debug.DrawLine(m_player.position, desiredTarget.position);
+
+		if (Physics.Linecast(m_player.position, desiredTarget.position, m_default))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -55,7 +70,10 @@ public class Detector : MonoBehaviour
 
 			if (fDistance <= m_fPrevDistance)
 			{
-				m_target = m_hookables[i].transform;
+				if (!ObjectsBetween(m_hookables[0].transform))
+				{
+					m_target = m_hookables[i].transform;
+				}
 			}
 
 			m_fPrevDistance = fDistance;
@@ -69,13 +87,6 @@ public class Detector : MonoBehaviour
 		if (other.CompareTag("Hookable"))
 		{
 			m_hookables.Add(other.gameObject);
-
-			m_bInRange = true;
-		}
-
-		if (m_hookables.Count <= 0)
-		{
-			m_bInRange = false;
 		}
 	}
 
@@ -84,17 +95,7 @@ public class Detector : MonoBehaviour
 		if (other.CompareTag("Hookable"))
 		{
 			m_hookables.Remove(other.gameObject);
-
-			if (m_hookables.Count <= 0)
-			{
-				m_bInRange = false;
-			}
 		}
-	}
-
-	public bool GetInRange()
-	{
-		return m_bInRange;
 	}
 
 	public Transform GetTarget()
