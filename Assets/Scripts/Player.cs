@@ -322,7 +322,7 @@ public class Player : MonoBehaviour
 	private void Animate()
 	{
 		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-		if (m_bJumped && m_v3Gravity.y == m_fJumpSpeed)
+		if (m_bJumped && m_v3Gravity.y <= m_fJumpSpeed)
 		{
 			m_animator.SetBool("Jumping", true);
 		}
@@ -354,7 +354,7 @@ public class Player : MonoBehaviour
 			m_fJumpTimer = 0.0f;
 		}
 		// Sets Landing bool in animator to false otherwise
-		else
+		else 
 		{
 			m_animator.SetBool("Landing", false);
 		}
@@ -371,7 +371,7 @@ public class Player : MonoBehaviour
 		//}
 
 		// Sets Running bool in animator to true if the player has any running movement
-		if (m_v3MoveDirection.sqrMagnitude >= 0.85f)
+		if (m_v3MoveDirection.sqrMagnitude >= 0.97f)
 		{
 			m_animator.SetBool("Running", true);
 		}
@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
-		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.85f)
+		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.97f)
 		{
 			m_animator.SetBool("Walking", true);
 		}
