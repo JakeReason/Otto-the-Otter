@@ -105,6 +105,8 @@ public class Player : MonoBehaviour
 	// Private float indicates the rate the player flashes after being hit
     private float m_fFlashingRate;
 
+	private float m_fGrassTimer;
+
 	// Int keeps track of the player's current health
     private int m_nHealth;
 
@@ -177,9 +179,10 @@ public class Player : MonoBehaviour
         // Initialises private floats to equal zero
         m_fJumpTimer = 0.0f;
         m_fHealthTimer = 0.0f;
+		m_fGrassTimer = 0.0f;
 
-        // Sets the health of the player to equal two when script is called
-        m_nHealth = 2;
+		// Sets the health of the player to equal two when script is called
+		m_nHealth = 2;
 
         // Sets private bools to false on awake
         m_bJumped = false;
@@ -366,7 +369,7 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Landing", false);
 
-			m_grass.Stop();
+			m_grass.Pause();
 		}
 
 		// Sets Grapple bool in animator to true if player has launched hook or is hooked
@@ -388,11 +391,20 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Running", true);
 
 			m_grass.Play();
+
+			m_fGrassTimer += Time.deltaTime;
+
+			if (m_fGrassTimer >= 0.75f)
+			{
+				m_grass.Pause();
+			}
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
 		{
 			m_animator.SetBool("Running", false);
+
+			m_fGrassTimer = 0.0f;
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
