@@ -14,6 +14,12 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+	public ParticleSystem m_landing;
+
+	public ParticleSystem m_scarfWrap;
+
+	public ParticleSystem m_grass;
+
 	public GameObject m_hook;
 
 	// Public color indicates what colour the player will flash after getting hit
@@ -349,6 +355,8 @@ public class Player : MonoBehaviour
 			// Sets Landing bool in animator to true
 			m_animator.SetBool("Landing", true);
 
+			m_landing.Play();
+
 			// Resets Jumped bool back to false and and Jump Timer to zero
 			m_bJumped = false;
 			m_fJumpTimer = 0.0f;
@@ -363,6 +371,8 @@ public class Player : MonoBehaviour
 		if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
 		{
 			m_animator.SetBool("Grapple", true);
+
+			m_scarfWrap.Play();
 		}
 		// Sets Grapple bool in animator to false otherwise
 		else
@@ -374,6 +384,8 @@ public class Player : MonoBehaviour
 		if (m_v3MoveDirection.sqrMagnitude >= 0.99f)
 		{
 			m_animator.SetBool("Running", true);
+
+			m_grass.Play();
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
