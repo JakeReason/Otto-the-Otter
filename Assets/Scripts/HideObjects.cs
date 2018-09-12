@@ -95,11 +95,15 @@ public class HideObjects : MonoBehaviour
 		  Vector3.Distance(WatchTarget.transform.position, transform.position),
 		  OccluderMask
 		);
+
+		Renderer[] tempRend = new Renderer[rend.Length];
+		tempRend = rend;
 		//Debug.DrawRay(transform.position, WatchTarget.transform.position - transform.position);
 		// Loop through all overlapping objects and lerp between materials.
 		// rend element 0 equals the first it object and never changes.
 		if (hits.Length > 0)
 		{
+			// started to attempt a temp renderer array which stores the list of renderers to change to objects back to full opacity if they are not in the array.
 			m_fHitCount = 0;
 			//rend = new Renderer[hits.Length];
 			foreach (RaycastHit hit in hits)
@@ -135,6 +139,32 @@ public class HideObjects : MonoBehaviour
 						}
 
 					}
+					for (int i = 0; i < tempRend.Length; ++i)
+					{
+						//if (rend[i] != null)
+						//{
+						if (tempRend[i] != null)
+						{
+							if (i < rend.Length)
+							{
+								if (tempRend[i] == rend[i])
+								{
+								}
+							}
+							else
+							{
+								color = tempRend[i].material.color;
+								color.a = 1.0f;
+								tempRend[i].material.color = color;
+								tempRend[i].material.SetFloat("_Mode", 0f);
+								tempRend[i].material.renderQueue = 2001;
+							}
+							
+						}
+
+
+						//}
+					}
 					//for (int i = 0; i <= m_fHitCount; ++i)
 					//{
 					//	// had in for loop like the else forgot what happened.
@@ -155,16 +185,16 @@ public class HideObjects : MonoBehaviour
 		}
 		else
 		{
-			for (int i = 0; i < rend.Length; ++i)
+			for (int i = 0; i < tempRend.Length; ++i)
 			{
-				if (rend[i])
+				if (tempRend[i])
 				{
 					m_fHitCount = 0;
-					color = rend[i].material.color;
+					color = tempRend[i].material.color;
 					color.a = 1.0f;
-					rend[i].material.color = color;
-					rend[i].material.SetFloat("_Mode", 0f);
-					rend[i].material.renderQueue = 2001;
+					tempRend[i].material.color = color;
+					tempRend[i].material.SetFloat("_Mode", 0f);
+					tempRend[i].material.renderQueue = 2001;
 					rend = new Renderer[hits.Length];
 				}
 			}
