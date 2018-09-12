@@ -365,6 +365,8 @@ public class Player : MonoBehaviour
 		else 
 		{
 			m_animator.SetBool("Landing", false);
+
+			m_grass.Stop();
 		}
 
 		// Sets Grapple bool in animator to true if player has launched hook or is hooked
