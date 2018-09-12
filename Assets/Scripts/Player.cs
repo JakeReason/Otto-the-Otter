@@ -338,7 +338,7 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Falling", true);
 		}
 		// Sets Falling bool in animator to false otherwise
-		else
+		else if (m_cc.isGrounded)
 		{
 			m_animator.SetBool("Falling", false);
 		}
@@ -359,19 +359,19 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Landing", false);
 		}
 
-		//// Sets Grapple bool in animator to true if player has launched hook or is hooked
-		//if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
-		//{
-		//	m_animator.SetBool("Grapple", true);
-		//}
-		//// Sets Grapple bool in animator to false otherwise
-		//else
-		//{
-		//	m_animator.SetBool("Grapple", false);
-		//}
+		// Sets Grapple bool in animator to true if player has launched hook or is hooked
+		if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
+		{
+			m_animator.SetBool("Grapple", true);
+		}
+		// Sets Grapple bool in animator to false otherwise
+		else
+		{
+			m_animator.SetBool("Grapple", false);
+		}
 
 		// Sets Running bool in animator to true if the player has any running movement
-		if (m_v3MoveDirection.sqrMagnitude >= 0.97f)
+		if (m_v3MoveDirection.sqrMagnitude >= 0.99f)
 		{
 			m_animator.SetBool("Running", true);
 		}
@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
-		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.97f)
+		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.99f)
 		{
 			m_animator.SetBool("Walking", true);
 		}
