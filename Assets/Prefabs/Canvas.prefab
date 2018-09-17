@@ -274,6 +274,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1721875884539324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224352452820608810}
+  - component: {fileID: 222982390374257820}
+  - component: {fileID: 114988401612608088}
+  m_Layer: 5
+  m_Name: SelectedTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1733121324155724
 GameObject:
   m_ObjectHideFlags: 1
@@ -521,7 +538,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955198117865306}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2b000f2ef12308e4395b5ac6b871a6f1, type: 2}
   m_CullingMode: 0
@@ -655,11 +672,21 @@ MonoBehaviour:
   m_flowerUI: {fileID: 1224912714848580}
   m_clamUI: {fileID: 1984651601365604}
   m_fUITimer: 0
+  m_fWaitTimer: 4
+  m_flowerAnimation:
+  - {fileID: 95754062325346276}
+  - {fileID: 95419654950289492}
+  - {fileID: 95941395106147148}
+  - {fileID: 95690870107489582}
+  - {fileID: 95259349300675856}
+  m_flowerAnimationUI: []
   m_checkPoint: {fileID: 0}
   m_flowerPickAudioClip: {fileID: 0}
   m_clamPickAudioClip: {fileID: 0}
   m_newLifeAudioClip: {fileID: 0}
   m_checkPointAudioClip: {fileID: 0}
+  m_fClamMoveDistance: 0
+  m_fFlowerMoveDistance: 0
 --- !u!114 &114060156971008958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,6 +1541,33 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2.83, y: -3.53}
   m_UseGraphicAlpha: 1
+--- !u!114 &114988401612608088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721875884539324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!222 &222149120439172100
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1604,6 +1658,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111484776651834}
+--- !u!222 &222982390374257820
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721875884539324}
 --- !u!222 &222987417240580902
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1645,6 +1705,7 @@ RectTransform:
   - {fileID: 224663967477340070}
   - {fileID: 224270438780123556}
   - {fileID: 224997099566133640}
+  - {fileID: 224352452820608810}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1780,6 +1841,24 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -507.10013, y: 241.4}
   m_SizeDelta: {x: 61.2, y: 111.8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224352452820608810
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721875884539324}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224005794972215590}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -54.808716, y: -30.824188}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224363389746296094
 RectTransform:

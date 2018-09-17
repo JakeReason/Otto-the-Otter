@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Detector : MonoBehaviour
 {
 	public Transform m_player;
 	public LayerMask m_default;
+	public Image m_selectImage;
 
 	private float m_fPrevDistance;
 	private List<GameObject> m_hookables;
 	private Transform m_target;
+
 
 	// Use this for initialization
 	void Awake()
@@ -25,10 +28,15 @@ public class Detector : MonoBehaviour
 		if (m_hookables.Count == 0)
 		{
 			m_target = null;
+			m_selectImage.enabled = false;
 		}
 		else if (m_hookables.Count == 1)
 		{
 			m_target = m_hookables[0].transform;
+			m_selectImage.enabled = true;
+			//m_selectImage.transform.position = m_target.transform.position;
+			Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
+			m_selectImage.transform.position = targetPos;
 		}
 		else if (m_hookables.Count > 1)
 		{
@@ -66,6 +74,10 @@ public class Detector : MonoBehaviour
 				//if (!ObjectsBetween(m_hookables[0].transform))
 				//{
 				m_target = m_hookables[i].transform;
+				//m_selectImage.transform.position = m_target.transform.position;
+				m_selectImage.enabled = true;
+				Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
+				m_selectImage.transform.position = targetPos;
 				//}
 			}
 
