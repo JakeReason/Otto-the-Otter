@@ -107,6 +107,10 @@ public class Player : MonoBehaviour
 
 	private float m_fGrassTimer;
 
+	private float m_fForward;
+
+	private float m_fSideways;
+
 	// Int keeps track of the player's current health
     private int m_nHealth;
 
@@ -180,6 +184,8 @@ public class Player : MonoBehaviour
         m_fJumpTimer = 0.0f;
         m_fHealthTimer = 0.0f;
 		m_fGrassTimer = 0.0f;
+		m_fForward = 0.0f;
+		m_fSideways = 0.0f;
 
 		// Sets the health of the player to equal two when script is called
 		m_nHealth = 2;
@@ -205,25 +211,24 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
-		// Creates a new Vector3 indicating which direction the left stick is facing
-		m_v3MoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,
-										Input.GetAxis("Vertical"));
+		if (Input.GetAxis("LeftStickHorizontal") < 0.1f && 
+			Input.GetAxis("LeftStickVertical") < 0.1f &&
+			Input.GetAxis("LeftStickHorizontal") > -0.1f &&
+			Input.GetAxis("LeftStickVertical") > -0.1f)
+		{
+			m_fForward = Input.GetAxis("KeyboardHorizontal");
+			m_fSideways = Input.GetAxis("KeyboardVertical");
+		}
+		else
+		{
+			m_fForward = Input.GetAxis("LeftStickHorizontal");
+			m_fSideways = Input.GetAxis("LeftStickVertical");
+		}
+
+		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
 		// Sets the look direction to equal the direction the control stick is facing
 		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
-
-		// Checks if there is any movement from the control stick
-		if (m_v3LookDirection.x < 0.1f && m_v3LookDirection.z < 0.1f)
-		{
-			// Makes the look direction equal the previous frame's look direction
-			m_v3LookDirection = m_v3PreviousLook;
-		}
-		// Else if there is input from the control stick
-		else
-		{
-			// Stores the look direction to be the previous frame direction
-			m_v3PreviousLook = m_v3LookDirection;
-		}
 
 		// Detects if Grappling Hook is hooked on an object
 		if (m_grapplingScript.GetHooked())

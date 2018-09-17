@@ -141,8 +141,8 @@ public class CameraFollow : MonoBehaviour
 		float inputX = Input.GetAxis("RightStickHorizontal");
 		float inputZ = Input.GetAxis("RightStickVertical");
 		// Setup the rotation of the mouse axis.
-		mouseX = Input.GetAxis("Mouse X");
-		mouseY = Input.GetAxis("Mouse Y");
+		mouseX = Input.GetAxis("MouseX");
+		mouseY = Input.GetAxis("MouseY");
 		// Sets the final input for rotation.
 		finalInputX = inputX + mouseX;
 		finalInputZ = inputZ + mouseY;

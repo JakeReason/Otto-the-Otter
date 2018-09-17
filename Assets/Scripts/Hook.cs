@@ -110,7 +110,7 @@ public class Hook : MonoBehaviour
 	void Update()
     {
 		// Sets fired bool to equal true if fire button has been pressed
-		if (Input.GetButtonDown("Fire1") && !m_bFired)
+		if (Input.GetButtonDown("Grapple") && !m_bFired)
 		{
 			m_bFired = true;
 		}
