@@ -89,6 +89,9 @@ public class CollectableManager : MonoBehaviour
 	private Vector3 m_v3FlowerUIOriginalPos;
 	private Vector3 m_v3ClamUIOriginalPos;
 
+	[SerializeField]
+	private float m_fMoveDistance;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -102,8 +105,8 @@ public class CollectableManager : MonoBehaviour
 		m_flowerText.text = m_fFlowersCollected + "";
 		m_flowerUI.SetActive(false);
 		m_clamUI.SetActive(false);
-		m_flowerUI.transform.position = new Vector3(m_flowerUI.transform.position.x + -515, m_flowerUI.transform.position.y, m_flowerUI.transform.position.z);
-		m_clamUI.transform.position = new Vector3(m_clamUI.transform.position.x + 400, m_clamUI.transform.position.y, m_clamUI.transform.position.z);
+		m_flowerUI.transform.position = new Vector3(m_flowerUI.transform.position.x + -m_fMoveDistance, m_flowerUI.transform.position.y, m_flowerUI.transform.position.z);
+		m_clamUI.transform.position = new Vector3(m_clamUI.transform.position.x + m_fMoveDistance, m_clamUI.transform.position.y, m_clamUI.transform.position.z);
 		m_v3FlowerUIOffScreenPos = m_flowerUI.transform.position;
 		m_v3ClamUIOffScreenPos = m_clamUI.transform.position;
 		for (int i = 0; i < m_flowerAnimation.Length; ++i)
