@@ -55,6 +55,10 @@ public class CollectableManager : MonoBehaviour
 
 	[SerializeField]
 	// 
+	private float m_fWaitTimer = 2;
+
+	[SerializeField]
+	// 
 	private Animator[] m_flowerAnimation;
 
 	[SerializeField]
@@ -77,16 +81,31 @@ public class CollectableManager : MonoBehaviour
 
 	private AudioSource m_audioSource;
 
+	private bool m_bShowUI = false;
+	private bool m_bShowFlowerUI = false;
+	private bool m_bShowClamUI = false;
+	private Vector3 m_v3FlowerUIOffScreenPos;
+	private Vector3 m_v3ClamUIOffScreenPos;
+	private Vector3 m_v3FlowerUIOriginalPos;
+	private Vector3 m_v3ClamUIOriginalPos;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
 	{
+		m_v3FlowerUIOriginalPos = m_flowerUI.transform.position;
+		m_v3ClamUIOriginalPos = m_clamUI.transform.position;
 		m_audioSource = gameObject.GetComponent<AudioSource>();
 		ResetClams();
-		UpdateUI();
+		m_clamText.text = m_fClams + "/" + m_fNextLife;
+		m_flowerText.text = m_fFlowersCollected + "";
 		m_flowerUI.SetActive(false);
 		m_clamUI.SetActive(false);
+		m_flowerUI.transform.position = new Vector3(m_flowerUI.transform.position.x + -415, m_flowerUI.transform.position.y, m_flowerUI.transform.position.z);
+		m_clamUI.transform.position = new Vector3(m_clamUI.transform.position.x + 300, m_clamUI.transform.position.y, m_clamUI.transform.position.z);
+		m_v3FlowerUIOffScreenPos = m_flowerUI.transform.position;
+		m_v3ClamUIOffScreenPos = m_clamUI.transform.position;
 		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
 			//m_flowerAnimation[i] = m_flowerAnimationUI[i].GetComponent<Animator>();
@@ -108,33 +127,33 @@ public class CollectableManager : MonoBehaviour
 				m_fUITimer = 0;
 				m_flowerUI.SetActive(true);
 				m_clamUI.SetActive(true);
+				m_bShowUI = true;
 				m_flowerAnimation[i].enabled = false;
 			}
-			if (m_fUITimer >= 2)
+			if (m_fUITimer >= m_fWaitTimer)
 			{
 				m_flowerUI.SetActive(false);
 				m_clamUI.SetActive(false);
 				//m_flowerAnimation[i].enabled = true;
 			}
 		}
-
-	}
-
-	public void UpdateUI()
-	{
-		// Changes the ui here when that gets around to bein done.
-		m_clamText.text = m_fClams + "/" + m_fNextLife;
-		m_flowerText.text = m_fFlowersCollected + "";
-
-		m_fUITimer = 0;
-		m_flowerUI.SetActive(true);
-		m_clamUI.SetActive(true);
-
-		if (m_fClams >= m_fNextLife)
+		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI) && (m_fUITimer <= m_fWaitTimer / 2))
 		{
-			m_fLives += 1.0f;
-			m_audioSource.PlayOneShot(m_newLifeAudioClip);
-			ResetClams();
+			m_clamUI.transform.position = Vector3.MoveTowards(m_clamUI.transform.position, m_v3ClamUIOriginalPos, 10);
+			m_flowerUI.transform.position = Vector3.MoveTowards(m_flowerUI.transform.position, m_v3FlowerUIOriginalPos, 15);
+		}
+		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI) && (m_fUITimer >= m_fWaitTimer / 2))
+		{
+			m_clamUI.transform.position = Vector3.MoveTowards(m_clamUI.transform.position, m_v3ClamUIOffScreenPos, 10);
+			m_flowerUI.transform.position = Vector3.MoveTowards(m_flowerUI.transform.position, m_v3FlowerUIOffScreenPos, 10);
+		}
+		if(m_fUITimer >= m_fWaitTimer)
+		{
+			m_bShowUI = false;
+			m_bShowClamUI = false;
+			m_bShowFlowerUI = false;
+			m_flowerUI.SetActive(false);
+			m_clamUI.SetActive(false);
 		}
 	}
 
@@ -149,6 +168,16 @@ public class CollectableManager : MonoBehaviour
 		// Adds an amount to the clam score.
 		m_fClams += AmountAdded;
 		m_audioSource.PlayOneShot(m_clamPickAudioClip);
+		m_clamText.text = m_fClams + "/" + m_fNextLife;
+		m_fUITimer = 0;
+		m_bShowClamUI = true;
+		m_clamUI.SetActive(true);
+		if (m_fClams >= m_fNextLife)
+		{
+			m_fLives += 1.0f;
+			m_audioSource.PlayOneShot(m_newLifeAudioClip);
+			ResetClams();
+		}
 	}
 
 	//--------------------------------------------------------------------------------
@@ -195,6 +224,10 @@ public class CollectableManager : MonoBehaviour
 		m_audioSource.PlayOneShot(m_flowerPickAudioClip);
 		m_collectedFlowerImages[nFlowerToCollect].enabled = true;
 		m_notCollectedflowerImages[nFlowerToCollect].enabled = false;
+		m_flowerText.text = m_fFlowersCollected + "";
+		m_fUITimer = 0;
+		m_flowerUI.SetActive(true);
+		m_bShowFlowerUI = true;
 	}
 
 	//--------------------------------------------------------------------------------

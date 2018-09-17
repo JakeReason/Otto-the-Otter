@@ -41,7 +41,6 @@ public class Flower : MonoBehaviour
 		{
 			// Adds the family member to the collectable manager.
 			m_CM.AddFlower(m_nFlowerToCollect);
-			m_CM.UpdateUI();
 			gameObject.SetActive(false);
 		}
 	}
