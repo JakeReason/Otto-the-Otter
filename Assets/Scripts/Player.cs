@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 	private GameObject m_collectableManager;
 
 	// Collectable manager Script used to get access to the collectable manager script.
-	private CollectableManager m_CM;
+	private CollectableManager m_cm;
 
 	[SerializeField]
 	private LayerMask PlatformLayer;
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
 		if (m_collectableManager)
 		{
 			// Gets reference to the collectable manager script.
-			m_CM = m_collectableManager.GetComponent<CollectableManager>();
+			m_cm = m_collectableManager.GetComponent<CollectableManager>();
 		}
 
 		// Calculates the flashing rate from the reciprocal of public float flash rate
@@ -465,17 +465,17 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
-		//m_CM.RemoveLife();
+		m_cm.RemoveLife();
 
-		//if (m_CM.GetLives() > 0)
-		//{
-		//	transform.position = m_CM.GetCheckPoint().position;
-		//}
-		//else
-		//{
-		//	// Sets the player's position back to Vector3 zero
-		//	transform.position = Vector3.zero;
-		//}
+		if (m_cm.GetLives() > 0)
+		{
+			transform.position = m_cm.GetCheckPoint().position;
+		}
+		else
+		{
+			// Sets the player's position back to Vector3 zero
+			transform.position = Vector3.zero;
+		}
 
 		transform.position = Vector3.zero;
 		
@@ -500,13 +500,12 @@ public class Player : MonoBehaviour
 
 	void PlatformDetection()
 	{
-		RaycastHit Hit;
+		RaycastHit hit;
 		// Sets forward vector to the transforms forward.
 		Vector3 down = transform.TransformDirection(Vector3.down);
-		if (Physics.Raycast(transform.position, down, out Hit, 1, PlatformLayer))
+		if (Physics.Raycast(transform.position, down, out hit, 1, PlatformLayer))
 		{
-			transform.parent = Hit.transform;
-			//transform.position = transform.position - Hit.transform.position * 1 * Time.deltaTime;
+			transform.parent = hit.transform;
 		}
 		else
 		{
