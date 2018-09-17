@@ -52,12 +52,8 @@ public class Player : MonoBehaviour
     public float m_fHealthRecoveryTime = 3.0f;
 
     // Indicates maximum time for player to jump before falling (range from 0.1-1)
-    [Range(0.1f, 1.0f)]
+    [Range(0.0001f, 1.0f)]
     public float m_fJumpTimeLimit = 0.4f;
-
-    // Represents how far on the x a player can move while jumping (range from 0.1-1)
-    [Range(0.1f, 1.0f)]
-    public float m_fJumpMoveLimit = 0.5f;
 
 	// Float used to demonstrate the rate the player flashes (range from 10-100)
 	[Range(10.0f, 100.0f)]
@@ -247,13 +243,28 @@ public class Player : MonoBehaviour
 
 				// Sets jumped bool to be true
 				m_bJumped = true;
+
+				//Debug.Log(m_v3Gravity.y);
 			}
 			// Else if Jump isn't pressed and player is in air or player has jumped too long
-			else if ((!Input.GetButton("Jump") && !m_cc.isGrounded) ||
+			else if ((!Input.GetButton("Jump") && !m_cc.isGrounded && m_fJumpTimer > 0.0f) ||
 					  m_fJumpTimer > m_fJumpTimeLimit)
 			{
 				// Applies gravity to player with an extra multiplier to fall quicker
 				m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
+
+				if (m_v3Gravity.y <= -30)
+				{
+					m_v3Gravity.y = -30;
+				}
+
+				//Debug.Log(m_v3Gravity.y);
+			}
+			// Else if the player is falling from a platform and not a jump
+			else if (!Input.GetButton("Jump") && !m_cc.isGrounded && m_fJumpTimer <= 0.0f)
+			{
+				// Normal gravity is applied to the player
+				m_v3Gravity += Physics.gravity * Time.deltaTime;
 			}
 		}
 
@@ -364,6 +375,8 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Landing", true);
 
 			m_landing.Play();
+
+			Debug.Log(m_fJumpTimer);
 
 			// Resets Jumped bool back to false and and Jump Timer to zero
 			m_bJumped = false;
