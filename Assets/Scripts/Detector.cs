@@ -29,10 +29,6 @@ public class Detector : MonoBehaviour
 		else if (m_hookables.Count == 1)
 		{
 			m_target = m_hookables[0].transform;
-			//else
-			//{
-			//	m_target = null;
-			//}
 		}
 		else if (m_hookables.Count > 1)
 		{
@@ -67,10 +63,10 @@ public class Detector : MonoBehaviour
 
 			if (fDistance <= m_fPrevDistance)
 			{
-				if (!ObjectsBetween(m_hookables[0].transform))
-				{
-					m_target = m_hookables[i].transform;
-				}
+				//if (!ObjectsBetween(m_hookables[0].transform))
+				//{
+				m_target = m_hookables[i].transform;
+				//}
 			}
 
 			m_fPrevDistance = fDistance;
