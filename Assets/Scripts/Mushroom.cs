@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
-	[Range(2.0f, 8.0f)]
 	public float m_fBounceForce = 3.0f;
 
 	public LayerMask m_nPlayerLayer;

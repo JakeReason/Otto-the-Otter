@@ -90,9 +90,6 @@ public class Player : MonoBehaviour
 	// Private float indicates the rate the player flashes after being hit
     private float m_fFlashingRate;
 
-	// Jump Timer represents how long the player has been jumping for
-	private float m_fJumpTimer;
-
 	// Keeps track of how long the playercan be invicible for after getting hit
 	private float m_fHealthTimer;
 
@@ -103,7 +100,7 @@ public class Player : MonoBehaviour
 	private float m_fSideways;
 
 	// Int keeps track of the player's current health
-    private int m_nHealth;
+	private int m_nHealth;
 
     // Bool used to let the script know if the player has jumped from ground
     private bool m_bJumped;
@@ -168,7 +165,6 @@ public class Player : MonoBehaviour
 		m_v3OttoHeight = new Vector3(0, 5, 0);
 
 		// Initialises private floats to equal zero
-		m_fJumpTimer = 0.0f;
         m_fHealthTimer = 0.0f;
 		m_fGrassTimer = 0.0f;
 		m_fForward = 0.0f;
@@ -236,53 +232,7 @@ public class Player : MonoBehaviour
 		if (Input.GetButtonDown("Jump") && m_cc.isGrounded)
 		{
 			Jump();
-			// Sets the y value of gravity to equal the jump speed
-			//m_v3Velocity.y = m_fJumpVelocity;
-
-			// Sets jumped bool to be true
-			//m_bJumped = true;
-
-			//// Checks if Jump is pressed, the play er is grounded and if they haven't jumped
-			//if (Input.GetButton("Jump") && m_cc.isGrounded && !m_bJumped)
-			//{
-			//	// Sets the y value of gravity to equal the jump speed
-			//	m_v3Gravity.y = m_fJumpVelocity;
-
-			//	// Sets jumped bool to be true
-			//	m_bJumped = true;
-			//}
-			//else if (m_cc.isGrounded)
-			//{
-			//	m_v3Gravity.y = 0.0f;
-			//}
-			//// Else if Jump isn't pressed and player is in air or player has jumped too long
-			//else if ((!Input.GetButton("Jump") && !m_cc.isGrounded && m_fJumpTimer > 0.0f) ||
-			//		  m_fJumpTimer > m_fJumpTimeLimit)
-			//{
-			//	// Applies gravity to player with an extra multiplier to fall quicker
-			//	m_v3Gravity += Physics.gravity * m_fExtraGravity * Time.deltaTime;
-
-			//	if (m_v3Gravity.y <= -30)
-			//	{
-			//		m_v3Gravity.y = -30;
-			//	}
-
-			//	//Debug.Log(m_v3Gravity.y);
-			//}
-			//// Else if the player is falling from a platform and not a jump
-			//else if (!Input.GetButton("Jump") && !m_cc.isGrounded && m_fJumpTimer <= 0.0f)
-			//{
-			//	// Normal gravity is applied to the player
-			//	m_v3Gravity += Physics.gravity * Time.deltaTime;
-			//}
 		}
-
-		// Checks if the player is in the air
-		//if (m_bJumped)
-		//{
-		//	// Adds the jump timer to deltaTime every second
-		//	m_fJumpTimer += Time.deltaTime;
-		//}
 
 		// Stores the y movement direction in local float
 		float fCurrentMoveY = m_v3MoveDirection.y;
@@ -305,11 +255,6 @@ public class Player : MonoBehaviour
 
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;
-
-		if (m_fVelocityY != 0.0f)
-		{
-			Debug.Log(m_fVelocityY);
-		}
 
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
@@ -391,14 +336,13 @@ public class Player : MonoBehaviour
 
 			// Resets Jumped bool back to false and and Jump Timer to zero
 			m_bJumped = false;
-			m_fJumpTimer = 0.0f;
 		}
 		// Sets Landing bool in animator to false otherwise
 		else 
 		{
 			m_animator.SetBool("Landing", false);
 
-			m_grass.Pause();
+			//m_grass.Pause();
 		}
 
 		// Sets Grapple bool in animator to true if player has launched hook or is hooked
@@ -419,21 +363,21 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Running", true);
 
-			m_grass.Play();
+			//m_grass.Play();
 
-			m_fGrassTimer += Time.deltaTime;
+			//m_fGrassTimer += Time.deltaTime;
 
-			if (m_fGrassTimer >= 0.75f)
-			{
-				m_grass.Pause();
-			}
+			//if (m_fGrassTimer >= 0.75f)
+			//{
+				//m_grass.Pause();
+			//}
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
 		{
 			m_animator.SetBool("Running", false);
 
-			m_fGrassTimer = 0.0f;
+			//m_fGrassTimer = 0.0f;
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
@@ -528,10 +472,7 @@ public class Player : MonoBehaviour
 	public void Bounce(float fBounceForce)
 	{
 		// Sets the y value of gravity to equal jump speed multipled by bounce force
-		//m_v3Velocity.y = m_fJumpVelocity * fBounceForce;
-
-		// Resets Jump timer to equal zero
-		m_fJumpTimer = 0.0f;
+		m_fVelocityY = m_fJumpVelocity * fBounceForce;
 
 		// Sets jumped bool to be true
 		m_bJumped = true;
