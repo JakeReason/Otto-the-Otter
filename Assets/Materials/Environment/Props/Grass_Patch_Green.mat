@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Grass_Patch_Green
-  m_Shader: {fileID: 4800000, guid: fd1b0c2328cad6942aa89eb15af421f0, type: 3}
+  m_Shader: {fileID: 4800000, guid: a8852999f814e364fb217c1306079454, type: 3}
   m_ShaderKeywords: _WETNESS_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -271,6 +271,16 @@ Material:
     - _WetnessShown: 1
     - _WetnessUVMult: 1
     - _ZWrite: 1
+    - _b_influence: 1
+    - _branches_disp: 0
+    - _leaves_wiggle_disp: 0.07
+    - _leaves_wiggle_speed: 0.01
+    - _r_influence: 1
+    - _tree_sway_disp: 0.3
+    - _tree_sway_speed: 1
+    - _tree_sway_stutter: 1.5
+    - _tree_sway_stutter_influence: 0.2
+    - _wind_size: 15
     - maxDist: 10
     - minDist: 1
     m_Colors:
@@ -292,11 +302,13 @@ Material:
     - _SnowSpecGloss: {r: 0.09999997, g: 0.09999997, b: 0.09999997, a: 0.15}
     - _SnowTranslucencyColor: {r: 0.75, g: 1, b: 1, a: 1}
     - _Tan2ObjectMultOffset: {r: 0, g: 0, b: 1, a: 1}
+    - _Tint: {r: 0.1651862, g: 0.46323532, b: 0.10899654, a: 1}
     - _TranslucencyColor: {r: 1, g: 1, b: 1, a: 1}
     - _TranslucencyColor2: {r: 1, g: 1, b: 1, a: 1}
     - _UV_Clip_Borders: {r: 0, g: 0, b: 1, a: 1}
     - _WetnessColor: {r: 0, g: 0, b: 0, a: 0}
     - _WetnessSpecGloss: {r: 0.049999982, g: 0.049999982, b: 0.049999982, a: 0.7}
+    - _wind_dir: {r: 2.5, g: 0.5, b: 2.5, a: 0.2}
     - bumpMap2TexelSize: {r: 1, g: 1, b: 1, a: 1}
     - bumpMapTexelSize: {r: 1, g: 1, b: 1, a: 1}
     - heightMapTexelSize: {r: 1, g: 1, b: 1, a: 1}
