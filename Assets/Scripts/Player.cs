@@ -37,6 +37,10 @@ public class Player : MonoBehaviour
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
 
+	public float m_fJumpHeight = 1.0f;
+
+	public float m_fTimeToJumpApex = 0.4f;
+
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
 
@@ -48,12 +52,11 @@ public class Player : MonoBehaviour
 	[Range(10.0f, 100.0f)]
     public float m_fFlashRate = 10.0f;
 
-	public float m_fJumpHeight = 1.0f;
-
-	public float m_fTimeToJumpApex = 0.4f;
+	[Range(0.01f, 0.2f)]
+	public float m_fFallRecovery = 0.15f;
 
 	// Used to access the animator component from the player
-    private Animator m_animator;
+	private Animator m_animator;
 
     // Private variable used to store the player's CharacterController in
     private CharacterController m_cc;
@@ -94,6 +97,8 @@ public class Player : MonoBehaviour
 	private float m_fHealthTimer;
 
 	private float m_fGrassTimer;
+
+	private float m_fJumpTimer;
 
 	private float m_fForward;
 
@@ -167,6 +172,7 @@ public class Player : MonoBehaviour
 		// Initialises private floats to equal zero
         m_fHealthTimer = 0.0f;
 		m_fGrassTimer = 0.0f;
+		m_fJumpTimer = 0.0f;
 		m_fForward = 0.0f;
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
@@ -201,7 +207,12 @@ public class Player : MonoBehaviour
 		if (m_cc.isGrounded)
 		{
 			m_fVelocityY = 0.0f;
+			m_fJumpTimer = 0.0f;
 			m_grapplingScript.SetLaunchable(true);
+		}
+		else
+		{
+			m_fJumpTimer += Time.deltaTime;
 		}
 
 		if (Input.GetAxis("LeftStickHorizontal") < 0.1f && 
@@ -231,7 +242,8 @@ public class Player : MonoBehaviour
 			m_grapplingScript.SetLaunchable(false);
 		}
 		// Else if the hook hasn't hooked an object or if the player hasn't bounced
-		if (Input.GetButtonDown("Jump") && m_cc.isGrounded)
+		if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) || 
+			(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
 		{
 			Jump();
 		}
@@ -396,12 +408,9 @@ public class Player : MonoBehaviour
 
 	private void Jump()
 	{
-		if (m_cc.isGrounded)
-		{
-			m_fJumpVelocity = Mathf.Sqrt(-2 * m_fGravity * m_fJumpHeight);
-			m_fVelocityY = m_fJumpVelocity;
-			m_bJumped = true;
-		}
+		m_fJumpVelocity = Mathf.Sqrt(-2 * m_fGravity * m_fJumpHeight);
+		m_fVelocityY = m_fJumpVelocity;
+		m_bJumped = true;
 	}
 
 	//--------------------------------------------------------------------------------
