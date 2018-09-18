@@ -2040,8 +2040,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 212.14, y: -4.74, z: 65.39}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 217, z: 10.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161207773635570}
@@ -2334,7 +2334,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &65853512200656566
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2405,7 +2405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_controller: 0
-  m_landing: {fileID: 198181000750758720, guid: c5d400fc8adf63f45839ddebceb7161c,
+  m_landing: {fileID: 198815248266529080, guid: c5d400fc8adf63f45839ddebceb7161c,
     type: 2}
   m_scarfWrap: {fileID: 198069441118341270, guid: 0ef459afba6ad2047be0ecfcc41af8ae,
     type: 2}
@@ -2416,13 +2416,14 @@ MonoBehaviour:
   m_halfHealth: {fileID: 0}
   m_fullHealth: {fileID: 0}
   m_fSpeed: 10
-  m_fJumpSpeed: 6
+  m_fJumpSpeed: 10
   m_fDeadZone: 0
-  m_fExtraGravity: 4
+  m_fExtraGravity: 3
   m_fHealthRecoveryTime: 3
   m_fJumpTimeLimit: 0.4
-  m_fJumpMoveLimit: 0.5
   m_fFlashRate: 28.9
+  m_fVelocity: 20
+  m_fGravity: 50
   m_meshRenderer: {fileID: 137510616660132916}
   m_mushroomLayer:
     serializedVersion: 2
@@ -2638,7 +2639,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.08819402
-  m_Height: 0.8900282
+  m_Height: 1
   m_Direction: 0
   m_Center: {x: -0.4021801, y: -0.01, z: -0.03}
 --- !u!137 &137257106991952512
@@ -2697,8 +2698,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4869416270905476}
   m_AABB:
-    m_Center: {x: 0.0070877075, y: 1.2738724, z: -0.8332977}
-    m_Extent: {x: 1.0390874, y: 0.31251556, z: 1.2803195}
+    m_Center: {x: 0.007080078, y: 1.2738695, z: -0.83330536}
+    m_Extent: {x: 1.0390897, y: 0.31251383, z: 1.2803159}
   m_DirtyAABB: 0
 --- !u!137 &137510616660132916
 SkinnedMeshRenderer:
@@ -2950,7 +2951,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.85
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
