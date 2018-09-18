@@ -201,6 +201,7 @@ public class Player : MonoBehaviour
 		if (m_cc.isGrounded)
 		{
 			m_fVelocityY = 0.0f;
+			m_grapplingScript.SetLaunchable(true);
 		}
 
 		if (Input.GetAxis("LeftStickHorizontal") < 0.1f && 
@@ -225,8 +226,9 @@ public class Player : MonoBehaviour
 		// Detects if Grappling Hook is hooked on an object
 		if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
 		{
-			// Sets gravity to equal the zero Vector3
 			m_fVelocityY = 0;
+
+			m_grapplingScript.SetLaunchable(false);
 		}
 		// Else if the hook hasn't hooked an object or if the player hasn't bounced
 		if (Input.GetButtonDown("Jump") && m_cc.isGrounded)
@@ -490,7 +492,7 @@ public class Player : MonoBehaviour
 		// Sets forward vector to the transforms forward.
 		Vector3 down = transform.TransformDirection(Vector3.down);
 
-		if (Physics.Raycast(transform.position + m_v3OttoHeight, down, out hit, 1, m_platformLayer))
+		if (Physics.Raycast(transform.position, down, out hit, 1, m_platformLayer))
 		{
 			transform.parent = hit.transform;
 		}

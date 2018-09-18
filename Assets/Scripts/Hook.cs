@@ -46,6 +46,8 @@ public class Hook : MonoBehaviour
 	// Bool lists if the hook has been fired or not
 	private bool m_bHooked;
 
+	private bool m_bLaunchable;
+
 	// Represents the distance between the player and the hook
 	private float m_fCurrentDistance;
 
@@ -102,6 +104,8 @@ public class Hook : MonoBehaviour
 		{
 			Debug.Log("GET DETECTOR FAILED!");
 		}
+
+		m_bLaunchable = false;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -110,7 +114,7 @@ public class Hook : MonoBehaviour
 	void Update()
     {
 		// Sets fired bool to equal true if fire button has been pressed
-		if (Input.GetButtonDown("Grapple") && !m_bFired)
+		if (Input.GetButtonDown("Grapple") && !m_bFired && m_bLaunchable)
 		{
 			m_bFired = true;
 		}
@@ -279,5 +283,10 @@ public class Hook : MonoBehaviour
 	public bool GetFired()
 	{
 		return m_bFired;
+	}
+
+	public void SetLaunchable(bool bLaunchable)
+	{
+		m_bLaunchable = bLaunchable;
 	}
 }
