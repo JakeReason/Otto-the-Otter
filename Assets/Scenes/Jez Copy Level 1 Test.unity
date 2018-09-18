@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1173633152}
-  m_IndirectSpecularColor: {r: 0.11083142, g: 0.36980858, b: 0.74241686, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -595,6 +595,46 @@ Prefab:
         type: 2}
       propertyPath: m_controller
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239526922102704, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_platformLayer.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.0070877075
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 1.2738724
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.8332977
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.x
+      value: 1.0390874
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.31251556
+      objectReference: {fileID: 0}
+    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 1.2803195
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239526922102704, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_fJumpHeight
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
@@ -27184,6 +27224,31 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f18b4f133ee2b54da727035c2ea72f5, type: 2}
   m_IsPrefabParent: 0
@@ -52080,6 +52145,31 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.type
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
         type: 2}
