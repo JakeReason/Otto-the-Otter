@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseButtonFunctions : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject m_pauseMenu;
+	[SerializeField]
+	private EventSystem m_eventSystem;
 
 	public void Resume()
 	{
 		Time.timeScale = 1;
 		m_pauseMenu.SetActive(false);
+		m_eventSystem.SetSelectedGameObject(null);
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 	}
