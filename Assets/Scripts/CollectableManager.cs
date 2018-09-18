@@ -127,7 +127,7 @@ public class CollectableManager : MonoBehaviour
 		m_fUITimer += Time.deltaTime;
 		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
-			if (XCI.GetButtonDown(XboxButton.Back) || Input.GetKeyDown(KeyCode.Tab))
+			if (XCI.GetButtonDown(XboxButton.Back) || Input.GetKeyDown(KeyCode.Tab) || XCI.GetButtonDown(XboxButton.Start) || Input.GetKeyDown(KeyCode.Escape))
 			{
 				m_fUITimer = 0;
 				m_flowerUI.SetActive(true);
