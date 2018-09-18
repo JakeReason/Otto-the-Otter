@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.72794116, g: 0.72794116, b: 0.72794116, a: 1}
+  m_AmbientSkyColor: {r: 0.89705884, g: 0.8770433, b: 0.60683393, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0
@@ -30939,6 +30939,11 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.type
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
         type: 2}
@@ -63197,6 +63202,11 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198240007919914168, guid: 1f18b4f133ee2b54da727035c2ea72f5,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f18b4f133ee2b54da727035c2ea72f5, type: 2}
   m_IsPrefabParent: 0
@@ -66362,10 +66372,10 @@ Transform:
   - {fileID: 1809147680}
   - {fileID: 523503974}
   - {fileID: 637412130}
-  - {fileID: 1022964570}
+  - {fileID: 911604079}
   - {fileID: 1112987749}
   - {fileID: 356902582}
-  - {fileID: 911604079}
+  - {fileID: 1022964570}
   - {fileID: 1505498267}
   - {fileID: 923338407}
   - {fileID: 1182934643}
