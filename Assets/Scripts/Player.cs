@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 	public GameObject m_hook;
 
 	// Public color indicates what colour the player will flash after getting hit
-    public Color m_flashColour;
+	public Color m_flashColour;
 
 	// Image stores the Image that represents the player's health
     public Image m_healthImage;
@@ -79,10 +79,10 @@ public class Player : MonoBehaviour
     // Vector3 represents the direction the player will look in
     private Vector3 m_v3LookDirection;
 
+	private Vector3 m_v3Forward;
+
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Velocity;
-
-	private Vector3 m_v3OttoHeight;
 
 	private float m_fGravity;
 
@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
 
 	// Indicates if the player is recovering after a hit or not
     private bool m_bRecovering;
+
+	private RaycastHit m_hitInfo;
 
 	// Records the original colour of the player
     private Color m_originalColour;
@@ -165,9 +167,7 @@ public class Player : MonoBehaviour
         m_grapplingScript = m_hook.GetComponent<Hook>();
 
 		// Obtains the original colour for the player from the mesh renderer's material
-        m_originalColour = m_meshRenderer.material.color;
-
-		m_v3OttoHeight = new Vector3(0, 5, 0);
+		m_originalColour = m_meshRenderer.material.color;
 
 		// Initialises private floats to equal zero
         m_fHealthTimer = 0.0f;
@@ -404,6 +404,17 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Walking", false);
 		}
+	}
+
+	private void CalculateForward()
+	{
+		if (m_cc.isGrounded)
+		{
+			m_v3Forward = transform.forward;
+			return;
+		}
+
+		m_v3Forward = Vector3.Cross(m_hitInfo.normal, -transform.right);
 	}
 
 	private void Jump()
