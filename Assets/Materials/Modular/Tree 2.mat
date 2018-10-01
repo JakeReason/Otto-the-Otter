@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Tree 2
   m_Shader: {fileID: 4800000, guid: fd1b0c2328cad6942aa89eb15af421f0, type: 3}
-  m_ShaderKeywords: _SNOW _WETNESS_NONE
+  m_ShaderKeywords: _SNOW _TEX_ON _WETNESS_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -114,9 +114,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ToonShade:
+        m_Texture: {fileID: 2800000, guid: 39413e2567f4b452db0d4a76dbef5419, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BendNormalsFreq: 4
     - _BendNormalsStrength: 0.05
+    - _Brightness: 1
     - _BumpScale: 1
     - _BumpScale2: 1
     - _CurvatureCustomU: 0
@@ -135,6 +140,7 @@ Material:
     - _DetailNormalLerp: 0
     - _DetailNormalMapScale: 1
     - _DetailSpecLerp: 1
+    - _DetailTex: 1
     - _DetailUVMult: 1
     - _DiffuseScatter: 1
     - _DiffuseScatteringExponent: 8
@@ -238,6 +244,7 @@ Material:
     - _TessDepth: 0.05
     - _TessEdgeLengthLimit: 5
     - _TessOffset: 0.1
+    - _TintColor: 0
     - _Translucency: 0
     - _TranslucencyConstant: 0.1
     - _TranslucencyDeferredLightIndex: 0
@@ -253,6 +260,7 @@ Material:
     - _UVSecOcclusion: 0
     - _UVSecOcclusionLightmapPacked: 0
     - _UV_Clip: 0
+    - _VertexColor: 0
     - _WetDroplets: 0
     - _WetRipples: 0
     - _Wetness: 0
