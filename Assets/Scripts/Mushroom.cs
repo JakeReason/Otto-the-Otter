@@ -14,13 +14,6 @@ public class Mushroom : MonoBehaviour
 	// Use this for initialization
 	void Awake()
 	{
-		//m_player = GameObject.FindGameObjectWithTag("Player");
-
-		//if (!m_player)
-		//{
-		//	Debug.Log("No Player!");
-		//}
-
 		m_playerScript = m_player.GetComponent<Player>();
 
 		if (!m_playerScript)
