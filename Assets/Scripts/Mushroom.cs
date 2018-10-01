@@ -6,20 +6,20 @@ public class Mushroom : MonoBehaviour
 {
 	public float m_fBounceForce = 3.0f;
 
-	public LayerMask m_nPlayerLayer;
+	public LayerMask m_playerLayer;
 
-	private GameObject m_player;
+	public GameObject m_player;
 	private Player m_playerScript;
 
 	// Use this for initialization
 	void Awake()
 	{
-		m_player = GameObject.FindGameObjectWithTag("Player");
+		//m_player = GameObject.FindGameObjectWithTag("Player");
 
-		if (!m_player)
-		{
-			Debug.Log("No Player!");
-		}
+		//if (!m_player)
+		//{
+		//	Debug.Log("No Player!");
+		//}
 
 		m_playerScript = m_player.GetComponent<Player>();
 
