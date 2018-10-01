@@ -1476,9 +1476,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fBounceForce: 2
-  m_nPlayerLayer:
+  m_playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  m_player: {fileID: 1280975568}
 --- !u!95 &1208003337 stripped
 Animator:
   m_PrefabParentObject: {fileID: 95941395106147148, guid: 700765bffb4b447408b84d8063e739c3,
