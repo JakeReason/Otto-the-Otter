@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
 
 	public float m_fHeight = 2.0f;
 
-	public float m_fHeightPadding = 0.05f;
-
 	[Range(90f, 180f)]
 	public float m_fMaximumGroundAngle = 120.0f;
 
@@ -133,7 +131,9 @@ public class Player : MonoBehaviour
 	// Indicates if the player is recovering after a hit or not
     private bool m_bRecovering;
 
-	private RaycastHit m_hitInfo;
+	private RaycastHit m_hitDown;
+
+	private RaycastHit m_hitForward;
 
 	private Transform m_cameraTransform;
 
@@ -220,11 +220,11 @@ public class Player : MonoBehaviour
     void Update()
     {
 		DebugLines();
-		GetGroundingInfo();
 		CalculateDirection();
 		CalculateForward();
 		CalculateGroundAngle();
-		
+		CalculateHitForward();
+
 		// Calls both Move and Animate functions in conjunction per frame
 		Move();
 		PlatformDetection();
@@ -236,7 +236,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
-		if (m_cc.isGrounded)
+		if (IsGrounded())
 		{
 			m_fVelocityY = 0.0f;
 			m_fJumpTimer = 0.0f;
@@ -274,7 +274,7 @@ public class Player : MonoBehaviour
 			m_grapplingScript.SetLaunchable(false);
 		}
 		// Else if the hook hasn't hooked an object or if the player hasn't bounced
-		if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) || 
+		if ((Input.GetButtonDown("Jump") && IsGrounded()) || 
 			(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
 		{
 			Jump();
@@ -299,6 +299,8 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
+		Debug.Log(m_fGroundAngle);
+
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;
 
@@ -307,12 +309,19 @@ public class Player : MonoBehaviour
 
 		if (m_fGroundAngle >= m_fMaximumGroundAngle)
 		{
-			m_v3Velocity.x += ((1f - m_hitInfo.normal.y) * m_hitInfo.normal.x * (1f - m_fSlideFriction)) * 100;
-			m_v3Velocity.z += ((1f - m_hitInfo.normal.y) * m_hitInfo.normal.z * (1f - m_fSlideFriction)) * 100;
-		}
+			Debug.Log("SLIDE!!");
 
-		// Adds movement to CharacterController based on move direction and delta time
-		m_cc.Move(m_v3Velocity * Time.deltaTime);
+			Vector3 v3DownPoint = m_hitDown.point;
+			Vector3 v3ForwardPoint = m_hitForward.point;
+
+			Vector3 v3SlideVector = v3DownPoint - v3ForwardPoint;
+			m_cc.Move(v3SlideVector * Time.deltaTime);
+		}
+		else
+		{
+			// Adds movement to CharacterController based on move direction and delta time
+			m_cc.Move(m_v3Velocity * Time.deltaTime);
+		}
 
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
@@ -373,13 +382,13 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Falling", true);
 		}
 		// Sets Falling bool in animator to false otherwise
-		else if (m_cc.isGrounded)
+		else if (IsGrounded())
 		{
 			m_animator.SetBool("Falling", false);
 		}
 
 		// Checks if the player has jumped and is grounded
-		if (m_bJumped && m_cc.isGrounded)
+		if (m_bJumped && IsGrounded())
 		{
 			// Sets Landing bool in animator to true
 			m_animator.SetBool("Landing", true);
@@ -438,30 +447,45 @@ public class Player : MonoBehaviour
 
 	private void CalculateForward()
 	{
-		if (m_cc.isGrounded)
+		if (IsGrounded())
 		{
 			m_v3Forward = transform.forward;
 			return;
 		}
 
-		m_v3Forward = Vector3.Cross(m_hitInfo.normal, -transform.right);
+		m_v3Forward = Vector3.Cross(m_hitDown.normal, -transform.right);
 	}
 
 	private void CalculateGroundAngle()
 	{
-		if (!m_cc.isGrounded)
+		if (IsGrounded())
 		{
 			m_fGroundAngle = 90f;
 			return;
 		}
 
-		m_fGroundAngle = Vector3.Angle(m_hitInfo.normal, transform.forward);
+		m_fGroundAngle = Vector3.Angle(m_hitDown.normal, transform.forward);
 	}
 
-	private void GetGroundingInfo()
+	private bool IsGrounded()
 	{
-		if (Physics.Raycast(transform.position, Vector3.down, out m_hitInfo, 
-						    m_fHeight + m_fHeightPadding, m_ground) && !m_bJumped)
+		if (m_cc.isGrounded)
+		{
+			return true;
+		}
+
+		if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.3f))
+		{
+			m_cc.Move(new Vector3(0, -m_hitDown.distance, 0));
+			return true;
+		}
+
+		return false;
+	}
+
+	private void CalculateHitForward()
+	{
+		if (Physics.Raycast(transform.position, Vector3.forward, out m_hitForward, 0.5f))
 		{
 			return;
 		}
