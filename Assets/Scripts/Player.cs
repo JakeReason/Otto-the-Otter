@@ -11,6 +11,8 @@ using XboxCtrlrInput;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
+	public bool m_bDebug;
+
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
 	public ParticleSystem m_scarfWrap;
 
 	public ParticleSystem m_grass;
+
+	public PhysicMaterial m_slidingMaterial;
 
 	public GameObject m_hook;
 
@@ -40,6 +44,16 @@ public class Player : MonoBehaviour
 	public float m_fJumpHeight = 1.0f;
 
 	public float m_fTimeToJumpApex = 0.4f;
+
+	public float m_fHeight = 2.0f;
+
+	public float m_fHeightPadding = 0.05f;
+
+	[Range(90f, 180f)]
+	public float m_fMaximumGroundAngle = 120.0f;
+
+	[Range(0f, 1f)]
+	public float m_fSlideFriction = 0.2f;
 
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
@@ -73,6 +87,8 @@ public class Player : MonoBehaviour
 	// Indicates the layer mask of a mushroom object
 	public LayerMask m_mushroomLayer;
 
+	public LayerMask m_ground;
+
     // Vector3 represents the input direction from the analog stick
     private Vector3 m_v3MoveDirection;
 
@@ -83,6 +99,10 @@ public class Player : MonoBehaviour
 
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Velocity;
+
+	private float m_fAngle;
+
+	private float m_fGroundAngle;
 
 	private float m_fGravity;
 
@@ -114,6 +134,8 @@ public class Player : MonoBehaviour
     private bool m_bRecovering;
 
 	private RaycastHit m_hitInfo;
+
+	private Transform m_cameraTransform;
 
 	// Records the original colour of the player
     private Color m_originalColour;
@@ -169,8 +191,12 @@ public class Player : MonoBehaviour
 		// Obtains the original colour for the player from the mesh renderer's material
 		m_originalColour = m_meshRenderer.material.color;
 
-		// Initialises private floats to equal zero
-        m_fHealthTimer = 0.0f;
+		m_cameraTransform = Camera.main.transform;
+
+		// Initialises all private floats to equal zero
+		m_fAngle = 0.0f;
+		m_fGroundAngle = 0.0f;
+		m_fHealthTimer = 0.0f;
 		m_fGrassTimer = 0.0f;
 		m_fJumpTimer = 0.0f;
 		m_fForward = 0.0f;
@@ -193,6 +219,12 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
+		DebugLines();
+		GetGroundingInfo();
+		CalculateDirection();
+		CalculateForward();
+		CalculateGroundAngle();
+		
 		// Calls both Move and Animate functions in conjunction per frame
 		Move();
 		PlatformDetection();
@@ -273,6 +305,12 @@ public class Player : MonoBehaviour
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
 
+		if (m_fGroundAngle >= m_fMaximumGroundAngle)
+		{
+			m_v3Velocity.x += ((1f - m_hitInfo.normal.y) * m_hitInfo.normal.x * (1f - m_fSlideFriction)) * 100;
+			m_v3Velocity.z += ((1f - m_hitInfo.normal.y) * m_hitInfo.normal.z * (1f - m_fSlideFriction)) * 100;
+		}
+
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
 
@@ -346,8 +384,6 @@ public class Player : MonoBehaviour
 			// Sets Landing bool in animator to true
 			m_animator.SetBool("Landing", true);
 
-			//m_landing.Play();
-
 			// Resets Jumped bool back to false and and Jump Timer to zero
 			m_bJumped = false;
 		}
@@ -355,8 +391,6 @@ public class Player : MonoBehaviour
 		else 
 		{
 			m_animator.SetBool("Landing", false);
-
-			//m_grass.Pause();
 		}
 
 		// Sets Grapple bool in animator to true if player has launched hook or is hooked
@@ -376,22 +410,11 @@ public class Player : MonoBehaviour
 		if (m_v3MoveDirection.sqrMagnitude >= 0.99f)
 		{
 			m_animator.SetBool("Running", true);
-
-			//m_grass.Play();
-
-			//m_fGrassTimer += Time.deltaTime;
-
-			//if (m_fGrassTimer >= 0.75f)
-			//{
-				//m_grass.Pause();
-			//}
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
 		{
 			m_animator.SetBool("Running", false);
-
-			//m_fGrassTimer = 0.0f;
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
@@ -406,6 +429,13 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private void CalculateDirection()
+	{
+		m_fAngle = Mathf.Atan2(m_v3MoveDirection.x, m_v3MoveDirection.z);
+		m_fAngle = Mathf.Rad2Deg * m_fAngle;
+		m_fAngle += m_cameraTransform.eulerAngles.y;
+	}
+
 	private void CalculateForward()
 	{
 		if (m_cc.isGrounded)
@@ -415,6 +445,26 @@ public class Player : MonoBehaviour
 		}
 
 		m_v3Forward = Vector3.Cross(m_hitInfo.normal, -transform.right);
+	}
+
+	private void CalculateGroundAngle()
+	{
+		if (!m_cc.isGrounded)
+		{
+			m_fGroundAngle = 90f;
+			return;
+		}
+
+		m_fGroundAngle = Vector3.Angle(m_hitInfo.normal, transform.forward);
+	}
+
+	private void GetGroundingInfo()
+	{
+		if (Physics.Raycast(transform.position, Vector3.down, out m_hitInfo, 
+						    m_fHeight + m_fHeightPadding, m_ground) && !m_bJumped)
+		{
+			return;
+		}
 	}
 
 	private void Jump()
@@ -536,4 +586,12 @@ public class Player : MonoBehaviour
             Death();
         }
     }
+
+	private void DebugLines()
+	{
+		if (!m_bDebug) return;
+
+		Debug.DrawLine(transform.position, transform.position + m_v3Forward, Color.cyan);
+		Debug.DrawLine(transform.position, transform.position + Vector3.down, Color.magenta);
+	}
 }
