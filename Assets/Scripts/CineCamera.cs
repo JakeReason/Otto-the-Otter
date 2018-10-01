@@ -16,6 +16,7 @@ public class CineCamera : MonoBehaviour {
 	private Player playerScript;
 	private bool playerRun = true;
 	public Animator m_Animator;
+	public Collider thisColider;
 
 	//sets the active of the two UI elements to False
 	void Awake()
@@ -55,6 +56,7 @@ public class CineCamera : MonoBehaviour {
 			switchOffCine ();
 			noCamera.gameObject.SetActive (false);
 			StartCoroutine (updateOff ());
+			thisColider.enabled = false ;
 		}
 	}
 	//switches from camera 1 to camera 2
@@ -79,7 +81,6 @@ public class CineCamera : MonoBehaviour {
 		if (timeLeft == false)
 		{
 			yesCamera.gameObject.SetActive (false);
-			Destroy (this);
 		}
 
 		if (playerRun == true)
@@ -93,7 +94,7 @@ public class CineCamera : MonoBehaviour {
 		yield return new WaitForSeconds (3.0f);
 		timeLeft = false;
 		StopCoroutine (updateOff ());
-
+		Destroy (this.gameObject);
 	}
 	//waits for 2 seconds and then turns the player script back on
 	private IEnumerator playerWait()

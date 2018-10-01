@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33106928079996074}
   - component: {fileID: 23723990755144494}
   - component: {fileID: 95464196769085530}
-  - component: {fileID: 64964466027746946}
   m_Layer: 0
   m_Name: Rock_NoSnow_Model_6
   m_TagString: Untagged
@@ -37,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1604191646144202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 185.02661, y: -3.258852, z: 54.411503}
+  m_LocalPosition: {x: 15.239929, y: -6.1803246, z: -7.979904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 62c494adaddd0f942befe7178d58e70d, type: 2}
+  - {fileID: 2100000, guid: dc3ed959a0613cd4e807e81f1742946f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,20 +82,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1604191646144202}
-  m_Mesh: {fileID: 4300000, guid: d4fecd2dad920a544acc843f909b071d, type: 3}
---- !u!64 &64964466027746946
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1604191646144202}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d4fecd2dad920a544acc843f909b071d, type: 3}
 --- !u!95 &95464196769085530
 Animator:
