@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4054923592974624}
   m_Layer: 10
   m_Name: Otter_Rig:Otto_Character_Presentation_Model_1:Eyes
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 136515532907101774}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Tail_01
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 4512400563334138}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Hip_R
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 136491792677215642}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Waist
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 4900317322270212}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Hip_L
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 4581639222742618}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Root
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 4840355624864004}
   m_Layer: 10
   m_Name: Otter_Rig:JNT_Stomach
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1346,7 +1346,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1047887089260066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0.15, y: 1.36, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4161207773635570}
@@ -2040,8 +2040,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.24, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 212.14, y: -4.74, z: 65.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161207773635570}
@@ -2404,13 +2404,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc1789bb616ee4994082782ea6e991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bDebug: 0
   m_controller: 0
   m_landing: {fileID: 198666895742866764}
   m_scarfWrap: {fileID: 198069441118341270, guid: 0ef459afba6ad2047be0ecfcc41af8ae,
     type: 2}
   m_grass: {fileID: 198580486440717278}
+  m_slidingMaterial: {fileID: 0}
   m_hook: {fileID: 1702867675390412}
-  m_feetTrigger: {fileID: 0}
   m_flashColour: {r: 1, g: 0, b: 0, a: 0}
   m_healthImage: {fileID: 0}
   m_halfHealth: {fileID: 0}
@@ -2418,6 +2419,10 @@ MonoBehaviour:
   m_fSpeed: 10
   m_fJumpHeight: 4
   m_fTimeToJumpApex: 0.4
+  m_fHeight: 2
+  m_fHeightPadding: 0.05
+  m_fMaximumGroundAngle: 120
+  m_fSlideFriction: 0.2
   m_fDeadZone: 0
   m_fHealthRecoveryTime: 3
   m_fFlashRate: 28.9
@@ -2426,6 +2431,9 @@ MonoBehaviour:
   m_mushroomLayer:
     serializedVersion: 2
     m_Bits: 512
+  m_ground:
+    serializedVersion: 2
+    m_Bits: 0
   m_platformLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -2696,8 +2704,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4869416270905476}
   m_AABB:
-    m_Center: {x: 0.0070809424, y: 1.2738696, z: -0.8332987}
-    m_Extent: {x: 1.0390855, y: 0.31251383, z: 1.2803142}
+    m_Center: {x: 0.0070877075, y: 1.2738724, z: -0.8332977}
+    m_Extent: {x: 1.0390874, y: 0.31251556, z: 1.2803195}
   m_DirtyAABB: 0
 --- !u!137 &137510616660132916
 SkinnedMeshRenderer:
