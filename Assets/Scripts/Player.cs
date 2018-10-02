@@ -220,6 +220,11 @@ public class Player : MonoBehaviour
 	{
 		m_fGroundAngle = Vector3.Angle(Vector3.up, m_hitDown.normal);
 
+		//if (m_hitDown.normal == Vector3.zero)
+		//{
+		//	Debug.Log("UH OH");
+		//}
+
 		if (m_fGroundAngle >= m_fMaximumGroundAngle)
 		{
 			m_cc.Move(CalculateSlideVector() * Time.deltaTime * 10.0f);
@@ -289,19 +294,11 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		Debug.Log(m_fGroundAngle);
-
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;
 
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
-
-		//if (m_fGroundAngle >= m_fMaximumGroundAngle)
-		//{
-		//	Debug.DrawLine(transform.position, m_hitDown.normal, Color.cyan);
-		//	m_cc.Move(m_v3SlideVector * Time.deltaTime);
-		//}
 
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
@@ -436,7 +433,7 @@ public class Player : MonoBehaviour
 		//	return true;
 		//}
 
-		if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.3f, m_ground))
+		if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.3f))
 		{
 			m_cc.Move(new Vector3(0, -m_hitDown.distance, 0));
 			return true;
@@ -444,14 +441,6 @@ public class Player : MonoBehaviour
 
 		return false;
 	}
-
-	//private void CalculateHitForward()
-	//{
-	//	if (Physics.Raycast(transform.position, Vector3.forward, out m_hitForward, 0.5f))
-	//	{
-	//		return;
-	//	}
-	//}
 
 	private void Jump()
 	{
