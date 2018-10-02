@@ -6,7 +6,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
 	[SerializeField]
-	private AudioClip[] m_musicClips;
+	private List<AudioClip> m_musicClips;
 	[SerializeField]
 	private bool m_bRandomPlay = false;
 
@@ -35,6 +35,7 @@ public class MusicManager : MonoBehaviour
 				nextClip = GetNextClip();
 			}
 			//m_nCurrentClipIndex = ArrayUtility.IndexOf(m_musicClips, nextClip);
+			m_nCurrentClipIndex = m_musicClips.IndexOf(nextClip);
 			m_audioSource.clip = nextClip;
 			m_audioSource.Play();
 		}
@@ -42,12 +43,12 @@ public class MusicManager : MonoBehaviour
 
 	private AudioClip GetRandomClip()
 	{
-		return m_musicClips[Random.Range(0, m_musicClips.Length)];
+		return m_musicClips[Random.Range(0, m_musicClips.Count)];
 	}
 
 	private AudioClip GetNextClip()
 	{
-		return m_musicClips[(m_nCurrentClipIndex + 1) % m_musicClips.Length];
+		return m_musicClips[(m_nCurrentClipIndex + 1) % m_musicClips.Count];
 	}
 	private void Awake()
 	{
