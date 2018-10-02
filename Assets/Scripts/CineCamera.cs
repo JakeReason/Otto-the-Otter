@@ -17,17 +17,13 @@ public class CineCamera : MonoBehaviour {
 	private bool playerRun = true;
 	public Animator m_Animator;
 	public Collider thisColider;
+    public AudioSource soundBuild;
+    public AudioClip treebuild;
 
 	//sets the active of the two UI elements to False
 	void Awake()
 	{
 		playerScript = playerModel.GetComponent<Player>();
-
-
-		if (!playerScript)
-		{
-			Debug.Log("No Player Script!");
-		}
 
 		yesCamera.gameObject.SetActive (false);
 		noCamera.gameObject.SetActive (false);
@@ -45,6 +41,7 @@ public class CineCamera : MonoBehaviour {
 			playerRun = false;
 			playerScript.enabled = false;
 			StartCoroutine (playerWait ());
+            soundBuild.PlayOneShot(treebuild, 0.7f);
 		}
 	}
 

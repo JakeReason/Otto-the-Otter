@@ -232,7 +232,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: db58a05b6a2444c4f8f7e30d90f7504b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -330,6 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_flowerNearClip: {fileID: 0}
+  m_flowerPickUpClip: {fileID: 0}
   m_nFlowerToCollect: 2
 --- !u!198 &198183026356146936
 ParticleSystem:
