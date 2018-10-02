@@ -12,6 +12,10 @@ public class CheckPoint : MonoBehaviour
 
     public Animator checkpointAnim;
 
+	private AudioSource m_audioSource;
+
+	private bool m_bPickedUp;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -22,8 +26,20 @@ public class CheckPoint : MonoBehaviour
         // Gets reference to the collectable manager script.
         m_CM = m_collectableManager.GetComponent<CollectableManager>();
 
+		m_audioSource = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (m_audioSource)
+		{
+			if (!m_audioSource.isPlaying && m_bPickedUp)
+			{
+				gameObject.SetActive(false);
+			}
+
+		}
+	}
 	//--------------------------------------------------------------------------------
 	// OnTriggerEnter checks if the player collides with this object and adds an 
 	// amount of sticks to the collectable manager and sets itself not to be active.
@@ -39,7 +55,8 @@ public class CheckPoint : MonoBehaviour
 		{
 			// Adds the stick to the collectable manager.
 			m_CM.SetCurrentCheckPoint(transform);
-            checkpointAnim.SetBool("Checkpoint", true);
+			m_audioSource.Play();
+			checkpointAnim.SetBool("Checkpoint", true);
 		}
 	}
 }

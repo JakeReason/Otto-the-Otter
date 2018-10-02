@@ -17,6 +17,10 @@ public class Clam : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_CM;
 
+	private AudioSource m_audioSource;
+
+	private bool m_bPickedUp;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -26,6 +30,20 @@ public class Clam : MonoBehaviour
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
 		// Gets reference to the collectable manager script.
 		m_CM = m_collectableManager.GetComponent<CollectableManager>();
+
+		m_audioSource = GetComponent<AudioSource>();
+	}
+
+	private void Update()
+	{
+		if(m_audioSource)
+		{
+			if (!m_audioSource.isPlaying && m_bPickedUp)
+			{
+				gameObject.SetActive(false);
+			}
+
+		}
 	}
 
 	//--------------------------------------------------------------------------------
@@ -43,7 +61,8 @@ public class Clam : MonoBehaviour
 		{
 			// Adds the stick to the collectable manager.
 			m_CM.AddClams(m_nClamAmount);
-			gameObject.SetActive(false);
+			m_audioSource.Play();
+			m_bPickedUp = true;
 		}
 	}
 }

@@ -13,6 +13,10 @@ public class FishBiscuit : MonoBehaviour
 	// Player Script used to access the player script.
 	private Player m_playerScript;
 
+	private AudioSource m_audioSource;
+
+	private bool m_bPickedUp;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -22,8 +26,21 @@ public class FishBiscuit : MonoBehaviour
 		m_player = GameObject.FindGameObjectWithTag("Player");
 		// Gets reference to the player script.
 		m_playerScript = m_player.GetComponent<Player>();
+
+		m_audioSource = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (m_audioSource)
+		{
+			if (!m_audioSource.isPlaying && m_bPickedUp)
+			{
+				gameObject.SetActive(false);
+			}
+
+		}
+	}
 	//--------------------------------------------------------------------------------
 	// OnTriggerEnter checks when the player collides with this object and restores
 	// health to the player and sets itself not to be active.
@@ -39,6 +56,7 @@ public class FishBiscuit : MonoBehaviour
 		{
 			// Restores health to the player.
 			m_playerScript.RestoreHealth();
+			m_audioSource.Play();
 			gameObject.SetActive(false);
 		}
 	}

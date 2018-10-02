@@ -15,6 +15,10 @@ public class Flower : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_CM;
 
+	private AudioSource m_audioSource;
+
+	private bool m_bPickedUp;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -24,8 +28,21 @@ public class Flower : MonoBehaviour
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
 		// Gets reference to the collectable manager script.
 		m_CM = m_collectableManager.GetComponent<CollectableManager>();
+
+		m_audioSource = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (m_audioSource)
+		{
+			if (!m_audioSource.isPlaying && m_bPickedUp)
+			{
+				gameObject.SetActive(false);
+			}
+
+		}
+	}
 	//--------------------------------------------------------------------------------
 	// OnTriggerEnter checks if the player collides with this object and adds
 	// a family member to the collectable manager and sets itself not to be active.
@@ -41,6 +58,7 @@ public class Flower : MonoBehaviour
 		{
 			// Adds the family member to the collectable manager.
 			m_CM.AddFlower(m_nFlowerToCollect);
+			m_audioSource.Play();
 			gameObject.SetActive(false);
 		}
 	}
