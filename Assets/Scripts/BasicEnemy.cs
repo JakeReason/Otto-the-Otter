@@ -146,7 +146,8 @@ public class BasicEnemy : MonoBehaviour
 			rend.enabled = false;
 			if (!m_audioSource.isPlaying)
 			{
-				gameObject.SetActive(false);
+				this.transform.parent.gameObject.tag = "Untagged";
+				this.transform.parent.gameObject.SetActive(false);
 			}
 		}
 		// Checks if the agent is on the navmesh.
