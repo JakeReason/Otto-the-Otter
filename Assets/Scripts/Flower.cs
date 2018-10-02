@@ -10,6 +10,9 @@ public class Flower : MonoBehaviour
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
 
+	public AudioClip m_flowerNearClip;
+	public AudioClip m_flowerPickUpClip;
+
 	public int m_nFlowerToCollect;
 
 	// Collectable manager Script used to get access to the collectable manager script.
@@ -18,6 +21,10 @@ public class Flower : MonoBehaviour
 	private AudioSource m_audioSource;
 
 	private bool m_bPickedUp;
+
+	private GameObject m_player;
+
+	
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
@@ -30,12 +37,19 @@ public class Flower : MonoBehaviour
 		m_CM = m_collectableManager.GetComponent<CollectableManager>();
 
 		m_audioSource = GetComponent<AudioSource>();
+
+		m_player = GameObject.FindGameObjectWithTag("Player");
 	}
 
 	private void Update()
 	{
 		if (m_audioSource)
 		{
+			if ((transform.position - m_player.transform.position).sqrMagnitude < 25.0f && !m_bPickedUp)
+			{
+				if(!m_audioSource.isPlaying)
+					m_audioSource.PlayOneShot(m_flowerNearClip);
+			}
 			if (!m_audioSource.isPlaying && m_bPickedUp)
 			{
 				gameObject.SetActive(false);
@@ -57,8 +71,9 @@ public class Flower : MonoBehaviour
 		if(other.CompareTag("Player"))
 		{
 			// Adds the family member to the collectable manager.
+			m_audioSource.Stop();
 			m_CM.AddFlower(m_nFlowerToCollect);
-			m_audioSource.Play();
+			m_audioSource.PlayOneShot(m_flowerPickUpClip);
 			gameObject.SetActive(false);
 		}
 	}

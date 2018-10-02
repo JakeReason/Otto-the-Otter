@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95118082821032864}
   - component: {fileID: 114576934260139130}
   - component: {fileID: 65375391642113934}
+  - component: {fileID: 82791170755461370}
   m_Layer: 0
   m_Name: Flower_2
   m_TagString: Untagged
@@ -135,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564616579678476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.64672, y: -7.045, z: -87.26506}
+  m_LocalPosition: {x: -27.36, y: -8.22, z: -76.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4474913174986388}
@@ -221,6 +222,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0630894, y: 1.2946259, z: 0.7027458}
   m_Center: {x: 0.031392664, y: 0.64731294, z: 0.036854893}
+--- !u!82 &82791170755461370
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564616579678476}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: db58a05b6a2444c4f8f7e30d90f7504b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95118082821032864
 Animator:
   serializedVersion: 3
@@ -249,6 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_flowerNearClip: {fileID: 8300000, guid: 909bc00fca846e94283394bd365f15be, type: 3}
+  m_flowerPickUpClip: {fileID: 8300000, guid: db58a05b6a2444c4f8f7e30d90f7504b, type: 3}
   m_nFlowerToCollect: 1
 --- !u!198 &198006573962553374
 ParticleSystem:
