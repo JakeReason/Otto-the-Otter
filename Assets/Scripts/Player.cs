@@ -11,8 +11,6 @@ using XboxCtrlrInput;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-	public bool m_bDebug;
-
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
@@ -47,8 +45,8 @@ public class Player : MonoBehaviour
 
 	public float m_fHeight = 2.0f;
 
-	[Range(90f, 180f)]
-	public float m_fMaximumGroundAngle = 120.0f;
+	[Range(0f, 90f)]
+	public float m_fMaximumGroundAngle = 35.0f;
 
 	[Range(0f, 1f)]
 	public float m_fSlideFriction = 0.2f;
@@ -93,12 +91,8 @@ public class Player : MonoBehaviour
     // Vector3 represents the direction the player will look in
     private Vector3 m_v3LookDirection;
 
-	private Vector3 m_v3Forward;
-
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Velocity;
-
-	private float m_fAngle;
 
 	private float m_fGroundAngle;
 
@@ -113,8 +107,6 @@ public class Player : MonoBehaviour
 
 	// Keeps track of how long the playercan be invicible for after getting hit
 	private float m_fHealthTimer;
-
-	private float m_fGrassTimer;
 
 	private float m_fJumpTimer;
 
@@ -132,8 +124,6 @@ public class Player : MonoBehaviour
     private bool m_bRecovering;
 
 	private RaycastHit m_hitDown;
-
-	private RaycastHit m_hitForward;
 
 	private Transform m_cameraTransform;
 
@@ -194,10 +184,8 @@ public class Player : MonoBehaviour
 		m_cameraTransform = Camera.main.transform;
 
 		// Initialises all private floats to equal zero
-		m_fAngle = 0.0f;
 		m_fGroundAngle = 0.0f;
 		m_fHealthTimer = 0.0f;
-		m_fGrassTimer = 0.0f;
 		m_fJumpTimer = 0.0f;
 		m_fForward = 0.0f;
 		m_fSideways = 0.0f;
@@ -219,12 +207,6 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
-		DebugLines();
-		CalculateDirection();
-		CalculateForward();
-		CalculateGroundAngle();
-		CalculateHitForward();
-
 		// Calls both Move and Animate functions in conjunction per frame
 		Move();
 		PlatformDetection();
@@ -236,6 +218,14 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
+		m_fGroundAngle = Vector3.Angle(Vector3.up, m_hitDown.normal);
+
+		if (m_fGroundAngle >= m_fMaximumGroundAngle)
+		{
+			m_cc.Move(CalculateSlideVector() * Time.deltaTime * 10.0f);
+			return;
+		}
+
 		if (IsGrounded())
 		{
 			m_fVelocityY = 0.0f;
@@ -307,22 +297,15 @@ public class Player : MonoBehaviour
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
 
-		if (m_fGroundAngle >= m_fMaximumGroundAngle)
-		{
-			Debug.Log("SLIDE!!");
+		//if (m_fGroundAngle >= m_fMaximumGroundAngle)
+		//{
+		//	Debug.DrawLine(transform.position, m_hitDown.normal, Color.cyan);
+		//	m_cc.Move(m_v3SlideVector * Time.deltaTime);
+		//}
 
-			Vector3 v3DownPoint = m_hitDown.point;
-			Vector3 v3ForwardPoint = m_hitForward.point;
-
-			Vector3 v3SlideVector = v3DownPoint - v3ForwardPoint;
-			m_cc.Move(v3SlideVector * Time.deltaTime);
-		}
-		else
-		{
-			// Adds movement to CharacterController based on move direction and delta time
-			m_cc.Move(m_v3Velocity * Time.deltaTime);
-		}
-
+		// Adds movement to CharacterController based on move direction and delta time
+		m_cc.Move(m_v3Velocity * Time.deltaTime);
+		
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
 		{
@@ -438,43 +421,22 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void CalculateDirection()
+	private Vector3 CalculateSlideVector()
 	{
-		m_fAngle = Mathf.Atan2(m_v3MoveDirection.x, m_v3MoveDirection.z);
-		m_fAngle = Mathf.Rad2Deg * m_fAngle;
-		m_fAngle += m_cameraTransform.eulerAngles.y;
-	}
+		Vector3 v3Parallel = m_hitDown.normal;
+		v3Parallel.y = m_hitDown.normal.y * -1;
 
-	private void CalculateForward()
-	{
-		if (IsGrounded())
-		{
-			m_v3Forward = transform.forward;
-			return;
-		}
-
-		m_v3Forward = Vector3.Cross(m_hitDown.normal, -transform.right);
-	}
-
-	private void CalculateGroundAngle()
-	{
-		if (IsGrounded())
-		{
-			m_fGroundAngle = 90f;
-			return;
-		}
-
-		m_fGroundAngle = Vector3.Angle(m_hitDown.normal, transform.forward);
+		return v3Parallel;
 	}
 
 	private bool IsGrounded()
 	{
-		if (m_cc.isGrounded)
-		{
-			return true;
-		}
+		//if (m_cc.isGrounded)
+		//{
+		//	return true;
+		//}
 
-		if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.3f))
+		if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.3f, m_ground))
 		{
 			m_cc.Move(new Vector3(0, -m_hitDown.distance, 0));
 			return true;
@@ -483,13 +445,13 @@ public class Player : MonoBehaviour
 		return false;
 	}
 
-	private void CalculateHitForward()
-	{
-		if (Physics.Raycast(transform.position, Vector3.forward, out m_hitForward, 0.5f))
-		{
-			return;
-		}
-	}
+	//private void CalculateHitForward()
+	//{
+	//	if (Physics.Raycast(transform.position, Vector3.forward, out m_hitForward, 0.5f))
+	//	{
+	//		return;
+	//	}
+	//}
 
 	private void Jump()
 	{
@@ -605,17 +567,17 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 		// Calls the death function if the colliding object has the "Respawn" tag
-        if (other.tag == "Respawn")
+        if (other.CompareTag("Respawn"))
         {
             Death();
         }
     }
 
-	private void DebugLines()
-	{
-		if (!m_bDebug) return;
+	//private void DebugLines()
+	//{
+	//	if (!m_bDebug) return;
 
-		Debug.DrawLine(transform.position, transform.position + m_v3Forward, Color.cyan);
-		Debug.DrawLine(transform.position, transform.position + Vector3.down, Color.magenta);
-	}
+	//	Debug.DrawLine(transform.position, transform.position + m_v3Forward, Color.cyan);
+	//	Debug.DrawLine(transform.position, transform.position + Vector3.down, Color.magenta);
+	//}
 }
