@@ -27,6 +27,10 @@ public class CollectableManager : MonoBehaviour
 
 	[SerializeField]
 	// Used to update the UI counter for the Clams.
+	private Text m_lifeText;
+
+	[SerializeField]
+	// Used to update the UI counter for the Clams.
 	private Text m_clamText;
 
 	[SerializeField]
@@ -103,6 +107,7 @@ public class CollectableManager : MonoBehaviour
 		m_v3ClamUIOriginalPos = m_clamUI.transform.position;
 		m_audioSource = gameObject.GetComponent<AudioSource>();
 		ResetClams();
+		m_lifeText.text = m_fLives + "";
 		m_clamText.text = m_fClams + "/" + m_fNextLife;
 		m_flowerText.text = m_fFlowersCollected + "";
 		m_flowerUI.SetActive(false);
