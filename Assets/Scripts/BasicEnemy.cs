@@ -10,7 +10,7 @@ public class BasicEnemy : MonoBehaviour
 {
 	[SerializeField]
 	// Enemies health
-	private float m_fHealth = 1;
+	public float m_fHealth = 1;
 
 	[SerializeField]
 	// Player GameObject used to access the player.
@@ -204,7 +204,7 @@ public class BasicEnemy : MonoBehaviour
 				if (m_fAttackCooldown <= 0)
 				{
 					m_fAttackCooldown = m_fOriginalAttackCooldown;
-					m_playerScript.Damage();
+					//m_playerScript.Damage();
 				}
 			}
 		}
@@ -219,12 +219,12 @@ public class BasicEnemy : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void OnTriggerEnter(Collider other)
 	{
-		// Checks if the hook hits the enemy.
-		if (other.tag == "Hook")
-		{
-			// Takes damage.
-			--m_fHealth;
+		//// Checks if the hook hits the enemy.
+		//if (other.tag == "Hook")
+		//{
+		//	// Takes damage.
+		//	--m_fHealth;
 
-		}
+		//}
 	}
 }
