@@ -10,6 +10,8 @@ public class CheckPoint : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_CM;
 
+    public Animator checkpointAnim;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -17,8 +19,9 @@ public class CheckPoint : MonoBehaviour
 	{
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
-		// Gets reference to the collectable manager script.
-		m_CM = m_collectableManager.GetComponent<CollectableManager>();
+        // Gets reference to the collectable manager script.
+        m_CM = m_collectableManager.GetComponent<CollectableManager>();
+
 	}
 
 	//--------------------------------------------------------------------------------
@@ -36,6 +39,7 @@ public class CheckPoint : MonoBehaviour
 		{
 			// Adds the stick to the collectable manager.
 			m_CM.SetCurrentCheckPoint(transform);
+            checkpointAnim.SetBool("Checkpoint", true);
 		}
 	}
 }
