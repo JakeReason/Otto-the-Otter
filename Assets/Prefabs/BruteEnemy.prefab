@@ -241,7 +241,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 34f8518abec5e854697301902d1a3fd3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -336,7 +336,8 @@ MonoBehaviour:
   m_fRotateSpeed: 5
   m_fAttackCooldown: 1.25
   m_bGoBackWards: 0
-  m_enemyDeathAudioClip: {fileID: 0}
+  m_enemyDeathAudioClip: {fileID: 8300000, guid: 34f8518abec5e854697301902d1a3fd3,
+    type: 3}
 --- !u!114 &114903047562822640
 MonoBehaviour:
   m_ObjectHideFlags: 1
