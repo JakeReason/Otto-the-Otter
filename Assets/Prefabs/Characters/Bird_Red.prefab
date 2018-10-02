@@ -156,6 +156,8 @@ GameObject:
   - component: {fileID: 4059978049082298}
   - component: {fileID: 95464853880175074}
   - component: {fileID: 114025255017050250}
+  - component: {fileID: 82179750318989500}
+  - component: {fileID: 114109992344904002}
   m_Layer: 0
   m_Name: Bird_Red
   m_TagString: Untagged
@@ -843,8 +845,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185468275136572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 102.53, y: 58.42, z: 55.16}
+  m_LocalRotation: {x: -0, y: -0.13052645, z: -0, w: 0.9914449}
+  m_LocalPosition: {x: -50.813667, y: 30.584982, z: 37.51752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4725889086589866}
@@ -853,7 +855,7 @@ Transform:
   - {fileID: 4813780526772200}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -15.000001, z: 0}
 --- !u!4 &4066888511104470
 Transform:
   m_ObjectHideFlags: 1
@@ -1535,6 +1537,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796506830317006}
   m_Mesh: {fileID: 4300000, guid: 207d89bce062b1a40afdc6a8d6c980d4, type: 3}
+--- !u!82 &82179750318989500
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185468275136572}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e040f1d7b9bad5e458bedf2336111c43, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.08
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 211
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95464853880175074
 Animator:
   serializedVersion: 3
@@ -1565,6 +1647,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpeed: 0.75
   maxSpeed: 2
+--- !u!114 &114109992344904002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185468275136572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd32f34e52e7424093697227aa75133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bOrbit: 0
+  m_bMoveUp: 0
+  m_bMoveDown: 0
+  m_bMoveLeft: 0
+  m_bMoveRight: 0
+  m_bMoveForward: 0
+  m_bMoveBackward: 0
+  m_bRotateUp: 0
+  m_bRotateDown: 0
+  m_bRotateLeft: 0
+  m_bRotateRight: 0
+  m_bRotateForward: 0
+  m_bRotateBackward: 0
+  m_bFollowPath: 1
+  m_fSpeed: 1.2
+  m_fRotationSpeed: 10
+  m_fReturnTime: 3
+  m_fWaitTime: 1
+  m_fStartWaitTime: 1
+  m_targetPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_fFollowWaitTime: 1
+  m_fPushBackSpeed: 1
 --- !u!137 &137344396480641526
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

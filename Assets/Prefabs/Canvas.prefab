@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 114713034789393316}
   - component: {fileID: 114162529220475166}
   m_Layer: 5
-  m_Name: Point Telly
+  m_Name: Live Telly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,6 +973,7 @@ MonoBehaviour:
   m_fFlowersCollected: 0
   m_fLives: 3
   m_fNextLife: 25
+  m_lifeText: {fileID: 114137420769608010}
   m_clamText: {fileID: 114889016187409654}
   m_flowerText: {fileID: 114685935211949838}
   m_notCollectedflowerImages:
@@ -2814,7 +2815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 51.19995, y: -185.56277}
+  m_AnchoredPosition: {x: 51.19989, y: -185.56277}
   m_SizeDelta: {x: 333.8, y: 270.4}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224286756446312156

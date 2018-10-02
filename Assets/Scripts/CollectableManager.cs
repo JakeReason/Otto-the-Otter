@@ -121,6 +121,7 @@ public class CollectableManager : MonoBehaviour
 	void Update()
 	{
 		m_fUITimer += Time.deltaTime;
+		m_lifeText.text = m_fLives + "";
 		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
 			if (XCI.GetButtonDown(XboxButton.Back) || Input.GetKeyDown(KeyCode.Tab) || XCI.GetButtonDown(XboxButton.Start) || Input.GetKeyDown(KeyCode.Escape))
@@ -175,6 +176,7 @@ public class CollectableManager : MonoBehaviour
 		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
+			m_lifeText.text = m_fLives + "";
 			m_audioSource.Play();
 			ResetClams();
 		}
