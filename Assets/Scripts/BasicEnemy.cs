@@ -72,6 +72,10 @@ public class BasicEnemy : MonoBehaviour
 
 	private AudioSource m_audioSource;
 
+	public GameObject m_wolfModel;
+
+	private bool m_bAudioPlayed;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -141,11 +145,16 @@ public class BasicEnemy : MonoBehaviour
 		if (m_fHealth <= 0)
 		{
 			// TODO: test this.
-			m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
-			Renderer rend = GetComponent<MeshRenderer>();
-			rend.enabled = false;
-			if (!m_audioSource.isPlaying)
+			if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 			{
+				m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
+				m_bAudioPlayed = true;
+			}
+			m_wolfModel.SetActive(false);
+			GetComponent<BoxCollider>().enabled = false;
+			if (m_bAudioPlayed && !m_audioSource.isPlaying)
+			{
+				//gameObject.SetActive(false);
 				this.transform.parent.gameObject.tag = "Untagged";
 				this.transform.parent.gameObject.SetActive(false);
 			}
@@ -205,7 +214,7 @@ public class BasicEnemy : MonoBehaviour
 				if (m_fAttackCooldown <= 0)
 				{
 					m_fAttackCooldown = m_fOriginalAttackCooldown;
-					//m_playerScript.Damage();
+					m_playerScript.Damage();
 				}
 			}
 		}

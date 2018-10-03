@@ -77,7 +77,6 @@ public class HideObjects : MonoBehaviour
 		//Debug.Log(screenres);
 		for (int i = 0; i < RaycastPoints.Length; ++i)
 		{
-			Debug.Log(m_bHit[i]);
 			Debug.DrawRay(RaycastPoints[i].position, WatchTarget.transform.position - RaycastPoints[i].position, Color.green);
 		}
 
