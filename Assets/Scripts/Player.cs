@@ -5,6 +5,7 @@
 // Accesses the plugins from Unity folder
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using XboxCtrlrInput;
 
 // Creates a class for the Player script requiring a CharacterController
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
 
 	public ParticleSystem m_grass;
 
-	public PhysicMaterial m_slidingMaterial;
+	//public PhysicMaterial m_slidingMaterial;
 
 	public GameObject m_hook;
 
@@ -35,6 +36,8 @@ public class Player : MonoBehaviour
 
 	// Indicates the sprite shown when the player is at full health
     public Image m_fullHealth;
+
+	public int m_nMainMenu;
 
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
@@ -65,6 +68,14 @@ public class Player : MonoBehaviour
 	[Range(0.01f, 0.2f)]
 	public float m_fFallRecovery = 0.15f;
 
+	// Used to access the SkinnedMeshRenderer component from the player
+	public SkinnedMeshRenderer m_meshRenderer;
+
+	// Indicates the layer mask of a mushroom object
+	public LayerMask m_mushroomLayer;
+
+	public LayerMask m_ground;
+
 	// Used to access the animator component from the player
 	private Animator m_animator;
 
@@ -77,19 +88,13 @@ public class Player : MonoBehaviour
     // Variable is used to store the player's Grappling Hook script in
     private Hook m_grapplingScript;
 
-	// Used to access the SkinnedMeshRenderer component from the player
-    public SkinnedMeshRenderer m_meshRenderer;
-
-	// Indicates the layer mask of a mushroom object
-	public LayerMask m_mushroomLayer;
-
-	public LayerMask m_ground;
-
     // Vector3 represents the input direction from the analog stick
     private Vector3 m_v3MoveDirection;
 
     // Vector3 represents the direction the player will look in
     private Vector3 m_v3LookDirection;
+
+	private Vector3 m_v3StartPosition;
 
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Velocity;
@@ -182,6 +187,8 @@ public class Player : MonoBehaviour
 		m_originalColour = m_meshRenderer.material.color;
 
 		m_cameraTransform = Camera.main.transform;
+
+		m_v3StartPosition = transform.position;
 
 		// Initialises all private floats to equal zero
 		m_fGroundAngle = 0.0f;
@@ -289,10 +296,12 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		Debug.Log(m_fGroundAngle);
+		//Debug.Log(m_fGroundAngle);
 
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;
+
+		Debug.Log(m_fVelocityY);
 
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
@@ -510,12 +519,18 @@ public class Player : MonoBehaviour
 
 		if (m_cm.GetLives() > 0)
 		{
+			if (!m_cm.GetCheckPoint())
+			{
+				// Sets the player's position back to where they spawned
+				transform.position = m_v3StartPosition;
+			}
+
 			transform.position = m_cm.GetCheckPoint().position;
 		}
 		else
 		{
-			// Sets the player's position back to Vector3 zero
-			transform.position = Vector3.zero;
+			// Sets the player's position back to where they spawned
+			SceneManager.LoadScene(m_nMainMenu);
 		}
 
 		transform.position = Vector3.zero;
@@ -567,7 +582,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 		// Calls the death function if the colliding object has the "Respawn" tag
-        if (other.CompareTag("Respawn"))
+        if (other.CompareTag("Respawn") && m_fVelocityY <= -30)
         {
             Death();
         }
