@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
 	public ParticleSystem m_grass;
 
-	public PhysicMaterial m_slidingMaterial;
+	//public PhysicMaterial m_slidingMaterial;
 
 	public GameObject m_hook;
 
@@ -289,7 +289,7 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		Debug.Log(m_fGroundAngle);
+		//Debug.Log(m_fGroundAngle);
 
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;

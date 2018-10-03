@@ -18,6 +18,8 @@ public class Hook : MonoBehaviour
 
 	public GameObject m_detector;
 
+	public GameObject m_scarf;
+
 	// Indicates an object of which the hook has hooked onto
 	[HideInInspector]
 	public GameObject m_hookedObj;
@@ -61,7 +63,6 @@ public class Hook : MonoBehaviour
 	private Transform m_originalTransform;
 
 	// Transform represents the transform of the locked on target
-	[SerializeField]
 	private Transform m_hookTarget;
 
 	// Collider used to switch on and off, depending on if it has been fired
@@ -69,11 +70,15 @@ public class Hook : MonoBehaviour
 
 	private Detector m_detectorScript;
 
+	private Vector3 m_v3HookScale;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
     {
+		m_scarf.SetActive(true);
+
 		// Gets the hook's collider component
         m_collider = GetComponent<Collider>();
 
@@ -106,6 +111,8 @@ public class Hook : MonoBehaviour
 		}
 
 		m_bLaunchable = false;
+
+		m_v3HookScale = transform.localScale;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -122,6 +129,8 @@ public class Hook : MonoBehaviour
 		// Checks if fired bool is set to true
 		if (m_bFired)
 		{
+			m_scarf.SetActive(false);
+
 			m_collider.enabled = true;
 
 			// Declares the rope to have two positions
@@ -233,7 +242,7 @@ public class Hook : MonoBehaviour
 		transform.rotation = m_hookHolder.transform.rotation;
 
 		// Sets the local scale of the hook to equal a Vector3 of ones
-		transform.localScale = new Vector3(1, 1, 1);
+		transform.localScale = m_v3HookScale;
 
 		// Initialises fired and hooked bools back to false
 		m_bFired = false;
@@ -241,7 +250,7 @@ public class Hook : MonoBehaviour
 
 		m_hookTarget = null;
 
-		//m_detector.GetComponent<Collider>().enabled = true;
+		m_scarf.SetActive(true);
 
 		// Deletes the rope to have no positions
 		m_rope.positionCount = 0;
