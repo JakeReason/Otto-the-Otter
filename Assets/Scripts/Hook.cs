@@ -72,6 +72,8 @@ public class Hook : MonoBehaviour
 
 	private Vector3 m_v3HookScale;
 
+	private MeshRenderer m_mesh;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -79,8 +81,17 @@ public class Hook : MonoBehaviour
     {
 		m_scarf.SetActive(true);
 
+		m_mesh = GetComponent<MeshRenderer>();
+
+		if (!m_mesh)
+		{
+			Debug.Log("NO MESH RENDERER ATTACHED!");
+		}
+
+		m_mesh.enabled = false;
+
 		// Gets the hook's collider component
-        m_collider = GetComponent<Collider>();
+		m_collider = GetComponent<Collider>();
 
 		// Logs to the console if there is no collider on the hook
         if (!m_collider)
@@ -129,6 +140,8 @@ public class Hook : MonoBehaviour
 		// Checks if fired bool is set to true
 		if (m_bFired)
 		{
+			m_mesh.enabled = true;
+
 			m_scarf.SetActive(false);
 
 			m_collider.enabled = true;
@@ -249,6 +262,8 @@ public class Hook : MonoBehaviour
 		m_bHooked = false;
 
 		m_hookTarget = null;
+
+		m_mesh.enabled = false;
 
 		m_scarf.SetActive(true);
 
