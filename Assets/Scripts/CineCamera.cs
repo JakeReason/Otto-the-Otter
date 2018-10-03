@@ -19,6 +19,7 @@ public class CineCamera : MonoBehaviour {
 	public Collider thisColider;
     public AudioSource soundBuild;
     public AudioClip treebuild;
+    private bool cineOver = false;
 
 	//sets the active of the two UI elements to False
 	void Awake()
@@ -42,20 +43,22 @@ public class CineCamera : MonoBehaviour {
 			playerScript.enabled = false;
 			StartCoroutine (playerWait ());
             soundBuild.PlayOneShot(treebuild, 0.7f);
+            StartCoroutine(bigTreeCine());
+
 		}
 	}
 
 	//when the player leaves it turns the UI off and starts a timer for the UI to eventually turn off
 
-	void OnTriggerExit(Collider other){
-		if (other.tag == "Player") 
-		{
-			switchOffCine ();
-			noCamera.gameObject.SetActive (false);
-			StartCoroutine (updateOff ());
-			thisColider.enabled = false ;
-		}
-	}
+	//void OnTriggerExit(Collider other){
+	//	if (other.tag == "Player") 
+	//	{
+	//		switchOffCine ();
+	//		noCamera.gameObject.SetActive (false);
+	//		StartCoroutine (updateOff ());
+	//		thisColider.enabled = false ;
+	//	}
+	//}
 	//switches from camera 1 to camera 2
 	public void switchToCine()
 	{
@@ -78,12 +81,19 @@ public class CineCamera : MonoBehaviour {
 		if (timeLeft == false)
 		{
 			yesCamera.gameObject.SetActive (false);
-		}
+        }
 
 		if (playerRun == true)
 		{
-			playerScript.enabled = true;
+            playerScript.enabled = true;
 		}
+
+        if (cineOver == true)
+        {
+            switchOffCine();
+            Destroy(this.gameObject);
+        }
+
 	}
 	//waits for 3 seconds then turns the UI off and stops coroutine
 	private IEnumerator updateOff()
@@ -96,10 +106,19 @@ public class CineCamera : MonoBehaviour {
 	//waits for 2 seconds and then turns the player script back on
 	private IEnumerator playerWait()
 	{
-		yield return new WaitForSeconds (2.5f);
+		yield return new WaitForSeconds (3.5f);
 		playerRun = true;
 		StopCoroutine (playerWait ());
 
 	}
+
+
+    private IEnumerator bigTreeCine()
+    {
+        yield return new WaitForSeconds(3.5f);
+        cineOver = true;
+        StopCoroutine(bigTreeCine ());
+
+    }
 
 }
