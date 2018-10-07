@@ -167,6 +167,14 @@ public class BasicEnemy : MonoBehaviour
 			if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
 			{
 				m_fCooldown -= Time.deltaTime;
+				if (!m_bGoBackWards)
+				{
+					transform.LookAt(m_targetPoints[m_nDestPoint + 1].position);
+				}
+				if (m_bGoBackWards)
+				{
+					transform.LookAt(m_targetPoints[m_nDestPoint - 1].position);
+				}
 				// When the cooldown is over move to next point and resets cooldown time.
 				if (m_fCooldown <= 0)
 				{
