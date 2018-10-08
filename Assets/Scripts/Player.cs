@@ -15,26 +15,31 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
-	private AudioSource m_audioSource;
-
+	// AudioClip used to store the audio for when Otto runs
 	public AudioClip m_runningAudio;
 
+	// Stores the jumping audio for use in script
 	public AudioClip m_jumpingAudio;
 
+	// Clip represents audio that will be played when Otto gets hit
 	public AudioClip m_hitAudio;
 
+	// AudioClip used for when Otto dies in game
 	public AudioClip m_deathAudio;
 
+	// Stores the audio for when Otto throws his scarf
 	public AudioClip m_throwAudio;
 
+	// Represents the particle system for when the player lands
 	public ParticleSystem m_landing;
 
+	// Scarf particle system used when scarf is thrown
 	public ParticleSystem m_scarfWrap;
 
+	// Particla System indicates the grass particle system when Otto runs
 	public ParticleSystem m_grass;
 
-	//public PhysicMaterial m_slidingMaterial;
-
+	// GameObject used to access variables for the hook
 	public GameObject m_hook;
 
 	// Public color indicates what colour the player will flash after getting hit
@@ -49,6 +54,7 @@ public class Player : MonoBehaviour
 	// Indicates the sprite shown when the player is at full health
     public Image m_fullHealth;
 
+	// Integer indicates what scene number the main menu is in unity
 	public int m_nMainMenu;
 
     // Public float represents the speed of the player's movement
@@ -152,6 +158,8 @@ public class Player : MonoBehaviour
 
 	// Collectable manager Script used to get access to the collectable manager script.
 	private CollectableManager m_cm;
+
+	private AudioSource m_audioSource;
 
 	[SerializeField]
 	private LayerMask m_platformLayer;
