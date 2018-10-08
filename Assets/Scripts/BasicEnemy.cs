@@ -45,6 +45,10 @@ public class BasicEnemy : MonoBehaviour
 	private float m_fRotateSpeed = 1;
 
 	[SerializeField]
+	// Speed of rotation.
+	private float m_fWaitRotateSpeed = 1;
+
+	[SerializeField]
 	// The cooldown on the attack.
 	private float m_fAttackCooldown = 1;
 
@@ -167,13 +171,16 @@ public class BasicEnemy : MonoBehaviour
 			if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
 			{
 				m_fCooldown -= Time.deltaTime;
+				
 				if (!m_bGoBackWards)
 				{
-					transform.LookAt(m_targetPoints[m_nDestPoint + 1].position);
+					var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
+					transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 				}
 				if (m_bGoBackWards)
 				{
-					transform.LookAt(m_targetPoints[m_nDestPoint - 1].position);
+					var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
+					transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 				}
 				// When the cooldown is over move to next point and resets cooldown time.
 				if (m_fCooldown <= 0)

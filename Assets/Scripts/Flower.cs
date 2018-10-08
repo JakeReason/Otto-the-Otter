@@ -10,7 +10,6 @@ public class Flower : MonoBehaviour
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
 
-	public AudioClip m_flowerNearClip;
 	public AudioClip m_flowerPickUpClip;
 
 	public int m_nFlowerToCollect;
@@ -45,16 +44,10 @@ public class Flower : MonoBehaviour
 	{
 		if (m_audioSource)
 		{
-			if ((transform.position - m_player.transform.position).sqrMagnitude < 25.0f && !m_bPickedUp)
-			{
-				if(!m_audioSource.isPlaying)
-					m_audioSource.PlayOneShot(m_flowerNearClip);
-			}
 			if (!m_audioSource.isPlaying && m_bPickedUp)
 			{
 				gameObject.SetActive(false);
 			}
-
 		}
 	}
 	//--------------------------------------------------------------------------------
@@ -75,6 +68,7 @@ public class Flower : MonoBehaviour
 			m_CM.AddFlower(m_nFlowerToCollect);
 			m_audioSource.PlayOneShot(m_flowerPickUpClip);
 			gameObject.SetActive(false);
+			m_bPickedUp = true;
 		}
 	}
 }
