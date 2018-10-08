@@ -60,18 +60,20 @@ public class Player : MonoBehaviour
     // Public float represents the speed of the player's movement
     public float m_fSpeed = 10.0f;
 
+	// Float indicates the height of the player's jump
 	public float m_fJumpHeight = 1.0f;
 
+	// Represents the time it takes to reach the max height of a jump
 	public float m_fTimeToJumpApex = 0.4f;
 
+	// Stores how tall Otto is as a float
 	public float m_fHeight = 2.0f;
 
+	// Is the maximum angle of the ground that otto can walk on without slipping
 	[Range(0f, 90f)]
 	public float m_fMaximumGroundAngle = 35.0f;
 
-	[Range(0f, 1f)]
-	public float m_fSlideFriction = 0.2f;
-
+	// Represents the
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
 
@@ -156,7 +158,7 @@ public class Player : MonoBehaviour
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
 
-	// Collectable manager Script used to get access to the collectable manager script.
+	// Collectable manager Script used to get access to the collectable manager script
 	private CollectableManager m_cm;
 
 	private AudioSource m_audioSource;
@@ -425,8 +427,6 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Grapple", true);
 
 			m_scarfWrap.Play();
-
-			m_audioSource.PlayOneShot(m_throwAudio);
 		}
 		// Sets Grapple bool in animator to false otherwise
 		else
@@ -438,7 +438,12 @@ public class Player : MonoBehaviour
 		if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
 		{
 			m_animator.SetBool("Running", true);
-			m_audioSource.PlayOneShot(m_runningAudio);
+
+			if (!m_audioSource.isPlaying)
+			{
+				m_audioSource.time = 0.0f;
+				m_audioSource.PlayOneShot(m_runningAudio);
+			}
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
@@ -456,6 +461,11 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Walking", false);
 		}
+	}
+
+	private void Footstep()
+	{
+		m_audioSource.PlayOneShot(m_throwAudio);
 	}
 
 	private Vector3 CalculateSlideVector()
