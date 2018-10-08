@@ -57,7 +57,7 @@ public class FishBiscuit : MonoBehaviour
 			// Restores health to the player.
 			m_playerScript.RestoreHealth();
 			m_audioSource.Play();
-			gameObject.SetActive(false);
+			m_bPickedUp = true;
 		}
 	}
 }

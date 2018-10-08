@@ -10,8 +10,6 @@ public class Flower : MonoBehaviour
 	// Collectable manager GameObject used to get access to the collectable manager.
 	private GameObject m_collectableManager;
 
-	public AudioClip m_flowerPickUpClip;
-
 	public int m_nFlowerToCollect;
 
 	// Collectable manager Script used to get access to the collectable manager script.
@@ -63,11 +61,8 @@ public class Flower : MonoBehaviour
 		// Checks if the player picks/runs into the collectable.
 		if(other.CompareTag("Player"))
 		{
-			// Adds the family member to the collectable manager.
-			m_audioSource.Stop();
 			m_CM.AddFlower(m_nFlowerToCollect);
-			m_audioSource.PlayOneShot(m_flowerPickUpClip);
-			gameObject.SetActive(false);
+			m_audioSource.Play();
 			m_bPickedUp = true;
 		}
 	}
