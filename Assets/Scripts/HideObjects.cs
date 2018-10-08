@@ -311,53 +311,74 @@ public class HideObjects : MonoBehaviour
 			//May need to get the raycasts info and check bool to see if one of the rays are the same as the other if not then it should set the aplha back also may need more temprend and rednersrers.
 			if (!bHit)
 			{
-				for (int i = 0; i < tempRend0.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend0[i])
+					for (int j = 0; j < tempRend0.Length; ++j)
 					{
-						bTempRendSame0 = true;
+						if (tempRend[i] == tempRend0[j])
+						{
+							bTempRendSame0 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend1.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend1[i])
+					for (int j = 0; j < tempRend1.Length; ++j)
 					{
-						bTempRendSame1 = true;
+						if (tempRend[i] == tempRend1[j])
+						{
+							bTempRendSame1 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend2.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend2[i])
+					for (int j = 0; j < tempRend2.Length; ++j)
 					{
-						bTempRendSame2 = true;
+						if (tempRend[i] == tempRend2[j])
+						{
+							bTempRendSame2 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend3.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend3[i])
+					for (int j = 0; j < tempRend3.Length; ++j)
 					{
-						bTempRendSame3 = true;
+						if (tempRend[i] == tempRend3[j])
+						{
+							bTempRendSame3 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend4.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend4[i])
+					for (int j = 0; j < tempRend4.Length; ++j)
 					{
-						bTempRendSame4 = true;
+						if (tempRend[i] == tempRend4[j])
+						{
+							bTempRendSame4 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend5.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend5[i])
+					for (int j = 0; j < tempRend5.Length; ++j)
 					{
-						bTempRendSame5 = true;
+						if (tempRend[i] == tempRend5[j])
+						{
+							bTempRendSame5 = true;
+						}
 					}
 				}
-				for (int i = 0; i < tempRend6.Length; ++i)
+				for (int i = 0; i < tempRend.Length; ++i)
 				{
-					if (tempRend[i] == tempRend6[i])
+					for (int j = 0; j < tempRend6.Length; ++j)
 					{
-						bTempRendSame6 = true;
+						if (tempRend[i] == tempRend6[j])
+						{
+							bTempRendSame6 = true;
+						}
 					}
 				}
 				#region
@@ -472,14 +493,17 @@ public class HideObjects : MonoBehaviour
 					!bTempRendSame5 &&
 					bTempRendSame6))
 				{
-					for(int i = 0; i < tempRend.Length; ++i)
+					for (int i = 0; i < tempRend.Length; ++i)
 					{
-						color = tempRend[i].material.color;
-						color.a = 1.0f;
-						tempRend[i].material.color = color;
-						tempRend[i].material.SetFloat("_Mode", 0f);
-						tempRend[i].material.renderQueue = 2001;
-						rend = new Renderer[hits.Length];
+						if(tempRend[i] != null)
+						{
+							color = tempRend[i].material.color;
+							color.a = 1.0f;
+							tempRend[i].material.color = color;
+							tempRend[i].material.SetFloat("_Mode", 0f);
+							tempRend[i].material.renderQueue = 2001;
+							rend = new Renderer[hits.Length];
+						}
 					}
 				}
 			}
