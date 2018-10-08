@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 23693723332620546}
   - component: {fileID: 95777665851705374}
   - component: {fileID: 114588527321285978}
+  - component: {fileID: 64176193188961252}
   m_Layer: 0
   m_Name: Floating_Platform_Model
   m_TagString: Untagged
@@ -65,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501178920026566}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -41.57669, y: -2.811472, z: -12.451408}
+  m_LocalPosition: {x: -44.22, y: -1.55, z: -19.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116848753888624}
@@ -112,6 +113,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755171519792732}
+  m_Mesh: {fileID: 4300002, guid: 6f160cd531dec5f48a3b5e5119e72c9c, type: 3}
+--- !u!64 &64176193188961252
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1755171519792732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 6f160cd531dec5f48a3b5e5119e72c9c, type: 3}
 --- !u!95 &95777665851705374
 Animator:
