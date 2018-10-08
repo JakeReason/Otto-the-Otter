@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 4425347860872986}
   - component: {fileID: 114943008687563098}
   - component: {fileID: 114346344899505484}
+  - component: {fileID: 114412078630734286}
   m_Layer: 0
   m_Name: CM FreeLook1
   m_TagString: Untagged
@@ -1075,8 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterLevel: 0.32910398
-  WetnessAmount: 0.9809838
+  WaterLevel: 0.9752992
+  WetnessAmount: 0.99620366
   flowTimeScale: 1
   FlowBumpStrength: 1
   RainIntensity: 1
@@ -1104,6 +1105,17 @@ MonoBehaviour:
   UseParticleSystem: 1
   rainGameObject: {fileID: 177056, guid: 4f8f196b45b21dc4292c6f03987e8c39, type: 2}
   snowGameObject: {fileID: 151460, guid: c42faef0e81a2ce44850bf01c985eab9, type: 2}
+--- !u!114 &114412078630734286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564719683256308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704514fbd84e40b42aa74ad218c246c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114437805973875956
 MonoBehaviour:
   m_ObjectHideFlags: 1
