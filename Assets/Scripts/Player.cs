@@ -15,6 +15,18 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+	private AudioSource m_audioSource;
+
+	public AudioClip m_runningAudio;
+
+	public AudioClip m_jumpingAudio;
+
+	public AudioClip m_hitAudio;
+
+	public AudioClip m_deathAudio;
+
+	public AudioClip m_throwAudio;
+
 	public ParticleSystem m_landing;
 
 	public ParticleSystem m_scarfWrap;
@@ -207,6 +219,8 @@ public class Player : MonoBehaviour
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bRecovering = false;
+
+		m_audioSource = GetComponent<AudioSource>();
 	}
 
     //--------------------------------------------------------------------------------
@@ -260,13 +274,12 @@ public class Player : MonoBehaviour
 
 		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
-		// Sets the look direction to equal the direction the control stick is facing
-		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
-
 		// Detects if Grappling Hook is hooked on an object
 		if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
 		{
 			m_fVelocityY = 0;
+
+			m_v3MoveDirection *= 0.25f;
 
 			m_grapplingScript.SetLaunchable(false);
 		}
@@ -301,7 +314,7 @@ public class Player : MonoBehaviour
 		// Applies the gravity to the move direction
 		m_fVelocityY += m_fGravity * Time.deltaTime;
 
-		Debug.Log(m_fVelocityY);
+		//Debug.Log(m_fVelocityY);
 
 		// Multiples Move Direction vector by speed
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
@@ -314,7 +327,10 @@ public class Player : MonoBehaviour
 
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
-		
+
+		// Sets the look direction to equal the direction the control stick is facing
+		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
+
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
 		{
@@ -361,6 +377,7 @@ public class Player : MonoBehaviour
 		if (m_bJumped && m_fVelocityY > 0.0f)
 		{
 			m_animator.SetBool("Jumping", true);
+			m_audioSource.PlayOneShot(m_jumpingAudio);
 		}
 		// Sets Jumping bool in animator to false otherwise
 		else
@@ -400,6 +417,8 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Grapple", true);
 
 			m_scarfWrap.Play();
+
+			m_audioSource.PlayOneShot(m_throwAudio);
 		}
 		// Sets Grapple bool in animator to false otherwise
 		else
@@ -408,9 +427,10 @@ public class Player : MonoBehaviour
 		}
 
 		// Sets Running bool in animator to true if the player has any running movement
-		if (m_v3MoveDirection.sqrMagnitude >= 0.99f)
+		if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
 		{
 			m_animator.SetBool("Running", true);
+			m_audioSource.PlayOneShot(m_runningAudio);
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
@@ -475,7 +495,7 @@ public class Player : MonoBehaviour
 	public void Damage()
     {
 		// Detects if the health timer is at zero or if the player isn't recovering
-        if (m_fHealthTimer <= 0.0f || !m_bRecovering)
+        if ((m_fHealthTimer <= 0.0f || !m_bRecovering) && !m_grapplingScript.GetFired())
         {
 			// Deducts one bar of health from the player and updates UI
             m_nHealth -= 1;
@@ -491,6 +511,7 @@ public class Player : MonoBehaviour
             else
             {
                 m_bRecovering = true;
+				m_audioSource.PlayOneShot(m_hitAudio);
             }           
         }
     }
@@ -515,6 +536,7 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
+		m_audioSource.PlayOneShot(m_deathAudio);
 		m_cm.RemoveLife();
 
 		if (m_cm.GetLives() > 0)
@@ -549,6 +571,10 @@ public class Player : MonoBehaviour
 
 		// Sets jumped bool to be true
 		m_bJumped = true;
+
+		//Vector3 v3Bounce = new Vector3(0, m_fVelocityY, 0);
+
+		//m_cc.SimpleMove(v3Bounce * Time.deltaTime);
 	}
 
 	private bool UpCheck()

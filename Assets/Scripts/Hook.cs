@@ -5,6 +5,7 @@
 // Accesses the plugins from Unity folder
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 using UnityEngine.UI;
 
 // Creates a class for the HookDetector
@@ -19,6 +20,8 @@ public class Hook : MonoBehaviour
 	public GameObject m_detector;
 
 	public GameObject m_scarf;
+
+	//public GameObject m_camera;
 
 	// Indicates an object of which the hook has hooked onto
 	[HideInInspector]
@@ -74,6 +77,8 @@ public class Hook : MonoBehaviour
 
 	private MeshRenderer m_mesh;
 
+	//private Transform m_prevCamTransform;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -124,6 +129,10 @@ public class Hook : MonoBehaviour
 		m_bLaunchable = false;
 
 		m_v3HookScale = transform.localScale;
+
+		//m_prevCamTransform.position = m_camera.transform.position;
+
+		//m_prevCamTransform.rotation = m_camera.transform.rotation;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -146,6 +155,10 @@ public class Hook : MonoBehaviour
 
 			m_collider.enabled = true;
 
+			//m_camera.transform.position = m_prevCamTransform.position;
+
+			//m_camera.transform.rotation = m_prevCamTransform.rotation;
+
 			// Declares the rope to have two positions
 			m_rope.positionCount = 2;
 
@@ -163,6 +176,10 @@ public class Hook : MonoBehaviour
 			m_rope.positionCount = 0;
 
 			m_hookTarget = m_detectorScript.GetTarget();
+
+			//m_prevCamTransform.position = m_camera.transform.position;
+
+			//m_prevCamTransform.rotation = m_camera.transform.rotation;
 		}
 
 		// Runs if fired book is true but hooked bool is false

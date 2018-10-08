@@ -27,6 +27,23 @@ public class Mushroom : MonoBehaviour
 		if (other.CompareTag("Player"))
 		{
 			m_playerScript.Bounce(m_fBounceForce);
+			Debug.Log("BOUNCE!");
 		}
 	}
+
+	//private void OnTriggerStay(Collider other)
+	//{
+	//	if (other.CompareTag("Player"))
+	//	{
+	//		m_playerScript.Bounce(m_fBounceForce);
+	//	}
+	//}
+
+	//private void OnCollisionEnter(Collision collision)
+	//{
+	//	if (collision.gameObject.CompareTag("Player"))
+	//	{
+	//		m_playerScript.Bounce(m_fBounceForce);
+	//	}
+	//}
 }
