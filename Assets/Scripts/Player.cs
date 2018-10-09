@@ -339,12 +339,6 @@ public class Player : MonoBehaviour
 			m_fVelocityY -= 2.0f;
 		}
 
-		//// Calculates gravity based on the jump height and time to apex
-		//m_fGravity = -(2 * m_fJumpHeight) / Mathf.Pow(m_fTimeToJumpApex, 2);
-
-		//// Calculates the jump velocity from gravity
-		//m_fJumpVelocity = Mathf.Abs(m_fGravity) * m_fTimeToJumpApex;
-
 		// Stores the y movement direction in local float
 		float fCurrentMoveY = m_v3MoveDirection.y;
 
@@ -495,7 +489,7 @@ public class Player : MonoBehaviour
 		}
 
 		// Sets Moving bool in animator to true if the player has any movement
-		if (m_v3MoveDirection.sqrMagnitude > 0.1f && m_v3MoveDirection.sqrMagnitude < 0.99f)
+		if (m_v3MoveDirection.sqrMagnitude > 0.05f && m_v3MoveDirection.sqrMagnitude < 0.7f)
 		{
 			m_animator.SetBool("Walking", true);
 		}
