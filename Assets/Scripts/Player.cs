@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     // Allows access to xbox controller buttons
     public XboxController m_controller;
 
+	// GameObject used to access variables for the hook
+	public GameObject m_hook;
+
 	// AudioClip used to store the audio for when Otto runs
 	public AudioClip m_runningAudio;
 
@@ -30,6 +33,15 @@ public class Player : MonoBehaviour
 	// Stores the audio for when Otto throws his scarf
 	public AudioClip m_throwAudio;
 
+	// Used to access the SkinnedMeshRenderer component from the player
+	public SkinnedMeshRenderer m_meshRenderer;
+
+	// Indicates the layer mask of a mushroom object
+	public LayerMask m_mushroomLayer;
+
+	// Represents the ground as a layer
+	public LayerMask m_ground;
+
 	// Represents the particle system for when the player lands
 	public ParticleSystem m_landing;
 
@@ -38,9 +50,6 @@ public class Player : MonoBehaviour
 
 	// Particla System indicates the grass particle system when Otto runs
 	public ParticleSystem m_grass;
-
-	// GameObject used to access variables for the hook
-	public GameObject m_hook;
 
 	// Public color indicates what colour the player will flash after getting hit
 	public Color m_flashColour;
@@ -73,7 +82,7 @@ public class Player : MonoBehaviour
 	[Range(0f, 90f)]
 	public float m_fMaximumGroundAngle = 35.0f;
 
-	// Represents the
+	// Represents the left control stick dead zone for movement
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
 
@@ -85,16 +94,9 @@ public class Player : MonoBehaviour
 	[Range(10.0f, 100.0f)]
     public float m_fFlashRate = 10.0f;
 
+	// Indicates the amount of time given after the player falls for them to jump
 	[Range(0.01f, 0.2f)]
 	public float m_fFallRecovery = 0.15f;
-
-	// Used to access the SkinnedMeshRenderer component from the player
-	public SkinnedMeshRenderer m_meshRenderer;
-
-	// Indicates the layer mask of a mushroom object
-	public LayerMask m_mushroomLayer;
-
-	public LayerMask m_ground;
 
 	// Used to access the animator component from the player
 	private Animator m_animator;
@@ -108,23 +110,41 @@ public class Player : MonoBehaviour
     // Variable is used to store the player's Grappling Hook script in
     private Hook m_grapplingScript;
 
-    // Vector3 represents the input direction from the analog stick
-    private Vector3 m_v3MoveDirection;
+	// Records the original colour of the player
+	private Color m_originalColour;
+
+	// Collectable manager GameObject used to get access to the collectable manager.
+	private GameObject m_collectableManager;
+
+	// Collectable manager Script used to get access to the collectable manager script
+	private CollectableManager m_cm;
+
+	// Used to access and change the audio source component on the player
+	private AudioSource m_audioSource;
+
+	// Represents the platform layer in the game
+	[SerializeField]
+	private LayerMask m_platformLayer;
+
+	// Vector3 represents the input direction from the analog stick
+	private Vector3 m_v3MoveDirection;
 
     // Vector3 represents the direction the player will look in
     private Vector3 m_v3LookDirection;
 
+	// Private Vector3 indicates the position where the player spawns
 	private Vector3 m_v3StartPosition;
 
     // Vector3 allows gravity to be applied in movement formulas
     private Vector3 m_v3Velocity;
 
-	private float m_fGroundAngle;
-
+	// Represents gravity applied to the player
 	private float m_fGravity;
 
+	// Float indicates the velo9city of Otto's jump
 	private float m_fJumpVelocity;
 
+	// Keeps track of the velocity of Otto on the Y axis
 	private float m_fVelocityY;
 
 	// Private float indicates the rate the player flashes after being hit
@@ -133,10 +153,13 @@ public class Player : MonoBehaviour
 	// Keeps track of how long the playercan be invicible for after getting hit
 	private float m_fHealthTimer;
 
+	// Records the amount of time the player spends whilst jumping
 	private float m_fJumpTimer;
 
+	// Float indicates the forward direction of Otto
 	private float m_fForward;
 
+	// Keeps track of the player's sideways direction
 	private float m_fSideways;
 
 	// Int keeps track of the player's current health
@@ -148,24 +171,6 @@ public class Player : MonoBehaviour
 	// Indicates if the player is recovering after a hit or not
     private bool m_bRecovering;
 
-	private RaycastHit m_hitDown;
-
-	private Transform m_cameraTransform;
-
-	// Records the original colour of the player
-    private Color m_originalColour;
-
-	// Collectable manager GameObject used to get access to the collectable manager.
-	private GameObject m_collectableManager;
-
-	// Collectable manager Script used to get access to the collectable manager script
-	private CollectableManager m_cm;
-
-	private AudioSource m_audioSource;
-
-	[SerializeField]
-	private LayerMask m_platformLayer;
-
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -174,19 +179,29 @@ public class Player : MonoBehaviour
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
 
+		// Checks if the collectable manager object was found
 		if (m_collectableManager)
 		{
 			// Gets reference to the collectable manager script.
 			m_cm = m_collectableManager.GetComponent<CollectableManager>();
 		}
 
-		// Calculates the flashing rate from the reciprocal of public float flash rate
-		m_fFlashingRate = 1 / m_fFlashRate;
-
 		// Gets the Animator component and stores it in the animator variable
         m_animator = GetComponent<Animator>();
 
-		// Sets all bools in the animator controller to false
+		// Gets Audio Source component off of the player
+		m_audioSource = GetComponent<AudioSource>();
+
+		// Gets the CharacterController component on awake
+		m_cc = GetComponent<CharacterController>();
+
+		// When script is called, the BasicEnemy script is obtained and stored
+		m_enemyScript = GetComponent<BasicEnemy>();
+
+		// Gets the GrapplingHook script and stores it in the variable
+		m_grapplingScript = m_hook.GetComponent<Hook>();
+
+		// Sets all bools in the animator controller to false initially
 		m_animator.SetBool("Moving", false);
 		m_animator.SetBool("Grapple", false);
 		m_animator.SetBool("Jumping", false);
@@ -196,31 +211,26 @@ public class Player : MonoBehaviour
 		// Stores the full heath sprite as the current health image
 		m_healthImage = m_fullHealth;
 
-        // Gets the CharacterController component on awake
-        m_cc = GetComponent<CharacterController>();
-
-        // When script is called, the BasicEnemy script is obtained and stored
-        m_enemyScript = GetComponent<BasicEnemy>();
-
-        // Gets the GrapplingHook script and stores it in the variable
-        m_grapplingScript = m_hook.GetComponent<Hook>();
-
 		// Obtains the original colour for the player from the mesh renderer's material
 		m_originalColour = m_meshRenderer.material.color;
 
-		m_cameraTransform = Camera.main.transform;
-
+		// Records the start position as Otto's position on awake
 		m_v3StartPosition = transform.position;
 
 		// Initialises all private floats to equal zero
-		m_fGroundAngle = 0.0f;
 		m_fHealthTimer = 0.0f;
 		m_fJumpTimer = 0.0f;
 		m_fForward = 0.0f;
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
 
+		// Calculates the flashing rate from the reciprocal of public float flash rate
+		m_fFlashingRate = 1 / m_fFlashRate;
+
+		// Calculates gravity based on the jump height and time to apex
 		m_fGravity = -(2 * m_fJumpHeight) / Mathf.Pow(m_fTimeToJumpApex, 2);
+
+		// Calculates the jump velocity from gravity
 		m_fJumpVelocity = Mathf.Abs(m_fGravity) * m_fTimeToJumpApex;
 
 		// Sets the health of the player to equal two when script is called
@@ -229,8 +239,6 @@ public class Player : MonoBehaviour
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bRecovering = false;
-
-		m_audioSource = GetComponent<AudioSource>();
 	}
 
     //--------------------------------------------------------------------------------
@@ -238,7 +246,7 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
-		// Calls both Move and Animate functions in conjunction per frame
+		// Calls Move, PlatformDetection and Animate functions in conjunction per frame
 		Move();
 		PlatformDetection();
 		Animate();
@@ -249,52 +257,58 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
-		m_fGroundAngle = Vector3.Angle(Vector3.up, m_hitDown.normal);
-
-		//if (m_fGroundAngle >= m_fMaximumGroundAngle)
-		//{
-		//	m_cc.Move(CalculateSlideVector() * Time.deltaTime * 10.0f);
-		//	return;
-		//}
-
-		if (IsGrounded())
+		// Detects if the player is on the ground
+		if (m_cc.isGrounded)
 		{
+			// Resets y velocity and jump timer back to zero
 			m_fVelocityY = 0.0f;
 			m_fJumpTimer = 0.0f;
+
+			// Allows for targets to be set for the grappling hook
 			m_grapplingScript.SetLaunchable(true);
 		}
+		// Otherwise adds jump timer by delta time if Otto isn't grounded
 		else
 		{
 			m_fJumpTimer += Time.deltaTime;
 		}
 
+		// Detects if the left stick is centred
 		if (Input.GetAxis("LeftStickHorizontal") < 0.1f && 
 			Input.GetAxis("LeftStickVertical") < 0.1f &&
 			Input.GetAxis("LeftStickHorizontal") > -0.1f &&
 			Input.GetAxis("LeftStickVertical") > -0.1f)
 		{
+			// Sets input floats based on the keyboard axes
 			m_fForward = Input.GetAxis("KeyboardHorizontal");
 			m_fSideways = Input.GetAxis("KeyboardVertical");
 		}
+		// Else if left stick is not centred
 		else
 		{
+			// Sets input floats based on the controller's axes
 			m_fForward = Input.GetAxis("LeftStickHorizontal");
 			m_fSideways = Input.GetAxis("LeftStickVertical");
 		}
 
+		// Creates a "new" vector3 for the player to move based on input
 		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
-		// Detects if Grappling Hook is hooked on an object
+		// Detects if Grappling Hook is hooked on an object or launched
 		if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
 		{
+			// Disables any Y velocity to be applied to the player
 			m_fVelocityY = 0;
 
+			// Restricts move direction by a quarter
 			m_v3MoveDirection *= 0.25f;
 
+			// Sets launchable boolean to false in hook script
 			m_grapplingScript.SetLaunchable(false);
 		}
-		// Else if the hook hasn't hooked an object or if the player hasn't bounced
-		if ((Input.GetButtonDown("Jump") && IsGrounded()) || 
+
+		// Calls jump function if button is pressed whilst grounded or if Otto just fell
+		if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) || 
 			(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
 		{
 			Jump();
@@ -309,31 +323,23 @@ public class Player : MonoBehaviour
 		// Stores local float value as the y value for the Move Direction
 		m_v3MoveDirection.y = fCurrentMoveY;
 
+		// Normalizes the move vector if the magnitude exceeds 1
 		if (m_v3MoveDirection.sqrMagnitude > 1.0f)
 		{
 			m_v3MoveDirection.Normalize();
 		}
 
+		// Caps the y velocity to -30 if the value goes below -30
 		if (m_fVelocityY <= -30)
 		{
 			m_fVelocityY = -30;
 		}
 
-		//Debug.Log(m_fGroundAngle);
-
-		// Applies the gravity to the move direction
+		// Applies the gravity to y velocity
 		m_fVelocityY += m_fGravity * Time.deltaTime;
 
-		//Debug.Log(m_fVelocityY);
-
-		// Multiples Move Direction vector by speed
+		// Multiples Move Direction vector by speed and the y velocity
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
-
-		//if (m_fGroundAngle >= m_fMaximumGroundAngle)
-		//{
-		//	Debug.DrawLine(transform.position, m_hitDown.normal, Color.cyan);
-		//	m_cc.Move(m_v3SlideVector * Time.deltaTime);
-		//}
 
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
@@ -360,19 +366,28 @@ public class Player : MonoBehaviour
 			// Updates the health timer every second by deltaTime
 			m_fHealthTimer += Time.deltaTime;
 
+			// Detects if the sine wave value is less than 0
 			if (Mathf.Sin(m_fHealthTimer / m_fFlashingRate) >= 0)
 			{
+				// Sets Otto's material colour to equal that of the flash colour
 				m_meshRenderer.material.color = m_flashColour;
 			}
+			// Otherwise the player's colour is reverted to his initial colour
 			else
 			{
 				m_meshRenderer.material.color = m_originalColour;
 			}
 
+			// Checks if the health timer exceeds the maximum recovery time
 			if (m_fHealthTimer >= m_fHealthRecoveryTime)
 			{
+				// Sets the health timer to equal zero
 				m_fHealthTimer = 0.0f;
+
+				// Reverts recovery bool back to false
 				m_bRecovering = false;
+
+				// Otto's colour is set to his original colour
 				m_meshRenderer.material.color = m_originalColour;
 			}
 		}
@@ -383,10 +398,13 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Animate()
 	{
-		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
+		// Checks if jumped is true and Gravity exceeds jump speed
 		if (m_bJumped && m_fVelocityY > 0.0f)
 		{
+			// Sets jumping bool to true in animator
 			m_animator.SetBool("Jumping", true);
+
+			// Plays the jumping audio via the audio source
 			m_audioSource.PlayOneShot(m_jumpingAudio);
 		}
 		// Sets Jumping bool in animator to false otherwise
@@ -400,14 +418,14 @@ public class Player : MonoBehaviour
 		{
 			m_animator.SetBool("Falling", true);
 		}
-		// Sets Falling bool in animator to false otherwise
-		else if (IsGrounded())
+		// Sets Falling bool in animator to false if the player is grounded
+		else if (m_cc.isGrounded)
 		{
 			m_animator.SetBool("Falling", false);
 		}
 
 		// Checks if the player has jumped and is grounded
-		if (m_bJumped && IsGrounded())
+		if (m_bJumped && m_cc.isGrounded)
 		{
 			// Sets Landing bool in animator to true
 			m_animator.SetBool("Landing", true);
@@ -421,7 +439,7 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Landing", false);
 		}
 
-		// Sets Grapple bool in animator to true if player has launched hook or is hooked
+		// Detects if player has launched hook or is hooked
 		if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
 		{
 			m_animator.SetBool("Grapple", true);
@@ -438,12 +456,6 @@ public class Player : MonoBehaviour
 		if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
 		{
 			m_animator.SetBool("Running", true);
-
-			if (!m_audioSource.isPlaying)
-			{
-				m_audioSource.time = 0.0f;
-				m_audioSource.PlayOneShot(m_runningAudio);
-			}
 		}
 		// Sets Running bool in animator to false if player is not running
 		else
@@ -463,47 +475,26 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//--------------------------------------------------------------------------------
+	// Function plays the footsteps audio for every step Otto takes.
+	//--------------------------------------------------------------------------------
 	private void Footstep()
 	{
-		m_audioSource.PlayOneShot(m_throwAudio);
+		m_audioSource.PlayOneShot(m_runningAudio);
 	}
 
-	private Vector3 CalculateSlideVector()
-	{
-		Vector3 v3Parallel = m_hitDown.normal;
-		v3Parallel.y = m_hitDown.normal.y * -1;
-
-		return v3Parallel;
-	}
-
-	private bool IsGrounded()
-	{
-		if (m_cc.isGrounded)
-		{
-			return true;
-		}
-
-		//if (Physics.Raycast(transform.position, Vector3.down, out m_hitDown, 0.1f, m_ground))
-		//{
-		//	m_cc.Move(new Vector3(0, -m_hitDown.distance, 0));
-		//	return true;
-		//}
-
-		return false;
-	}
-
-	//private void CalculateHitForward()
-	//{
-	//	if (Physics.Raycast(transform.position, Vector3.forward, out m_hitForward, 0.5f))
-	//	{
-	//		return;
-	//	}
-	//}
-
+	//--------------------------------------------------------------------------------
+	// Function applies a jump force to the player when called.
+	//--------------------------------------------------------------------------------
 	private void Jump()
 	{
+		// Calculates the jump nvelocity based on gravity and the height of the jump
 		m_fJumpVelocity = Mathf.Sqrt(-2 * m_fGravity * m_fJumpHeight);
+
+		// Sets the y velocity to equal the jump velocity
 		m_fVelocityY = m_fJumpVelocity;
+
+		// Sets jumped bool to true
 		m_bJumped = true;
 	}
 
@@ -517,6 +508,8 @@ public class Player : MonoBehaviour
         {
 			// Deducts one bar of health from the player and updates UI
             m_nHealth -= 1;
+
+			// Enables half health UI and disables full health UI
 			m_halfHealth.enabled = true;
 			m_fullHealth.enabled = false;
 
@@ -525,10 +518,13 @@ public class Player : MonoBehaviour
             {
                 Death();
             }
-			// Sets the player to be recovering if the player still has health
+			// Otherwise if the player still has health
             else
             {
-                m_bRecovering = true;
+				// Sets the player to be recovering
+				m_bRecovering = true;
+
+				// Plays the audio for being hit through the audio source
 				m_audioSource.PlayOneShot(m_hitAudio);
             }           
         }
@@ -539,49 +535,59 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void RestoreHealth()
     {
-		// Updates health and UI if the player is not already at full health
+		// Detects if the health is not full
         if (m_nHealth != 2)
         {
+			// Initialises health to be at full health
             m_nHealth = 2;
 
+			// Disables half health UI and enables full health UI
 			m_halfHealth.enabled = false;
 			m_fullHealth.enabled = true;
 		}
     }
 
     //--------------------------------------------------------------------------------
-    // Function sends player to the start of the level when health is zero.
+    // Function gets called when Otto dies in game.
     //--------------------------------------------------------------------------------
     private void Death()
     {
+		// Plays the death audio using the audio source on the player
 		m_audioSource.PlayOneShot(m_deathAudio);
+
+		// Removes a life via the collectable manager
 		m_cm.RemoveLife();
 
+		// Detects if the player has any lives left in the game
 		if (m_cm.GetLives() > 0)
 		{
+			// Sends player back to the checkpoint if Otto has passed one
 			if (!m_cm.GetCheckPoint())
 			{
-				// Sets the player's position back to where they spawned
+				transform.position = m_cm.GetCheckPoint().position;
+			}
+			// Otherwise sets the player's position back to where they spawned
+			else
+			{
 				transform.position = m_v3StartPosition;
 			}
-
-			transform.position = m_cm.GetCheckPoint().position;
 		}
+		// Sends the user back to the main menu if they have no lives left
 		else
 		{
-			// Sets the player's position back to where they spawned
 			SceneManager.LoadScene(m_nMainMenu);
 		}
 
-		transform.position = Vector3.zero;
-		
-		// Resets health back to full health and updates the UI
-        m_nHealth = 2;
-
-		m_halfHealth.enabled = false;
-		m_fullHealth.enabled = true;
+		// Calls the restore health function
+		RestoreHealth();
 	}
 
+	//--------------------------------------------------------------------------------
+	// Function applies a bounce force to the player.
+	//
+	// Param:
+	//		fBounceForce: Indicates how hard Otto will be bounced.
+	//--------------------------------------------------------------------------------
 	public void Bounce(float fBounceForce)
 	{
 		// Sets the y value of gravity to equal jump speed multipled by bounce force
@@ -589,28 +595,33 @@ public class Player : MonoBehaviour
 
 		// Sets jumped bool to be true
 		m_bJumped = true;
-
-		//Vector3 v3Bounce = new Vector3(0, m_fVelocityY, 0);
-
-		//m_cc.SimpleMove(v3Bounce * Time.deltaTime);
 	}
 
+	//--------------------------------------------------------------------------------
+	// Function detects if there is an object above Otto.
+	//
+	// Return:
+	//		Returns the result of an upward raycast.
+	//--------------------------------------------------------------------------------
 	private bool UpCheck()
 	{
 		return Physics.Raycast(transform.position, Vector3.up, 0.5f);
 	}
 
-	void PlatformDetection()
+	//--------------------------------------------------------------------------------
+	// Function detects if a platform is below them.
+	//--------------------------------------------------------------------------------
+	private void PlatformDetection()
 	{
+		// Declares a local raycast hit variable
 		RaycastHit hit;
 
-		// Sets forward vector to the transforms forward.
-		Vector3 down = transform.TransformDirection(Vector3.down);
-
-		if (Physics.Raycast(transform.position, down, out hit, 1, m_platformLayer))
+		// Parents Otto if the raycast for a platform returns true
+		if (Physics.Raycast(transform.position, Vector3.down, out hit, 1, m_platformLayer))
 		{
 			transform.parent = hit.transform;
 		}
+		// Else if raycast is false, set parent to be null
 		else
 		{
 			transform.parent = null;
@@ -625,18 +636,10 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
-		// Calls the death function if the colliding object has the "Respawn" tag
+		// Calls the death function other's tag is "Respawn" and velocity exceeds 30
         if (other.CompareTag("Respawn") && m_fVelocityY <= -30)
         {
             Death();
         }
     }
-
-	//private void DebugLines()
-	//{
-	//	if (!m_bDebug) return;
-
-	//	Debug.DrawLine(transform.position, transform.position + m_v3Forward, Color.cyan);
-	//	Debug.DrawLine(transform.position, transform.position + Vector3.down, Color.magenta);
-	//}
 }
