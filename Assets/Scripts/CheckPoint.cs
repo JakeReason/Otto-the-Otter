@@ -16,6 +16,8 @@ public class CheckPoint : MonoBehaviour
 
 	private bool m_bTouched;
 
+    public ParticleSystem confetti;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -60,8 +62,11 @@ public class CheckPoint : MonoBehaviour
 			if (!m_bTouched)
 			{
 				m_audioSource.Play();
-			}
-			m_bTouched = true;
+                confetti.Play();
+
+            }
+            m_bTouched = true;
+
 		}
 	}
 }
