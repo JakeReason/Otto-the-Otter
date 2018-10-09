@@ -27,7 +27,7 @@ public class Mushroom : MonoBehaviour
 		if (other.CompareTag("Player"))
 		{
 			m_playerScript.Bounce(m_fBounceForce);
-			Debug.Log("BOUNCE!");
+			//Debug.Log("BOUNCE!");
 		}
 	}
 

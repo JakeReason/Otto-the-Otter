@@ -147,6 +147,8 @@ public class Player : MonoBehaviour
 	// Keeps track of the velocity of Otto on the Y axis
 	private float m_fVelocityY;
 
+	private float m_fInitialJumpApex;
+
 	// Private float indicates the rate the player flashes after being hit
     private float m_fFlashingRate;
 
@@ -170,6 +172,9 @@ public class Player : MonoBehaviour
 
 	// Indicates if the player is recovering after a hit or not
     private bool m_bRecovering;
+
+	// Bool is activated when the player is performing a mini jump
+	private bool m_bMiniJump;
 
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
@@ -224,6 +229,8 @@ public class Player : MonoBehaviour
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
 
+		m_fInitialJumpApex = m_fTimeToJumpApex;
+
 		// Calculates the flashing rate from the reciprocal of public float flash rate
 		m_fFlashingRate = 1 / m_fFlashRate;
 
@@ -239,6 +246,7 @@ public class Player : MonoBehaviour
         // Sets private bools to false on awake
         m_bJumped = false;
         m_bRecovering = false;
+		m_bMiniJump = false;
 	}
 
     //--------------------------------------------------------------------------------
@@ -264,8 +272,13 @@ public class Player : MonoBehaviour
 			m_fVelocityY = 0.0f;
 			m_fJumpTimer = 0.0f;
 
+			m_fTimeToJumpApex = m_fInitialJumpApex;
+
 			// Allows for targets to be set for the grappling hook
 			m_grapplingScript.SetLaunchable(true);
+
+			// Resets the mini jump bool to false
+			m_bMiniJump = false;
 		}
 		// Otherwise adds jump timer by delta time if Otto isn't grounded
 		else
@@ -313,6 +326,24 @@ public class Player : MonoBehaviour
 		{
 			Jump();
 		}
+		// Sets mini jump bool to true if the jump button is let go before apex is reached
+		else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded && 
+				 m_fJumpTimer < m_fTimeToJumpApex)
+		{
+			m_bMiniJump = true;
+		}
+
+		// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
+		if (m_bMiniJump && m_fVelocityY >= 0)
+		{
+			m_fVelocityY -= 2.0f;
+		}
+
+		//// Calculates gravity based on the jump height and time to apex
+		//m_fGravity = -(2 * m_fJumpHeight) / Mathf.Pow(m_fTimeToJumpApex, 2);
+
+		//// Calculates the jump velocity from gravity
+		//m_fJumpVelocity = Mathf.Abs(m_fGravity) * m_fTimeToJumpApex;
 
 		// Stores the y movement direction in local float
 		float fCurrentMoveY = m_v3MoveDirection.y;
@@ -562,7 +593,7 @@ public class Player : MonoBehaviour
 		if (m_cm.GetLives() > 0)
 		{
 			// Sends player back to the checkpoint if Otto has passed one
-			if (!m_cm.GetCheckPoint())
+			if (m_cm.GetCheckPoint() != null)
 			{
 				transform.position = m_cm.GetCheckPoint().position;
 			}
