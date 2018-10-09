@@ -107,4 +107,9 @@ public class Detector : MonoBehaviour
 	{
 		return m_target;
 	}
+
+	public void ClearTarget()
+	{
+		m_target = null;
+	}
 }

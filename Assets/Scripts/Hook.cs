@@ -129,10 +129,6 @@ public class Hook : MonoBehaviour
 		m_bLaunchable = false;
 
 		m_v3HookScale = transform.localScale;
-
-		//m_prevCamTransform.position = m_camera.transform.position;
-
-		//m_prevCamTransform.rotation = m_camera.transform.rotation;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -155,10 +151,6 @@ public class Hook : MonoBehaviour
 
 			m_collider.enabled = true;
 
-			//m_camera.transform.position = m_prevCamTransform.position;
-
-			//m_camera.transform.rotation = m_prevCamTransform.rotation;
-
 			// Declares the rope to have two positions
 			m_rope.positionCount = 2;
 
@@ -176,10 +168,6 @@ public class Hook : MonoBehaviour
 			m_rope.positionCount = 0;
 
 			m_hookTarget = m_detectorScript.GetTarget();
-
-			//m_prevCamTransform.position = m_camera.transform.position;
-
-			//m_prevCamTransform.rotation = m_camera.transform.rotation;
 		}
 
 		// Runs if fired book is true but hooked bool is false
@@ -194,8 +182,6 @@ public class Hook : MonoBehaviour
 			{
 				transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
 			}
-
-			//m_detector.GetComponent<Collider>().enabled = false;
 
 			// Detects distance between the player and the hook and stores in float
 			m_fCurrentDistance = Vector3.Distance(m_player.transform.position,
