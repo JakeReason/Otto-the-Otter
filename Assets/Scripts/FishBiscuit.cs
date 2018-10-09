@@ -17,6 +17,10 @@ public class FishBiscuit : MonoBehaviour
 
 	private bool m_bPickedUp;
 
+	public GameObject m_particleObject;
+
+	public ParticleSystem m_particleSystem;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -28,6 +32,8 @@ public class FishBiscuit : MonoBehaviour
 		m_playerScript = m_player.GetComponent<Player>();
 
 		m_audioSource = GetComponent<AudioSource>();
+
+		m_particleSystem = m_particleObject.GetComponent<ParticleSystem>();
 
 	}
 
@@ -63,6 +69,7 @@ public class FishBiscuit : MonoBehaviour
 			// Restores health to the player.
 			m_playerScript.RestoreHealth();
 			m_audioSource.Play();
+			m_particleSystem.Play();
 			m_bPickedUp = true;
 		}
 	}
