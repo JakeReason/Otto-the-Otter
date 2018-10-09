@@ -176,6 +176,8 @@ public class Player : MonoBehaviour
 	// Bool is activated when the player is performing a mini jump
 	private bool m_bMiniJump;
 
+	private bool m_bBounced;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -247,6 +249,7 @@ public class Player : MonoBehaviour
         m_bJumped = false;
         m_bRecovering = false;
 		m_bMiniJump = false;
+		m_bBounced = false;
 	}
 
     //--------------------------------------------------------------------------------
@@ -277,8 +280,9 @@ public class Player : MonoBehaviour
 			// Allows for targets to be set for the grappling hook
 			m_grapplingScript.SetLaunchable(true);
 
-			// Resets the mini jump bool to false
+			// Resets the mini jump and bounced booleans to false
 			m_bMiniJump = false;
+			m_bBounced = false;
 		}
 		// Otherwise adds jump timer by delta time if Otto isn't grounded
 		else
@@ -328,9 +332,14 @@ public class Player : MonoBehaviour
 		}
 		// Sets mini jump bool to true if the jump button is let go before apex is reached
 		else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded && 
-				 m_fJumpTimer < m_fTimeToJumpApex)
+				 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
 		{
 			m_bMiniJump = true;
+		}
+
+		if (m_bBounced)
+		{
+			m_bMiniJump = false;
 		}
 
 		// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
@@ -618,8 +627,9 @@ public class Player : MonoBehaviour
 		// Sets the y value of gravity to equal jump speed multipled by bounce force
 		m_fVelocityY = m_fJumpVelocity * fBounceForce;
 
-		// Sets jumped bool to be true
+		// Sets jumped and bounced bools to be true
 		m_bJumped = true;
+		m_bBounced = true;
 	}
 
 	//--------------------------------------------------------------------------------
