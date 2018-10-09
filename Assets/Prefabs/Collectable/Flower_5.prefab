@@ -135,14 +135,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866497690509868}
-  m_LocalRotation: {x: -0, y: -0.09240037, z: -0, w: 0.995722}
-  m_LocalPosition: {x: -70.07, y: 93.949, z: -12.68}
+  m_LocalRotation: {x: -0, y: 0.072047725, z: -0, w: 0.99740124}
+  m_LocalPosition: {x: -4.9287567, y: -11.409, z: -10.842087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4237732573308648}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -10.603001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 8.2630005, z: 0}
 --- !u!4 &4805883786814420
 Transform:
   m_ObjectHideFlags: 1
@@ -233,7 +233,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: db58a05b6a2444c4f8f7e30d90f7504b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.563
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -241,7 +241,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.6021576
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -330,8 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6cd2a5733386f469073705fdef9278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_flowerNearClip: {fileID: 8300000, guid: 909bc00fca846e94283394bd365f15be, type: 3}
-  m_flowerPickUpClip: {fileID: 8300000, guid: db58a05b6a2444c4f8f7e30d90f7504b, type: 3}
   m_nFlowerToCollect: 4
 --- !u!198 &198174573037961720
 ParticleSystem:
