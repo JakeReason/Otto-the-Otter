@@ -2383,7 +2383,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.314
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2499,11 +2499,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 0
   m_hook: {fileID: 1711465142548500}
+  m_cineCamera: {fileID: 0}
   m_runningAudio: {fileID: 8300000, guid: 50a6436c120d78144be4d7756fe3ef3f, type: 3}
   m_jumpingAudio: {fileID: 8300000, guid: 0b04d31a54bf59c4891fce10f02a9f35, type: 3}
-  m_hitAudio: {fileID: 0}
-  m_deathAudio: {fileID: 0}
-  m_throwAudio: {fileID: 0}
+  m_hitAudio: {fileID: 8300000, guid: aa6f1d294dd817e48b6db82d64d4062b, type: 3}
+  m_deathAudio: {fileID: 8300000, guid: 1a32ff7f44a550d4bbde02e24f3a0676, type: 3}
+  m_throwAudio: {fileID: 8300000, guid: 65bf8bd2157b3f645a0b54800196c0a9, type: 3}
   m_meshRenderer: {fileID: 137510616660132916}
   m_mushroomLayer:
     serializedVersion: 2
@@ -3040,13 +3041,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.2
+  m_Height: 1.9
   m_Radius: 0.23
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!183 &183370250649993160
 Cloth:
   m_ObjectHideFlags: 1
