@@ -1051,7 +1051,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1093965320440308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.279778, y: -23.545017, z: 32.096645}
+  m_LocalPosition: {x: 112.50075, y: 2.2368011, z: 50.318863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4926304428514978}
@@ -2032,8 +2032,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.41745, y: 0.5333681, z: 1.9297714}
-  m_Center: {x: -0.15428162, y: 6.929007, z: 0.4648857}
+  m_Size: {x: 2.41745, y: 0.36475182, z: 1.9297714}
+  m_Center: {x: -0.15428162, y: 7.013315, z: 0.4648857}
 --- !u!82 &82859995123975062
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2153,11 +2153,13 @@ MonoBehaviour:
   m_fDistance: 5
   m_fAttackDistance: 2
   m_fRotateSpeed: 5
+  m_fWaitRotateSpeed: 1
   m_fAttackCooldown: 1.25
   m_bGoBackWards: 0
   m_enemyDeathAudioClip: {fileID: 8300000, guid: 34f8518abec5e854697301902d1a3fd3,
     type: 3}
   m_wolfModel: {fileID: 1955624078135170}
+  m_detector: {fileID: 0}
 --- !u!114 &114814485156710510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2503,6 +2505,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 6.22
-  m_BaseOffset: -0.33
+  m_BaseOffset: 0.02
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
