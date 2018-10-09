@@ -437,9 +437,6 @@ public class Player : MonoBehaviour
 		{
 			// Sets jumping bool to true in animator
 			m_animator.SetBool("Jumping", true);
-
-			// Plays the jumping audio via the audio source
-			m_audioSource.PlayOneShot(m_jumpingAudio);
 		}
 		// Sets Jumping bool in animator to false otherwise
 		else
@@ -515,6 +512,14 @@ public class Player : MonoBehaviour
 	private void Footstep()
 	{
 		m_audioSource.PlayOneShot(m_runningAudio);
+	}
+
+	//--------------------------------------------------------------------------------
+	// Function plays the jump audio when called in animator
+	//--------------------------------------------------------------------------------
+	private void JumpAudio()
+	{
+		m_audioSource.PlayOneShot(m_jumpingAudio);
 	}
 
 	//--------------------------------------------------------------------------------
