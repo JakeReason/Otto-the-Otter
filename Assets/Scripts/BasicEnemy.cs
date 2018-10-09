@@ -78,6 +78,10 @@ public class BasicEnemy : MonoBehaviour
 
 	public GameObject m_wolfModel;
 
+	public GameObject m_detector;
+
+	private Detector m_detectorScript;
+
 	private bool m_bAudioPlayed;
 
 	//--------------------------------------------------------------------------------
@@ -97,6 +101,8 @@ public class BasicEnemy : MonoBehaviour
 		m_fAttackCooldown = 0;
 		// Sets the playerScript reference up.
 		m_playerScript = m_player.GetComponent<Player>();
+
+		m_detectorScript = m_detector.GetComponent<Detector>();
 
 		m_audioSource = GetComponent<AudioSource>();
 	}
@@ -148,91 +154,95 @@ public class BasicEnemy : MonoBehaviour
 		// Checks if the enemy is dead.
 		if (m_fHealth <= 0)
 		{
-			// TODO: test this.
+			m_wolfModel.SetActive(false);
+			GetComponent<BoxCollider>().enabled = false;
+			m_detectorScript.ClearTarget(this.gameObject);
 			if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 			{
 				m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
 				m_bAudioPlayed = true;
 			}
-			m_wolfModel.SetActive(false);
-			GetComponent<BoxCollider>().enabled = false;
 			if (m_bAudioPlayed && !m_audioSource.isPlaying)
 			{
-				//gameObject.SetActive(false);
+				gameObject.tag = "Untagged";
 				this.transform.parent.gameObject.tag = "Untagged";
 				this.transform.parent.gameObject.SetActive(false);
 			}
 		}
-		// Checks if the agent is on the navmesh.
-		if (m_agent.isOnNavMesh)
+		else
 		{
-			// Choose the next destination point when the agent gets
-			// close to the current one and start a cooldown.
-			if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
+			if (m_agent.isOnNavMesh)
 			{
-				m_fCooldown -= Time.deltaTime;
-				
-				if (!m_bGoBackWards)
+				// Choose the next destination point when the agent gets
+				// close to the current one and start a cooldown.
+				if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
 				{
-					var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
-					transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
-				}
-				if (m_bGoBackWards)
-				{
-					var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
-					transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
-				}
-				// When the cooldown is over move to next point and resets cooldown time.
-				if (m_fCooldown <= 0)
-				{
-					// If the last waypoint has been reached turn around.
-					if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
-					{
-						m_bGoBackWards = true;
-					}
-					// If the First waypoint has been reached turn around.
-					if (m_targetPoints[m_nDestPoint].tag == "FirstWaypoint")
-					{
-						m_bGoBackWards = false;
-					}
-					// If the enemy is going backwards then go to the next waypoint
-					// going backwards from the array of waypoints.
-					if (m_bGoBackWards)
-					{
-						GoToLastPoint();
-					}
-					// If the enemy is not going backwards then go to the next waypoint
-					// in order of the array of waypoints.
+					m_fCooldown -= Time.deltaTime;
+
 					if (!m_bGoBackWards)
 					{
-						GoToNextPoint();
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 					}
-					m_fCooldown = m_fOriginalCooldown;
+					if (m_bGoBackWards)
+					{
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+					}
+					// When the cooldown is over move to next point and resets cooldown time.
+					if (m_fCooldown <= 0)
+					{
+						// If the last waypoint has been reached turn around.
+						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
+						{
+							m_bGoBackWards = true;
+						}
+						// If the First waypoint has been reached turn around.
+						if (m_targetPoints[m_nDestPoint].tag == "FirstWaypoint")
+						{
+							m_bGoBackWards = false;
+						}
+						// If the enemy is going backwards then go to the next waypoint
+						// going backwards from the array of waypoints.
+						if (m_bGoBackWards)
+						{
+							GoToLastPoint();
+						}
+						// If the enemy is not going backwards then go to the next waypoint
+						// in order of the array of waypoints.
+						if (!m_bGoBackWards)
+						{
+							GoToNextPoint();
+						}
+						m_fCooldown = m_fOriginalCooldown;
+					}
 				}
-			}
-			// If the player is in range and not in attack range the enemy moves closer.
-			if (m_fDistanceFromPlayer <= m_fDistance && m_fDistanceFromPlayer >= m_fAttackDistance)
-			{
-				// Sets the destination to the player position.
-				m_agent.SetDestination(m_playerTransform.position);
-			}
-			// When the enemy is in range of attack stop moving, look at player and attack. 
-			if (m_fDistanceFromPlayer <= m_fAttackDistance)
-			{
-				// Sets the destination of the enemies position to stop movement.
-				m_agent.SetDestination(transform.position);
-				// Smooth lookAt/rotation to player.
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_fRotateSpeed * Time.deltaTime);
-				// Reduces cooldown time.
-				m_fAttackCooldown -= Time.deltaTime;
-				// When the cooldown is over move to next point and resets cooldown time.
-				if (m_fAttackCooldown <= 0)
+				// If the player is in range and not in attack range the enemy moves closer.
+				if (m_fDistanceFromPlayer <= m_fDistance && m_fDistanceFromPlayer >= m_fAttackDistance)
 				{
-					m_fAttackCooldown = m_fOriginalAttackCooldown;
-					m_playerScript.Damage();
+					// Sets the destination to the player position.
+					m_agent.SetDestination(m_playerTransform.position);
+				}
+				// When the enemy is in range of attack stop moving, look at player and attack. 
+				if (m_fDistanceFromPlayer <= m_fAttackDistance)
+				{
+					// Sets the destination of the enemies position to stop movement.
+					m_agent.SetDestination(transform.position);
+					// Smooth lookAt/rotation to player.
+					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_fRotateSpeed * Time.deltaTime);
+					// Reduces cooldown time.
+					m_fAttackCooldown -= Time.deltaTime;
+					// When the cooldown is over move to next point and resets cooldown time.
+					if (m_fAttackCooldown <= 0)
+					{
+						m_fAttackCooldown = m_fOriginalAttackCooldown;
+						m_playerScript.Damage();
+					}
 				}
 			}
 		}
+		// Checks if the agent is on the navmesh.
+		
 	}
 
 	//--------------------------------------------------------------------------------

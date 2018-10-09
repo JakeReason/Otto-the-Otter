@@ -37,53 +37,9 @@ public class HideObjects : MonoBehaviour
 
 	void Update()
 	{
-		// Sets the new position for the camera.
-		//transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * m_fDistance, m_fSmooth * Time.deltaTime);
+		
 		RayCastMaterialChange();
-		#region
-		//Vector3 newdirz = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz0 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z + 1);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz0 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz1 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z + 2);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz1 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz2 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z + 3);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz2 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz3 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z - 1);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz3 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz4 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z - 2);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz4 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirz5 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y, m_camera.transform.position.z - 3);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirz5 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry0 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y + 1, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry0 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry1 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y + 2, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry1 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry2 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y + 3, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry2 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry3 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y - 1, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry3 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry4 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y - 2, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry4 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdiry5 = new Vector3(m_camera.transform.position.x, m_camera.transform.position.y - 3, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdiry5 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx0 = new Vector3(m_camera.transform.position.x + 1, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx0 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx1 = new Vector3(m_camera.transform.position.x + 2, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx1 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx2 = new Vector3(m_camera.transform.position.x + 3, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx2 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx3 = new Vector3(m_camera.transform.position.x - 1, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx3 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx4 = new Vector3(m_camera.transform.position.x - 2, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx4 - WatchTarget.transform.position, Color.green);
-		//Vector3 newdirx5 = new Vector3(m_camera.transform.position.x - 3, m_camera.transform.position.y, m_camera.transform.position.z);
-		//Debug.DrawRay(WatchTarget.transform.position, newdirx5 - WatchTarget.transform.position, Color.green);
-		#endregion
-		//Resolution screenres = Screen.currentResolution;
-		//Ray ray = m_camera.ScreenPointToRay(new Vector3(screenres.width / 2, screenres.height / 2, 0));
-		//Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
-		//Debug.Log(screenres);
+	
 		for (int i = 0; i < RaycastPoints.Length; ++i)
 		{
 			Debug.DrawRay(RaycastPoints[i].position, WatchTarget.transform.position - RaycastPoints[i].position, Color.green);
@@ -93,6 +49,8 @@ public class HideObjects : MonoBehaviour
 
 	void RayCastMaterialChange()
 	{
+		// Think of a way to put this in a function which can add any amount of raycasts and renderers etc,
+		// may need to create moore arrays for example a bbol array in the changemat finction.
 		// Cast a ray from this object's transform to the watch target's transform.
 		RaycastHit[] hits = Physics.RaycastAll(
 		  RaycastPoints[0].position,
@@ -308,7 +266,6 @@ public class HideObjects : MonoBehaviour
 			bool bTempRendSame4 = false;
 			bool bTempRendSame5 = false;
 			bool bTempRendSame6 = false;
-			//May need to get the raycasts info and check bool to see if one of the rays are the same as the other if not then it should set the aplha back also may need more temprend and rednersrers.
 			if (!bHit)
 			{
 				for (int i = 0; i < tempRend.Length; ++i)

@@ -108,8 +108,8 @@ public class Detector : MonoBehaviour
 		return m_target;
 	}
 
-	public void ClearTarget()
+	public void ClearTarget(GameObject objToRemove)
 	{
-		m_target = null;
+		m_hookables.Remove(objToRemove);
 	}
 }
