@@ -53593,8 +53593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterLevel: 0.9899968
-  WetnessAmount: 0.996999
+  WaterLevel: 0.99177957
+  WetnessAmount: 0.99753386
   flowTimeScale: 1
   FlowBumpStrength: 1
   RainIntensity: 1
@@ -68603,6 +68603,36 @@ Prefab:
       propertyPath: m_detector
       value: 
       objectReference: {fileID: 1066048113}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 2.488884
+      objectReference: {fileID: 0}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Center.z
+      value: 0.18532944
+      objectReference: {fileID: 0}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 4.04776
+      objectReference: {fileID: 0}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -0.07526398
+      objectReference: {fileID: 0}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1.6426849
+      objectReference: {fileID: 0}
+    - target: {fileID: 65496828212602490, guid: cab407df967b0f440a4ddac013542740,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 6.3743486
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cab407df967b0f440a4ddac013542740, type: 2}
   m_IsPrefabParent: 0
@@ -71451,6 +71481,21 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 0.123
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
         type: 2}
