@@ -84,6 +84,8 @@ public class BasicEnemy : MonoBehaviour
 
 	private bool m_bAudioPlayed;
 
+	public GameObject m_hookableObj;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -156,7 +158,8 @@ public class BasicEnemy : MonoBehaviour
 		{
 			m_wolfModel.SetActive(false);
 			GetComponent<BoxCollider>().enabled = false;
-			m_detectorScript.ClearTarget(this.gameObject);
+			m_hookableObj.GetComponent<Collider>().enabled = false;
+			m_detectorScript.ClearTarget(m_hookableObj);
 			if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 			{
 				m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
@@ -164,8 +167,7 @@ public class BasicEnemy : MonoBehaviour
 			}
 			if (m_bAudioPlayed && !m_audioSource.isPlaying)
 			{
-				gameObject.tag = "Untagged";
-				this.transform.parent.gameObject.tag = "Untagged";
+				m_hookableObj.tag = "Untagged";
 				this.transform.parent.gameObject.SetActive(false);
 			}
 		}
