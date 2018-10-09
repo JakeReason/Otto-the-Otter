@@ -46,6 +46,13 @@ public class Flower : MonoBehaviour
 			{
 				gameObject.SetActive(false);
 			}
+			else if (m_audioSource.isPlaying && m_bPickedUp)
+			{
+				GetComponent<MeshRenderer>().enabled = false;
+				GetComponent<Collider>().enabled = false;
+				transform.GetChild(0).gameObject.SetActive(false);
+			}
+
 		}
 	}
 	//--------------------------------------------------------------------------------

@@ -28,6 +28,7 @@ public class FishBiscuit : MonoBehaviour
 		m_playerScript = m_player.GetComponent<Player>();
 
 		m_audioSource = GetComponent<AudioSource>();
+
 	}
 
 	private void Update()
@@ -37,6 +38,11 @@ public class FishBiscuit : MonoBehaviour
 			if (!m_audioSource.isPlaying && m_bPickedUp)
 			{
 				gameObject.SetActive(false);
+			}
+			else if(m_audioSource.isPlaying && m_bPickedUp)
+			{
+				GetComponent<MeshRenderer>().enabled = false;
+				GetComponent<Collider>().enabled = false;
 			}
 
 		}
