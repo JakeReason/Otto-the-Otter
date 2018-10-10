@@ -41862,35 +41862,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 136
       objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.2820001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 10.967001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -23.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.490805
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.4908041
-      objectReference: {fileID: 0}
-    - target: {fileID: 4703369518205288, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.4908051
-      objectReference: {fileID: 0}
-    - target: {fileID: 23326498902732056, guid: b7f401249dc8801478a8b724b4a59a00,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 019fa8f570032cb45bab389d0c7942ca, type: 2}
     - target: {fileID: 1095504694304046, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
       propertyPath: m_Name
       value: Tree_Model_3 (3)
@@ -53578,8 +53549,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1435717337}
-  m_LocalRotation: {x: -0.072244845, y: 0.31362832, z: -0.11364495, w: -0.9399483}
-  m_LocalPosition: {x: 8.538069, y: -9.769835, z: -15.398804}
+  m_LocalRotation: {x: -0.29786614, y: -0.23946416, z: -0.00979907, w: 0.92403287}
+  m_LocalPosition: {x: 4.019997, y: 19.480001, z: 52.450005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 844968058}
@@ -53666,8 +53637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterLevel: 0.9564489
-  WetnessAmount: 0.99893665
+  WaterLevel: 0.47800395
+  WetnessAmount: 0.99253094
   flowTimeScale: 1
   FlowBumpStrength: 1
   RainIntensity: 1
@@ -53752,7 +53723,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 70
+  field of view: 60.6
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -71640,6 +71611,26 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 0.123
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
         type: 2}
