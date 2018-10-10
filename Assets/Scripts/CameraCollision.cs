@@ -23,10 +23,6 @@ public class CameraCollision : MonoBehaviour
 	// Distance from the camera to the player.
 	private float distance;
 
-	[HideInInspector]
-	// Used to change the aplha of walls in another script.
-	public float m_fChangeTime = 0.0f;
-
 	// Normalized local position.
 	public Vector3 dollyDir;
 
@@ -56,37 +52,6 @@ public class CameraCollision : MonoBehaviour
 		Vector3 desiredCameraPos = transform.parent.TransformPoint (dollyDir * maxDistance);
 		// Used for linecast.
 		RaycastHit hit;
-		// Used for raycast.
-		RaycastHit Hit;
-		// Sets forward vector to the transforms forward.
-		Vector3 forward = transform.TransformDirection(Vector3.forward);
-
-		// Starts increasing change time.
-		m_fChangeTime += Time.deltaTime;
-		// Makes sure change time does not go above 1.
-		if (m_fChangeTime >= 1.0f)
-		{
-			m_fChangeTime = 1.0f;
-		}
-
-		// Checks if the camera has something in front of it.
-		if (Physics.Raycast(transform.position, forward, out Hit, distance - 0.8f))
-		{
-		}
-		else
-		{
-			// If not then set the change time to 0.
-			m_fChangeTime = 0.0f;
-		}
-
-		// Checks if the camera has floor is below of it, and slides up towards the player.
-		if (Physics.Raycast(transform.position, -transform.up, out Hit, m_fDistanceFromGround))
-		{
-			//dollyDir.y += 0.01f;
-		}
-		else
-		{
-		}
 
 		Debug.DrawRay(transform.position, -transform.up);
 
