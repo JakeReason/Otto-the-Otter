@@ -390,6 +390,11 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
+		if (UpCheck())
+		{
+			m_fVelocityY = 0.0f;
+		}
+
 		if (!m_grapplingScript.GetFired())
 		{
 			// Applies the gravity to y velocity
@@ -682,7 +687,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private bool UpCheck()
 	{
-		return Physics.Raycast(transform.position, Vector3.up, 0.5f);
+		return Physics.Raycast(transform.position + Vector3.up * m_fHeight, Vector3.up, 0.5f);
 	}
 
 	//--------------------------------------------------------------------------------
