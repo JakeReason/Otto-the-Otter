@@ -338,29 +338,31 @@ public class Player : MonoBehaviour
 				// Sets launchable boolean to false in hook script
 				m_grapplingScript.SetLaunchable(false);
 			}
+			else
+			{
+				// Calls jump function if button is pressed whilst grounded or if Otto just fell
+				if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) ||
+					(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
+				{
+					Jump();
+				}
+				// Sets mini jump bool to true if the jump button is let go before apex is reached
+				else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded &&
+						 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
+				{
+					m_bMiniJump = true;
+				}
 
-			// Calls jump function if button is pressed whilst grounded or if Otto just fell
-			if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) ||
-				(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
-			{
-				Jump();
-			}
-			// Sets mini jump bool to true if the jump button is let go before apex is reached
-			else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded &&
-					 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
-			{
-				m_bMiniJump = true;
-			}
+				if (m_bBounced)
+				{
+					m_bMiniJump = false;
+				}
 
-			if (m_bBounced)
-			{
-				m_bMiniJump = false;
-			}
-
-			// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
-			if (m_bMiniJump && m_fVelocityY >= 0)
-			{
-				m_fVelocityY -= 2.0f;
+				// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
+				if (m_bMiniJump && m_fVelocityY >= 0)
+				{
+					m_fVelocityY -= 2.0f;
+				}
 			}
 
 			// Stores the y movement direction in local float
@@ -385,8 +387,11 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		// Applies the gravity to y velocity
-		m_fVelocityY += m_fGravity * Time.deltaTime;
+		if (!m_grapplingScript.GetHooked() || !m_grapplingScript.GetFired())
+		{
+			// Applies the gravity to y velocity
+			m_fVelocityY += m_fGravity * Time.deltaTime;
+		}
 
 		// Multiples Move Direction vector by speed and the y velocity
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
