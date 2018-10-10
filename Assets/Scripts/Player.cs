@@ -333,7 +333,7 @@ public class Player : MonoBehaviour
 				m_fVelocityY = 0;
 
 				// Restricts move direction by a quarter
-				m_v3MoveDirection *= 0.25f;
+				m_v3MoveDirection = Vector3.zero;
 
 				// Sets launchable boolean to false in hook script
 				m_grapplingScript.SetLaunchable(false);
@@ -387,7 +387,7 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		if (!m_grapplingScript.GetHooked() || !m_grapplingScript.GetFired())
+		if (!m_grapplingScript.GetFired())
 		{
 			// Applies the gravity to y velocity
 			m_fVelocityY += m_fGravity * Time.deltaTime;
