@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 	// GameObject used to access variables for the hook
 	public GameObject m_hook;
 
+	public GameObject m_cineCamera;
+
 	// AudioClip used to store the audio for when Otto runs
 	public AudioClip m_runningAudio;
 
@@ -119,6 +121,8 @@ public class Player : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script
 	private CollectableManager m_cm;
 
+	private CineCamera m_cineCameraScript;
+
 	// Used to access and change the audio source component on the player
 	private AudioSource m_audioSource;
 
@@ -208,8 +212,13 @@ public class Player : MonoBehaviour
 		// Gets the GrapplingHook script and stores it in the variable
 		m_grapplingScript = m_hook.GetComponent<Hook>();
 
+		m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
+
+		m_halfHealth.enabled = false;
+
 		// Sets all bools in the animator controller to false initially
-		m_animator.SetBool("Moving", false);
+		m_animator.SetBool("Walking", false);
+		m_animator.SetBool("Running", false);
 		m_animator.SetBool("Grapple", false);
 		m_animator.SetBool("Jumping", false);
 		m_animator.SetBool("Falling", false);
@@ -311,56 +320,65 @@ public class Player : MonoBehaviour
 		// Creates a "new" vector3 for the player to move based on input
 		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
-		// Detects if Grappling Hook is hooked on an object or launched
-		if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
+		if (m_cineCameraScript.GetPlayerWait())
 		{
-			// Disables any Y velocity to be applied to the player
-			m_fVelocityY = 0;
-
-			// Restricts move direction by a quarter
-			m_v3MoveDirection *= 0.25f;
-
-			// Sets launchable boolean to false in hook script
-			m_grapplingScript.SetLaunchable(false);
+			m_v3MoveDirection = Vector3.zero;
 		}
-
-		// Calls jump function if button is pressed whilst grounded or if Otto just fell
-		if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) || 
-			(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
+		else
 		{
-			Jump();
-		}
-		// Sets mini jump bool to true if the jump button is let go before apex is reached
-		else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded && 
-				 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
-		{
-			m_bMiniJump = true;
-		}
+			// Detects if Grappling Hook is hooked on an object or launched
+			if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
+			{
+				// Disables any Y velocity to be applied to the player
+				m_fVelocityY = 0;
 
-		if (m_bBounced)
-		{
-			m_bMiniJump = false;
-		}
+				// Restricts move direction by a quarter
+				m_v3MoveDirection *= 0.25f;
 
-		// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
-		if (m_bMiniJump && m_fVelocityY >= 0)
-		{
-			m_fVelocityY -= 2.0f;
-		}
+				// Sets launchable boolean to false in hook script
+				m_grapplingScript.SetLaunchable(false);
+			}
+			else
+			{
+				// Calls jump function if button is pressed whilst grounded or if Otto just fell
+				if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) ||
+					(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
+				{
+					Jump();
+				}
+				// Sets mini jump bool to true if the jump button is let go before apex is reached
+				else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded &&
+						 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
+				{
+					m_bMiniJump = true;
+				}
 
-		// Stores the y movement direction in local float
-		float fCurrentMoveY = m_v3MoveDirection.y;
+				if (m_bBounced)
+				{
+					m_bMiniJump = false;
+				}
 
-		// Calculates the move direction in camera space rather than world space
-		m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
+				// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
+				if (m_bMiniJump && m_fVelocityY >= 0)
+				{
+					m_fVelocityY -= 2.0f;
+				}
+			}
 
-		// Stores local float value as the y value for the Move Direction
-		m_v3MoveDirection.y = fCurrentMoveY;
+			// Stores the y movement direction in local float
+			float fCurrentMoveY = m_v3MoveDirection.y;
 
-		// Normalizes the move vector if the magnitude exceeds 1
-		if (m_v3MoveDirection.sqrMagnitude > 1.0f)
-		{
-			m_v3MoveDirection.Normalize();
+			// Calculates the move direction in camera space rather than world space
+			m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
+
+			// Stores local float value as the y value for the Move Direction
+			m_v3MoveDirection.y = fCurrentMoveY;
+
+			// Normalizes the move vector if the magnitude exceeds 1
+			if (m_v3MoveDirection.sqrMagnitude > 1.0f)
+			{
+				m_v3MoveDirection.Normalize();
+			}
 		}
 
 		// Caps the y velocity to -30 if the value goes below -30
@@ -369,8 +387,11 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
-		// Applies the gravity to y velocity
-		m_fVelocityY += m_fGravity * Time.deltaTime;
+		if (!m_grapplingScript.GetHooked() || !m_grapplingScript.GetFired())
+		{
+			// Applies the gravity to y velocity
+			m_fVelocityY += m_fGravity * Time.deltaTime;
+		}
 
 		// Multiples Move Direction vector by speed and the y velocity
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
@@ -432,80 +453,90 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Animate()
 	{
-		// Checks if jumped is true and Gravity exceeds jump speed
-		if (m_bJumped && m_fVelocityY > 0.0f)
+		if (m_cineCameraScript.GetPlayerWait())
 		{
-			// Sets jumping bool to true in animator
-			m_animator.SetBool("Jumping", true);
-
-			// Plays the jumping audio via the audio source
-			m_audioSource.PlayOneShot(m_jumpingAudio);
-		}
-		// Sets Jumping bool in animator to false otherwise
-		else
-		{
+			// Sets all bools in the animator controller to false so Otto goes to idle
+			m_animator.SetBool("Walking", false);
+			m_animator.SetBool("Running", false);
+			m_animator.SetBool("Grapple", false);
 			m_animator.SetBool("Jumping", false);
-		}
-		
-		// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-		if (m_bJumped && m_fVelocityY <= 0.0f)
-		{
-			m_animator.SetBool("Falling", true);
-		}
-		// Sets Falling bool in animator to false if the player is grounded
-		else if (m_cc.isGrounded)
-		{
 			m_animator.SetBool("Falling", false);
-		}
-
-		// Checks if the player has jumped and is grounded
-		if (m_bJumped && m_cc.isGrounded)
-		{
-			// Sets Landing bool in animator to true
-			m_animator.SetBool("Landing", true);
-
-			// Resets Jumped bool back to false and and Jump Timer to zero
-			m_bJumped = false;
-		}
-		// Sets Landing bool in animator to false otherwise
-		else 
-		{
 			m_animator.SetBool("Landing", false);
 		}
-
-		// Detects if player has launched hook or is hooked
-		if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
-		{
-			m_animator.SetBool("Grapple", true);
-
-			m_scarfWrap.Play();
-		}
-		// Sets Grapple bool in animator to false otherwise
 		else
 		{
-			m_animator.SetBool("Grapple", false);
-		}
+			// Checks if jumped is true and Gravity exceeds jump speed
+			if (m_bJumped && m_fVelocityY > 0.0f)
+			{
+				// Sets jumping bool to true in animator
+				m_animator.SetBool("Jumping", true);
+			}
+			// Sets Jumping bool in animator to false otherwise
+			else
+			{
+				m_animator.SetBool("Jumping", false);
+			}
 
-		// Sets Running bool in animator to true if the player has any running movement
-		if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
-		{
-			m_animator.SetBool("Running", true);
-		}
-		// Sets Running bool in animator to false if player is not running
-		else
-		{
-			m_animator.SetBool("Running", false);
-		}
+			// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
+			if (m_bJumped && m_fVelocityY <= 0.0f)
+			{
+				m_animator.SetBool("Falling", true);
+			}
+			// Sets Falling bool in animator to false if the player is grounded
+			else if (m_cc.isGrounded)
+			{
+				m_animator.SetBool("Falling", false);
+			}
 
-		// Sets Moving bool in animator to true if the player has any movement
-		if (m_v3MoveDirection.sqrMagnitude > 0.05f && m_v3MoveDirection.sqrMagnitude < 0.7f)
-		{
-			m_animator.SetBool("Walking", true);
-		}
-		// Sets Moving bool in animator to falseif player is still
-		else
-		{
-			m_animator.SetBool("Walking", false);
+			// Checks if the player has jumped and is grounded
+			if (m_bJumped && m_cc.isGrounded)
+			{
+				// Sets Landing bool in animator to true
+				m_animator.SetBool("Landing", true);
+
+				// Resets Jumped bool back to false and and Jump Timer to zero
+				m_bJumped = false;
+			}
+			// Sets Landing bool in animator to false otherwise
+			else
+			{
+				m_animator.SetBool("Landing", false);
+			}
+
+			// Detects if player has launched hook or is hooked
+			if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
+			{
+				m_animator.SetBool("Grapple", true);
+
+				m_scarfWrap.Play();
+			}
+			// Sets Grapple bool in animator to false otherwise
+			else
+			{
+				m_animator.SetBool("Grapple", false);
+			}
+
+			// Sets Running bool in animator to true if the player has any running movement
+			if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
+			{
+				m_animator.SetBool("Running", true);
+			}
+			// Sets Running bool in animator to false if player is not running
+			else
+			{
+				m_animator.SetBool("Running", false);
+			}
+
+			// Sets Moving bool in animator to true if the player has any movement
+			if (m_v3MoveDirection.sqrMagnitude > 0.05f && m_v3MoveDirection.sqrMagnitude < 0.7f)
+			{
+				m_animator.SetBool("Walking", true);
+			}
+			// Sets Moving bool in animator to falseif player is still
+			else
+			{
+				m_animator.SetBool("Walking", false);
+			}
 		}
 	}
 
@@ -515,6 +546,14 @@ public class Player : MonoBehaviour
 	private void Footstep()
 	{
 		m_audioSource.PlayOneShot(m_runningAudio);
+	}
+
+	//--------------------------------------------------------------------------------
+	// Function plays the jump audio when called in animator
+	//--------------------------------------------------------------------------------
+	private void JumpAudio()
+	{
+		m_audioSource.PlayOneShot(m_jumpingAudio);
 	}
 
 	//--------------------------------------------------------------------------------

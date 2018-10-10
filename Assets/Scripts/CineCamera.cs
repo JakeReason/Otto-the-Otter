@@ -11,36 +11,45 @@ public class CineCamera : MonoBehaviour {
 	public GameObject freeLook;
 	public GameObject yesCamera;
 	public GameObject noCamera;
-	private bool timeLeft = true;
-	public GameObject playerModel;
-	private Player playerScript;
-	private bool playerRun = true;
+	//public GameObject playerModel;
+	//private Player playerScript;
 	public Animator m_Animator;
 	public Collider thisColider;
     public AudioSource soundBuild;
     public AudioClip treebuild;
-    private bool cineOver = false;
+
+	private bool cineOver;
+	private bool timeLeft;
+	private bool playerRun;
+	private bool m_bPlayerWait;
 
 	//sets the active of the two UI elements to False
 	void Awake()
 	{
-		playerScript = playerModel.GetComponent<Player>();
+		//playerScript = playerModel.GetComponent<Player>();
 
 		yesCamera.gameObject.SetActive (false);
 		noCamera.gameObject.SetActive (false);
+
+		cineOver = false;
+		timeLeft = true;
+		playerRun = true;
+		m_bPlayerWait = false;
 	}
 
 	//When the player enters the trigger it checks to see if it is the player then calls for the camera to switch with camera 2
 	//then sets the timeleft to true, and turns the player controller off so the player can't move,
 	//aswell as starting a timer for the player controller
-	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player") 
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Player")) 
 		{
 			m_Animator.SetBool("Walking", false);
 			switchToCine ();
 			timeLeft = true;
 			playerRun = false;
-			playerScript.enabled = false;
+			m_bPlayerWait = true;
+			//playerScript.enabled = false;
 			StartCoroutine (playerWait ());
             soundBuild.PlayOneShot(treebuild, 0.7f);
             StartCoroutine(bigTreeCine());
@@ -83,10 +92,10 @@ public class CineCamera : MonoBehaviour {
 			yesCamera.gameObject.SetActive (false);
         }
 
-		if (playerRun == true)
-		{
-            playerScript.enabled = true;
-		}
+		//if (playerRun == true)
+		//{
+            //playerScript.enabled = true;
+		//}
 
         if (cineOver == true)
         {
@@ -103,13 +112,14 @@ public class CineCamera : MonoBehaviour {
 		StopCoroutine (updateOff ());
 		Destroy (this.gameObject);
 	}
+
 	//waits for 2 seconds and then turns the player script back on
 	private IEnumerator playerWait()
 	{
 		yield return new WaitForSeconds (3.5f);
 		playerRun = true;
+		m_bPlayerWait = false;
 		StopCoroutine (playerWait ());
-
 	}
 
 
@@ -118,7 +128,10 @@ public class CineCamera : MonoBehaviour {
         yield return new WaitForSeconds(3.5f);
         cineOver = true;
         StopCoroutine(bigTreeCine ());
-
     }
 
+	public bool GetPlayerWait()
+	{
+		return m_bPlayerWait;
+	}
 }
