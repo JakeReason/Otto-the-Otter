@@ -49946,8 +49946,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1435717337}
-  m_LocalRotation: {x: -0.072244845, y: 0.31362832, z: -0.11364495, w: -0.9399483}
-  m_LocalPosition: {x: 8.538069, y: -9.769835, z: -15.398804}
+  m_LocalRotation: {x: -0.29786614, y: -0.23946416, z: -0.00979907, w: 0.92403287}
+  m_LocalPosition: {x: 4.019997, y: 19.480001, z: 52.450005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1725308481}
@@ -50034,8 +50034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterLevel: 0.1765488
-  WetnessAmount: 0.83148026
+  WaterLevel: 0.75860286
+  WetnessAmount: 0.9937918
   flowTimeScale: 1
   FlowBumpStrength: 1
   RainIntensity: 1
@@ -50120,7 +50120,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 70
+  field of view: 60.6
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -68133,6 +68133,46 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 30.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc458c8b80f4b243847f246ec41be2d, type: 2}
   m_IsPrefabParent: 0
@@ -70707,6 +70747,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4199213526407780, guid: d577ae8b80768ee4f877b0b7009089f8,
     type: 2}
   m_PrefabInternal: {fileID: 1360979051}
+--- !u!198 &1933207346 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198208640762566996, guid: ed5de7be556838048b2d844f03a7329f,
+    type: 2}
+  m_PrefabInternal: {fileID: 426721065}
 --- !u!1001 &1934134227
 Prefab:
   m_ObjectHideFlags: 0
@@ -72031,6 +72076,16 @@ Prefab:
     - target: {fileID: 1126697253091292, guid: 6c6192c74aeaacf429c1711683c51668, type: 2}
       propertyPath: m_Name
       value: FishBiscuit_Asset_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114726476320544198, guid: 6c6192c74aeaacf429c1711683c51668,
+        type: 2}
+      propertyPath: m_particleSystem
+      value: 
+      objectReference: {fileID: 1933207346}
+    - target: {fileID: 114726476320544198, guid: 6c6192c74aeaacf429c1711683c51668,
+        type: 2}
+      propertyPath: m_particleObject
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c6192c74aeaacf429c1711683c51668, type: 2}
