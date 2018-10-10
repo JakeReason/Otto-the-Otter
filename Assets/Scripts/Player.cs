@@ -212,7 +212,10 @@ public class Player : MonoBehaviour
 		// Gets the GrapplingHook script and stores it in the variable
 		m_grapplingScript = m_hook.GetComponent<Hook>();
 
-		m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
+		if (m_cineCamera != null)
+		{
+			m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
+		}
 
 		m_halfHealth.enabled = false;
 
@@ -320,7 +323,7 @@ public class Player : MonoBehaviour
 		// Creates a "new" vector3 for the player to move based on input
 		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
-		if (m_cineCameraScript.GetPlayerWait())
+		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 		{
 			m_v3MoveDirection = Vector3.zero;
 		}
@@ -333,7 +336,7 @@ public class Player : MonoBehaviour
 				m_fVelocityY = 0;
 
 				// Restricts move direction by a quarter
-				m_v3MoveDirection = Vector3.zero;
+				m_v3MoveDirection *= 0.6f;
 
 				// Sets launchable boolean to false in hook script
 				m_grapplingScript.SetLaunchable(false);
@@ -453,7 +456,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Animate()
 	{
-		if (m_cineCameraScript.GetPlayerWait())
+		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
 			m_animator.SetBool("Walking", false);
