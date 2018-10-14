@@ -55,6 +55,10 @@ public class CollectableManager : MonoBehaviour
 
 	[SerializeField]
 	// 
+	private GameObject m_lifeUI;
+
+	[SerializeField]
+	// 
 	private float m_fUITimer;
 
 	[SerializeField]
@@ -79,15 +83,20 @@ public class CollectableManager : MonoBehaviour
 	private bool m_bShowUI = false;
 	private bool m_bShowFlowerUI = false;
 	private bool m_bShowClamUI = false;
+	private bool m_bShowLifeUI = false;
 	private Vector3 m_v3FlowerUIOffScreenPos;
 	private Vector3 m_v3ClamUIOffScreenPos;
+	private Vector3 m_v3LifeUIOffScreenPos;
 	private Vector3 m_v3FlowerUIOriginalPos;
 	private Vector3 m_v3ClamUIOriginalPos;
+	private Vector3 m_v3LifeUIOriginalPos;
 
 	[SerializeField]
 	private float m_fClamMoveDistance;
 	[SerializeField]
 	private float m_fFlowerMoveDistance;
+	[SerializeField]
+	private float m_fLifeMoveDistance;
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
@@ -96,6 +105,7 @@ public class CollectableManager : MonoBehaviour
 	{
 		m_v3FlowerUIOriginalPos = m_flowerUI.transform.position;
 		m_v3ClamUIOriginalPos = m_clamUI.transform.position;
+		m_v3LifeUIOriginalPos = m_lifeUI.transform.position;
 		m_audioSource = gameObject.GetComponent<AudioSource>();
 		ResetClams();
 		m_lifeText.text = m_fLives + "";
@@ -103,10 +113,13 @@ public class CollectableManager : MonoBehaviour
 		m_flowerText.text = m_fFlowersCollected + "";
 		m_flowerUI.SetActive(false);
 		m_clamUI.SetActive(false);
+		m_lifeUI.SetActive(false);
 		m_flowerUI.transform.position = new Vector3(m_flowerUI.transform.position.x + -m_fFlowerMoveDistance, m_flowerUI.transform.position.y, m_flowerUI.transform.position.z);
 		m_clamUI.transform.position = new Vector3(m_clamUI.transform.position.x + m_fClamMoveDistance, m_clamUI.transform.position.y, m_clamUI.transform.position.z);
+		m_lifeUI.transform.position = new Vector3(m_lifeUI.transform.position.x + m_fLifeMoveDistance, m_lifeUI.transform.position.y, m_lifeUI.transform.position.z);
 		m_v3FlowerUIOffScreenPos = m_flowerUI.transform.position;
 		m_v3ClamUIOffScreenPos = m_clamUI.transform.position;
+		m_v3LifeUIOffScreenPos = m_lifeUI.transform.position;
 		for (int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
 			//m_flowerAnimation[i] = m_flowerAnimationUI[i].GetComponent<Animator>();
@@ -129,6 +142,7 @@ public class CollectableManager : MonoBehaviour
 				m_fUITimer = 0;
 				m_flowerUI.SetActive(true);
 				m_clamUI.SetActive(true);
+				m_lifeUI.SetActive(true);
 				m_bShowUI = true;
 				m_flowerAnimation[i].enabled = false;
 			}
@@ -136,26 +150,31 @@ public class CollectableManager : MonoBehaviour
 			{
 				m_flowerUI.SetActive(false);
 				m_clamUI.SetActive(false);
+				m_lifeUI.SetActive(false);
 				//m_flowerAnimation[i].enabled = true;
 			}
 		}
-		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI) && (m_fUITimer <= m_fWaitTimer / 2))
+		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI || m_bShowLifeUI) && (m_fUITimer <= m_fWaitTimer / 2))
 		{
 			m_clamUI.transform.position = Vector3.MoveTowards(m_clamUI.transform.position, m_v3ClamUIOriginalPos, 10);
 			m_flowerUI.transform.position = Vector3.MoveTowards(m_flowerUI.transform.position, m_v3FlowerUIOriginalPos, 15);
+			m_lifeUI.transform.position = Vector3.MoveTowards(m_lifeUI.transform.position, m_v3LifeUIOriginalPos, 10);
 		}
-		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI) && (m_fUITimer >= m_fWaitTimer / 2))
+		if ((m_bShowUI || m_bShowClamUI || m_bShowFlowerUI || m_bShowLifeUI) && (m_fUITimer >= m_fWaitTimer / 2))
 		{
 			m_clamUI.transform.position = Vector3.MoveTowards(m_clamUI.transform.position, m_v3ClamUIOffScreenPos, 10);
 			m_flowerUI.transform.position = Vector3.MoveTowards(m_flowerUI.transform.position, m_v3FlowerUIOffScreenPos, 10);
+			m_lifeUI.transform.position = Vector3.MoveTowards(m_lifeUI.transform.position, m_v3LifeUIOffScreenPos, 10);
 		}
 		if(m_fUITimer >= m_fWaitTimer)
 		{
 			m_bShowUI = false;
 			m_bShowClamUI = false;
 			m_bShowFlowerUI = false;
+			m_bShowLifeUI = false;
 			m_flowerUI.SetActive(false);
 			m_clamUI.SetActive(false);
+			m_lifeUI.SetActive(false);
 		}
 	}
 
@@ -173,6 +192,8 @@ public class CollectableManager : MonoBehaviour
 		m_fUITimer = 0;
 		m_bShowClamUI = true;
 		m_clamUI.SetActive(true);
+		m_bShowLifeUI = true;
+		m_lifeUI.SetActive(true);
 		if (m_fClams >= m_fNextLife)
 		{
 			m_fLives += 1.0f;
@@ -265,5 +286,14 @@ public class CollectableManager : MonoBehaviour
 	public Transform GetCheckPoint()
 	{
 		return m_checkPoint;
+	}
+
+	public void AddLife()
+	{
+		m_fLives += 1.0f;
+		m_lifeText.text = m_fLives + "";
+		m_fUITimer = 0;
+		m_lifeUI.SetActive(true);
+		m_bShowLifeUI = true;
 	}
 }
