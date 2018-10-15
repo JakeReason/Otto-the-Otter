@@ -9303,9 +9303,9 @@ MonoBehaviour:
   m_v3FlowerUIOriginalPos: {x: 0, y: 0, z: 0}
   m_v3ClamUIOriginalPos: {x: 0, y: 0, z: 0}
   m_v3LifeUIOriginalPos: {x: 0, y: 0, z: 0}
-  m_fClamMoveDistance: 400
-  m_fFlowerMoveDistance: 700
-  m_fLifeMoveDistance: 400
+  m_fClamMoveDistance: 1000
+  m_fFlowerMoveDistance: 1000
+  m_fLifeMoveDistance: 1000
 --- !u!1001 &219771235
 Prefab:
   m_ObjectHideFlags: 0
@@ -33886,11 +33886,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4071449501574526, guid: 93e60142932c2524a8a7f454051d34ff,
     type: 2}
   m_PrefabInternal: {fileID: 898292452}
---- !u!198 &955561222 stripped
-ParticleSystem:
-  m_PrefabParentObject: {fileID: 198532578223133258, guid: 93e60142932c2524a8a7f454051d34ff,
-    type: 2}
-  m_PrefabInternal: {fileID: 898292452}
 --- !u!1001 &957242509
 Prefab:
   m_ObjectHideFlags: 0
@@ -39828,6 +39823,11 @@ Prefab:
       propertyPath: m_Center.y
       value: 1.6558228
       objectReference: {fileID: 0}
+    - target: {fileID: 114794154787193064, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: m_hook
+      value: 
+      objectReference: {fileID: 1471133612}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
   m_IsPrefabParent: 0
@@ -52541,6 +52541,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7f401249dc8801478a8b724b4a59a00, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1471133612 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1711465142548500, guid: e1064a7b1c263e6488484a51caa6fa01,
+    type: 2}
+  m_PrefabInternal: {fileID: 1110157383}
 --- !u!1001 &1472773799
 Prefab:
   m_ObjectHideFlags: 0
@@ -62489,7 +62494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1740748554}
   m_Layer: 0
-  m_Name: CameraColiders
+  m_Name: Coliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62506,6 +62511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 91681931}
+  - {fileID: 2075428780}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63683,7 +63689,6 @@ GameObject:
   - component: {fileID: 1769370370}
   - component: {fileID: 1769370369}
   - component: {fileID: 1769370368}
-  - component: {fileID: 1769370372}
   m_Layer: 0
   m_Name: Confetti_Ball (2)
   m_TagString: Untagged
@@ -63833,19 +63838,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &1769370372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1769370366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87589ae27da77a3419ec7f099580a7d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snowDome: {fileID: 1371519837}
-  snow: {fileID: 955561222}
 --- !u!1001 &1769542636
 Prefab:
   m_ObjectHideFlags: 0
@@ -70596,6 +70588,26 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 30.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc458c8b80f4b243847f246ec41be2d, type: 2}
   m_IsPrefabParent: 0
@@ -73710,7 +73722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 4
-  outlineColor: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
+  outlineColor: {r: 0.14705884, g: 0.1438149, b: 0.1438149, a: 1}
   outlineWidth: 2.27
   precomputeOutline: 0
   bakeKeys: []
@@ -77602,6 +77614,61 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e14a4b6b5d867b4fa30beb203c84707, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2075428779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2075428780}
+  - component: {fileID: 2075428782}
+  - component: {fileID: 2075428781}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2075428780
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2075428779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -71.23, y: 33.91, z: -17.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1740748554}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075428781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2075428779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87589ae27da77a3419ec7f099580a7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snowDome: {fileID: 1371519837}
+  snow: {fileID: 0}
+--- !u!65 &2075428782
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2075428779}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 19.783485, y: 7.9980354, z: 22.715233}
+  m_Center: {x: -1.4499931, y: -3.4990177, z: 2.6237373}
 --- !u!4 &2076969889 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4824444709438636, guid: d3b76030100390d4faa1b21261a5bcc6,
