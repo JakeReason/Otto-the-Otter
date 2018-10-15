@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Detector : MonoBehaviour
 {
 	public Transform m_player;
-	public LayerMask m_default;
+	public LayerMask m_treeLayer;
 	public Image m_selectImage;
 
 	private float m_fPrevDistance;
@@ -32,11 +32,13 @@ public class Detector : MonoBehaviour
 		}
 		else if (m_hookables.Count == 1)
 		{
-			m_target = m_hookables[0].transform;
-			m_selectImage.enabled = true;
-			//m_selectImage.transform.position = m_target.transform.position;
-			Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
-			m_selectImage.transform.position = targetPos;
+			if (!ObjectsBetween(m_hookables[0].transform))
+			{
+				m_target = m_hookables[0].transform;
+				m_selectImage.enabled = true;
+				Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
+				m_selectImage.transform.position = targetPos;
+			}
 		}
 		else if (m_hookables.Count > 1)
 		{
@@ -52,7 +54,7 @@ public class Detector : MonoBehaviour
 	{
 		Debug.DrawLine(m_player.position, desiredTarget.position);
 
-		if (Physics.Linecast(m_player.position, desiredTarget.position, m_default))
+		if (Physics.Linecast(m_player.position, desiredTarget.position, m_treeLayer))
 		{
 			return true;
 		}
@@ -71,14 +73,13 @@ public class Detector : MonoBehaviour
 
 			if (fDistance <= m_fPrevDistance)
 			{
-				//if (!ObjectsBetween(m_hookables[0].transform))
-				//{
-				m_target = m_hookables[i].transform;
-				//m_selectImage.transform.position = m_target.transform.position;
-				m_selectImage.enabled = true;
-				Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
-				m_selectImage.transform.position = targetPos;
-				//}
+				if (!ObjectsBetween(m_hookables[0].transform))
+				{
+				    m_target = m_hookables[i].transform;
+				    m_selectImage.enabled = true;
+				    Vector3 v3TargetPos = Camera.main.WorldToScreenPoint(m_target.position);
+				    m_selectImage.transform.position = v3TargetPos;
+				}
 			}
 
 			m_fPrevDistance = fDistance;

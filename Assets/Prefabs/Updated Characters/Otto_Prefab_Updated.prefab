@@ -2042,7 +2042,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 207.2, y: -4.74, z: 65.39}
+  m_LocalPosition: {x: 70, y: 10, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161207773635570}
@@ -2523,7 +2523,7 @@ MonoBehaviour:
   m_nMainMenu: 0
   m_fSpeed: 10
   m_fJumpHeight: 4
-  m_fTimeToJumpApex: 0.4
+  m_fTimeToJumpApex: 0.42
   m_fHeight: 2
   m_fMaximumGroundAngle: 90
   m_fDeadZone: 0
@@ -2570,9 +2570,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: {fileID: 4161207773635570}
-  m_default:
+  m_treeLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 16384
   m_selectImage: {fileID: 0}
 --- !u!119 &119044931595802394
 Projector:
@@ -2788,8 +2788,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4869416270905476}
   m_AABB:
-    m_Center: {x: 0.0070877075, y: 1.2738724, z: -0.83332825}
-    m_Extent: {x: 1.0390874, y: 0.31251556, z: 1.2803195}
+    m_Center: {x: 0.007083893, y: 1.2738686, z: -0.8332977}
+    m_Extent: {x: 1.0390844, y: 0.31251556, z: 1.2803124}
   m_DirtyAABB: 0
 --- !u!137 &137510616660132916
 SkinnedMeshRenderer:

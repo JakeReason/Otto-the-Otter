@@ -5,7 +5,7 @@ using UnityEngine;
 public class LookAtPLayer : MonoBehaviour {
 
 	private GameObject player;
-	public Transform playerTrasform;
+	private Transform playerTrasform;
 
 	// Use this for initialization
 	void Start () 
