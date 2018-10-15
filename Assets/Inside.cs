@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Inside : MonoBehaviour {
     void Start()
     {
         MeshFilter filter = GetComponent(typeof(MeshFilter)) as MeshFilter;
@@ -29,4 +29,3 @@ public class NewBehaviourScript : MonoBehaviour {
         }
     }
 }
-

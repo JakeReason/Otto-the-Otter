@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 222899691444971514}
   - component: {fileID: 114885616660101864}
   - component: {fileID: 95642524045565080}
+  - component: {fileID: 114169282857939242}
+  - component: {fileID: 114960224737525546}
   m_Layer: 5
   m_Name: NoCamera
   m_TagString: Untagged
@@ -391,6 +393,8 @@ GameObject:
   - component: {fileID: 222717032489399230}
   - component: {fileID: 114819339261456988}
   - component: {fileID: 95372271263249952}
+  - component: {fileID: 114920663750034240}
+  - component: {fileID: 114483034481817230}
   m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
@@ -1001,9 +1005,15 @@ MonoBehaviour:
   - {fileID: 95259349300675856}
   m_flowerAnimationUI: []
   m_checkPoint: {fileID: 0}
-  m_fClamMoveDistance: 400
-  m_fFlowerMoveDistance: 700
-  m_fLifeMoveDistance: 400
+  m_v3FlowerUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3ClamUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3LifeUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3FlowerUIOriginalPos: {x: 0, y: 0, z: 0}
+  m_v3ClamUIOriginalPos: {x: 0, y: 0, z: 0}
+  m_v3LifeUIOriginalPos: {x: 0, y: 0, z: 0}
+  m_fClamMoveDistance: 1000
+  m_fFlowerMoveDistance: 1000
+  m_fLifeMoveDistance: 1000
 --- !u!114 &114060156971008958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1213,6 +1223,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &114169282857939242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043955171405636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 8.64, y: -4.79}
   m_UseGraphicAlpha: 1
 --- !u!114 &114191286531825502
 MonoBehaviour:
@@ -1579,7 +1603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2.83, y: -3.53}
+  m_EffectDistance: {x: 5.69, y: -7.33}
   m_UseGraphicAlpha: 1
 --- !u!114 &114439033325715092
 MonoBehaviour:
@@ -1682,6 +1706,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
+--- !u!114 &114483034481817230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605240178402736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &114490488672462082
 MonoBehaviour:
@@ -1894,7 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectDistance: {x: 6.37, y: -7.24}
   m_UseGraphicAlpha: 1
 --- !u!114 &114652477200952224
 MonoBehaviour:
@@ -2246,7 +2284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectDistance: {x: 6.74, y: -8.44}
   m_UseGraphicAlpha: 1
 --- !u!114 &114855821669434936
 MonoBehaviour:
@@ -2390,6 +2428,34 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 4.68, y: -2.9}
   m_UseGraphicAlpha: 1
+--- !u!114 &114920663750034240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605240178402736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 8.64, y: -4.79}
+  m_UseGraphicAlpha: 1
+--- !u!114 &114960224737525546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043955171405636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114965392060197242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2420,7 +2486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2.83, y: -3.53}
+  m_EffectDistance: {x: 5.69, y: -7.33}
   m_UseGraphicAlpha: 1
 --- !u!114 &114988401612608088
 MonoBehaviour:
@@ -2811,11 +2877,11 @@ RectTransform:
   m_Father: {fileID: 224005794972215590}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 51.19995, y: -185.56274}
-  m_SizeDelta: {x: 333.8, y: 270.4}
-  m_Pivot: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.899146, y: 0.650554}
+  m_AnchorMax: {x: 0.98947924, y: 0.809264}
+  m_AnchoredPosition: {x: 0.65997314, y: 0.9550171}
+  m_SizeDelta: {x: 1.0999756, y: -2.0899658}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224286756446312156
 RectTransform:
   m_ObjectHideFlags: 1
@@ -2921,10 +2987,10 @@ RectTransform:
   m_Father: {fileID: 224005794972215590}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -43}
-  m_SizeDelta: {x: 213.4, y: 164.70001}
+  m_AnchorMin: {x: 1, y: 0.809264}
+  m_AnchorMax: {x: 1, y: 0.9602231}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 213.4, y: 1.7000122}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224476872509906994
 RectTransform:
@@ -2957,11 +3023,11 @@ RectTransform:
   m_Father: {fileID: 224270438780123556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -172.00009, y: -16.000153}
-  m_SizeDelta: {x: -147.29999, y: -105.5}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -174.1001, y: -18.904938}
+  m_SizeDelta: {x: 186.4, y: 131.19}
+  m_Pivot: {x: 1, y: 1}
 --- !u!224 &224580660077930210
 RectTransform:
   m_ObjectHideFlags: 1
