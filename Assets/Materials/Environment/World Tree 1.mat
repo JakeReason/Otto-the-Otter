@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Rock_NoSnow_2
+  m_Name: World Tree 1
   m_Shader: {fileID: 4800000, guid: fd1b0c2328cad6942aa89eb15af421f0, type: 3}
   m_ShaderKeywords: _WETNESS_NONE
   m_LightmapFlags: 4
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 730a610a5f158fb4c8aba1610fadd1fa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 85cd8e32a323aaf41bfa24868cfd77fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
@@ -159,7 +159,7 @@ Material:
     - _GlossMapScale: 1
     - _GlossMax: 1
     - _GlossMin: 0
-    - _Glossiness: 0.2
+    - _Glossiness: 0.5
     - _Glossiness2: 1
     - _GlossyReflections: 1
     - _MainShown: 1
@@ -207,23 +207,23 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _Smoothness_from_albedo_alpha: 0
     - _Snow: 0
-    - _SnowBumpMacro: 0.001
-    - _SnowBumpMicro: 0.001
+    - _SnowBumpMacro: 0.1
+    - _SnowBumpMicro: 0.08
     - _SnowBumpMicroFromGlobal: 0
-    - _SnowDeepSmoothen: 4
+    - _SnowDeepSmoothen: 3.35
     - _SnowDiffuseScatteringExponent: 6
-    - _SnowDiffuseScatteringOffset: 0.4
-    - _SnowDissolve: 0
+    - _SnowDiffuseScatteringOffset: 0.408
+    - _SnowDissolve: 4
     - _SnowDissolveFromGlobal: 0
     - _SnowDissolveMaskOcclusion: 0
     - _SnowGlitterColorFromGlobal: 0
-    - _SnowHeightThreshold: -10000
-    - _SnowHeightThresholdTransition: 1071
-    - _SnowLevelFromGlobal: 1
+    - _SnowHeightThreshold: -2384
+    - _SnowHeightThresholdTransition: 1297
+    - _SnowLevelFromGlobal: 0
     - _SnowMacroTiling: 1
     - _SnowMicroTiling: 4
     - _SnowShown: 1
-    - _SnowSlopeDamp: 1.65
+    - _SnowSlopeDamp: 1.93
     - _SnowSpecGlossFromGlobal: 0
     - _SnowWorldMapping: 0
     - _Softness: 2
