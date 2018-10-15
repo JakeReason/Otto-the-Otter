@@ -9182,6 +9182,12 @@ MonoBehaviour:
   - {fileID: 1027224860}
   m_flowerAnimationUI: []
   m_checkPoint: {fileID: 0}
+  m_v3FlowerUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3ClamUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3LifeUIOffScreenPos: {x: 0, y: 0, z: 0}
+  m_v3FlowerUIOriginalPos: {x: 0, y: 0, z: 0}
+  m_v3ClamUIOriginalPos: {x: 0, y: 0, z: 0}
+  m_v3LifeUIOriginalPos: {x: 0, y: 0, z: 0}
   m_fClamMoveDistance: 400
   m_fFlowerMoveDistance: 700
   m_fLifeMoveDistance: 400
@@ -50739,8 +50745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaterLevel: 0.97906625
-  WetnessAmount: 0.9990699
+  WaterLevel: 0.99396497
+  WetnessAmount: 0.9981895
   flowTimeScale: 1
   FlowBumpStrength: 1
   RainIntensity: 1
@@ -69492,6 +69498,21 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 30.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc458c8b80f4b243847f246ec41be2d, type: 2}
   m_IsPrefabParent: 0
@@ -69941,8 +69962,8 @@ MonoBehaviour:
   m_MinimumDistanceFromTarget: 0.1
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
-  m_CameraRadius: 0.1
-  m_Strategy: 1
+  m_CameraRadius: 0.01
+  m_Strategy: 0
   m_MaximumEffort: 4
   m_Damping: 0
   m_OptimalTargetDistance: 0
