@@ -84,12 +84,12 @@ public class CollectableManager : MonoBehaviour
 	private bool m_bShowFlowerUI = false;
 	private bool m_bShowClamUI = false;
 	private bool m_bShowLifeUI = false;
-	private Vector3 m_v3FlowerUIOffScreenPos;
-	private Vector3 m_v3ClamUIOffScreenPos;
-	private Vector3 m_v3LifeUIOffScreenPos;
-	private Vector3 m_v3FlowerUIOriginalPos;
-	private Vector3 m_v3ClamUIOriginalPos;
-	private Vector3 m_v3LifeUIOriginalPos;
+	public Vector3 m_v3FlowerUIOffScreenPos;
+	public Vector3 m_v3ClamUIOffScreenPos;
+	public Vector3 m_v3LifeUIOffScreenPos;
+	public Vector3 m_v3FlowerUIOriginalPos;
+	public Vector3 m_v3ClamUIOriginalPos;
+	public Vector3 m_v3LifeUIOriginalPos;
 
 	[SerializeField]
 	private float m_fClamMoveDistance;

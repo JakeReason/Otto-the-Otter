@@ -2062,8 +2062,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.41745, y: 1.5293322, z: 1.9297714}
-  m_Center: {x: -0.15428162, y: 6.431025, z: 0.4648857}
+  m_Size: {x: 4.04776, y: 1.6426849, z: 2.488884}
+  m_Center: {x: -0.07526398, y: 6.3743486, z: 0.18532944}
 --- !u!65 &65625517712858732
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2203,6 +2203,7 @@ MonoBehaviour:
   m_wolfModel: {fileID: 1955624078135170}
   m_detector: {fileID: 0}
   m_hookableObj: {fileID: 1225371787481976}
+  m_clamStack: {fileID: 0}
 --- !u!114 &114814485156710510
 MonoBehaviour:
   m_ObjectHideFlags: 1

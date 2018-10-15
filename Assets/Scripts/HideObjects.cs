@@ -1,5 +1,4 @@
-﻿// http://chrisrolfs.com/hide-objects-blocking-player-view/
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +7,8 @@ public class HideObjects : MonoBehaviour
 	public Transform WatchTarget;
 	public Transform[] RaycastPoints;
 	public LayerMask OccluderMask;
+	private List<Renderer[]> m_rendererList;
+	private List<Renderer[]> m_tempRendererList;
 	public Renderer[] rend0;
 	public Renderer[] rend1;
 	public Renderer[] rend2;
