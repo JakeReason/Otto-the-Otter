@@ -7,10 +7,12 @@ public class Detector : MonoBehaviour
 	public Transform m_player;
 	public LayerMask m_treeLayer;
 	public Image m_selectImage;
+	public GameObject m_hook;
 
 	private float m_fPrevDistance;
 	private List<GameObject> m_hookables;
 	private Transform m_target;
+	private Hook m_hookScript;
 
 
 	// Use this for initialization
@@ -21,6 +23,8 @@ public class Detector : MonoBehaviour
 		m_hookables = new List<GameObject>();
 
 		m_target = null;
+
+		m_hookScript = m_hook.GetComponent<Hook>();
 	}
 
 	void Update()
@@ -38,6 +42,7 @@ public class Detector : MonoBehaviour
 				m_selectImage.enabled = true;
 				Vector3 targetPos = Camera.main.WorldToScreenPoint(m_target.position);
 				m_selectImage.transform.position = targetPos;
+				m_hookScript.SetLaunchable(true);
 			}
 		}
 		else if (m_hookables.Count > 1)
@@ -79,6 +84,7 @@ public class Detector : MonoBehaviour
 				    m_selectImage.enabled = true;
 				    Vector3 v3TargetPos = Camera.main.WorldToScreenPoint(m_target.position);
 				    m_selectImage.transform.position = v3TargetPos;
+					m_hookScript.SetLaunchable(true);
 				}
 			}
 

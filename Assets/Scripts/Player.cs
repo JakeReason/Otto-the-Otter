@@ -554,7 +554,7 @@ public class Player : MonoBehaviour
 			{
 				m_animator.SetBool("Walking", true);
 			}
-			// Sets Moving bool in animator to falseif player is still
+			// Sets Moving bool in animator to false if player is still
 			else
 			{
 				m_animator.SetBool("Walking", false);
@@ -687,6 +687,9 @@ public class Player : MonoBehaviour
 	{
 		// Sets the y value of gravity to equal jump speed multipled by bounce force
 		m_fVelocityY = m_fJumpVelocity * fBounceForce;
+
+		// Sets launchable boolean to false in hook script
+		m_grapplingScript.SetLaunchable(true);
 
 		// Sets jumped and bounced bools to be true
 		m_bJumped = true;
