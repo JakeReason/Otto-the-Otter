@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Death : MonoBehaviour {
 
-    public GameObject death;
-    public GameObject previousDeath;
+    public Collider death;
+    public Collider previousDeath;
 
 
 	// Use this for initialization
 	void Start () {
-        death.SetActive(false);
+        death.enabled = false;
 
 
 		
@@ -20,8 +20,9 @@ public class Death : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            previousDeath.SetActive(false);
-            death.SetActive(true);
+            death.enabled = true;
+            death.isTrigger = true;
+            previousDeath.enabled = false;
         }
     }
 

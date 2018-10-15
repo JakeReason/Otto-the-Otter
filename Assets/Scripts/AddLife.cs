@@ -14,6 +14,7 @@ public class AddLife : MonoBehaviour {
 
 	private bool m_bPickedUp;
 
+    public int speed = 1;
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -37,7 +38,9 @@ public class AddLife : MonoBehaviour {
 			}
 
 		}
-	}
+
+        transform.Rotate(Vector3.down * speed * Time.deltaTime, Space.World);
+    }
 
 	//--------------------------------------------------------------------------------
 	// OnTriggerEnter checks if the player collides with this object and adds an 

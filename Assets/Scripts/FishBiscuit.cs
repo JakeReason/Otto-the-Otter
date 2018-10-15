@@ -21,6 +21,8 @@ public class FishBiscuit : MonoBehaviour
 
 	public ParticleSystem m_particleSystem;
 
+    public int speed = 1;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -50,6 +52,8 @@ public class FishBiscuit : MonoBehaviour
 				GetComponent<MeshRenderer>().enabled = false;
 				GetComponent<Collider>().enabled = false;
 			}
+
+            transform.Rotate(Vector3.up * speed * Time.deltaTime, Space.World);
 
 		}
 	}

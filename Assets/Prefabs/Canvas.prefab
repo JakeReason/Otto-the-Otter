@@ -84,7 +84,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1090042771943918
 GameObject:
   m_ObjectHideFlags: 1
@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_clamUI: {fileID: 1502184888051022}
   m_lifeUI: {fileID: 1984651601365604}
   m_fUITimer: 0
-  m_fWaitTimer: 4
+  m_fWaitTimer: 5
   m_flowerAnimation:
   - {fileID: 95754062325346276}
   - {fileID: 95419654950289492}
@@ -1046,9 +1046,9 @@ MonoBehaviour:
   m_v3FlowerUIOriginalPos: {x: 0, y: 0, z: 0}
   m_v3ClamUIOriginalPos: {x: 0, y: 0, z: 0}
   m_v3LifeUIOriginalPos: {x: 0, y: 0, z: 0}
-  m_fClamMoveDistance: 1000
+  m_fClamMoveDistance: 500
   m_fFlowerMoveDistance: 1000
-  m_fLifeMoveDistance: 1000
+  m_fLifeMoveDistance: 500
 --- !u!114 &114060156971008958
 MonoBehaviour:
   m_ObjectHideFlags: 1
