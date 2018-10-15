@@ -153,6 +153,8 @@ public class Player : MonoBehaviour
 
 	private float m_fInitialJumpApex;
 
+	private float m_fInitialGravity;
+
 	// Private float indicates the rate the player flashes after being hit
     private float m_fFlashingRate;
 
@@ -251,6 +253,8 @@ public class Player : MonoBehaviour
 		// Calculates gravity based on the jump height and time to apex
 		m_fGravity = -(2 * m_fJumpHeight) / Mathf.Pow(m_fTimeToJumpApex, 2);
 
+		m_fInitialGravity = m_fGravity;
+
 		// Calculates the jump velocity from gravity
 		m_fJumpVelocity = Mathf.Abs(m_fGravity) * m_fTimeToJumpApex;
 
@@ -335,7 +339,7 @@ public class Player : MonoBehaviour
 				// Disables any Y velocity to be applied to the player
 				m_fVelocityY = 0;
 
-				// Restricts move direction by a quarter
+				// Restricts movement by a little
 				m_v3MoveDirection *= 0.6f;
 
 				// Sets launchable boolean to false in hook script
@@ -384,6 +388,19 @@ public class Player : MonoBehaviour
 			}
 		}
 
+		if (m_fVelocityY <= 3.0f && m_fVelocityY >= 0.0f && !m_cc.isGrounded && !m_bMiniJump)
+		{
+			m_fGravity += 2.0f;
+		}
+		else if (m_fVelocityY < 0.0f && m_fGravity > m_fInitialGravity && !m_cc.isGrounded && !m_bMiniJump)
+		{
+			m_fGravity -= 2.0f;
+		}
+		else
+		{
+			m_fGravity = m_fInitialGravity;
+		}
+
 		// Caps the y velocity to -30 if the value goes below -30
 		if (m_fVelocityY <= -30)
 		{
@@ -406,9 +423,6 @@ public class Player : MonoBehaviour
 
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
-
-		// Sets the look direction to equal the direction the control stick is facing
-		m_v3LookDirection = new Vector3(m_v3MoveDirection.x, 0, m_v3MoveDirection.z);
 
 		// Checks if the magnitude of the move direction is greater than 0.1
 		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
