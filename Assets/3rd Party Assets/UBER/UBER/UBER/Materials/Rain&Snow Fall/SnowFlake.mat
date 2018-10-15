@@ -7,16 +7,17 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SnowFlake
-  m_Shader: {fileID: 4800000, guid: 8793935a89241024a8b9616db346a230, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION_TEXTURED _OCCLUSION_FROM_ALBEDO_ALPHA
+  m_Shader: {fileID: 210, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION_TEXTURED _NORMALMAP _OCCLUSION_FROM_ALBEDO_ALPHA
     _WETNESS_NONE
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - ALWAYS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -123,8 +124,13 @@ Material:
     m_Floats:
     - _BendNormalsFreq: 4
     - _BendNormalsStrength: 0.05
+    - _BlendOp: 0
     - _BumpScale: 2
     - _BumpScale2: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
+    - _Cull: 0
     - _CurvatureCustomU: 0
     - _CurvatureCustomV: 0
     - _CurvatureMultU: 1
@@ -147,10 +153,16 @@ Material:
     - _DiffuseScatteringOffset: 0.1
     - _DistSteps: 64
     - _DistStepsShadows: 64
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0
     - _DropletsAnimSpeed: 10
     - _DropletsTiling: 1
     - _DstBlend: 10
+    - _EmissionEnabled: 0
     - _EmissionPulsateSpeed: 0
+    - _FlipbookMode: 0
     - _FlowCycleScale: 2
     - _Frost: 0
     - _FrostFromGlobal: 1
@@ -162,10 +174,13 @@ Material:
     - _GlitterMask: 0
     - _GlitterShown: 1
     - _GlitterTiling: 1
+    - _GlossMapScale: 1
     - _GlossMax: 1
     - _GlossMin: 0
     - _Glossiness: 0.7
     - _Glossiness2: 1
+    - _GlossyReflections: 1
+    - _LightingEnabled: 1
     - _MainShown: 1
     - _Metallic: 0
     - _MinPulseBrightness: 0
@@ -207,6 +222,7 @@ Material:
     - _ShadowCull: 2
     - _ShadowMIPbias: 0
     - _ShadowStrength: 1
+    - _SmoothnessTextureChannel: 0
     - _Smoothness_from_albedo_alpha: 0
     - _Snow: 0
     - _SnowBumpMacro: 0.1
@@ -228,8 +244,12 @@ Material:
     - _SnowSlopeDamp: 2
     - _SnowSpecGlossFromGlobal: 1
     - _SnowWorldMapping: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _Softness: 2
     - _SoftnessFade: 0.4
+    - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Tan2ObjCustomU: 1
     - _Tan2ObjCustomV: 1
@@ -275,6 +295,7 @@ Material:
     - maxDist: 10
     - minDist: 1
     m_Colors:
+    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 3.8268614, g: 3.855, b: 3.855, a: 1}
     - _Color2: {r: 1, g: 1, b: 1, a: 1}
     - _CurvatureMultOffset: {r: 0, g: 0, b: 0, a: 0}
@@ -292,6 +313,7 @@ Material:
     - _SnowGlitterColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
     - _SnowSpecGloss: {r: 0.1, g: 0.1, b: 0.1, a: 0.15}
     - _SnowTranslucencyColor: {r: 0.75, g: 1, b: 1, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.5882403, g: 0.5882403, b: 0.5882403, a: 0.7}
     - _SpecColor2: {r: 1, g: 1, b: 1, a: 1}
     - _Tan2ObjectMultOffset: {r: 0, g: 0, b: 1, a: 1}
