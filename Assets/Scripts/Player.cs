@@ -678,7 +678,7 @@ public class Player : MonoBehaviour
 		if (Input.GetButton("Jump"))
 		{
 			// Sets the y value of gravity to equal jump speed multipled by bounce force
-			m_fVelocityY = m_fJumpVelocity * fBounceForce * 2;
+			m_fVelocityY = m_fJumpVelocity * fBounceForce * 1.5f;
 		}
 		else
 		{
@@ -692,6 +692,12 @@ public class Player : MonoBehaviour
 		// Sets jumped and bounced bools to be true
 		m_bJumped = true;
 		m_bBounced = true;
+
+		// Multiples Move Direction vector by speed and the y velocity
+		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
+
+		// Adds movement to CharacterController based on move direction and delta time
+		m_cc.Move(m_v3Velocity * Time.deltaTime);
 	}
 
 	//--------------------------------------------------------------------------------
