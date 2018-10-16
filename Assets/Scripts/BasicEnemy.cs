@@ -88,6 +88,10 @@ public class BasicEnemy : MonoBehaviour
 
 	public GameObject m_clamStack;
 
+	public float m_fChaseSpeed;
+
+	private float m_fOriginalSpeed;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -109,6 +113,8 @@ public class BasicEnemy : MonoBehaviour
 		m_detectorScript = m_detector.GetComponent<Detector>();
 
 		m_audioSource = GetComponent<AudioSource>();
+
+		m_fOriginalSpeed = m_agent.speed;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -184,7 +190,7 @@ public class BasicEnemy : MonoBehaviour
 				if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
 				{
 					m_fCooldown -= Time.deltaTime;
-
+					m_agent.speed = m_fOriginalSpeed;
 					if (!m_bGoBackWards)
 					{
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
@@ -228,6 +234,7 @@ public class BasicEnemy : MonoBehaviour
 				{
 					// Sets the destination to the player position.
 					m_agent.SetDestination(m_playerTransform.position);
+					m_agent.speed = m_fChaseSpeed;
 				}
 				// When the enemy is in range of attack stop moving, look at player and attack. 
 				if (m_fDistanceFromPlayer <= m_fAttackDistance)
