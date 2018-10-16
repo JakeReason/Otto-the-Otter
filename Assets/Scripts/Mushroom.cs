@@ -41,7 +41,7 @@ public class Mushroom : MonoBehaviour
 
 		if (!m_audioSource)
 		{
-			Debug.Log("No Audio Source!");
+			//Debug.Log("No Audio Source!");
 		}
 	}
 
