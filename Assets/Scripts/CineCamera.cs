@@ -30,6 +30,7 @@ public class CineCamera : MonoBehaviour {
 
 		yesCamera.gameObject.SetActive (false);
 		noCamera.gameObject.SetActive (false);
+        vcam.SetActive(false);
 
 		cineOver = false;
 		timeLeft = true;
