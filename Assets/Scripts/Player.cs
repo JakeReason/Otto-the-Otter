@@ -478,7 +478,6 @@ public class Player : MonoBehaviour
 		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
-			m_animator.SetBool("Walking", false);
 			m_animator.SetBool("Running", false);
 			m_animator.SetBool("Grapple", false);
 			m_animator.SetBool("Jumping", false);
@@ -539,7 +538,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Running bool in animator to true if the player has any running movement
-			if (m_v3MoveDirection.sqrMagnitude >= 0.7f)
+			if (m_v3MoveDirection.sqrMagnitude >= 0.05f)
 			{
 				m_animator.SetBool("Running", true);
 			}
@@ -547,17 +546,6 @@ public class Player : MonoBehaviour
 			else
 			{
 				m_animator.SetBool("Running", false);
-			}
-
-			// Sets Moving bool in animator to true if the player has any movement
-			if (m_v3MoveDirection.sqrMagnitude > 0.05f && m_v3MoveDirection.sqrMagnitude < 0.7f)
-			{
-				m_animator.SetBool("Walking", true);
-			}
-			// Sets Moving bool in animator to false if player is still
-			else
-			{
-				m_animator.SetBool("Walking", false);
 			}
 		}
 	}
@@ -685,8 +673,16 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void Bounce(float fBounceForce)
 	{
-		// Sets the y value of gravity to equal jump speed multipled by bounce force
-		m_fVelocityY = m_fJumpVelocity * fBounceForce;
+		if (Input.GetButton("Jump"))
+		{
+			// Sets the y value of gravity to equal jump speed multipled by bounce force
+			m_fVelocityY = m_fJumpVelocity * fBounceForce * 2;
+		}
+		else
+		{
+			// Sets the y value of gravity to equal jump speed multipled by bounce force
+			m_fVelocityY = m_fJumpVelocity * fBounceForce;
+		}
 
 		// Sets launchable boolean to false in hook script
 		m_grapplingScript.SetLaunchable(true);
@@ -694,6 +690,8 @@ public class Player : MonoBehaviour
 		// Sets jumped and bounced bools to be true
 		m_bJumped = true;
 		m_bBounced = true;
+
+		Debug.Log("Velocity: " + m_v3Velocity);
 	}
 
 	//--------------------------------------------------------------------------------
