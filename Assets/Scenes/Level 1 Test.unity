@@ -18385,14 +18385,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 4288788379801982, guid: eec8c3a953f9d644b83d7f42d67ecf64, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4288788379801982, guid: eec8c3a953f9d644b83d7f42d67ecf64, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eec8c3a953f9d644b83d7f42d67ecf64, type: 2}
   m_IsPrefabParent: 0
@@ -21719,25 +21711,6 @@ Prefab:
       propertyPath: m_eventSystem
       value: 
       objectReference: {fileID: 2132741808}
-    - target: {fileID: 1081159561028454, guid: 700765bffb4b447408b84d8063e739c3, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114057067256252772, guid: 700765bffb4b447408b84d8063e739c3,
-        type: 2}
-      propertyPath: m_fLifeMoveDistance
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114057067256252772, guid: 700765bffb4b447408b84d8063e739c3,
-        type: 2}
-      propertyPath: m_fClamMoveDistance
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114057067256252772, guid: 700765bffb4b447408b84d8063e739c3,
-        type: 2}
-      propertyPath: m_fWaitTimer
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 700765bffb4b447408b84d8063e739c3, type: 2}
   m_IsPrefabParent: 0
@@ -35640,6 +35613,7 @@ Transform:
   - {fileID: 844532490}
   - {fileID: 638412590}
   - {fileID: 984508569}
+  - {fileID: 1513227670}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45055,91 +45029,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4929512239751454, guid: 69194de3829bf1f4b824bff0aa504f8d,
     type: 2}
   m_PrefabInternal: {fileID: 1319804913}
---- !u!1 &1319988479 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1882242250972114, guid: eec8c3a953f9d644b83d7f42d67ecf64,
-    type: 2}
-  m_PrefabInternal: {fileID: 526446393}
---- !u!82 &1319988480
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1319988479}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!4 &1319988485 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4288788379801982, guid: eec8c3a953f9d644b83d7f42d67ecf64,
@@ -52267,6 +52156,55 @@ Transform:
   m_PrefabParentObject: {fileID: 4995909220239744, guid: ae9487acf5dc2d34e8b46c94ff98b153,
     type: 2}
   m_PrefabInternal: {fileID: 261849222}
+--- !u!1 &1513227669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1513227670}
+  - component: {fileID: 1513227672}
+  - component: {fileID: 1513227671}
+  m_Layer: 0
+  m_Name: Sealevel (1)
+  m_TagString: Respawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1513227670
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513227669}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 125.54983, y: -231, z: 55.980694}
+  m_LocalScale: {x: 538.9391, y: 33.43815, z: 653.3715}
+  m_Children: []
+  m_Father: {fileID: 1041817408}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1513227671
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513227669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.4974219, z: 1}
+  m_Center: {x: 0, y: -0.68585926, z: 0}
+--- !u!33 &1513227672
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513227669}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1516794843 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4199213526407780, guid: d577ae8b80768ee4f877b0b7009089f8,
@@ -67299,6 +67237,11 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 0.123
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
         type: 2}
