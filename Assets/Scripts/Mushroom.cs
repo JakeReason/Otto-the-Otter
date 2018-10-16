@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
-	public float m_fBounceForce = 3.0f;
-
 	public LayerMask m_playerLayer;
 
+	public AudioClip m_audio;
+
 	public GameObject m_player;
+
+	public float m_fBounceForce = 3.0f;
 
 	private Player m_playerScript;
 
 	private Animator m_animator;
+
+	private AudioSource m_audioSource;
 
 	// Use this for initialization
 	void Awake()
@@ -24,11 +28,20 @@ public class Mushroom : MonoBehaviour
 			Debug.Log("No Animator on Mushroom!");
 		}
 
+		m_animator.SetBool("Bounce", false);
+
 		m_playerScript = m_player.GetComponent<Player>();
 
 		if (!m_playerScript)
 		{
 			Debug.Log("No Player Script!");
+		}
+
+		m_audioSource = GetComponent<AudioSource>();
+
+		if (!m_audioSource)
+		{
+			Debug.Log("No Audio Source!");
 		}
 	}
 
@@ -36,23 +49,19 @@ public class Mushroom : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
+			m_audioSource.PlayOneShot(m_audio);
+
+			m_animator.SetBool("Bounce", true);
+
 			m_playerScript.Bounce(m_fBounceForce);
 		}
 	}
 
-	//private void OnTriggerStay(Collider other)
-	//{
-	//	if (other.CompareTag("Player"))
-	//	{
-	//		m_playerScript.Bounce(m_fBounceForce);
-	//	}
-	//}
-
-	//private void OnCollisionEnter(Collision collision)
-	//{
-	//	if (collision.gameObject.CompareTag("Player"))
-	//	{
-	//		m_playerScript.Bounce(m_fBounceForce);
-	//	}
-	//}
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			m_animator.SetBool("Bounce", false);
+		}
+	}
 }

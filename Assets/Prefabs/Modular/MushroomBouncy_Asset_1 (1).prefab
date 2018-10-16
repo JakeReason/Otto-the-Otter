@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 65062069988972306}
   - component: {fileID: 114345484141017778}
   - component: {fileID: 54224476172527300}
+  - component: {fileID: 82039737310978320}
   m_Layer: 9
   m_Name: MushroomBouncy_Asset_1 (1)
   m_TagString: Untagged
@@ -113,6 +114,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.4446945, y: 1.5461532, z: 3.4901505}
   m_Center: {x: -0.026287079, y: 0.44490582, z: -0.13263512}
+--- !u!82 &82039737310978320
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445126975490460}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 51de7d9e505123946ab726454faf0330, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.636
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95176465812612560
 Animator:
   serializedVersion: 3
@@ -120,8 +201,8 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445126975490460}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 505ad0fbfffe36540ba07385aa35f014, type: 3}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9296575762b6c354ba463aade5242b10, type: 3}
   m_Controller: {fileID: 9100000, guid: 622ddcdf4529f8f4587ab2ff1ebc3ca5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -141,8 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3117d4fb421a14c8b9e6be010855b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fBounceForce: 0.8
   m_playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  m_audio: {fileID: 8300000, guid: 51de7d9e505123946ab726454faf0330, type: 3}
   m_player: {fileID: 0}
+  m_fBounceForce: 0.8
