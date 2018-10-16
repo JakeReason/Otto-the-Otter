@@ -35,7 +35,11 @@ public class AddLife : MonoBehaviour {
 			{
 				gameObject.SetActive(false);
 			}
-
+			else if (m_audioSource.isPlaying && m_bPickedUp)
+			{
+				GetComponent<MeshRenderer>().enabled = false;
+				GetComponent<Collider>().enabled = false;
+			}
 		}
 	}
 
