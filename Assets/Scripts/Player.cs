@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 	// Stores the audio for when Otto throws his scarf
 	public AudioClip m_throwAudio;
 
+	public AudioClip m_bounceAudio;
+
 	// Used to access the SkinnedMeshRenderer component from the player
 	public SkinnedMeshRenderer m_meshRenderer;
 
@@ -559,7 +561,7 @@ public class Player : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// Function plays the jump audio when called in animator
+	// Function plays the jump audio when called in animator.
 	//--------------------------------------------------------------------------------
 	private void JumpAudio()
 	{
@@ -684,14 +686,14 @@ public class Player : MonoBehaviour
 			m_fVelocityY = m_fJumpVelocity * fBounceForce;
 		}
 
+		m_audioSource.PlayOneShot(m_bounceAudio);
+
 		// Sets launchable boolean to false in hook script
 		m_grapplingScript.SetLaunchable(true);
 
 		// Sets jumped and bounced bools to be true
 		m_bJumped = true;
 		m_bBounced = true;
-
-		Debug.Log("Velocity: " + m_v3Velocity);
 	}
 
 	//--------------------------------------------------------------------------------
