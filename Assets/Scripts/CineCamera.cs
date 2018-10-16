@@ -56,6 +56,7 @@ public class CineCamera : MonoBehaviour {
             StartCoroutine(bigTreeCine());
 
 		}
+
 	}
 
 	//when the player leaves it turns the UI off and starts a timer for the UI to eventually turn off
