@@ -6137,7 +6137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.3085003, z: -5.202907}
+  m_FollowOffset: {x: 0, y: 6.38, z: -10.02}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -6156,7 +6156,7 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
     Value: 0
-    m_MaxSpeed: 100
+    m_MaxSpeed: 80
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: RightStickHorizontal
@@ -22568,7 +22568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.3085003, z: -5.202907}
+  m_FollowOffset: {x: 0, y: 6.38, z: -10.02}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -22587,7 +22587,7 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
     Value: 0
-    m_MaxSpeed: 100
+    m_MaxSpeed: 80
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: RightStickHorizontal
@@ -42483,7 +42483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 2.3085003, z: -5.202907}
+  m_FollowOffset: {x: 0, y: 6.38, z: -10.02}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -42502,7 +42502,7 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
     Value: 0
-    m_MaxSpeed: 100
+    m_MaxSpeed: 80
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: RightStickHorizontal
@@ -49889,7 +49889,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1435717337}
-  m_LocalRotation: {x: 0.014814474, y: 0.92148185, z: -0.32847625, w: 0.20677331}
+  m_LocalRotation: {x: 0.014814459, y: 0.9214818, z: -0.32847622, w: 0.20677334}
   m_LocalPosition: {x: 2.9115295, y: -6.0886025, z: -4.7630386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -68466,6 +68466,11 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 30.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc458c8b80f4b243847f246ec41be2d, type: 2}
   m_IsPrefabParent: 0
@@ -68852,8 +68857,8 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 1519177380}
-  m_Follow: {fileID: 1519177380}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_CommonLens: 0
   m_Lens:
     FieldOfView: 70
@@ -68862,8 +68867,8 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_YAxis:
-    Value: 0.3
-    m_MaxSpeed: 1
+    Value: 0.5
+    m_MaxSpeed: 0.3
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: RightStickVertical
@@ -68871,7 +68876,7 @@ MonoBehaviour:
     m_InvertAxis: 1
   m_XAxis:
     Value: 0
-    m_MaxSpeed: 100
+    m_MaxSpeed: 80
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: RightStickHorizontal
@@ -68890,11 +68895,11 @@ MonoBehaviour:
   m_BindingMode: 5
   m_SplineCurvature: 0.7
   m_Orbits:
-  - m_Height: 9.5
+  - m_Height: 12.04
     m_Radius: 2.3
-  - m_Height: 4.75
-    m_Radius: 6
-  - m_Height: -0
+  - m_Height: 6.38
+    m_Radius: 10.02
+  - m_Height: -1.11
     m_Radius: 2.62
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
