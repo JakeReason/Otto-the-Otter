@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 	// GameObject used to access variables for the hook
 	public GameObject m_hook;
 
+	// Allows for access to camera that uses Cinemachine
 	public GameObject m_cineCamera;
 
 	// AudioClip used to store the audio for when Otto runs
@@ -34,8 +35,6 @@ public class Player : MonoBehaviour
 
 	// Stores the audio for when Otto throws his scarf
 	public AudioClip m_throwAudio;
-
-	
 
 	// Used to access the SkinnedMeshRenderer component from the player
 	public SkinnedMeshRenderer m_meshRenderer;
@@ -82,10 +81,6 @@ public class Player : MonoBehaviour
 	// Stores how tall Otto is as a float
 	public float m_fHeight = 2.0f;
 
-	// Is the maximum angle of the ground that otto can walk on without slipping
-	[Range(0f, 90f)]
-	public float m_fMaximumGroundAngle = 35.0f;
-
 	// Represents the left control stick dead zone for movement
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
@@ -123,6 +118,7 @@ public class Player : MonoBehaviour
 	// Collectable manager Script used to get access to the collectable manager script
 	private CollectableManager m_cm;
 
+	// Stores a reference to the Cinemachine Camera script
 	private CineCamera m_cineCameraScript;
 
 	// Used to access and change the audio source component on the player
@@ -153,8 +149,10 @@ public class Player : MonoBehaviour
 	// Keeps track of the velocity of Otto on the Y axis
 	private float m_fVelocityY;
 
+	// Stores the initial jump apex calculations on awake
 	private float m_fInitialJumpApex;
 
+	// Stores the initial gravity calculation on awake
 	private float m_fInitialGravity;
 
 	// Private float indicates the rate the player flashes after being hit
@@ -184,6 +182,7 @@ public class Player : MonoBehaviour
 	// Bool is activated when the player is performing a mini jump
 	private bool m_bMiniJump;
 
+	// Detects if the player has bounced off a mushroom or not
 	private bool m_bBounced;
 
 	//--------------------------------------------------------------------------------
@@ -216,11 +215,13 @@ public class Player : MonoBehaviour
 		// Gets the GrapplingHook script and stores it in the variable
 		m_grapplingScript = m_hook.GetComponent<Hook>();
 
+		// Gets the Camera Script from the Camera Object if the object is attached
 		if (m_cineCamera != null)
 		{
 			m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
 		}
 
+		// Disables half health image initially
 		m_halfHealth.enabled = false;
 
 		// Sets all bools in the animator controller to false initially
@@ -247,6 +248,7 @@ public class Player : MonoBehaviour
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
 
+		// Stores the initial time to jump apex
 		m_fInitialJumpApex = m_fTimeToJumpApex;
 
 		// Calculates the flashing rate from the reciprocal of public float flash rate
@@ -255,6 +257,7 @@ public class Player : MonoBehaviour
 		// Calculates gravity based on the jump height and time to apex
 		m_fGravity = -(2 * m_fJumpHeight) / Mathf.Pow(m_fTimeToJumpApex, 2);
 
+		// Stores the initial gravity for later use
 		m_fInitialGravity = m_fGravity;
 
 		// Calculates the jump velocity from gravity
@@ -293,6 +296,7 @@ public class Player : MonoBehaviour
 			m_fVelocityY = 0.0f;
 			m_fJumpTimer = 0.0f;
 
+			// Resets the time to jump apex to what it was on awake.
 			m_fTimeToJumpApex = m_fInitialJumpApex;
 
 			// Allows for targets to be set for the grappling hook
@@ -329,10 +333,12 @@ public class Player : MonoBehaviour
 		// Creates a "new" vector3 for the player to move based on input
 		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
+		// Stops player if a cut scene is playing and Otto needs to wait
 		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 		{
 			m_v3MoveDirection = Vector3.zero;
 		}
+		// Otherwise he can move freely if the player is not in a cutscene
 		else
 		{
 			// Detects if Grappling Hook is hooked on an object or launched
@@ -362,6 +368,7 @@ public class Player : MonoBehaviour
 					m_bMiniJump = true;
 				}
 
+				// Sets mini jump bool to false if the player has bounced
 				if (m_bBounced)
 				{
 					m_bMiniJump = false;
@@ -390,14 +397,19 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		if (m_fVelocityY <= 3.0f && m_fVelocityY >= 0.0f && !m_cc.isGrounded && !m_bMiniJump)
+		// Increases gravity if the player is near their apex
+		if (m_fVelocityY <= 3.0f && m_fVelocityY >= 0.0f && 
+			!m_cc.isGrounded && !m_bMiniJump)
 		{
 			m_fGravity += 2.0f;
 		}
-		else if (m_fVelocityY < 0.0f && m_fGravity > m_fInitialGravity && !m_cc.isGrounded && !m_bMiniJump)
+		// Decreases gravity just after the player reaches their apex
+		else if (m_fVelocityY < 0.0f && m_fGravity > m_fInitialGravity && 
+				 !m_cc.isGrounded && !m_bMiniJump)
 		{
 			m_fGravity -= 2.0f;
 		}
+		// Otherwise sets gravity back to its initial value
 		else
 		{
 			m_fGravity = m_fInitialGravity;
@@ -409,14 +421,15 @@ public class Player : MonoBehaviour
 			m_fVelocityY = -30;
 		}
 
+		// Sets Y Velocity to zero if the player hits his head above something
 		if (UpCheck())
 		{
 			m_fVelocityY = 0.0f;
 		}
 
+		// Applies the gravity to y velocity if the player hasn't launched hook
 		if (!m_grapplingScript.GetFired())
 		{
-			// Applies the gravity to y velocity
 			m_fVelocityY += m_fGravity * Time.deltaTime;
 		}
 
@@ -477,6 +490,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Animate()
 	{
+		// Detects if the player is in a cutscene
 		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
@@ -486,6 +500,7 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Falling", false);
 			m_animator.SetBool("Landing", false);
 		}
+		// Runs if gameplay is running
 		else
 		{
 			// Checks if jumped is true and Gravity exceeds jump speed
@@ -675,14 +690,15 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	public void Bounce(float fBounceForce)
 	{
+		// Checks if the jump button has been interracted with
 		if (Input.GetButton("Jump"))
 		{
-			// Sets the y value of gravity to equal jump speed multipled by bounce force
+			// Sets the y velocity to a bounce force which is increased by 50%
 			m_fVelocityY = m_fJumpVelocity * fBounceForce * 1.5f;
 		}
+		// Otherwise ets the y velocity to a bounce force by the jump velocity
 		else
 		{
-			// Sets the y value of gravity to equal jump speed multipled by bounce force
 			m_fVelocityY = m_fJumpVelocity * fBounceForce;
 		}
 
@@ -693,10 +709,10 @@ public class Player : MonoBehaviour
 		m_bJumped = true;
 		m_bBounced = true;
 
-		// Multiples Move Direction vector by speed and the y velocity
+		// Multiples Move Direction vector by speed and the bounce velocity
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
 
-		// Adds movement to CharacterController based on move direction and delta time
+		// Adds the bounce velocity to the CharacterController
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
 	}
 
