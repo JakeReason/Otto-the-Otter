@@ -744,5 +744,10 @@ public class Player : MonoBehaviour
         {
             Death();
         }
+
+		if (other.gameObject.name == "Hitbox" && m_grapplingScript.GetHooked())
+		{
+			Bounce(20.0f);
+		}
     }
 }

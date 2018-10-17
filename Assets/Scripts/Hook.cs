@@ -53,6 +53,8 @@ public class Hook : MonoBehaviour
 
 	private bool m_bLaunchable;
 
+	private bool m_bEnemyHooked;
+
 	// Represents the distance between the player and the hook
 	private float m_fCurrentDistance;
 
@@ -127,6 +129,7 @@ public class Hook : MonoBehaviour
 		}
 
 		m_bLaunchable = false;
+		m_bEnemyHooked = false;
 
 		m_v3HookScale = transform.localScale;
 	}
@@ -165,6 +168,8 @@ public class Hook : MonoBehaviour
 		{
 			m_collider.enabled = false;
 
+			m_bEnemyHooked = false;
+
 			m_rope.positionCount = 0;
 
 			m_hookTarget = m_detectorScript.GetTarget();
@@ -175,8 +180,9 @@ public class Hook : MonoBehaviour
 		{
 			if (m_hookTarget)
 			{
-				transform.position = Vector3.MoveTowards(transform.position, m_hookTarget.position,
-																 m_fHookTravelSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, 
+														 m_hookTarget.position + Vector3.up * 0.5f,
+														 m_fHookTravelSpeed * Time.deltaTime);
 			}
 			else
 			{
@@ -242,6 +248,8 @@ public class Hook : MonoBehaviour
 		// Waits for 0.1 seconds before being called
 		yield return new WaitForSeconds(0.1f);
 
+		m_bEnemyHooked = true;
+
 		// Calls the return hook function after yielding for 0.1 seconds
 		ReturnHook();
 	}
@@ -291,15 +299,6 @@ public class Hook : MonoBehaviour
 			// Sets the hooked object in Grappling Hook script to equal the colliding object
 			m_hookedObj = other.gameObject;
         }
-		////--------------------------------------------------------------------------------
-		////--------------------------------------------------------------------------------
-		//// WEIRD COLLISION LAYER BUG! CHECK BACK ON IT LATER!!!
-		////--------------------------------------------------------------------------------
-		////--------------------------------------------------------------------------------
-		//else if (other.gameObject.layer != 10)
-		//{
-		//	ReturnHook();
-		//}
     }
 
 	public bool GetHooked()
@@ -315,5 +314,10 @@ public class Hook : MonoBehaviour
 	public void SetLaunchable(bool bLaunchable)
 	{
 		m_bLaunchable = bLaunchable;
+	}
+
+	public bool GetEnemyHooked()
+	{
+		return m_bEnemyHooked;
 	}
 }
