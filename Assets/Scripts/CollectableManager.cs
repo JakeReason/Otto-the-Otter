@@ -240,7 +240,8 @@ public class CollectableManager : MonoBehaviour
 	{
 		for(int i = 0; i < m_flowerAnimation.Length; ++i)
 		{
-			m_flowerAnimation[i].enabled = false;
+			if(m_flowerAnimation[i])
+				m_flowerAnimation[i].enabled = false;
 		}
 		m_fFlowersCollected += 1;
 		m_flowerAnimation[nFlowerToCollect].enabled = true;
