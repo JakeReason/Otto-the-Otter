@@ -41,6 +41,7 @@ public class DoorCamScript : MonoBehaviour {
         doorCam.SetActive(false);
         gameCanvus.SetActive(true);
         StopCoroutine(ThatEnoughDoor());
+        Destroy(this);
     }
 
 }
