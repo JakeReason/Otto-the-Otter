@@ -7,7 +7,6 @@ public class DeathFade : MonoBehaviour
 {
 	public float m_fWaitTime;
 	float m_fTimer;
-	public float alpha = 0;
 	Color col;
 	bool m_bDoFadeIn;
 	bool m_bDoFadeOut;

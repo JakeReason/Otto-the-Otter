@@ -3,6 +3,7 @@
 //--------------------------------------------------------------------------------
 
 // Accesses the plugins from Unity folder
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -670,17 +671,7 @@ public class Player : MonoBehaviour
 		// Detects if the player has any lives left in the game
 		if (m_cm.GetLives() > 0)
 		{
-			// Sends player back to the checkpoint if Otto has passed one
-			if (m_cm.GetCheckPoint() != null)
-			{
-				transform.position = m_cm.GetCheckPoint().position;
-			}
-			// Otherwise sets the player's position back to where they spawned
-			else
-			{
-				transform.position = m_v3StartPosition;
-			}
-
+			StartCoroutine(SpawnDelay());
 			// Fades out from black when respawned
 			m_deathFade.DoFadeOut();
 		}
@@ -778,4 +769,26 @@ public class Player : MonoBehaviour
 			Bounce(20.0f);
 		}
     }
+
+	IEnumerator SpawnDelay()
+	{
+		// Waits for 0.1 seconds before being called
+		yield return new WaitForSeconds(2.0f);
+		// Sends player back to the checkpoint if Otto has passed one
+		if (m_cm.GetCheckPoint() != null)
+		{
+			transform.position = m_cm.GetCheckPoint().position;
+		}
+		// Otherwise sets the player's position back to where they spawned
+		else
+		{
+			transform.position = m_v3StartPosition;
+		}
+
+		m_nHealth = 2;
+
+		// Disables half health UI and enables full health UI
+		m_halfHealth.enabled = false;
+		m_fullHealth.enabled = true;
+	}
 }
