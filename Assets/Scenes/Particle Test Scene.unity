@@ -879,7 +879,7 @@ Prefab:
     - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
         type: 2}
       propertyPath: m_AABB.m_Center.x
-      value: 0.007080078
+      value: 0.0070819855
       objectReference: {fileID: 0}
     - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
         type: 2}
@@ -908,7 +908,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1812625392093508, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161207773635570, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}

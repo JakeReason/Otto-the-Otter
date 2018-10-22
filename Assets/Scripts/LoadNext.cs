@@ -16,9 +16,12 @@ public class LoadNext : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(FadetoDarknessAyy());
+        if (other.tag == "Player")
+        {
+            StartCoroutine(FadetoDarknessAyy());
 
-        m_deathFade.DoFadeIn();
+            m_deathFade.DoFadeIn();
+        }
     }
 
 
