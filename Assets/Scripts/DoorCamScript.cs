@@ -27,10 +27,20 @@ public class DoorCamScript : MonoBehaviour {
 	void Update () {
 		if(m_CM.m_fFlowersCollected >= 2)
         {
-            Debug.Log("Scadoo");
+            StartCoroutine(ThatEnoughDoor());
             playerCam.SetActive(false);
             doorCam.SetActive(true);
             gameCanvus.SetActive(false);
         }
 	}
+
+    private IEnumerator ThatEnoughDoor()
+    {
+        yield return new WaitForSeconds(6f);
+        playerCam.SetActive(true);
+        doorCam.SetActive(false);
+        gameCanvus.SetActive(true);
+        StopCoroutine(ThatEnoughDoor());
+    }
+
 }
