@@ -13,9 +13,10 @@ public class DeathFade : MonoBehaviour
 	bool m_bDoFadeOut;
 
 	// Use this for initialization
-	void Start()
+	void Awake()
 	{
-
+		m_fTimer = 1;
+		DoFadeOut();
 	}
 
 	// Update is called once per frame
@@ -44,7 +45,7 @@ public class DeathFade : MonoBehaviour
 			}
 			else if (m_fTimer <= 0)
 			{
-				m_bDoFadeIn = false;
+				m_bDoFadeOut = false;
 			}
 		}
 	}
