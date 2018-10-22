@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DoorCamScript : MonoBehaviour {
+
+    // Collectable manager GameObject used to get access to the collectable manager.
+    private GameObject m_collectableManager;
+
+    // Collectable manager Script used to get access to the collectable manager script.
+    private CollectableManager m_CM;
+
+    public GameObject playerCam;
+    public GameObject doorCam;
+    public GameObject gameCanvus;
+
+
+    // Use this for initialization
+    void Start () {
+        // Gets reference to the collectable manager gameObject.
+        m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
+        m_CM = m_collectableManager.GetComponent<CollectableManager>();
+        doorCam.SetActive(false);
+    }
+	
+	// Update is called once per frame
+	void Update () {
+		if(m_CM.m_fFlowersCollected >= 2)
+        {
+            Debug.Log("Scadoo");
+            playerCam.SetActive(false);
+            doorCam.SetActive(true);
+            gameCanvus.SetActive(false);
+        }
+	}
+}

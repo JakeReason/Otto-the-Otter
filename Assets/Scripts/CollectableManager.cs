@@ -15,7 +15,7 @@ public class CollectableManager : MonoBehaviour
 
 	[SerializeField]
 	// Amount of Clams collected.
-	float m_fFlowersCollected;
+	public float m_fFlowersCollected;
 
 	[SerializeField]
 	// Amount of Lives collected.
