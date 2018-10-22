@@ -24,7 +24,7 @@ public class DeathFade : MonoBehaviour
 		if(m_bDoFadeIn)
 		{
 			m_fTimer += Time.deltaTime;
-			if (m_fTimer < 1)
+			if (m_fTimer <= 2)
 			{
 				col = new Color(GetComponent<Image>().color.r, GetComponent<Image>().color.g, GetComponent<Image>().color.b, m_fTimer);
 				GetComponent<Image>().color = col;
