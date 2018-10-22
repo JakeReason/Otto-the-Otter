@@ -185,11 +185,17 @@ public class Player : MonoBehaviour
 	// Detects if the player has bounced off a mushroom or not
 	private bool m_bBounced;
 
+	public GameObject m_fadeToBlack;
+
+	private DeathFade m_deathFade;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
     {
+		m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
+
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
 
@@ -658,6 +664,9 @@ public class Player : MonoBehaviour
 		// Removes a life via the collectable manager
 		m_cm.RemoveLife();
 
+		// Fades to black when dead
+		m_deathFade.DoFadeIn();
+
 		// Detects if the player has any lives left in the game
 		if (m_cm.GetLives() > 0)
 		{
@@ -671,6 +680,9 @@ public class Player : MonoBehaviour
 			{
 				transform.position = m_v3StartPosition;
 			}
+
+			// Fades out from black when respawned
+			m_deathFade.DoFadeOut();
 		}
 		// Sends the user back to the main menu if they have no lives left
 		else
