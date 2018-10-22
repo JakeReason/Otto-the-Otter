@@ -92,11 +92,14 @@ public class BasicEnemy : MonoBehaviour
 
 	private float m_fOriginalSpeed;
 
+	private Animator m_animator;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
 	{
+		m_animator = GetComponent<Animator>();
 		// Gets the NavMeshAgent on the gameobject.
 		m_agent = GetComponent<NavMeshAgent>();
 		// Stores the original cooldown time.
@@ -115,6 +118,10 @@ public class BasicEnemy : MonoBehaviour
 		m_audioSource = GetComponent<AudioSource>();
 
 		m_fOriginalSpeed = m_agent.speed;
+
+		m_animator.SetBool("Walk", false);
+		m_animator.SetBool("Run", false);
+		m_animator.SetBool("Idle", false);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -191,6 +198,9 @@ public class BasicEnemy : MonoBehaviour
 				{
 					m_fCooldown -= Time.deltaTime;
 					m_agent.speed = m_fOriginalSpeed;
+					m_animator.SetBool("Walk", false);
+					m_animator.SetBool("Run", false);
+					m_animator.SetBool("Idle", true);
 					if (!m_bGoBackWards)
 					{
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
@@ -204,6 +214,9 @@ public class BasicEnemy : MonoBehaviour
 					// When the cooldown is over move to next point and resets cooldown time.
 					if (m_fCooldown <= 0)
 					{
+						m_animator.SetBool("Walk", true);
+						m_animator.SetBool("Run", false);
+						m_animator.SetBool("Idle", false);
 						// If the last waypoint has been reached turn around.
 						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
 						{
@@ -232,6 +245,9 @@ public class BasicEnemy : MonoBehaviour
 				// If the player is in range and not in attack range the enemy moves closer.
 				if (m_fDistanceFromPlayer <= m_fDistance && m_fDistanceFromPlayer >= m_fAttackDistance)
 				{
+					m_animator.SetBool("Walk", false);
+					m_animator.SetBool("Run", true);
+					m_animator.SetBool("Idle", false);
 					// Sets the destination to the player position.
 					m_agent.SetDestination(m_playerTransform.position);
 					m_agent.speed = m_fChaseSpeed;
