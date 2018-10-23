@@ -10,6 +10,7 @@ public class StartGame : MonoBehaviour {
     public GameObject gameCanvus;
     public GameObject m_player;
 
+
     private bool animOver;
     private Player m_playerScript;
     // Use this for initialization

@@ -14,6 +14,8 @@ public class DoorCamScript : MonoBehaviour {
     public GameObject doorCam;
     public GameObject gameCanvus;
 
+    public Animator doorAnim;
+
 
     // Use this for initialization
     void Start () {
@@ -31,6 +33,7 @@ public class DoorCamScript : MonoBehaviour {
             playerCam.SetActive(false);
             doorCam.SetActive(true);
             gameCanvus.SetActive(false);
+            doorAnim.SetBool("Is In View", true);
         }
 	}
 

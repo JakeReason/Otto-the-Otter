@@ -31,7 +31,6 @@ public class Icecream : MonoBehaviour {
             {
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
-                transform.GetChild(0).gameObject.SetActive(false);
             }
         }
     }
