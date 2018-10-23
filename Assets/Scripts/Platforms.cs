@@ -418,16 +418,17 @@ public class Platforms : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		other.transform.parent = this.transform;
+		
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
+		other.transform.parent = this.transform;
 		PushBack(other);
 	}
 
-	//private void OnTriggerExit(Collider other)
-	//{
-	//	other.transform.parent = null;
-	//}
+	private void OnTriggerExit(Collider other)
+	{
+		other.transform.parent = null;
+	}
 }
