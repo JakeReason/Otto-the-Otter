@@ -165,6 +165,8 @@ public class Player : MonoBehaviour
 	// Records the amount of time the player spends whilst jumping
 	private float m_fJumpTimer;
 
+	private float m_fIdleTimer;
+
 	// Float indicates the forward direction of Otto
 	private float m_fForward;
 
@@ -185,6 +187,8 @@ public class Player : MonoBehaviour
 
 	// Detects if the player has bounced off a mushroom or not
 	private bool m_bBounced;
+
+	private bool m_bDied;
 
 	public GameObject m_fadeToBlack;
 
@@ -251,6 +255,7 @@ public class Player : MonoBehaviour
 		// Initialises all private floats to equal zero
 		m_fHealthTimer = 0.0f;
 		m_fJumpTimer = 0.0f;
+		m_fIdleTimer = 0.0f;
 		m_fForward = 0.0f;
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
@@ -278,6 +283,7 @@ public class Player : MonoBehaviour
         m_bRecovering = false;
 		m_bMiniJump = false;
 		m_bBounced = false;
+		m_bDied = false;
 	}
 
     //--------------------------------------------------------------------------------
@@ -443,6 +449,17 @@ public class Player : MonoBehaviour
 		// Multiples Move Direction vector by speed and the y velocity
 		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
 
+		Debug.Log(m_v3Velocity.sqrMagnitude);
+
+		if (m_v3Velocity.sqrMagnitude < 5.0f)
+		{
+			m_fIdleTimer += Time.deltaTime;
+		}
+		else
+		{
+			m_fIdleTimer = 0.0f;
+		}
+
 		// Adds movement to CharacterController based on move direction and delta time
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
 
@@ -506,6 +523,10 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Jumping", false);
 			m_animator.SetBool("Falling", false);
 			m_animator.SetBool("Landing", false);
+			m_animator.SetBool("Bounce", false);
+			m_animator.SetBool("Damaged", false);
+			m_animator.SetBool("Dying", false);
+			m_animator.SetBool("Waiting", false);
 		}
 		// Runs if gameplay is running
 		else
@@ -523,7 +544,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-			if (m_bJumped && m_fVelocityY <= 0.0f)
+			if (m_bJumped && m_fVelocityY <= 0.0f /*&& m_fJumpTimer < m_fFallRecovery*/)
 			{
 				m_animator.SetBool("Falling", true);
 			}
@@ -549,7 +570,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Detects if player has launched hook or is hooked
-			if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
+			if (m_grapplingScript.GetFired())
 			{
 				m_animator.SetBool("Grapple", true);
 
@@ -570,6 +591,46 @@ public class Player : MonoBehaviour
 			else
 			{
 				m_animator.SetBool("Running", false);
+			}
+
+			if (m_bBounced)
+			{
+				m_animator.SetBool("Bounce", true);
+
+				m_bJumped = true;
+			}
+			else if (m_bJumped)
+			{
+				m_animator.SetBool("Bounce", false);
+			}
+
+			if (m_bRecovering && m_fHealthTimer < 0.5f)
+			{
+				m_animator.SetBool("Damaged", true);
+			}
+			else
+			{
+				m_animator.SetBool("Damaged", false);
+			}
+
+			if (m_bDied)
+			{
+				m_animator.SetBool("Dying", true);
+			}
+			else
+			{
+				m_animator.SetBool("Dying", false);
+			}
+
+			if (m_fIdleTimer > 5.0f)
+			{
+				m_animator.SetBool("Waiting", true);
+
+				m_fIdleTimer = 0.0f;
+			}
+			else
+			{
+				m_animator.SetBool("Waiting", false);
 			}
 		}
 	}
@@ -659,6 +720,8 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
+		m_bDied = true;
+
 		// Plays the death audio using the audio source on the player
 		m_audioSource.PlayOneShot(m_deathAudio);
 
@@ -709,7 +772,7 @@ public class Player : MonoBehaviour
 		m_grapplingScript.SetLaunchable(true);
 
 		// Sets jumped and bounced bools to be true
-		m_bJumped = true;
+		//m_bJumped = true;
 		m_bBounced = true;
 
 		// Multiples Move Direction vector by speed and the bounce velocity
@@ -784,6 +847,8 @@ public class Player : MonoBehaviour
 		{
 			transform.position = m_v3StartPosition;
 		}
+
+		m_bDied = false;
 
 		m_nHealth = 2;
 
