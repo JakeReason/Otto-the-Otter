@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Detector : MonoBehaviour
 {
 	public Transform m_player;
-	public LayerMask m_treeLayer;
+	public LayerMask m_meshLayer;
 	public Image m_selectImage;
 	public GameObject m_hook;
 
@@ -57,11 +57,18 @@ public class Detector : MonoBehaviour
 
 	private bool ObjectsBetween(Transform desiredTarget)
 	{
-		Debug.DrawLine(m_player.position, desiredTarget.position);
+		RaycastHit hit;
 
-		if (Physics.Linecast(m_player.position, desiredTarget.position, m_treeLayer))
+		if (Physics.Linecast(m_player.position, desiredTarget.position, out hit, m_meshLayer))
 		{
-			return true;
+			if (hit.collider.gameObject.CompareTag("Tree"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
