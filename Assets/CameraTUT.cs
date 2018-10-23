@@ -6,6 +6,10 @@ public class CameraTUT : MonoBehaviour {
     public GameObject gameUI;
     public GameObject cameraUI;
     public GameObject m_player;
+    public GameObject gifCam;
+    public GameObject freeLook;
+
+    public Animator fading;
 
     private Player m_playerScript;
 
@@ -14,6 +18,8 @@ public class CameraTUT : MonoBehaviour {
         m_playerScript = m_player.GetComponent<Player>();
         m_playerScript.enabled = false;
         gameUI.SetActive(false);
+        gifCam.SetActive(true);
+        freeLook.SetActive(false);
     }
 
 
@@ -21,12 +27,21 @@ public class CameraTUT : MonoBehaviour {
     {
         if (Input.GetButtonDown("Skip"))
         {
-            gameUI.SetActive(true);
-            m_playerScript.enabled = true;
-            cameraUI.SetActive(false);
+            StartCoroutine(delay());
+            fading.SetBool("Fading", true);
+            
         }
     }
-
-
+   private IEnumerator delay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        gameUI.SetActive(true);
+        gifCam.SetActive(false);
+        freeLook.SetActive(true);
+        cameraUI.SetActive(false);
+        m_playerScript.enabled = true;
+        StopCoroutine(delay());
+        Destroy(this);
+    }
 
 }
