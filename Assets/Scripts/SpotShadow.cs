@@ -8,27 +8,30 @@ public class SpotShadow : MonoBehaviour {
 	public float maxSize = 1.0f;
 	public float maxDistance = 10.0f;
 	public float offset = 0.05f;
+	public LayerMask meshLayer;
 
 	private GameObject spotShadowInstance;
 
 	// Update is called once per frame
 	void Update () {
 		RaycastHit hit;
-
+		Ray downRay = new Ray (transform.position, Vector3.down); 
 		if (spotShadowInstance == null) 
 		{
 			spotShadowInstance = Instantiate (spotShadow) as GameObject;
 		}
 
-		if (Physics.Raycast (transform.position, Vector3.down, out hit, maxDistance)) 
+		if (Physics.Raycast (downRay, out hit, maxDistance, meshLayer)) 
 		{
-			spotShadowInstance.SetActive (true);
+			if (hit.collider.gameObject.GetComponent<MeshRenderer> ()) {
+				spotShadowInstance.SetActive (true);
 
-			spotShadowInstance.transform.position = hit.point + hit.normal * offset; 
-			spotShadowInstance.transform.rotation = Quaternion.LookRotation (-hit.normal);
+				spotShadowInstance.transform.position = hit.point + hit.normal * offset; 
+				spotShadowInstance.transform.rotation = Quaternion.LookRotation (-hit.normal);
 
-			float currentSize = Mathf.Lerp (maxSize, 0.0f, hit.distance / maxDistance);
-			spotShadowInstance.transform.localScale = Vector3.one * currentSize;
+				float currentSize = Mathf.Lerp (maxSize, 0.0f, hit.distance / maxDistance);
+				spotShadowInstance.transform.localScale = Vector3.one * currentSize;
+			}
 		}
 		else		 
 		{
