@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: World Tree Door
-  m_Shader: {fileID: 4800000, guid: 3e7899f24eae03e43910c579b8481df4, type: 3}
+  m_Shader: {fileID: 4800000, guid: cb233c4d24e904ae285afdb77b77c2fd, type: 3}
   m_ShaderKeywords: EDGE_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EdgeAroundRamp:
-        m_Texture: {fileID: 2800000, guid: 6e6ee1f34b0234741b0b85bb5a5fd843, type: 3}
+        m_Texture: {fileID: 2800000, guid: 80ab5018f93cf584aa77c7be6581d4ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -63,6 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BasePoint: 0
     - _BumpScale: 1
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -72,21 +73,33 @@ Material:
     - _EdgeAround: 0.5
     - _EdgeAroundHDR: 1.607
     - _EdgeAroundPower: 3.81
-    - _EdgeDistortion: 0.202
+    - _EdgeDistortion: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.611
     - _GlossyReflections: 1
+    - _HStack: 0.2
+    - _Melt: 0
+    - _MeltAmplify: 0.2
     - _Metallic: 0.935
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Offset: 0
     - _Parallax: 0.02
     - _Progress: 1
+    - _RHz: 1.32
+    - _RStack: 1
+    - _Smooth: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Spread: 0.682
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseEdgeColor: 1
     - _ZWrite: 1
     m_Colors:
+    - _Center: {r: 1.34, g: -6.14, b: 0.37, a: 1.27}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Gravity: {r: -0.42, g: -1.77, b: -0.06, a: 0.48}
+    - _MeltTint: {r: 0, g: 0.95862055, b: 1, a: 1}
+    - _NorthReference: {r: 0, g: 0, b: 1, a: 0}

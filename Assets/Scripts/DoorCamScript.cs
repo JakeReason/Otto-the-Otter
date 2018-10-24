@@ -16,8 +16,7 @@ public class DoorCamScript : MonoBehaviour {
 
     public Animator doorAnim;
     public Animator doorAnim2;
-
-    public AudioSource doorSound;
+    public Animator doorAnim3;
 
 
     // Use this for initialization
@@ -32,15 +31,15 @@ public class DoorCamScript : MonoBehaviour {
 	void Update () {
 		if(m_CM.m_fFlowersCollected >= 2)
         {
-            doorSound.Play();
             StartCoroutine(ThatEnoughDoor());
             playerCam.SetActive(false);
             doorCam.SetActive(true);
             gameCanvus.SetActive(false);
             doorAnim.SetBool("Is In View", true);
             doorAnim2.SetBool("Is In View", true);
+            doorAnim3.SetBool("Is In View", true);
         }
-	}
+    }
 
     private IEnumerator ThatEnoughDoor()
     {
