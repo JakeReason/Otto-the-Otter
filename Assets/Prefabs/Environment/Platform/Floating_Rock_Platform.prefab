@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23849482489291070}
   - component: {fileID: 95085393132454064}
   - component: {fileID: 64823289320679358}
-  m_Layer: 15
+  m_Layer: 11
   m_Name: Floating_Rock_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 95528477221742748}
   - component: {fileID: 114097431557778420}
   - component: {fileID: 65730337533701094}
+  - component: {fileID: 114856272388804396}
   m_Layer: 11
   m_Name: Floating_Rock_Platform
   m_TagString: Untagged
@@ -253,9 +254,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998052536178230}
-  m_LocalRotation: {x: -0, y: -0.7381491, z: -0, w: -0.6746377}
-  m_LocalPosition: {x: 26.412825, y: 18.33, z: 25.867813}
-  m_LocalScale: {x: 1.980001, y: 1.9799999, z: 1.980001}
+  m_LocalRotation: {x: -0, y: 0.72502226, z: -0, w: -0.68872553}
+  m_LocalPosition: {x: -15.612122, y: -122.32, z: 19.752718}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4004703253859088}
   - {fileID: 4536100899241128}
@@ -578,8 +579,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3925953, y: 0.5, z: 2.4059753}
-  m_Center: {x: -0.008672714, y: 1.5, z: 0.017625215}
+  m_Size: {x: 3.5826597, y: 2.9446502, z: 3.4831817}
+  m_Center: {x: -0.6037023, y: 2.722325, z: 0.5562323}
 --- !u!95 &95085393132454064
 Animator:
   serializedVersion: 3
@@ -749,3 +750,15 @@ MonoBehaviour:
   m_targetPoints: []
   m_fFollowWaitTime: 1
   m_fPushBackSpeed: 1
+--- !u!114 &114856272388804396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998052536178230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4830b4b654e54c4c809b641bf087bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helpUI: {fileID: 0}
