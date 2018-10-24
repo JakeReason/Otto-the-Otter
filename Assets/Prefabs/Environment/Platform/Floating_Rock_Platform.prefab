@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 95528477221742748}
   - component: {fileID: 114097431557778420}
   - component: {fileID: 65730337533701094}
-  - component: {fileID: 114856272388804396}
   m_Layer: 11
   m_Name: Floating_Rock_Platform
   m_TagString: Untagged
@@ -750,15 +749,3 @@ MonoBehaviour:
   m_targetPoints: []
   m_fFollowWaitTime: 1
   m_fPushBackSpeed: 1
---- !u!114 &114856272388804396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1998052536178230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4830b4b654e54c4c809b641bf087bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  helpUI: {fileID: 0}
