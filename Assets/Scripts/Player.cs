@@ -165,6 +165,8 @@ public class Player : MonoBehaviour
 	// Records the amount of time the player spends whilst jumping
 	private float m_fJumpTimer;
 
+	private float m_fWaitTimer;
+
 	// Float indicates the forward direction of Otto
 	private float m_fForward;
 
@@ -173,6 +175,8 @@ public class Player : MonoBehaviour
 
 	// Int keeps track of the player's current health
 	private int m_nHealth;
+
+	private int m_nPrevHealth;
 
     // Bool used to let the script know if the player has jumped from ground
     private bool m_bJumped;
@@ -251,6 +255,7 @@ public class Player : MonoBehaviour
 		// Initialises all private floats to equal zero
 		m_fHealthTimer = 0.0f;
 		m_fJumpTimer = 0.0f;
+		m_fWaitTimer = 0.0f;
 		m_fForward = 0.0f;
 		m_fSideways = 0.0f;
 		m_fVelocityY = 0.0f;
@@ -273,8 +278,10 @@ public class Player : MonoBehaviour
 		// Sets the health of the player to equal two when script is called
 		m_nHealth = 2;
 
-        // Sets private bools to false on awake
-        m_bJumped = false;
+		m_nPrevHealth = m_nHealth;
+
+		// Sets private bools to false on awake
+		m_bJumped = false;
         m_bRecovering = false;
 		m_bMiniJump = false;
 		m_bBounced = false;
@@ -390,9 +397,11 @@ public class Player : MonoBehaviour
 
 			// Stores the y movement direction in local float
 			float fCurrentMoveY = m_v3MoveDirection.y;
+			
 
 			// Calculates the move direction in camera space rather than world space
-			m_v3MoveDirection = Camera.main.transform.rotation * m_v3MoveDirection;
+			m_v3MoveDirection = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up) * 
+													 m_v3MoveDirection;
 
 			// Stores local float value as the y value for the Move Direction
 			m_v3MoveDirection.y = fCurrentMoveY;
@@ -506,6 +515,10 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Jumping", false);
 			m_animator.SetBool("Falling", false);
 			m_animator.SetBool("Landing", false);
+			m_animator.SetBool("Bounce", false);
+			m_animator.SetBool("Damaged", false);
+			m_animator.SetBool("Dying", false);
+			m_animator.SetBool("Waiting", false);
 		}
 		// Runs if gameplay is running
 		else
@@ -562,7 +575,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Running bool in animator to true if the player has any running movement
-			if (m_v3MoveDirection.sqrMagnitude >= 0.05f)
+			if (m_v3MoveDirection.sqrMagnitude > 0.0f)
 			{
 				m_animator.SetBool("Running", true);
 			}
@@ -570,6 +583,48 @@ public class Player : MonoBehaviour
 			else
 			{
 				m_animator.SetBool("Running", false);
+
+				m_fWaitTimer += Time.deltaTime;
+			}
+
+			if (m_bBounced)
+			{
+				m_animator.SetBool("Bounce", true);
+			}
+			else
+			{
+				m_animator.SetBool("Bounce", false);
+			}
+			
+			if (m_nPrevHealth > m_nHealth && m_nHealth != 0)
+			{
+				m_animator.SetBool("Damaged", true);
+
+				m_nPrevHealth = m_nHealth;
+			}
+			else
+			{
+				m_animator.SetBool("Damaged", false);
+			}
+
+			if (m_nHealth == 0)
+			{
+				m_animator.SetBool("Dying", true);
+			}
+			else
+			{
+				m_animator.SetBool("Dying", false);
+			}
+
+			if (m_fWaitTimer >= 5.0f)
+			{
+				m_animator.SetBool("Waiting", true);
+
+				m_fWaitTimer = 0.0f;
+			}
+			else
+			{
+				m_animator.SetBool("Waiting", false);
 			}
 		}
 	}
@@ -730,26 +785,6 @@ public class Player : MonoBehaviour
 		return Physics.Raycast(transform.position + Vector3.up * m_fHeight, Vector3.up, 0.5f);
 	}
 
-	//--------------------------------------------------------------------------------
-	// Function detects if a platform is below them.
-	//--------------------------------------------------------------------------------
-	//private void PlatformDetection()
-	//{
-		// Declares a local raycast hit variable
-		//RaycastHit hit;
-
-		/// Parents Otto if the raycast for a platform returns true
-		//if (Physics.Raycast(transform.position, Vector3.down, out hit, 1, m_platformLayer))
-		//{
-		//	transform.parent = hit.transform;
-		///}
-		// Else if raycast is false, set parent to be null
-		//else
-		//{
-		//	transform.parent = null;
-		//}
-	//}
-
     //--------------------------------------------------------------------------------
     // Function is called when the player is enters a trigger.
     //
@@ -774,6 +809,7 @@ public class Player : MonoBehaviour
 	{
 		// Waits for 0.1 seconds before being called
 		yield return new WaitForSeconds(2.0f);
+
 		// Sends player back to the checkpoint if Otto has passed one
 		if (m_cm.GetCheckPoint() != null)
 		{
