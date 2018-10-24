@@ -398,7 +398,6 @@ public class Player : MonoBehaviour
 			// Stores the y movement direction in local float
 			float fCurrentMoveY = m_v3MoveDirection.y;
 			
-
 			// Calculates the move direction in camera space rather than world space
 			m_v3MoveDirection = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up) * 
 													 m_v3MoveDirection;
