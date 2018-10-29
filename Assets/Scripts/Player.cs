@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 	// Allows for access to camera that uses Cinemachine
 	public GameObject m_cineCamera;
 
+	public GameObject m_endDoor;
+
 	// AudioClip used to store the audio for when Otto runs
 	public AudioClip m_runningAudio;
 
@@ -122,6 +124,8 @@ public class Player : MonoBehaviour
 	// Stores a reference to the Cinemachine Camera script
 	private CineCamera m_cineCameraScript;
 
+	private LoadNext m_loadNextScript;
+
 	// Used to access and change the audio source component on the player
 	private AudioSource m_audioSource;
 
@@ -200,6 +204,8 @@ public class Player : MonoBehaviour
 	void Awake()
     {
 		m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
+
+		m_loadNextScript = m_endDoor.GetComponent<LoadNext>();
 
 		// Gets reference to the collectable manager gameObject.
 		m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
@@ -506,7 +512,8 @@ public class Player : MonoBehaviour
 	private void Animate()
 	{
 		// Detects if the player is in a cutscene
-		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
+		if ((m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait()) ||
+			(m_loadNextScript != null && !m_loadNextScript.GetStartMove()))
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
 			m_animator.SetBool("Running", false);
@@ -546,7 +553,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Checks if the player has jumped and is grounded
-			if (/*m_bJumped && */m_cc.isGrounded)
+			if (m_cc.isGrounded)
 			{
 				// Sets Landing bool in animator to true
 				m_animator.SetBool("Landing", true);
@@ -574,7 +581,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Running bool in animator to true if the player has any running movement
-			if (m_v3MoveDirection.sqrMagnitude > 0.0f)
+			if (m_v3MoveDirection.sqrMagnitude > 0.0f || (m_loadNextScript != null && m_loadNextScript.GetStartMove()))
 			{
 				m_animator.SetBool("Running", true);
 			}

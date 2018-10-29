@@ -84,5 +84,8 @@ public class LoadNext : MonoBehaviour {
         }
     }
 
-
+	public bool GetStartMove()
+	{
+		return startMove;
+	}
 }

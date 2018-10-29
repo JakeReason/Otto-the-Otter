@@ -1838,7 +1838,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4828379428708172}
-  - component: {fileID: 95150583964275640}
   m_Layer: 0
   m_Name: Otto_Prefab_Updated
   m_TagString: Untagged
@@ -4315,23 +4314,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95150583964275640
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1812625392093508}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b32a759fe714f604f8eb0889c8a2b338, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3f8b1fae416e6d143bb144781f6de60c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95231021357982372
 Animator:
   serializedVersion: 3
@@ -4363,6 +4345,7 @@ MonoBehaviour:
   m_controller: 0
   m_hook: {fileID: 1711465142548500}
   m_cineCamera: {fileID: 0}
+  m_endDoor: {fileID: 0}
   m_runningAudio: {fileID: 8300000, guid: 50a6436c120d78144be4d7756fe3ef3f, type: 3}
   m_jumpingAudio: {fileID: 8300000, guid: 63bf98ea7f4a84440a526f4e221d9bbc, type: 3}
   m_hitAudio: {fileID: 8300000, guid: aa6f1d294dd817e48b6db82d64d4062b, type: 3}
@@ -4436,6 +4419,9 @@ MonoBehaviour:
   maxSize: 3.5
   maxDistance: 10
   offset: 0.05
+  meshLayer:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &114478474115294032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4476,9 +4462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: {fileID: 4161207773635570}
-  m_treeLayer:
+  m_meshLayer:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 0
   m_selectImage: {fileID: 0}
   m_hook: {fileID: 1711465142548500}
 --- !u!120 &120525350526898208
