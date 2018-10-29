@@ -542,7 +542,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-			if (m_bJumped && m_fVelocityY <= 0.0f)
+			if ((m_bJumped && m_fVelocityY <= 0.0f) || (m_bBounced && m_fVelocityY <= 0.0f))
 			{
 				m_animator.SetBool("Falling", true);
 			}
@@ -596,6 +596,7 @@ public class Player : MonoBehaviour
 			if (m_bBounced)
 			{
 				m_animator.SetBool("Bounce", true);
+				m_animator.SetBool("Falling", false);
 			}
 			else
 			{
