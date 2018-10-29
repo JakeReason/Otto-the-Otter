@@ -546,7 +546,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Checks if the player has jumped and is grounded
-			if (m_bJumped && m_cc.isGrounded)
+			if (/*m_bJumped && */m_cc.isGrounded)
 			{
 				// Sets Landing bool in animator to true
 				m_animator.SetBool("Landing", true);
