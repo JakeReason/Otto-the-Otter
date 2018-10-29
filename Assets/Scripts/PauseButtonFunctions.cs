@@ -11,7 +11,14 @@ public class PauseButtonFunctions : MonoBehaviour
 	[SerializeField]
 	private EventSystem m_eventSystem;
 
-	public void Resume()
+    public Animator quitButton;
+
+    public void Awake()
+    {
+        quitButton.SetBool("Exit", false);
+    }
+
+    public void Resume()
 	{
 		Time.timeScale = 1;
 		m_pauseMenu.SetActive(false);
@@ -34,4 +41,10 @@ public class PauseButtonFunctions : MonoBehaviour
 		Application.Quit();
 #endif
 	}
+
+    public void ExitAnim()
+    {
+        quitButton.SetBool("Exit", true);
+    }
+
 }
