@@ -27,20 +27,16 @@ public class CameraTUT : MonoBehaviour {
     {
         if (Input.GetButtonDown("Skip"))
         {
-            StartCoroutine(delay());
-            fading.SetBool("Fading", true);
-            
+            fading.SetBool("StartFade", true);
         }
     }
-   private IEnumerator delay()
+   public void delay()
     {
-        yield return new WaitForSeconds(2.0f);
         gameUI.SetActive(true);
         gifCam.SetActive(false);
         freeLook.SetActive(true);
         cameraUI.SetActive(false);
         m_playerScript.enabled = true;
-        StopCoroutine(delay());
         Destroy(this);
     }
 

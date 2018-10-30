@@ -36,7 +36,10 @@ public class LoadNext : MonoBehaviour {
         playerScript = m_Player.GetComponent<Player>();
         m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
         endGameCamera.SetActive(false);
+        if(winterZone != null)
+        {
         winterZone.SetActive(false);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -64,8 +67,14 @@ public class LoadNext : MonoBehaviour {
 
     private void HereComesTheSnow()
     {
+        if(winterZone!= null)
+        {
         winterZone.SetActive(true);
-        doorOpen.PlayOneShot(bliz);
+        }
+        if(bliz != null)
+        {
+            doorOpen.PlayOneShot(bliz);
+        }
     }
 
     private void OttoStart()

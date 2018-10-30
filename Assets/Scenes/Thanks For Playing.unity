@@ -518,8 +518,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29, y: -399}
-  m_SizeDelta: {x: -1690.6, y: -1092.4769}
+  m_AnchoredPosition: {x: 21, y: -347}
+  m_SizeDelta: {x: -1528.2, y: -954.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218653946
 MonoBehaviour:
@@ -542,7 +542,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4ed8d3095eb64bc4e812d3f953b05ccf, type: 3}
-    m_FontSize: 79
+    m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -580,8 +580,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.95862055, b: 1, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.9852941, g: 0.6480812, b: 0.28979236, a: 1}
+    m_PressedColor: {r: 0.72794116, g: 0.32650304, b: 0.32650304, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -600,7 +600,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1218653949}
-        m_MethodName: doQuit
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -620,6 +620,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1218653944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68f33924e49e0114c9b13eb93d6ecb64, type: 3}
+  m_Script: {fileID: 11500000, guid: f5ecf6d58f484f949b119edfbb5f3987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pauseMenu: {fileID: 0}
+  m_eventSystem: {fileID: 0}
