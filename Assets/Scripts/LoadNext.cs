@@ -21,6 +21,7 @@ public class LoadNext : MonoBehaviour {
     private Player playerScript;
 
     private bool startMove;
+	private bool loadNext;
 
 
     public int speed = 1;
@@ -33,7 +34,8 @@ public class LoadNext : MonoBehaviour {
     private void Awake()
     {
         startMove = false;
-        playerScript = m_Player.GetComponent<Player>();
+		loadNext = false;
+		playerScript = m_Player.GetComponent<Player>();
         m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
         endGameCamera.SetActive(false);
         if(winterZone != null)
@@ -45,7 +47,8 @@ public class LoadNext : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            endGameDoor.SetBool("GameEnd", true);
+			loadNext = true;
+			endGameDoor.SetBool("GameEnd", true);
             endGameCamera.SetActive(true);
             freelookCamera.SetActive(false);
             doorOpen.PlayOneShot(door);
@@ -57,7 +60,8 @@ public class LoadNext : MonoBehaviour {
 
     private void WhatsNext()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		loadNext = false;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void FadeToBlack()
@@ -96,5 +100,10 @@ public class LoadNext : MonoBehaviour {
 	public bool GetStartMove()
 	{
 		return startMove;
+	}
+
+	public bool GetLoadNext()
+	{
+		return loadNext;
 	}
 }

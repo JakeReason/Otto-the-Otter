@@ -17,7 +17,7 @@ public class AnimationOffset : MonoBehaviour {
 
 		randomIdleStart = Random.Range (0, anim.GetCurrentAnimatorStateInfo (0).length); //Set a random part of the animation to start from
 
-		anim.Play ("Jump/Floating Islands", 0, randomIdleStart);
+		anim.Play ("Jump", 0, randomIdleStart);
 		
 	}
 	
