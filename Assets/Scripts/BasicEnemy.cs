@@ -121,7 +121,7 @@ public class BasicEnemy : MonoBehaviour
 
 		m_animator.SetBool("Walk", false);
 		m_animator.SetBool("Run", false);
-		m_animator.SetBool("Idle", false);
+		//m_animator.SetBool("Idle", false);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ public class BasicEnemy : MonoBehaviour
 					m_agent.speed = m_fOriginalSpeed;
 					m_animator.SetBool("Walk", false);
 					m_animator.SetBool("Run", false);
-					m_animator.SetBool("Idle", true);
+					//m_animator.SetBool("Idle", true);
 					if (!m_bGoBackWards)
 					{
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
@@ -216,7 +216,7 @@ public class BasicEnemy : MonoBehaviour
 					{
 						m_animator.SetBool("Walk", true);
 						m_animator.SetBool("Run", false);
-						m_animator.SetBool("Idle", false);
+						//m_animator.SetBool("Idle", false);
 						// If the last waypoint has been reached turn around.
 						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
 						{
@@ -247,7 +247,7 @@ public class BasicEnemy : MonoBehaviour
 				{
 					m_animator.SetBool("Walk", false);
 					m_animator.SetBool("Run", true);
-					m_animator.SetBool("Idle", false);
+					//m_animator.SetBool("Idle", false);
 					// Sets the destination to the player position.
 					m_agent.SetDestination(m_playerTransform.position);
 					m_agent.speed = m_fChaseSpeed;

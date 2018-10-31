@@ -242,12 +242,16 @@ public class Player : MonoBehaviour
 		m_halfHealth.enabled = false;
 
 		// Sets all bools in the animator controller to false initially
-		m_animator.SetBool("Walking", false);
+		//m_animator.SetBool("Walking", false);
 		m_animator.SetBool("Running", false);
 		m_animator.SetBool("Grapple", false);
 		m_animator.SetBool("Jumping", false);
 		m_animator.SetBool("Falling", false);
 		m_animator.SetBool("Landing", false);
+		m_animator.SetBool("Bounce", false);
+		m_animator.SetBool("Damaged", false);
+		m_animator.SetBool("Dying", false);
+		m_animator.SetBool("Waiting", false);
 
 		// Stores the full heath sprite as the current health image
 		m_healthImage = m_fullHealth;
@@ -513,7 +517,7 @@ public class Player : MonoBehaviour
 	{
 		// Detects if the player is in a cutscene
 		if ((m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait()) ||
-			(m_loadNextScript != null && !m_loadNextScript.GetStartMove()))
+			(!m_loadNextScript.GetStartMove() && m_loadNextScript.GetLoadNext()))
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
 			m_animator.SetBool("Running", false);
@@ -581,7 +585,8 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Running bool in animator to true if the player has any running movement
-			if (m_v3MoveDirection.sqrMagnitude > 0.0f || (m_loadNextScript != null && m_loadNextScript.GetStartMove()))
+			if ((m_v3MoveDirection.sqrMagnitude > 0.0f) || 
+				(m_loadNextScript != null && m_loadNextScript.GetStartMove()))
 			{
 				m_animator.SetBool("Running", true);
 			}
