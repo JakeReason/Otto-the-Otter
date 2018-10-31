@@ -601,7 +601,8 @@ public class Player : MonoBehaviour
 			if (m_bBounced)
 			{
 				m_animator.SetBool("Bounce", true);
-				m_animator.SetBool("Falling", false);
+				m_bBounced = false;
+				//m_animator.SetBool("Falling", false);
 			}
 			else
 			{
