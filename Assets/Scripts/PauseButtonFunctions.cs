@@ -20,13 +20,19 @@ public class PauseButtonFunctions : MonoBehaviour
 	[SerializeField]
 	private EventSystem m_eventSystem;
 	private bool m_bFPS;
+	private bool m_bInvertCamera;
+	private bool m_bInvertCameraX;
+	private bool m_bInvertCameraY;
 	private int m_nSceneIndex;
+
+	private void Awake()
+	{
+		m_freeLook = m_camera.GetComponent<CinemachineFreeLook>();
+		m_nSceneIndex = SceneManager.GetActiveScene().buildIndex;
+	}
 
 	public void Resume()
 	{
-		m_freeLook = GetComponent<CinemachineFreeLook>();
-		m_bFPS = false;
-		m_nSceneIndex = SceneManager.GetActiveScene().buildIndex;
 		Time.timeScale = 1;
 		m_pauseMenu.SetActive(false);
 		m_optionsMenu.SetActive(false);
@@ -66,27 +72,56 @@ public class PauseButtonFunctions : MonoBehaviour
 			m_FPS.SetActive(true);
 			m_bFPS = false;
 		}
-		if (!m_bFPS)
+		else if (!m_bFPS)
 		{
-			m_FPS.SetActive(true);
+			m_FPS.SetActive(false);
 			m_bFPS = true;
 		}
 	}
 
-	//public void Inverted(bool ticked)
-	//{
-	//	if(ticked)
-	//	{
-	//		m_freeLook.m_XAxis();
-	//		m_freeLook.m_YAxis();
-	//	}
-	//	if(!ticked)
-	//	{
-	//		m_freeLook.m_XAxis();
-	//		m_freeLook.m_YAxis();
-	//	}
-	//}
+	public void Inverted()
+	{
+		if (m_bInvertCamera)
+		{
+			m_freeLook.m_XAxis.m_InvertAxis = true;
+			m_freeLook.m_YAxis.m_InvertAxis = true;
+			m_bInvertCamera = false;
+		}
+		else if (!m_bInvertCamera)
+		{
+			m_freeLook.m_XAxis.m_InvertAxis = false;
+			m_freeLook.m_YAxis.m_InvertAxis = false;
+			m_bInvertCamera = true;
+		}
+	}
 
+	public void InvertX()
+	{
+		if (m_bInvertCameraX)
+		{
+			m_freeLook.m_XAxis.m_InvertAxis = true;
+			m_bInvertCameraX = false;
+		}
+		else if (!m_bInvertCameraX)
+		{
+			m_freeLook.m_XAxis.m_InvertAxis = false;
+			m_bInvertCameraX = true;
+		}
+	}
+
+	public void InvertY()
+	{
+		if (m_bInvertCameraY)
+		{
+			m_freeLook.m_YAxis.m_InvertAxis = true;
+			m_bInvertCameraY = false;
+		}
+		else if (!m_bInvertCameraY)
+		{
+			m_freeLook.m_YAxis.m_InvertAxis = false;
+			m_bInvertCameraY = true;
+		}
+	}
 
 	public void Quit()
 	{
@@ -96,7 +131,4 @@ public class PauseButtonFunctions : MonoBehaviour
 		Application.Quit();
 #endif
 	}
-
-
-
 }
