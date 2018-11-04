@@ -53,7 +53,7 @@ public class AIHitCollide : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			--m_enemyScript.m_fHealth;
+			m_enemyScript.TakeDamage();
 			m_bHit = true;
 		}
 	}

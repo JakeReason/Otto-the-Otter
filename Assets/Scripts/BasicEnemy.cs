@@ -73,6 +73,8 @@ public class BasicEnemy : MonoBehaviour
 
 	[SerializeField]
 	private AudioClip m_enemyDeathAudioClip;
+	[SerializeField]
+	private AudioClip m_enemyHitAudioClip;
 
 	private AudioSource m_audioSource;
 
@@ -272,6 +274,12 @@ public class BasicEnemy : MonoBehaviour
 		}
 		// Checks if the agent is on the navmesh.
 		
+	}
+
+	public void TakeDamage()
+	{
+		--m_fHealth;
+		m_audioSource.PlayOneShot(m_enemyHitAudioClip);
 	}
 
 	//--------------------------------------------------------------------------------
