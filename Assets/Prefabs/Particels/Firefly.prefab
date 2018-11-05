@@ -50,9 +50,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180683942399422}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.3, y: 3.909, z: -4.93}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 3.33, y: -118.12, z: 15.87}
+  m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children:
   - {fileID: 4755283895505642}
   m_Father: {fileID: 0}
@@ -80,7 +80,7 @@ WindZone:
   m_Enabled: 1
   m_Mode: 1
   m_Radius: 2
-  m_WindMain: 2
+  m_WindMain: 1
   m_WindTurbulence: 1
   m_WindPulseMagnitude: 0.5
   m_WindPulseFrequency: 0.01
@@ -144,7 +144,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 766099080
+  randomSeed: 1067551494
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -540,7 +540,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 5
+    maxNumParticles: 7
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -609,7 +609,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.5
+      value: 2
       mode: 0
       spread: 0
       speed:
@@ -2670,7 +2670,7 @@ ParticleSystem:
       properties: 0
   LightsModule:
     enabled: 1
-    ratio: 1
+    ratio: 0.1
     light: {fileID: 108315708983027612, guid: 3dbe09c44b3281c40bb9f8e6ae0b3417, type: 2}
     randomDistribution: 1
     color: 1
@@ -2679,7 +2679,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 7.04
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2720,7 +2720,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
