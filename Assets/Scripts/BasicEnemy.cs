@@ -98,6 +98,8 @@ public class BasicEnemy : MonoBehaviour
 
 	private Animator m_animator;
 
+	public bool m_bDead;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -125,7 +127,10 @@ public class BasicEnemy : MonoBehaviour
 
 		m_animator.SetBool("Walk", false);
 		m_animator.SetBool("Run", false);
-		//m_animator.SetBool("Idle", false);
+		m_animator.SetBool("Idle", false);
+		m_animator.SetBool("90 Spin", false);
+		m_animator.SetBool("Hit", false);
+		m_animator.SetBool("Death", false);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -175,22 +180,31 @@ public class BasicEnemy : MonoBehaviour
 		// Checks if the enemy is dead.
 		if (m_fHealth <= 0)
 		{
-			m_wolfModel.SetActive(false);
+			m_animator.SetBool("Walk", false);
+			m_animator.SetBool("Run", false);
+			m_animator.SetBool("Idle", false);
+			m_animator.SetBool("90 Spin", false);
+			m_animator.SetBool("Hit", false);
+			m_animator.SetBool("Death", true);
 			GetComponent<BoxCollider>().enabled = false;
 			GetComponent<NavMeshAgent>().enabled = false;
 			m_hookableObj.GetComponent<Collider>().enabled = false;
-            m_enemyHitBox.SetActive(false);
+			m_enemyHitBox.SetActive(false);
 			m_detectorScript.ClearTarget(m_hookableObj);
-			if (!m_audioSource.isPlaying && !m_bAudioPlayed)
+			if (m_bDead)
 			{
-				Instantiate(m_clamStack, transform.position, transform.rotation);
-				m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
-				m_bAudioPlayed = true;
-			}
-			if (m_bAudioPlayed && !m_audioSource.isPlaying)
-			{
-				m_hookableObj.tag = "Untagged";
-				this.transform.parent.gameObject.SetActive(false);
+				m_wolfModel.SetActive(false);
+				if (!m_audioSource.isPlaying && !m_bAudioPlayed)
+				{
+					Instantiate(m_clamStack, transform.position, transform.rotation);
+					m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
+					m_bAudioPlayed = true;
+				}
+				if (m_bAudioPlayed && !m_audioSource.isPlaying)
+				{
+					m_hookableObj.tag = "Untagged";
+					this.transform.parent.gameObject.SetActive(false);
+				}
 			}
 		}
 		else
@@ -205,23 +219,42 @@ public class BasicEnemy : MonoBehaviour
 					m_agent.speed = m_fOriginalSpeed;
 					m_animator.SetBool("Walk", false);
 					m_animator.SetBool("Run", false);
-					//m_animator.SetBool("Idle", true);
+					m_animator.SetBool("Idle", true);
+					m_animator.SetBool("90 Spin", false);
+					int index = (m_nDestPoint - 1) % m_targetPoints.Length;
 					if (!m_bGoBackWards)
 					{
-						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
-						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
+						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+
+						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[1].rotation, m_fWaitRotateSpeed);
+
+						//m_animator.SetBool("90 Spin", true);
+						m_animator.SetBool("90 Spin", false);
+						m_animator.SetBool("Idle", true);
+						m_animator.SetBool("Walk", false);
+						m_animator.SetBool("Run", false);
 					}
 					if (m_bGoBackWards)
 					{
-						var waypointRotation = Quaternion.LookRotation(m_targetPoints[m_nDestPoint].position - transform.position);
-						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
+						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+
+						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[0].rotation, m_fWaitRotateSpeed);
+
+						//m_animator.SetBool("90 Spin", true);
+						m_animator.SetBool("90 Spin", false);
+						m_animator.SetBool("Idle", true);
+						m_animator.SetBool("Walk", false);
+						m_animator.SetBool("Run", false);
 					}
 					// When the cooldown is over move to next point and resets cooldown time.
 					if (m_fCooldown <= 0)
 					{
 						m_animator.SetBool("Walk", true);
 						m_animator.SetBool("Run", false);
-						//m_animator.SetBool("Idle", false);
+						m_animator.SetBool("90 Spin", false);
+						m_animator.SetBool("Idle", false);
 						// If the last waypoint has been reached turn around.
 						if (m_targetPoints[m_nDestPoint].tag == "LastWaypoint")
 						{
@@ -252,7 +285,8 @@ public class BasicEnemy : MonoBehaviour
 				{
 					m_animator.SetBool("Walk", false);
 					m_animator.SetBool("Run", true);
-					//m_animator.SetBool("Idle", false);
+					m_animator.SetBool("90 Spin", false);
+					m_animator.SetBool("Idle", false);
 					// Sets the destination to the player position.
 					m_agent.SetDestination(m_playerTransform.position);
 					m_agent.speed = m_fChaseSpeed;
@@ -285,24 +319,11 @@ public class BasicEnemy : MonoBehaviour
         if(m_fHealth > 0)
         {
 		    m_audioSource.PlayOneShot(m_enemyHitAudioClip);
-        }
+		}
 	}
 
-	//--------------------------------------------------------------------------------
-	// OnTriggerEnter checks when the hook collides with this object and takes damage.
-	//
-	// Param:
-	//		other: used to find the other colliding object.
-	//
-	//--------------------------------------------------------------------------------
-	private void OnTriggerEnter(Collider other)
+	public void Death()
 	{
-		//// Checks if the hook hits the enemy.
-		//if (other.tag == "Hook")
-		//{
-		//	// Takes damage.
-		//	--m_fHealth;
-
-		//}
+		m_bDead = true;
 	}
 }
