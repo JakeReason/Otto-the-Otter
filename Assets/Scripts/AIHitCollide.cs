@@ -13,10 +13,12 @@ public class AIHitCollide : MonoBehaviour
 	bool m_bHit;
 	Color m_originalColour;
 	float m_timer;
+	Animator m_animator;
 
 	// Use this for initialization
 	void Awake()
 	{
+		m_animator = m_enemy.GetComponent<Animator>();
 		m_enemyScript = m_enemy.GetComponent<BasicEnemy>();
 		m_originalColour = m_enemyModel.GetComponent<SkinnedMeshRenderer>().material.color;
 	}
@@ -24,7 +26,11 @@ public class AIHitCollide : MonoBehaviour
 	{
 		if (m_bHit)
 		{
+			
 			m_timer += Time.deltaTime;
+
+			if(m_timer > 1.3f)
+				m_animator.SetBool("Hit", false);
 			if (m_timer <= m_fHitTime)
 			{
 				// Detects if the sine wave value is less than 0
@@ -44,6 +50,7 @@ public class AIHitCollide : MonoBehaviour
 			{
 				m_enemyModel.GetComponent<SkinnedMeshRenderer>().material.color = m_originalColour;
 				m_timer = 0;
+				
 				m_bHit = false;
 			}
 		}
@@ -53,8 +60,16 @@ public class AIHitCollide : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			m_enemyScript.TakeDamage();
-			m_bHit = true;
+			if(!m_bHit)
+			{
+				m_animator.SetBool("90 Spin", false);
+				m_animator.SetBool("Idle", false);
+				m_animator.SetBool("Walk", false);
+				m_animator.SetBool("Run", false);
+				m_animator.SetBool("Hit", true);
+				m_bHit = true;
+				m_enemyScript.TakeDamage();
+			}
 		}
 	}
 }
