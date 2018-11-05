@@ -180,8 +180,6 @@ public class Player : MonoBehaviour
 	// Int keeps track of the player's current health
 	private int m_nHealth;
 
-	private int m_nPrevHealth;
-
     // Bool used to let the script know if the player has jumped from ground
     private bool m_bJumped;
 
@@ -193,6 +191,8 @@ public class Player : MonoBehaviour
 
 	// Detects if the player has bounced off a mushroom or not
 	private bool m_bBounced;
+
+	private bool m_bDeath;
 
 	public GameObject m_fadeToBlack;
 
@@ -242,7 +242,6 @@ public class Player : MonoBehaviour
 		m_halfHealth.enabled = false;
 
 		// Sets all bools in the animator controller to false initially
-		//m_animator.SetBool("Walking", false);
 		m_animator.SetBool("Running", false);
 		m_animator.SetBool("Grapple", false);
 		m_animator.SetBool("Jumping", false);
@@ -252,6 +251,7 @@ public class Player : MonoBehaviour
 		m_animator.SetBool("Damaged", false);
 		m_animator.SetBool("Dying", false);
 		m_animator.SetBool("Waiting", false);
+		m_animator.SetBool("Respawn", false);
 
 		// Stores the full heath sprite as the current health image
 		m_healthImage = m_fullHealth;
@@ -288,13 +288,12 @@ public class Player : MonoBehaviour
 		// Sets the health of the player to equal two when script is called
 		m_nHealth = 2;
 
-		m_nPrevHealth = m_nHealth;
-
 		// Sets private bools to false on awake
 		m_bJumped = false;
         m_bRecovering = false;
 		m_bMiniJump = false;
 		m_bBounced = false;
+		m_bDeath = false;
 	}
 
     //--------------------------------------------------------------------------------
@@ -313,200 +312,207 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
-		// Detects if the player is on the ground
-		if (m_cc.isGrounded)
+		if (!m_bDeath && Time.timeScale != 0)
 		{
-			// Resets y velocity and jump timer back to zero
-			m_fVelocityY = 0.0f;
-			m_fJumpTimer = 0.0f;
-
-			// Resets the time to jump apex to what it was on awake.
-			m_fTimeToJumpApex = m_fInitialJumpApex;
-
-			// Allows for targets to be set for the grappling hook
-			m_grapplingScript.SetLaunchable(true);
-
-			// Resets the mini jump and bounced booleans to false
-			m_bMiniJump = false;
-			m_bBounced = false;
-		}
-		// Otherwise adds jump timer by delta time if Otto isn't grounded
-		else
-		{
-			m_fJumpTimer += Time.deltaTime;
-		}
-
-		// Detects if the left stick is centred
-		if (Input.GetAxis("LeftStickHorizontal") < 0.1f && 
-			Input.GetAxis("LeftStickVertical") < 0.1f &&
-			Input.GetAxis("LeftStickHorizontal") > -0.1f &&
-			Input.GetAxis("LeftStickVertical") > -0.1f)
-		{
-			// Sets input floats based on the keyboard axes
-			m_fForward = Input.GetAxis("KeyboardHorizontal");
-			m_fSideways = Input.GetAxis("KeyboardVertical");
-		}
-		// Else if left stick is not centred
-		else
-		{
-			// Sets input floats based on the controller's axes
-			m_fForward = Input.GetAxis("LeftStickHorizontal");
-			m_fSideways = Input.GetAxis("LeftStickVertical");
-		}
-
-		// Creates a "new" vector3 for the player to move based on input
-		m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
-
-		// Stops player if a cut scene is playing and Otto needs to wait
-		if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
-		{
-			m_v3MoveDirection = Vector3.zero;
-		}
-		// Otherwise he can move freely if the player is not in a cutscene
-		else
-		{
-			// Detects if Grappling Hook is hooked on an object or launched
-			if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
+			// Detects if the player is on the ground
+			if (m_cc.isGrounded)
 			{
-				// Disables any Y velocity to be applied to the player
-				m_fVelocityY = 0;
+				// Resets y velocity and jump timer back to zero
+				m_fVelocityY = 0.0f;
+				m_fJumpTimer = 0.0f;
 
-				// Restricts movement by a little
-				m_v3MoveDirection *= 0.6f;
+				// Resets the time to jump apex to what it was on awake.
+				m_fTimeToJumpApex = m_fInitialJumpApex;
 
-				// Sets launchable boolean to false in hook script
-				m_grapplingScript.SetLaunchable(false);
+				// Allows for targets to be set for the grappling hook
+				m_grapplingScript.SetLaunchable(true);
+
+				// Resets the mini jump and bounced booleans to false
+				m_bMiniJump = false;
+				m_bBounced = false;
 			}
+			// Otherwise adds jump timer by delta time if Otto isn't grounded
 			else
 			{
-				// Calls jump function if button is pressed whilst grounded or if Otto just fell
-				if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) ||
-					(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
-				{
-					Jump();
-				}
-				// Sets mini jump bool to true if the jump button is let go before apex is reached
-				else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded &&
-						 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
-				{
-					m_bMiniJump = true;
-				}
-
-				// Sets mini jump bool to false if the player has bounced
-				if (m_bBounced)
-				{
-					m_bMiniJump = false;
-				}
-
-				// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
-				if (m_bMiniJump && m_fVelocityY >= 0)
-				{
-					m_fVelocityY -= 2.0f;
-				}
+				m_fJumpTimer += Time.deltaTime;
 			}
 
-			// Stores the y movement direction in local float
-			float fCurrentMoveY = m_v3MoveDirection.y;
-			
-			// Calculates the move direction in camera space rather than world space
-			m_v3MoveDirection = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up) * 
-													 m_v3MoveDirection;
-
-			// Stores local float value as the y value for the Move Direction
-			m_v3MoveDirection.y = fCurrentMoveY;
-
-			// Normalizes the move vector if the magnitude exceeds 1
-			if (m_v3MoveDirection.sqrMagnitude > 1.0f)
+			// Detects if the left stick is centred
+			if (Input.GetAxis("LeftStickHorizontal") < 0.1f &&
+				Input.GetAxis("LeftStickVertical") < 0.1f &&
+				Input.GetAxis("LeftStickHorizontal") > -0.1f &&
+				Input.GetAxis("LeftStickVertical") > -0.1f)
 			{
-				m_v3MoveDirection.Normalize();
+				// Sets input floats based on the keyboard axes
+				m_fForward = Input.GetAxis("KeyboardHorizontal");
+				m_fSideways = Input.GetAxis("KeyboardVertical");
 			}
-		}
-
-		// Increases gravity if the player is near their apex
-		if (m_fVelocityY <= 3.0f && m_fVelocityY >= 0.0f && 
-			!m_cc.isGrounded && !m_bMiniJump)
-		{
-			m_fGravity += 2.0f;
-		}
-		// Decreases gravity just after the player reaches their apex
-		else if (m_fVelocityY < 0.0f && m_fGravity > m_fInitialGravity && 
-				 !m_cc.isGrounded && !m_bMiniJump)
-		{
-			m_fGravity -= 2.0f;
-		}
-		// Otherwise sets gravity back to its initial value
-		else
-		{
-			m_fGravity = m_fInitialGravity;
-		}
-
-		// Caps the y velocity to -30 if the value goes below -30
-		if (m_fVelocityY <= -30)
-		{
-			m_fVelocityY = -30;
-		}
-
-		// Sets Y Velocity to zero if the player hits his head above something
-		if (UpCheck())
-		{
-			m_fVelocityY = 0.0f;
-		}
-
-		// Applies the gravity to y velocity if the player hasn't launched hook
-		if (!m_grapplingScript.GetFired())
-		{
-			m_fVelocityY += m_fGravity * Time.deltaTime;
-		}
-
-		// Multiples Move Direction vector by speed and the y velocity
-		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
-
-		// Adds movement to CharacterController based on move direction and delta time
-		m_cc.Move(m_v3Velocity * Time.deltaTime);
-
-		// Checks if the magnitude of the move direction is greater than 0.1
-		if (m_v3MoveDirection.sqrMagnitude > 0.1f)
-		{
-			// Calculates the look direction by adding the position with the move direction
-			m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
-
-			// Sets the y value of look direction to equal the player's y position
-			m_v3LookDirection.y = transform.position.y;
-
-			// Makes the player face the direction that they are walking
-			transform.LookAt(m_v3LookDirection, Vector3.up);
-		}
-
-		// Detects if the player is in recovery mode
-		if (m_bRecovering)
-		{
-			// Updates the health timer every second by deltaTime
-			m_fHealthTimer += Time.deltaTime;
-
-			// Detects if the sine wave value is less than 0
-			if (Mathf.Sin(m_fHealthTimer / m_fFlashingRate) >= 0)
-			{
-				// Sets Otto's material colour to equal that of the flash colour
-				m_meshRenderer.material.color = m_flashColour;
-			}
-			// Otherwise the player's colour is reverted to his initial colour
+			// Else if left stick is not centred
 			else
 			{
-				m_meshRenderer.material.color = m_originalColour;
+				// Sets input floats based on the controller's axes
+				m_fForward = Input.GetAxis("LeftStickHorizontal");
+				m_fSideways = Input.GetAxis("LeftStickVertical");
 			}
 
-			// Checks if the health timer exceeds the maximum recovery time
-			if (m_fHealthTimer >= m_fHealthRecoveryTime)
+			// Creates a "new" vector3 for the player to move based on input
+			m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
+
+			// Stops player if a cut scene is playing and Otto needs to wait
+			if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
 			{
-				// Sets the health timer to equal zero
-				m_fHealthTimer = 0.0f;
-
-				// Reverts recovery bool back to false
-				m_bRecovering = false;
-
-				// Otto's colour is set to his original colour
-				m_meshRenderer.material.color = m_originalColour;
+				m_v3MoveDirection = Vector3.zero;
 			}
+			// Otherwise he can move freely if the player is not in a cutscene
+			else
+			{
+				// Detects if Grappling Hook is hooked on an object or launched
+				if (m_grapplingScript.GetHooked() || m_grapplingScript.GetFired())
+				{
+					// Disables any Y velocity to be applied to the player
+					m_fVelocityY = 0;
+
+					// Restricts movement by a little
+					m_v3MoveDirection *= 0.6f;
+
+					// Sets launchable boolean to false in hook script
+					m_grapplingScript.SetLaunchable(false);
+				}
+				else
+				{
+					// Calls jump function if button is pressed whilst grounded or if Otto just fell
+					if ((Input.GetButtonDown("Jump") && m_cc.isGrounded) ||
+						(Input.GetButtonDown("Jump") && m_fJumpTimer < m_fFallRecovery && !m_bJumped))
+					{
+						Jump();
+					}
+					// Sets mini jump bool to true if the jump button is let go before apex is reached
+					else if (Input.GetButtonUp("Jump") && !m_cc.isGrounded &&
+							 m_fJumpTimer < m_fTimeToJumpApex && !m_bBounced)
+					{
+						m_bMiniJump = true;
+					}
+
+					// Sets mini jump bool to false if the player has bounced
+					if (m_bBounced)
+					{
+						m_bMiniJump = false;
+					}
+
+					// Decreases Y Velocity by 2 if mini jump is true and y velocity is a positive
+					if (m_bMiniJump && m_fVelocityY >= 0)
+					{
+						m_fVelocityY -= 2.0f;
+					}
+				}
+
+				// Stores the y movement direction in local float
+				float fCurrentMoveY = m_v3MoveDirection.y;
+
+				// Calculates the move direction in camera space rather than world space
+				m_v3MoveDirection = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up) *
+														 m_v3MoveDirection;
+
+				// Stores local float value as the y value for the Move Direction
+				m_v3MoveDirection.y = fCurrentMoveY;
+
+				// Normalizes the move vector if the magnitude exceeds 1
+				if (m_v3MoveDirection.sqrMagnitude > 1.0f)
+				{
+					m_v3MoveDirection.Normalize();
+				}
+			}
+
+			// Increases gravity if the player is near their apex
+			if (m_fVelocityY <= 3.0f && m_fVelocityY >= 0.0f &&
+				!m_cc.isGrounded && !m_bMiniJump)
+			{
+				m_fGravity += 2.0f;
+			}
+			// Decreases gravity just after the player reaches their apex
+			else if (m_fVelocityY < 0.0f && m_fGravity > m_fInitialGravity &&
+					 !m_cc.isGrounded && !m_bMiniJump)
+			{
+				m_fGravity -= 2.0f;
+			}
+			// Otherwise sets gravity back to its initial value
+			else
+			{
+				m_fGravity = m_fInitialGravity;
+			}
+
+			// Caps the y velocity to -30 if the value goes below -30
+			if (m_fVelocityY <= -30)
+			{
+				m_fVelocityY = -30;
+			}
+
+			// Sets Y Velocity to zero if the player hits his head above something
+			if (UpCheck())
+			{
+				m_fVelocityY = 0.0f;
+			}
+
+			// Applies the gravity to y velocity if the player hasn't launched hook
+			if (!m_grapplingScript.GetFired())
+			{
+				m_fVelocityY += m_fGravity * Time.deltaTime;
+			}
+
+			// Multiples Move Direction vector by speed and the y velocity
+			m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
+
+			// Adds movement to CharacterController based on move direction and delta time
+			m_cc.Move(m_v3Velocity * Time.deltaTime);
+
+			// Checks if the magnitude of the move direction is greater than 0.1
+			if (m_v3MoveDirection.sqrMagnitude > 0.1f)
+			{
+				// Calculates the look direction by adding the position with the move direction
+				m_v3LookDirection = transform.position + m_v3MoveDirection.normalized;
+
+				// Sets the y value of look direction to equal the player's y position
+				m_v3LookDirection.y = transform.position.y;
+
+				// Makes the player face the direction that they are walking
+				transform.LookAt(m_v3LookDirection, Vector3.up);
+			}
+
+			// Detects if the player is in recovery mode
+			if (m_bRecovering)
+			{
+				// Updates the health timer every second by deltaTime
+				m_fHealthTimer += Time.deltaTime;
+
+				// Detects if the sine wave value is less than 0
+				if (Mathf.Sin(m_fHealthTimer / m_fFlashingRate) >= 0)
+				{
+					// Sets Otto's material colour to equal that of the flash colour
+					m_meshRenderer.material.color = m_flashColour;
+				}
+				// Otherwise the player's colour is reverted to his initial colour
+				else
+				{
+					m_meshRenderer.material.color = m_originalColour;
+				}
+
+				// Checks if the health timer exceeds the maximum recovery time
+				if (m_fHealthTimer >= m_fHealthRecoveryTime)
+				{
+					// Sets the health timer to equal zero
+					m_fHealthTimer = 0.0f;
+
+					// Reverts recovery bool back to false
+					m_bRecovering = false;
+
+					// Otto's colour is set to his original colour
+					m_meshRenderer.material.color = m_originalColour;
+				}
+			}
+		}
+		else
+		{
+			m_fWaitTimer = 0.0f;
 		}
 	}
 
@@ -529,6 +535,7 @@ public class Player : MonoBehaviour
 			m_animator.SetBool("Damaged", false);
 			m_animator.SetBool("Dying", false);
 			m_animator.SetBool("Waiting", false);
+			m_animator.SetBool("Respawn", false);
 		}
 		// Runs if gameplay is running
 		else
@@ -602,31 +609,33 @@ public class Player : MonoBehaviour
 			{
 				m_animator.SetBool("Bounce", true);
 				m_bBounced = false;
-				//m_animator.SetBool("Falling", false);
+				m_animator.SetBool("Falling", false);
 			}
 			else
 			{
 				m_animator.SetBool("Bounce", false);
 			}
 			
-			if (m_nPrevHealth > m_nHealth && m_nHealth != 0)
+			if (m_bRecovering && m_fHealthTimer < 0.3f)
 			{
 				m_animator.SetBool("Damaged", true);
-
-				m_nPrevHealth = m_nHealth;
 			}
 			else
 			{
 				m_animator.SetBool("Damaged", false);
 			}
 
-			if (m_nHealth == 0)
+			if (m_bDeath)
 			{
 				m_animator.SetBool("Dying", true);
+
+				m_animator.SetBool("Respawn", false);
 			}
 			else
 			{
 				m_animator.SetBool("Dying", false);
+
+				m_animator.SetBool("Respawn", true);
 			}
 
 			if (m_fWaitTimer >= 5.0f)
@@ -727,6 +736,8 @@ public class Player : MonoBehaviour
     //--------------------------------------------------------------------------------
     private void Death()
     {
+		m_bDeath = true;
+
 		// Plays the death audio using the audio source on the player
 		m_audioSource.PlayOneShot(m_deathAudio);
 
@@ -821,7 +832,7 @@ public class Player : MonoBehaviour
 	IEnumerator SpawnDelay()
 	{
 		// Waits for 0.1 seconds before being called
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(1.0f);
 
 		// Sends player back to the checkpoint if Otto has passed one
 		if (m_cm.GetCheckPoint() != null)
@@ -835,6 +846,7 @@ public class Player : MonoBehaviour
 		}
 
 		m_nHealth = 2;
+		m_bDeath = false;
 
 		// Disables half health UI and enables full health UI
 		m_halfHealth.enabled = false;
