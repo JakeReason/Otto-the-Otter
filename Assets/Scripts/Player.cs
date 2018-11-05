@@ -22,7 +22,11 @@ public class Player : MonoBehaviour
 	// Allows for access to camera that uses Cinemachine
 	public GameObject m_cineCamera;
 
+	// Represents the end door of a specific level
 	public GameObject m_endDoor;
+
+	// Represents the fade in after Otto dies
+	public GameObject m_fadeToBlack;
 
 	// AudioClip used to store the audio for when Otto runs
 	public AudioClip m_runningAudio;
@@ -124,13 +128,16 @@ public class Player : MonoBehaviour
 	// Stores a reference to the Cinemachine Camera script
 	private CineCamera m_cineCameraScript;
 
+	// Used to access the death fade script from the fade object
+	private DeathFade m_deathFade;
+
+	// Accesses the load next scene script for Player script to alter
 	private LoadNext m_loadNextScript;
 
 	// Used to access and change the audio source component on the player
 	private AudioSource m_audioSource;
 
 	// Represents the platform layer in the game
-	[SerializeField]
 	private LayerMask m_platformLayer;
 
 	// Vector3 represents the input direction from the analog stick
@@ -148,7 +155,7 @@ public class Player : MonoBehaviour
 	// Represents gravity applied to the player
 	private float m_fGravity;
 
-	// Float indicates the velo9city of Otto's jump
+	// Float indicates the velocity of Otto's jump
 	private float m_fJumpVelocity;
 
 	// Keeps track of the velocity of Otto on the Y axis
@@ -169,6 +176,7 @@ public class Player : MonoBehaviour
 	// Records the amount of time the player spends whilst jumping
 	private float m_fJumpTimer;
 
+	// Records wthe amount of time spent in idle
 	private float m_fWaitTimer;
 
 	// Float indicates the forward direction of Otto
@@ -192,19 +200,18 @@ public class Player : MonoBehaviour
 	// Detects if the player has bounced off a mushroom or not
 	private bool m_bBounced;
 
+	// Indicates if the player has died
 	private bool m_bDeath;
-
-	public GameObject m_fadeToBlack;
-
-	private DeathFade m_deathFade;
 
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
     {
+		// Gets the Death Fade script off of the Death Fade game object
 		m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
 
+		// Accesses the Load Next script from the End Door
 		m_loadNextScript = m_endDoor.GetComponent<LoadNext>();
 
 		// Gets reference to the collectable manager gameObject.
@@ -303,7 +310,6 @@ public class Player : MonoBehaviour
     {
 		// Calls Move, PlatformDetection and Animate functions in conjunction per frame
 		Move();
-		//PlatformDetection();
 		Animate();
 	}
 
@@ -312,6 +318,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Move()
 	{
+		// Detects if the player hasn't died or the game isn't paused
 		if (!m_bDeath && Time.timeScale != 0)
 		{
 			// Detects if the player is on the ground
@@ -510,6 +517,7 @@ public class Player : MonoBehaviour
 				}
 			}
 		}
+		// Else disables the player movement if death or paused
 		else
 		{
 			m_fWaitTimer = 0.0f;
@@ -552,8 +560,8 @@ public class Player : MonoBehaviour
 				m_animator.SetBool("Jumping", false);
 			}
 
-			// Sets Falling bool in animator to true if jumped and Gravity exceeds jump speed
-			if ((m_bJumped && m_fVelocityY <= 0.0f) || (m_bBounced && m_fVelocityY <= 0.0f))
+			// Sets Falling bool in animator to true if Gravity exceeds jump speed
+			if (m_bJumped && m_fVelocityY <= 0.0f || m_bBounced && m_fVelocityY <= 0.0f)
 			{
 				m_animator.SetBool("Falling", true);
 			}
@@ -581,8 +589,10 @@ public class Player : MonoBehaviour
 			// Detects if player has launched hook or is hooked
 			if (m_grapplingScript.GetFired() && !m_grapplingScript.GetHooked())
 			{
+				// Grapple bool is set to true in the animator
 				m_animator.SetBool("Grapple", true);
 
+				// Plays the particle effect of the scarf
 				m_scarfWrap.Play();
 			}
 			// Sets Grapple bool in animator to false otherwise
@@ -597,25 +607,35 @@ public class Player : MonoBehaviour
 			{
 				m_animator.SetBool("Running", true);
 			}
-			// Sets Running bool in animator to false if player is not running
+			// Else if the player isn't moving
 			else
 			{
+				// Running bool is set to false
 				m_animator.SetBool("Running", false);
 
+				// Records the amount of time player is in idle
 				m_fWaitTimer += Time.deltaTime;
 			}
 
+			// Detects if the player has bounced off of an object
 			if (m_bBounced)
 			{
+				// Sets bounce bool to true in animator
 				m_animator.SetBool("Bounce", true);
+
+				// Resets bounced bool back to false
 				m_bBounced = false;
+
+				// Falling bool is automatically set to false in animator
 				m_animator.SetBool("Falling", false);
 			}
+			// Otherwise sets bounce to false in player animator
 			else
 			{
 				m_animator.SetBool("Bounce", false);
 			}
 			
+			// 
 			if (m_bRecovering && m_fHealthTimer < 0.3f)
 			{
 				m_animator.SetBool("Damaged", true);
