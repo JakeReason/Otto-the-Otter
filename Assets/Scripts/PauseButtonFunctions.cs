@@ -15,7 +15,9 @@ public class PauseButtonFunctions : MonoBehaviour
 	private GameObject m_FPS;
 	[SerializeField]
 	private GameObject m_camera;
-	[SerializeField]
+    [SerializeField]
+    private GameObject m_optionsButton;
+    [SerializeField]
 	private CinemachineFreeLook m_freeLook;
 	[SerializeField]
 	private EventSystem m_eventSystem;
@@ -57,6 +59,7 @@ public class PauseButtonFunctions : MonoBehaviour
 	{
 		m_pauseMenu.SetActive(false);
 		m_optionsMenu.SetActive(true);
+        m_eventSystem.SetSelectedGameObject(m_optionsButton);
 	}
 
 	public void Back()

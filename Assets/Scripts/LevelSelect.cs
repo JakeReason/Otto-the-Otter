@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour {
-    public int level1 = 0;
+    public int currentLevel = 0;
     public Animator canvus;
+    public AudioSource buttonLvL1;
+    public AudioSource buttonTut;
+    public AudioClip selection;
 
 
     public void loadLevel()
     {
-        if (level1 == 1)
+        if (currentLevel == 1)
         {
             SceneManager.LoadScene("Greybox (Tutoral)");
         }
-        else if (level1 == 2)
+        else if (currentLevel == 2)
         {
             SceneManager.LoadScene("Level 1 Test");
         }
@@ -22,16 +25,18 @@ public class LevelSelect : MonoBehaviour {
 
     public void tut()
     {
-        level1 = 1;
+        currentLevel = 1;
         canvus.SetBool("Fade", true);
+        buttonTut.PlayOneShot(selection);
     }
 
     public void level1Load()
     {
-        level1 = 2;
+        currentLevel = 2;
         canvus.SetBool("Fade", true);
+        buttonLvL1.PlayOneShot(selection);
     }
 
 
-    
+
 }

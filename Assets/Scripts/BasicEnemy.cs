@@ -92,6 +92,8 @@ public class BasicEnemy : MonoBehaviour
 
 	public float m_fChaseSpeed;
 
+    public GameObject m_enemyHitBox;
+
 	private float m_fOriginalSpeed;
 
 	private Animator m_animator;
@@ -177,6 +179,7 @@ public class BasicEnemy : MonoBehaviour
 			GetComponent<BoxCollider>().enabled = false;
 			GetComponent<NavMeshAgent>().enabled = false;
 			m_hookableObj.GetComponent<Collider>().enabled = false;
+            m_enemyHitBox.SetActive(false);
 			m_detectorScript.ClearTarget(m_hookableObj);
 			if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 			{
@@ -279,7 +282,10 @@ public class BasicEnemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		--m_fHealth;
-		m_audioSource.PlayOneShot(m_enemyHitAudioClip);
+        if(m_fHealth > 0)
+        {
+		    m_audioSource.PlayOneShot(m_enemyHitAudioClip);
+        }
 	}
 
 	//--------------------------------------------------------------------------------
