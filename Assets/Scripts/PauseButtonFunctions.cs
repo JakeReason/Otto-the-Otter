@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using Cinemachine;
+using XboxCtrlrInput;
 
 public class PauseButtonFunctions : MonoBehaviour
 {
@@ -31,6 +32,22 @@ public class PauseButtonFunctions : MonoBehaviour
 	{
 		m_freeLook = m_camera.GetComponent<CinemachineFreeLook>();
 		m_nSceneIndex = SceneManager.GetActiveScene().buildIndex;
+	}
+
+	private void Update()
+	{
+		if (XCI.GetButtonDown(XboxButton.B))
+		{
+			if (m_optionsMenu.activeInHierarchy)
+			{
+				m_optionsMenu.SetActive(false);
+				m_pauseMenu.SetActive(true);
+			}
+			else if (m_pauseMenu.activeInHierarchy)
+			{
+				Resume();
+			}
+		}
 	}
 
 	public void Resume()
