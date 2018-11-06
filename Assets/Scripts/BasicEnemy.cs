@@ -224,27 +224,27 @@ public class BasicEnemy : MonoBehaviour
 					int index = (m_nDestPoint - 1) % m_targetPoints.Length;
 					if (!m_bGoBackWards)
 					{
-						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
-						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[1].rotation, m_fWaitRotateSpeed);
 
-						//m_animator.SetBool("90 Spin", true);
-						m_animator.SetBool("90 Spin", false);
-						m_animator.SetBool("Idle", true);
+						m_animator.SetBool("90 Spin", true);
+						//m_animator.SetBool("90 Spin", false);
+						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
 					}
 					if (m_bGoBackWards)
 					{
-						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
-						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[0].rotation, m_fWaitRotateSpeed);
-
-						//m_animator.SetBool("90 Spin", true);
-						m_animator.SetBool("90 Spin", false);
-						m_animator.SetBool("Idle", true);
+							
+						m_animator.SetBool("90 Spin", true);
+						//m_animator.SetBool("90 Spin", false);
+						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
 					}
