@@ -100,6 +100,8 @@ public class BasicEnemy : MonoBehaviour
 
 	public bool m_bDead;
 
+	private bool m_bStunned;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -193,7 +195,6 @@ public class BasicEnemy : MonoBehaviour
 			m_detectorScript.ClearTarget(m_hookableObj);
 			if (m_bDead)
 			{
-				m_wolfModel.SetActive(false);
 				if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 				{
 					Instantiate(m_clamStack, transform.position, transform.rotation);
@@ -207,7 +208,7 @@ public class BasicEnemy : MonoBehaviour
 				}
 			}
 		}
-		else
+		else if(!m_bStunned)
 		{
 			if (m_agent.isOnNavMesh)
 			{
@@ -221,30 +222,28 @@ public class BasicEnemy : MonoBehaviour
 					m_animator.SetBool("Run", false);
 					m_animator.SetBool("Idle", true);
 					m_animator.SetBool("90 Spin", false);
-					int index = (m_nDestPoint - 1) % m_targetPoints.Length;
+					
 					if (!m_bGoBackWards)
 					{
-						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
-						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[1].rotation, m_fWaitRotateSpeed);
 
-						//m_animator.SetBool("90 Spin", true);
-						m_animator.SetBool("90 Spin", false);
-						m_animator.SetBool("Idle", true);
+						m_animator.SetBool("90 Spin", true);
+						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
 					}
 					if (m_bGoBackWards)
 					{
-						//var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
-						//transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
+						var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
+						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
 
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[0].rotation, m_fWaitRotateSpeed);
-
-						//m_animator.SetBool("90 Spin", true);
-						m_animator.SetBool("90 Spin", false);
-						m_animator.SetBool("Idle", true);
+							
+						m_animator.SetBool("90 Spin", true);
+						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
 					}
@@ -316,14 +315,27 @@ public class BasicEnemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		--m_fHealth;
+		m_agent.speed = 0;
+		m_bStunned = true;
         if(m_fHealth > 0)
         {
 		    m_audioSource.PlayOneShot(m_enemyHitAudioClip);
 		}
+		StartCoroutine("ResetSpeed");
 	}
 
 	public void Death()
 	{
 		m_bDead = true;
+	}
+
+	IEnumerator ResetSpeed()
+	{
+		// Waits for 0.1 seconds before being called
+		yield return new WaitForSeconds(1.5f);
+
+		m_agent.speed = m_fOriginalSpeed;
+
+		m_bStunned = false;
 	}
 }
