@@ -317,7 +317,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4138439609782626, guid: 93159cd8dad830249a50f7e0c9f10adc, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93159cd8dad830249a50f7e0c9f10adc, type: 2}
@@ -511,7 +511,7 @@ Transform:
   m_LocalScale: {x: 152.57304, y: 0.0038692616, z: 152.573}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485689733
 GameObject:
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_LockStageInInspector: 00000000
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 1289695682}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
@@ -772,8 +772,8 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 1289695682}
-  m_Follow: {fileID: 1289695682}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 40
@@ -835,85 +835,8 @@ Transform:
   - {fileID: 86341695}
   - {fileID: 601959266}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1013007870
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 211.7978
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 8.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 53.34006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828379428708172, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Center.x
-      value: 0.0070819855
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Center.y
-      value: 1.2738647
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Center.z
-      value: -0.8332939
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Extent.x
-      value: 1.039086
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Extent.y
-      value: 0.31251538
-      objectReference: {fileID: 0}
-    - target: {fileID: 137257106991952512, guid: e1064a7b1c263e6488484a51caa6fa01,
-        type: 2}
-      propertyPath: m_AABB.m_Extent.z
-      value: 1.2803158
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1289695682 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4161207773635570, guid: e1064a7b1c263e6488484a51caa6fa01,
-    type: 2}
-  m_PrefabInternal: {fileID: 1013007870}
 --- !u!1 &1364525443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,7 +981,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 92e66fbe18fab3b48ba6e7390eece001, type: 2}
+  - {fileID: 2100000, guid: c4f010088adfc1e409d8eabc5ebeeeb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1106,6 +1029,75 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1569318791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -98.118546, y: 116.85157, z: 261.7214}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1805882302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1805882304}
+  - component: {fileID: 1805882303}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1805882303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1805882302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81375ce2e136fa848ae9f907781527ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaterLevel: 1
+  WetnessAmount: 1
+  flowTimeScale: 10.6
+  FlowBumpStrength: 1
+  RainIntensity: 1
+  SnowLevel: 1
+  Frost: 1
+  SnowDissolve: 2
+  SnowBumpMicro: 0.08
+  SnowSpecGloss: {r: 0.1, g: 0.1, b: 0.1, a: 0.15}
+  SnowGlitterColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
+  SnowDissolveCover: 2
+  SnowBumpMicroCover: 0.08
+  SnowSpecGlossCover: {r: 0.1, g: 0.1, b: 0.1, a: 0.15}
+  SnowGlitterColorCover: {r: 0.8, g: 0.8, b: 0.8, a: 0.2}
+  SnowDissolveMelt: 0.3
+  SnowBumpMicroMelt: 0.02
+  SnowSpecGlossMelt: {r: 0.15, g: 0.15, b: 0.15, a: 0.6}
+  SnowGlitterColorMelt: {r: 0.1, g: 0.1, b: 0.1, a: 0.03}
+  Simulate: 0
+  fallIntensity: 0
+  temperature: 20
+  wind: 0
+  weatherTimeScale: 1
+  FreezeWetWhenSnowPresent: 1
+  AddWetWhenSnowPresent: 1
+  UseParticleSystem: 1
+  rainGameObject: {fileID: 177056, guid: 4f8f196b45b21dc4292c6f03987e8c39, type: 2}
+  snowGameObject: {fileID: 151460, guid: c42faef0e81a2ce44850bf01c985eab9, type: 2}
+--- !u!4 &1805882304
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1805882302}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -98.118546, y: 116.85157, z: 261.7214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1175,5 +1167,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
