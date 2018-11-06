@@ -41025,7 +41025,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 2d9af07c2482f4a4a97f8d598f68df95, type: 2}
     - target: {fileID: 100000, guid: b6fbeffb8bc07a444bb0a5d6bfc09caa, type: 3}
       propertyPath: m_Layer
-      value: 15
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: b6fbeffb8bc07a444bb0a5d6bfc09caa, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -66541,6 +66541,11 @@ Prefab:
       propertyPath: m_fullHealth
       value: 
       objectReference: {fileID: 1245762001}
+    - target: {fileID: 114055453526758664, guid: e1064a7b1c263e6488484a51caa6fa01,
+        type: 2}
+      propertyPath: meshLayer.m_Bits
+      value: 51200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1064a7b1c263e6488484a51caa6fa01, type: 2}
   m_IsPrefabParent: 0
@@ -81596,6 +81601,16 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 0.123
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198874246703466366, guid: 3cc458c8b80f4b243847f246ec41be2d,
         type: 2}
