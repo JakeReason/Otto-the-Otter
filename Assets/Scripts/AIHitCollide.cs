@@ -68,7 +68,6 @@ public class AIHitCollide : MonoBehaviour
 				m_animator.SetBool("Run", false);
 				m_animator.SetBool("Hit", true);
 				m_bHit = true;
-				m_enemyScript.TakeDamage();
 			}
 		}
 	}

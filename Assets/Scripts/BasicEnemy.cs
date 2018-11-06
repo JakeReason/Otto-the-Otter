@@ -193,7 +193,6 @@ public class BasicEnemy : MonoBehaviour
 			m_detectorScript.ClearTarget(m_hookableObj);
 			if (m_bDead)
 			{
-				m_wolfModel.SetActive(false);
 				if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 				{
 					Instantiate(m_clamStack, transform.position, transform.rotation);
@@ -221,7 +220,7 @@ public class BasicEnemy : MonoBehaviour
 					m_animator.SetBool("Run", false);
 					m_animator.SetBool("Idle", true);
 					m_animator.SetBool("90 Spin", false);
-					int index = (m_nDestPoint - 1) % m_targetPoints.Length;
+					
 					if (!m_bGoBackWards)
 					{
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
@@ -230,7 +229,6 @@ public class BasicEnemy : MonoBehaviour
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[1].rotation, m_fWaitRotateSpeed);
 
 						m_animator.SetBool("90 Spin", true);
-						//m_animator.SetBool("90 Spin", false);
 						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
@@ -243,7 +241,6 @@ public class BasicEnemy : MonoBehaviour
 						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[0].rotation, m_fWaitRotateSpeed);
 							
 						m_animator.SetBool("90 Spin", true);
-						//m_animator.SetBool("90 Spin", false);
 						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
