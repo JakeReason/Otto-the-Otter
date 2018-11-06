@@ -100,6 +100,8 @@ public class BasicEnemy : MonoBehaviour
 
 	public bool m_bDead;
 
+	private bool m_bStunned;
+
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -206,7 +208,7 @@ public class BasicEnemy : MonoBehaviour
 				}
 			}
 		}
-		else
+		else if(!m_bStunned)
 		{
 			if (m_agent.isOnNavMesh)
 			{
@@ -313,14 +315,27 @@ public class BasicEnemy : MonoBehaviour
 	public void TakeDamage()
 	{
 		--m_fHealth;
+		m_agent.speed = 0;
+		m_bStunned = true;
         if(m_fHealth > 0)
         {
 		    m_audioSource.PlayOneShot(m_enemyHitAudioClip);
 		}
+		StartCoroutine("ResetSpeed");
 	}
 
 	public void Death()
 	{
 		m_bDead = true;
+	}
+
+	IEnumerator ResetSpeed()
+	{
+		// Waits for 0.1 seconds before being called
+		yield return new WaitForSeconds(1.5f);
+
+		m_agent.speed = m_fOriginalSpeed;
+
+		m_bStunned = false;
 	}
 }
