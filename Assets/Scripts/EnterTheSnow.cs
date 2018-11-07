@@ -13,10 +13,12 @@ public class EnterTheSnow : MonoBehaviour {
     public GameObject camera;
     public PostProcessingProfile m_postProcessingProfile;
     private PostProcessingBehaviour m_postBehaviour;
+    public Animator winterFade;
+    public GameObject winterPanel;
 
     // Use this for initialization
     void Start () {
-
+        winterPanel.SetActive(false);
         winter.enabled = false;
         snowDome.SetActive(false);
         m_postBehaviour = camera.GetComponent<PostProcessingBehaviour>();
@@ -24,12 +26,18 @@ public class EnterTheSnow : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        winterPanel.SetActive(true);
         summer.enabled = false;
         winter.enabled = true;
         snowDome.SetActive(true);
         snow.Play();
         leafs.SetActive(false);
-        //change postporccs
+        winterFade.SetBool("StartFade", true);
+    }
+
+    public void winterShadder()
+    {
         m_postBehaviour.profile = m_postProcessingProfile;
     }
+
 }
