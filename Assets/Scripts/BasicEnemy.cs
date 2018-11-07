@@ -98,7 +98,9 @@ public class BasicEnemy : MonoBehaviour
 
 	private Animator m_animator;
 
-	public bool m_bDead;
+	private bool m_bDead;
+
+	private bool m_bDeathEnd;
 
 	private bool m_bStunned;
 
@@ -201,7 +203,7 @@ public class BasicEnemy : MonoBehaviour
 					m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
 					m_bAudioPlayed = true;
 				}
-				if (m_bAudioPlayed && !m_audioSource.isPlaying)
+				if (m_bAudioPlayed && !m_audioSource.isPlaying && m_bDeathEnd)
 				{
 					m_hookableObj.tag = "Untagged";
 					this.transform.parent.gameObject.SetActive(false);
@@ -327,6 +329,11 @@ public class BasicEnemy : MonoBehaviour
 	public void Death()
 	{
 		m_bDead = true;
+	}
+
+	public void DeathEnd()
+	{
+		m_bDeathEnd = true;
 	}
 
 	IEnumerator ResetSpeed()
