@@ -88,6 +88,8 @@ public class Player : MonoBehaviour
 	// Stores how tall Otto is as a float
 	public float m_fHeight = 2.0f;
 
+	public float m_fEnemyBounce = 20.0f;
+
 	// Represents the left control stick dead zone for movement
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
@@ -635,7 +637,6 @@ public class Player : MonoBehaviour
 				m_animator.SetBool("Bounce", false);
 			}
 			
-			// 
 			if (m_bRecovering && m_fHealthTimer < 0.3f)
 			{
 				m_animator.SetBool("Damaged", true);
@@ -790,7 +791,7 @@ public class Player : MonoBehaviour
 	// Param:
 	//		fBounceForce: Indicates how hard Otto will be bounced.
 	//--------------------------------------------------------------------------------
-	public void Bounce(float fBounceForce)
+	public void Bounce(float fBounceForce, bool bEnemy)
 	{
 		// Checks if the jump button has been interracted with
 		if (Input.GetButton("Jump"))
@@ -811,8 +812,17 @@ public class Player : MonoBehaviour
 		m_bJumped = true;
 		m_bBounced = true;
 
-		// Multiples Move Direction vector by speed and the bounce velocity
-		m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
+		if (bEnemy)
+		{
+			// Multiples Move Direction vector by speed and the bounce velocity
+			m_v3Velocity = m_v3MoveDirection * m_fSpeed * 0.25f + Vector3.up * m_fVelocityY + 
+						   Vector3.forward * 400.0f;
+		}
+		else
+		{
+			// Multiples Move Direction vector by speed and the bounce velocity
+			m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
+		}
 
 		// Adds the bounce velocity to the CharacterController
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
@@ -845,7 +855,7 @@ public class Player : MonoBehaviour
 
 		if (other.gameObject.name == "Hitbox" && m_grapplingScript.GetHooked())
 		{
-			Bounce(20.0f);
+			Bounce(m_fEnemyBounce, true);
 		}
     }
 

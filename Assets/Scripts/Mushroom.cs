@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
+	// Represents the player's layermask
 	public LayerMask m_playerLayer;
 
+	// Stores the audioclip for when the player bounces on the mushroom
 	public AudioClip m_audio;
 
+	// Used to access the player script
 	public GameObject m_player;
 
+	// Float represents the amount of force applied to the player
 	public float m_fBounceForce = 3.0f;
 
 	private Player m_playerScript;
@@ -41,7 +45,7 @@ public class Mushroom : MonoBehaviour
 
 		if (!m_audioSource)
 		{
-			//Debug.Log("No Audio Source!");
+			Debug.Log("No Audio Source!");
 		}
 	}
 
@@ -53,7 +57,7 @@ public class Mushroom : MonoBehaviour
 
 			m_animator.SetBool("Bounce", true);
 
-			m_playerScript.Bounce(m_fBounceForce);
+			m_playerScript.Bounce(m_fBounceForce, false);
 		}
 	}
 

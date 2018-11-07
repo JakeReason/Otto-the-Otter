@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AIHitCollide : MonoBehaviour
 {
-
 	public GameObject m_enemy;
 	public GameObject m_enemyModel;
 	public float m_fHitTime;
 	public float m_fFlashingRate;
+	public float m_fBounceForce = 3.0f;
 	private BasicEnemy m_enemyScript;
 	bool m_bHit;
 	Color m_originalColour;
@@ -26,7 +26,6 @@ public class AIHitCollide : MonoBehaviour
 	{
 		if (m_bHit)
 		{
-			
 			m_timer += Time.deltaTime;
 
 			if(m_timer > 1.3f)
