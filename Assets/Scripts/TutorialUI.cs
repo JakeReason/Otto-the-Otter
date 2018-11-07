@@ -7,7 +7,7 @@ public class TutorialUI : MonoBehaviour {
     public GameObject helpUI;
 
 
-    private void Start()
+    private void Awake()
     {
         helpUI.SetActive(false);
     }
@@ -21,6 +21,4 @@ public class TutorialUI : MonoBehaviour {
     {
         helpUI.SetActive(false);
     }
-
-
 }

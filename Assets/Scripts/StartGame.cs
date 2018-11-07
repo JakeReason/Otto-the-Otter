@@ -39,7 +39,6 @@ public class StartGame : MonoBehaviour {
             doorCam.SetActive(false);
             playerCam.SetActive(true);
             gameCanvus.SetActive(true);
-            m_playerScript.enabled = true;
             StartCoroutine(SkipAnim());
         }
     } 
@@ -68,6 +67,7 @@ public class StartGame : MonoBehaviour {
         startDoor.SetActive(false);
         brookanim.SetBool("StartFade", true);
         Destroy(this);
+        m_playerScript.enabled = true;
     }
 
     public void GoodbyeDoor()
