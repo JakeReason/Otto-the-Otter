@@ -13,8 +13,8 @@ using XboxCtrlrInput;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    // Allows access to xbox controller buttons
-    public XboxController m_controller;
+	// Allows access to xbox controller buttons
+	public XboxController m_controller;
 
 	// GameObject used to access variables for the hook
 	public GameObject m_hook;
@@ -65,19 +65,19 @@ public class Player : MonoBehaviour
 	public Color m_flashColour;
 
 	// Image stores the Image that represents the player's health
-    public Image m_healthImage;
+	public Image m_healthImage;
 
 	// Sprite represents when the player is on half of its health
-    public Image m_halfHealth;
+	public Image m_halfHealth;
 
 	// Indicates the sprite shown when the player is at full health
-    public Image m_fullHealth;
+	public Image m_fullHealth;
 
 	// Integer indicates what scene number the main menu is in unity
 	public int m_nMainMenu;
 
-    // Public float represents the speed of the player's movement
-    public float m_fSpeed = 10.0f;
+	// Public float represents the speed of the player's movement
+	public float m_fSpeed = 10.0f;
 
 	// Float indicates the height of the player's jump
 	public float m_fJumpHeight = 1.0f;
@@ -96,11 +96,11 @@ public class Player : MonoBehaviour
 
 	// Float indicates the time when player cannot be hit (allows floats from 1-5)
 	[Range(1.0f, 5.0f)]
-    public float m_fHealthRecoveryTime = 3.0f;
+	public float m_fHealthRecoveryTime = 3.0f;
 
 	// Float used to demonstrate the rate the player flashes (range from 10-100)
 	[Range(10.0f, 100.0f)]
-    public float m_fFlashRate = 10.0f;
+	public float m_fFlashRate = 10.0f;
 
 	// Indicates the amount of time given after the player falls for them to jump
 	[Range(0.01f, 0.2f)]
@@ -109,14 +109,14 @@ public class Player : MonoBehaviour
 	// Used to access the animator component from the player
 	private Animator m_animator;
 
-    // Private variable used to store the player's CharacterController in
-    private CharacterController m_cc;
+	// Private variable used to store the player's CharacterController in
+	private CharacterController m_cc;
 
-    // Allows access to the BasicEnemy script
-    private BasicEnemy m_enemyScript;
+	// Allows access to the BasicEnemy script
+	private BasicEnemy m_enemyScript;
 
-    // Variable is used to store the player's Grappling Hook script in
-    private Hook m_grapplingScript;
+	// Variable is used to store the player's Grappling Hook script in
+	private Hook m_grapplingScript;
 
 	// Records the original colour of the player
 	private Color m_originalColour;
@@ -145,14 +145,14 @@ public class Player : MonoBehaviour
 	// Vector3 represents the input direction from the analog stick
 	private Vector3 m_v3MoveDirection;
 
-    // Vector3 represents the direction the player will look in
-    private Vector3 m_v3LookDirection;
+	// Vector3 represents the direction the player will look in
+	private Vector3 m_v3LookDirection;
 
 	// Private Vector3 indicates the position where the player spawns
 	private Vector3 m_v3StartPosition;
 
-    // Vector3 allows gravity to be applied in movement formulas
-    private Vector3 m_v3Velocity;
+	// Vector3 allows gravity to be applied in movement formulas
+	private Vector3 m_v3Velocity;
 
 	// Represents gravity applied to the player
 	private float m_fGravity;
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
 	private float m_fInitialGravity;
 
 	// Private float indicates the rate the player flashes after being hit
-    private float m_fFlashingRate;
+	private float m_fFlashingRate;
 
 	// Keeps track of how long the playercan be invicible for after getting hit
 	private float m_fHealthTimer;
@@ -190,11 +190,11 @@ public class Player : MonoBehaviour
 	// Int keeps track of the player's current health
 	private int m_nHealth;
 
-    // Bool used to let the script know if the player has jumped from ground
-    private bool m_bJumped;
+	// Bool used to let the script know if the player has jumped from ground
+	private bool m_bJumped;
 
 	// Indicates if the player is recovering after a hit or not
-    private bool m_bRecovering;
+	private bool m_bRecovering;
 
 	// Bool is activated when the player is performing a mini jump
 	private bool m_bMiniJump;
@@ -205,11 +205,13 @@ public class Player : MonoBehaviour
 	// Indicates if the player has died
 	private bool m_bDeath;
 
+	private bool m_bRunParticle;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
-    {
+	{
 		// Gets the Death Fade script off of the Death Fade game object
 		m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
 
@@ -227,7 +229,7 @@ public class Player : MonoBehaviour
 		}
 
 		// Gets the Animator component and stores it in the animator variable
-        m_animator = GetComponent<Animator>();
+		m_animator = GetComponent<Animator>();
 
 		// Gets Audio Source component off of the player
 		m_audioSource = GetComponent<AudioSource>();
@@ -299,17 +301,18 @@ public class Player : MonoBehaviour
 
 		// Sets private bools to false on awake
 		m_bJumped = false;
-        m_bRecovering = false;
+		m_bRecovering = false;
 		m_bMiniJump = false;
 		m_bBounced = false;
 		m_bDeath = false;
+		m_bRunParticle = true;
 	}
 
-    //--------------------------------------------------------------------------------
-    // Function is called once every frame.
-    //--------------------------------------------------------------------------------
-    void Update()
-    {
+	//--------------------------------------------------------------------------------
+	// Function is called once every frame.
+	//--------------------------------------------------------------------------------
+	void Update()
+	{
 		// Calls Move, PlatformDetection and Animate functions in conjunction per frame
 		Move();
 		Animate();
@@ -604,7 +607,7 @@ public class Player : MonoBehaviour
 			}
 
 			// Sets Running bool in animator to true if the player has any running movement
-			if ((m_v3MoveDirection.sqrMagnitude > 0.0f) || 
+			if ((m_v3MoveDirection.sqrMagnitude > 0.0f) ||
 				(m_loadNextScript != null && m_loadNextScript.GetStartMove()))
 			{
 				m_animator.SetBool("Running", true);
@@ -612,6 +615,8 @@ public class Player : MonoBehaviour
 			// Else if the player isn't moving
 			else
 			{
+				m_bRunParticle = true;
+
 				// Running bool is set to false
 				m_animator.SetBool("Running", false);
 
@@ -636,7 +641,7 @@ public class Player : MonoBehaviour
 			{
 				m_animator.SetBool("Bounce", false);
 			}
-			
+
 			if (m_bRecovering && m_fHealthTimer < 0.3f)
 			{
 				m_animator.SetBool("Damaged", true);
@@ -707,56 +712,56 @@ public class Player : MonoBehaviour
 	// Function deducts health from the player when called.
 	//--------------------------------------------------------------------------------
 	public void Damage()
-    {
+	{
 		// Detects if the health timer is at zero or if the player isn't recovering
-        if ((m_fHealthTimer <= 0.0f || !m_bRecovering) && !m_grapplingScript.GetFired())
-        {
+		if ((m_fHealthTimer <= 0.0f || !m_bRecovering) && !m_grapplingScript.GetFired())
+		{
 			// Deducts one bar of health from the player and updates UI
-            m_nHealth -= 1;
+			m_nHealth -= 1;
 
 			// Enables half health UI and disables full health UI
 			m_halfHealth.enabled = true;
 			m_fullHealth.enabled = false;
 
 			// Calls the death function if the player's health is zero
-            if (m_nHealth <= 0)
-            {
-                Death();
-            }
+			if (m_nHealth <= 0)
+			{
+				Death();
+			}
 			// Otherwise if the player still has health
-            else
-            {
+			else
+			{
 				// Sets the player to be recovering
 				m_bRecovering = true;
 
 				// Plays the audio for being hit through the audio source
 				m_audioSource.PlayOneShot(m_hitAudio);
-            }           
-        }
-    }
+			}
+		}
+	}
 
 	//--------------------------------------------------------------------------------
 	// Function restores the player's health when called.
 	//--------------------------------------------------------------------------------
 	public void RestoreHealth()
-    {
+	{
 		// Detects if the health is not full
-        if (m_nHealth != 2)
-        {
+		if (m_nHealth != 2)
+		{
 			// Initialises health to be at full health
-            m_nHealth = 2;
+			m_nHealth = 2;
 
 			// Disables half health UI and enables full health UI
 			m_halfHealth.enabled = false;
 			m_fullHealth.enabled = true;
 		}
-    }
+	}
 
-    //--------------------------------------------------------------------------------
-    // Function gets called when Otto dies in game.
-    //--------------------------------------------------------------------------------
-    private void Death()
-    {
+	//--------------------------------------------------------------------------------
+	// Function gets called when Otto dies in game.
+	//--------------------------------------------------------------------------------
+	private void Death()
+	{
 		m_bDeath = true;
 
 		// Plays the death audio using the audio source on the player
@@ -815,7 +820,7 @@ public class Player : MonoBehaviour
 		if (bEnemy)
 		{
 			// Multiples Move Direction vector by speed and the bounce velocity
-			m_v3Velocity = m_v3MoveDirection * m_fSpeed * 0.25f + Vector3.up * m_fVelocityY + 
+			m_v3Velocity = m_v3MoveDirection * m_fSpeed * 0.25f + Vector3.up * m_fVelocityY +
 						   Vector3.forward * 400.0f;
 		}
 		else
@@ -839,25 +844,25 @@ public class Player : MonoBehaviour
 		return Physics.Raycast(transform.position + Vector3.up * m_fHeight, Vector3.up, 0.5f);
 	}
 
-    //--------------------------------------------------------------------------------
-    // Function is called when the player is enters a trigger.
-    //
-    // Param:
-    //      other: Represents the collider of the trigger.
-    //--------------------------------------------------------------------------------
-    private void OnTriggerEnter(Collider other)
-    {
+	//--------------------------------------------------------------------------------
+	// Function is called when the player is enters a trigger.
+	//
+	// Param:
+	//      other: Represents the collider of the trigger.
+	//--------------------------------------------------------------------------------
+	private void OnTriggerEnter(Collider other)
+	{
 		// Calls the death function other's tag is "Respawn" and velocity exceeds 30
-        if (other.CompareTag("Respawn") && m_fVelocityY <= -30)
-        {
-            Death();
-        }
+		if (other.CompareTag("Respawn") && m_fVelocityY <= -30)
+		{
+			Death();
+		}
 
 		if (other.gameObject.name == "Hitbox" && m_grapplingScript.GetHooked())
 		{
 			Bounce(m_fEnemyBounce, true);
 		}
-    }
+	}
 
 	IEnumerator SpawnDelay()
 	{
@@ -881,5 +886,14 @@ public class Player : MonoBehaviour
 		// Disables half health UI and enables full health UI
 		m_halfHealth.enabled = false;
 		m_fullHealth.enabled = true;
+	}
+
+	public void PlayLandParticle()
+	{
+		if (m_bRunParticle)
+		{
+			m_landing.Play();
+			m_bRunParticle = false;
+		}
 	}
 }
