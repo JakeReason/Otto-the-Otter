@@ -13,32 +13,39 @@ public class EnterTheSnow : MonoBehaviour {
     public GameObject camera;
     public PostProcessingProfile m_postProcessingProfile;
     private PostProcessingBehaviour m_postBehaviour;
-    public Animator winterFade;
-    public GameObject winterPanel;
+    public GameObject cameraFrost;
+    private FrostEffect cameraFrostScript;
+    public Animator frostedAnim;
 
     // Use this for initialization
     void Start () {
-        winterPanel.SetActive(false);
+        frostedAnim.SetBool("Base", true);
         winter.enabled = false;
         snowDome.SetActive(false);
         m_postBehaviour = camera.GetComponent<PostProcessingBehaviour>();
+        cameraFrostScript = cameraFrost.GetComponent<FrostEffect>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        winterPanel.SetActive(true);
+        frostedAnim.SetBool("Frosty", true);
+        cameraFrostScript.GetComponent<FrostEffect>().enabled = true;
         summer.enabled = false;
         winter.enabled = true;
         snowDome.SetActive(true);
         snow.Play();
         leafs.SetActive(false);
-        winterFade.SetBool("StartFade", true);
     }
 
     public void winterShadder()
     {
-        winterPanel.SetActive(false);
+        //cameraFrostScript.GetComponent<FrostEffect>().enabled = false;
         m_postBehaviour.profile = m_postProcessingProfile;
+    }
+
+    public void ByeBye()
+    {
+        cameraFrostScript.GetComponent<FrostEffect>().enabled = false;
         Destroy(this);
     }
 

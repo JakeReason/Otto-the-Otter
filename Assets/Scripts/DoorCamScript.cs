@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DoorCamScript : MonoBehaviour {
 
-    public GameObject m_player;
-    private Player m_playerScript;
-
     // Collectable manager GameObject used to get access to the collectable manager.
     private GameObject m_collectableManager;
 
@@ -28,7 +25,6 @@ public class DoorCamScript : MonoBehaviour {
         m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
         m_CM = m_collectableManager.GetComponent<CollectableManager>();
         doorCam.SetActive(false);
-        m_playerScript = m_player.GetComponent<Player>();
     }
 	
 	// Update is called once per frame

@@ -41,6 +41,11 @@ public class Quit : MonoBehaviour {
         button.PlayOneShot(woodCrash);
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
 
 
 }
