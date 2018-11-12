@@ -37,7 +37,9 @@ public class EnterTheSnow : MonoBehaviour {
 
     public void winterShadder()
     {
+        winterPanel.SetActive(false);
         m_postBehaviour.profile = m_postProcessingProfile;
+        Destroy(this);
     }
 
 }
