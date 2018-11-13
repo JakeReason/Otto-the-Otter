@@ -207,6 +207,8 @@ public class Player : MonoBehaviour
 
 	private bool m_bRunParticle;
 
+	private bool m_bLandParticle;
+
 	private bool m_bCutscene;
 
 	//--------------------------------------------------------------------------------
@@ -308,6 +310,7 @@ public class Player : MonoBehaviour
 		m_bBounced = false;
 		m_bDeath = false;
 		m_bRunParticle = true;
+		m_bLandParticle = false;
 		m_bCutscene = false;
 	}
 
@@ -572,6 +575,7 @@ public class Player : MonoBehaviour
 			if (m_bJumped && m_fVelocityY <= 0.0f || m_bBounced && m_fVelocityY <= 0.0f)
 			{
 				m_animator.SetBool("Falling", true);
+				m_bLandParticle = true;
 			}
 			// Sets Falling bool in animator to false if the player is grounded
 			else if (m_cc.isGrounded)
@@ -584,6 +588,12 @@ public class Player : MonoBehaviour
 			{
 				// Sets Landing bool in animator to true
 				m_animator.SetBool("Landing", true);
+
+				if (m_bLandParticle)
+				{
+					m_landing.Play();
+					m_bLandParticle = false;
+				}
 
 				// Resets Jumped bool back to false and and Jump Timer to zero
 				m_bJumped = false;
@@ -891,11 +901,11 @@ public class Player : MonoBehaviour
 		m_fullHealth.enabled = true;
 	}
 
-	public void PlayLandParticle()
+	public void PlayRunParticle()
 	{
-		if (m_bRunParticle)
+		if (m_bRunParticle && m_cc.isGrounded)
 		{
-			m_landing.Play();
+			m_grass.Play();
 			m_bRunParticle = false;
 		}
 	}
