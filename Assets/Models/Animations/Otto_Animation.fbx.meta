@@ -178,6 +178,7 @@ ModelImporter:
     7400020: Run
     7400022: Walk
     7400024: Grapple_End
+    7400026: Grapple_Start
     9500000: //RootNode
     13700000: Otter_Rig_2:Low_Poly_Otto
     13700002: Otter_Rig_2:Otto_Eye_Left
@@ -329,10 +330,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Grapple
-      takeName: Grapple
+      name: Grapple_Start
+      takeName: Grapple_Start
       firstFrame: 41
-      lastFrame: 47
+      lastFrame: 42
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
