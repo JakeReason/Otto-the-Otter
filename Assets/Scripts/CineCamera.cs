@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class CineCamera : MonoBehaviour {
 
+	public GameObject player;
 	public GameObject vcam;
 	public GameObject freeLook;
 	public GameObject yesCamera;
@@ -21,12 +22,14 @@ public class CineCamera : MonoBehaviour {
 	private bool cineOver;
 	private bool timeLeft;
 	private bool playerRun;
-	private bool m_bPlayerWait;
+
+	private Player playerScript;
+	//private bool m_bPlayerWait;
 
 	//sets the active of the two UI elements to False
 	void Awake()
 	{
-		//playerScript = playerModel.GetComponent<Player>();
+		playerScript = player.GetComponent<Player>();
 
 		yesCamera.gameObject.SetActive (false);
 		noCamera.gameObject.SetActive (false);
@@ -35,7 +38,8 @@ public class CineCamera : MonoBehaviour {
 		cineOver = false;
 		timeLeft = true;
 		playerRun = true;
-		m_bPlayerWait = false;
+
+		//m_bPlayerWait = false;
 	}
 
 	//When the player enters the trigger it checks to see if it is the player then calls for the camera to switch with camera 2
@@ -45,11 +49,12 @@ public class CineCamera : MonoBehaviour {
 	{
 		if (other.CompareTag("Player")) 
 		{
-			m_Animator.SetBool("Walking", false);
+			//_Animator.SetBool("Walking", false);
 			switchToCine ();
 			timeLeft = true;
 			playerRun = false;
-			m_bPlayerWait = true;
+			playerScript.SetCutscene(true);
+			//m_bPlayerWait = true;
 			//playerScript.enabled = false;
 			StartCoroutine (playerWait ());
             soundBuild.PlayOneShot(treebuild, 0.7f);
@@ -120,7 +125,8 @@ public class CineCamera : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (3.5f);
 		playerRun = true;
-		m_bPlayerWait = false;
+		playerScript.SetCutscene(false);
+		//m_bPlayerWait = false;
 		StopCoroutine (playerWait ());
 	}
 
@@ -132,8 +138,8 @@ public class CineCamera : MonoBehaviour {
         StopCoroutine(bigTreeCine ());
     }
 
-	public bool GetPlayerWait()
-	{
-		return m_bPlayerWait;
-	}
+	//public bool GetPlayerWait()
+	//{
+	//	return m_bPlayerWait;
+	//}
 }

@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
 	private CollectableManager m_cm;
 
 	// Stores a reference to the Cinemachine Camera script
-	private CineCamera m_cineCameraScript;
+	//private CineCamera m_cineCameraScript;
 
 	// Used to access the death fade script from the fade object
 	private DeathFade m_deathFade;
@@ -207,6 +207,8 @@ public class Player : MonoBehaviour
 
 	private bool m_bRunParticle;
 
+	private bool m_bCutscene;
+
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
@@ -244,10 +246,10 @@ public class Player : MonoBehaviour
 		m_grapplingScript = m_hook.GetComponent<Hook>();
 
 		// Gets the Camera Script from the Camera Object if the object is attached
-		if (m_cineCamera != null)
-		{
-			m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
-		}
+		//if (m_cineCamera != null)
+		//{
+		//	m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
+		//}
 
 		// Disables half health image initially
 		m_halfHealth.enabled = false;
@@ -306,6 +308,7 @@ public class Player : MonoBehaviour
 		m_bBounced = false;
 		m_bDeath = false;
 		m_bRunParticle = true;
+		m_bCutscene = false;
 	}
 
 	//--------------------------------------------------------------------------------
@@ -371,7 +374,7 @@ public class Player : MonoBehaviour
 			m_v3MoveDirection = new Vector3(m_fForward, 0, m_fSideways);
 
 			// Stops player if a cut scene is playing and Otto needs to wait
-			if (m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait())
+			if (m_loadNextScript.GetLoadNext() || m_bCutscene)
 			{
 				m_v3MoveDirection = Vector3.zero;
 			}
@@ -535,8 +538,8 @@ public class Player : MonoBehaviour
 	private void Animate()
 	{
 		// Detects if the player is in a cutscene
-		if ((m_cineCameraScript != null && m_cineCameraScript.GetPlayerWait()) ||
-			(!m_loadNextScript.GetStartMove() && m_loadNextScript.GetLoadNext()))
+		if (/*(!m_loadNextScript.GetStartMove() && m_loadNextScript.GetLoadNext()) ||*/
+			m_bCutscene)
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
 			m_animator.SetBool("Running", false);
@@ -895,5 +898,10 @@ public class Player : MonoBehaviour
 			m_landing.Play();
 			m_bRunParticle = false;
 		}
+	}
+
+	public void SetCutscene(bool bCutscene)
+	{
+		m_bCutscene = bCutscene;
 	}
 }

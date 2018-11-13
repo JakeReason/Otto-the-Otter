@@ -10,9 +10,12 @@ public class DoorCamScript : MonoBehaviour {
     // Collectable manager Script used to get access to the collectable manager script.
     private CollectableManager m_CM;
 
+	private Player m_playerScript;
+
     public GameObject playerCam;
     public GameObject doorCam;
     public GameObject gameCanvus;
+	public GameObject player;
 
     public Animator doorAnim;
     public Animator doorAnim2;
@@ -25,12 +28,15 @@ public class DoorCamScript : MonoBehaviour {
         m_collectableManager = GameObject.FindGameObjectWithTag("CollectableManager");
         m_CM = m_collectableManager.GetComponent<CollectableManager>();
         doorCam.SetActive(false);
+
+		m_playerScript = player.GetComponent<Player>();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if(m_CM.m_fFlowersCollected >= 2)
         {
+			m_playerScript.SetCutscene(true);
             StartCoroutine(ThatEnoughDoor());
             playerCam.SetActive(false);
             doorCam.SetActive(true);
@@ -47,7 +53,8 @@ public class DoorCamScript : MonoBehaviour {
         playerCam.SetActive(true);
         doorCam.SetActive(false);
         gameCanvus.SetActive(true);
-        StopCoroutine(ThatEnoughDoor());
+		m_playerScript.SetCutscene(false);
+		StopCoroutine(ThatEnoughDoor());
         Destroy(this);
     }
 

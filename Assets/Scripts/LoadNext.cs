@@ -95,7 +95,21 @@ public class LoadNext : MonoBehaviour {
             m_Player.transform.Translate(Vector3.forward * speed * Time.deltaTime);
             playerAnim.SetBool("Running", true);
         }
-    }
+
+		if (!startMove && loadNext)
+		{
+			playerAnim.SetBool("Running", false);
+			playerAnim.SetBool("Grapple", false);
+			playerAnim.SetBool("Jumping", false);
+			playerAnim.SetBool("Falling", false);
+			playerAnim.SetBool("Landing", false);
+			playerAnim.SetBool("Bounce", false);
+			playerAnim.SetBool("Damaged", false);
+			playerAnim.SetBool("Dying", false);
+			playerAnim.SetBool("Waiting", false);
+			playerAnim.SetBool("Respawn", false);
+		}
+	}
 
 	public bool GetStartMove()
 	{
