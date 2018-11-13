@@ -19,6 +19,8 @@ public class PauseButtonFunctions : MonoBehaviour
     [SerializeField]
     private GameObject m_optionsButton;
     [SerializeField]
+    private GameObject m_resumeButton;
+    [SerializeField]
 	private CinemachineFreeLook m_freeLook;
 	[SerializeField]
 	private EventSystem m_eventSystem;
@@ -40,9 +42,13 @@ public class PauseButtonFunctions : MonoBehaviour
 		{
 			if (m_optionsMenu.activeInHierarchy)
 			{
-				m_optionsMenu.SetActive(false);
-				m_pauseMenu.SetActive(true);
-			}
+                Time.timeScale = 1;
+                m_pauseMenu.SetActive(false);
+                m_optionsMenu.SetActive(false);
+                m_eventSystem.SetSelectedGameObject(null);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
 			else if (m_pauseMenu.activeInHierarchy)
 			{
 				Resume();
@@ -55,7 +61,6 @@ public class PauseButtonFunctions : MonoBehaviour
 		Time.timeScale = 1;
 		m_pauseMenu.SetActive(false);
 		m_optionsMenu.SetActive(false);
-		m_FPS.SetActive(false);
 		m_eventSystem.SetSelectedGameObject(null);
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -83,7 +88,8 @@ public class PauseButtonFunctions : MonoBehaviour
 	{
 		m_pauseMenu.SetActive(true);
 		m_optionsMenu.SetActive(false);
-	}
+        m_eventSystem.SetSelectedGameObject(m_resumeButton);
+    }
 
 	public void FPS()
 	{
