@@ -16,6 +16,7 @@ public class EnterTheSnow : MonoBehaviour {
     public GameObject cameraFrost;
     private FrostEffect cameraFrostScript;
     public Animator frostedAnim;
+    public AudioSource freeze;
 
     // Use this for initialization
     void Start () {
@@ -32,6 +33,7 @@ public class EnterTheSnow : MonoBehaviour {
         cameraFrostScript.GetComponent<FrostEffect>().enabled = true;
         summer.enabled = false;
         winter.enabled = true;
+        freeze.enabled = true;
         snowDome.SetActive(true);
         snow.Play();
         leafs.SetActive(false);

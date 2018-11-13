@@ -6,12 +6,100 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: CTRL_Leaf_01_01
+    100004: CTRL_Leaf_01_02
+    100006: CTRL_Leaf_02_01
+    100008: CTRL_Leaf_02_02
+    100010: CTRL_Leaf_03_01
+    100012: CTRL_Leaf_03_02
+    100014: CTRL_Leaf_04_01
+    100016: CTRL_Leaf_04_02
+    100018: CTRL_Root
+    100020: CTRL_Vine_01
+    100022: CTRL_Vine_02
+    100024: CTRL_Vine_03
+    100026: CTRL_Vine_04
+    100028: CTRL_Vine_05
+    100030: Flower_1
+    100032: GRP_Leaf_01_01
+    100034: GRP_Leaf_01_02
+    100036: GRP_Leaf_02_01
+    100038: GRP_Leaf_02_02
+    100040: GRP_Leaf_03_01
+    100042: GRP_Leaf_03_02
+    100044: GRP_Leaf_04_01
+    100046: GRP_Leaf_04_02
+    100048: GRP_Root
+    100050: GRP_Vine_01
+    100052: GRP_Vine_02
+    100054: GRP_Vine_03
+    100056: GRP_Vine_04
+    100058: GRP_Vine_05
+    100060: JNT_Base
+    100062: JNT_Leaf_01_01
+    100064: JNT_Leaf_01_02
+    100066: JNT_Leaf_02_01
+    100068: JNT_Leaf_02_02
+    100070: JNT_Leaf_03_01
+    100072: JNT_Leaf_03_02
+    100074: JNT_Leaf_04_01
+    100076: JNT_Leaf_04_02
+    100078: JNT_Vine_01
+    100080: JNT_Vine_02
+    100082: JNT_Vine_03
+    100084: JNT_Vine_04
+    100086: JNT_Vine_05
     400000: //RootNode
+    400002: CTRL_Leaf_01_01
+    400004: CTRL_Leaf_01_02
+    400006: CTRL_Leaf_02_01
+    400008: CTRL_Leaf_02_02
+    400010: CTRL_Leaf_03_01
+    400012: CTRL_Leaf_03_02
+    400014: CTRL_Leaf_04_01
+    400016: CTRL_Leaf_04_02
+    400018: CTRL_Root
+    400020: CTRL_Vine_01
+    400022: CTRL_Vine_02
+    400024: CTRL_Vine_03
+    400026: CTRL_Vine_04
+    400028: CTRL_Vine_05
+    400030: Flower_1
+    400032: GRP_Leaf_01_01
+    400034: GRP_Leaf_01_02
+    400036: GRP_Leaf_02_01
+    400038: GRP_Leaf_02_02
+    400040: GRP_Leaf_03_01
+    400042: GRP_Leaf_03_02
+    400044: GRP_Leaf_04_01
+    400046: GRP_Leaf_04_02
+    400048: GRP_Root
+    400050: GRP_Vine_01
+    400052: GRP_Vine_02
+    400054: GRP_Vine_03
+    400056: GRP_Vine_04
+    400058: GRP_Vine_05
+    400060: JNT_Base
+    400062: JNT_Leaf_01_01
+    400064: JNT_Leaf_01_02
+    400066: JNT_Leaf_02_01
+    400068: JNT_Leaf_02_02
+    400070: JNT_Leaf_03_01
+    400072: JNT_Leaf_03_02
+    400074: JNT_Leaf_04_01
+    400076: JNT_Leaf_04_02
+    400078: JNT_Vine_01
+    400080: JNT_Vine_02
+    400082: JNT_Vine_03
+    400084: JNT_Vine_04
+    400086: JNT_Vine_05
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
     4300000: Flower_1
+    7400000: Dance
     9500000: //RootNode
+    13700000: Flower_1
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -38,7 +126,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Dance
+      takeName: Dance
+      firstFrame: 1
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
