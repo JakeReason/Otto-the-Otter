@@ -14,9 +14,9 @@ public class EnterTheSnow : MonoBehaviour {
     public PostProcessingProfile m_postProcessingProfile;
     private PostProcessingBehaviour m_postBehaviour;
     public GameObject cameraFrost;
-    private FrostEffect cameraFrostScript;
     public Animator frostedAnim;
     public AudioSource freeze;
+    public GameObject playerCamera;
 
     // Use this for initialization
     void Start () {
@@ -24,19 +24,20 @@ public class EnterTheSnow : MonoBehaviour {
         winter.enabled = false;
         snowDome.SetActive(false);
         m_postBehaviour = camera.GetComponent<PostProcessingBehaviour>();
-        cameraFrostScript = cameraFrost.GetComponent<FrostEffect>();
+        cameraFrost.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         frostedAnim.SetBool("Frosty", true);
-        cameraFrostScript.GetComponent<FrostEffect>().enabled = true;
         summer.enabled = false;
         winter.enabled = true;
         freeze.enabled = true;
         snowDome.SetActive(true);
         snow.Play();
         leafs.SetActive(false);
+        cameraFrost.SetActive(true);
+        playerCamera.SetActive(false);
     }
 
     public void winterShadder()
@@ -45,10 +46,10 @@ public class EnterTheSnow : MonoBehaviour {
         m_postBehaviour.profile = m_postProcessingProfile;
     }
 
-    public void ByeBye()
+    public void backToCamera()
     {
-        cameraFrostScript.GetComponent<FrostEffect>().enabled = false;
-        Destroy(this);
+        cameraFrost.SetActive(false);
+        playerCamera.SetActive(true);
     }
 
 }
