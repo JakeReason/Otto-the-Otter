@@ -11,15 +11,12 @@ public class FrostReciever : MonoBehaviour {
         winterZoneScript = winterZone.GetComponent<EnterTheSnow>();
     }
 
-    void SwitchPost()
+    public void SwitchBackToCam()
     {
+        winterZoneScript.backToCamera();
         winterZoneScript.winterShadder();
     }
 
-    void StartDestruction()
-    {
-        winterZoneScript.ByeBye();
-    }
 
 
 
