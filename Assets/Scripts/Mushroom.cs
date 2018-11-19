@@ -1,7 +1,13 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Matthew Le Nepveu. Editted by: Jeremy Zoitas.
+//--------------------------------------------------------------------------------
+
+// Accesses the plugins from Unity folder
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Creates a class for the Mushroom script
 public class Mushroom : MonoBehaviour
 {
 	// Represents the player's layermask
@@ -16,14 +22,19 @@ public class Mushroom : MonoBehaviour
 	// Float represents the amount of force applied to the player
 	public float m_fBounceForce = 3.0f;
 
+    // Used to access the variables in the player script
 	private Player m_playerScript;
 
+    // Accesses the animator component for the mushroom
 	private Animator m_animator;
 
+    // Indicates the mushroom classes' AudioSource
 	private AudioSource m_audioSource;
 
-	// Use this for initialization
-	void Awake()
+    //--------------------------------------------------------------------------------
+    // Function is used for initialization.
+    //--------------------------------------------------------------------------------
+    void Awake()
 	{
 		m_animator = GetComponent<Animator>();
 
@@ -49,7 +60,13 @@ public class Mushroom : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+    //--------------------------------------------------------------------------------
+    // Function is called when the player is enters a trigger.
+    //
+    // Param:
+    //      other: Represents the collider of the trigger.
+    //--------------------------------------------------------------------------------
+    private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Player"))
 		{
@@ -61,7 +78,13 @@ public class Mushroom : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+    //--------------------------------------------------------------------------------
+    // Function is called when the player is exits a trigger.
+    //
+    // Param:
+    //      other: Represents the collider of the trigger.
+    //--------------------------------------------------------------------------------
+    private void OnTriggerExit(Collider other)
 	{
 		if (other.CompareTag("Player"))
 		{

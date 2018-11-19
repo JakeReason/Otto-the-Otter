@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------
-// Author: Matthew Le Nepveu.
+// Author: Matthew Le Nepveu. Editted by: Jeremy Zoitas.
 //--------------------------------------------------------------------------------
 
 // Accesses the plugins from Unity folder
@@ -88,9 +88,10 @@ public class Player : MonoBehaviour
 	// Stores how tall Otto is as a float
 	public float m_fHeight = 2.0f;
 
+    // Indicates the amount of force that the player can bounce off the enemies heads
 	public float m_fEnemyBounce = 20.0f;
 
-	// Represents the left control stick dead zone for movement
+	// Represents the left control stick dead zone for movement purposes
 	[Range(0.01f, 1.0f)]
 	public float m_fDeadZone;
 
@@ -126,9 +127,6 @@ public class Player : MonoBehaviour
 
 	// Collectable manager Script used to get access to the collectable manager script
 	private CollectableManager m_cm;
-
-	// Stores a reference to the Cinemachine Camera script
-	//private CineCamera m_cineCameraScript;
 
 	// Used to access the death fade script from the fade object
 	private DeathFade m_deathFade;
@@ -205,16 +203,19 @@ public class Player : MonoBehaviour
 	// Indicates if the player has died
 	private bool m_bDeath;
 
-	private bool m_bRunParticle;
-
+    // Bool detects if the land particles should be played
 	private bool m_bLandParticle;
 
+    // Indicates when the player is in a cutscene
 	private bool m_bCutscene;
 
-	//--------------------------------------------------------------------------------
-	// Function is used for initialization.
-	//--------------------------------------------------------------------------------
-	void Awake()
+    // Represents when the run particles can be enabled
+    private bool m_bRunParticle;
+
+    //--------------------------------------------------------------------------------
+    // Function is used for initialization.
+    //--------------------------------------------------------------------------------
+    void Awake()
 	{
 		// Gets the Death Fade script off of the Death Fade game object
 		m_deathFade = m_fadeToBlack.GetComponent<DeathFade>();
@@ -246,12 +247,6 @@ public class Player : MonoBehaviour
 
 		// Gets the GrapplingHook script and stores it in the variable
 		m_grapplingScript = m_hook.GetComponent<Hook>();
-
-		// Gets the Camera Script from the Camera Object if the object is attached
-		//if (m_cineCamera != null)
-		//{
-		//	m_cineCameraScript = m_cineCamera.GetComponent<CineCamera>();
-		//}
 
 		// Disables half health image initially
 		m_halfHealth.enabled = false;
@@ -309,10 +304,12 @@ public class Player : MonoBehaviour
 		m_bMiniJump = false;
 		m_bBounced = false;
 		m_bDeath = false;
-		m_bRunParticle = true;
 		m_bLandParticle = false;
 		m_bCutscene = false;
-	}
+
+        // Sets only the run particle bool to true, as it should activate when player moves
+        m_bRunParticle = true;
+    }
 
 	//--------------------------------------------------------------------------------
 	// Function is called once every frame.
@@ -541,8 +538,7 @@ public class Player : MonoBehaviour
 	private void Animate()
 	{
 		// Detects if the player is in a cutscene
-		if (/*(!m_loadNextScript.GetStartMove() && m_loadNextScript.GetLoadNext()) ||*/
-			m_bCutscene)
+		if (m_bCutscene)
 		{
 			// Sets all bools in the animator controller to false so Otto goes to idle
 			m_animator.SetBool("Running", false);
@@ -571,10 +567,13 @@ public class Player : MonoBehaviour
 				m_animator.SetBool("Jumping", false);
 			}
 
-			// Sets Falling bool in animator to true if Gravity exceeds jump speed
+			// Detects if Gravity exceeds jump speed or if they are falling after they bounced
 			if (m_bJumped && m_fVelocityY <= 0.0f || m_bBounced && m_fVelocityY <= 0.0f)
 			{
+                // Sets falling bool in player animator to true
 				m_animator.SetBool("Falling", true);
+
+                // Land particle bool is set to true for when the player lands
 				m_bLandParticle = true;
 			}
 			// Sets Falling bool in animator to false if the player is grounded
@@ -589,9 +588,13 @@ public class Player : MonoBehaviour
 				// Sets Landing bool in animator to true
 				m_animator.SetBool("Landing", true);
 
+                // Detects if the land particle bool is true
 				if (m_bLandParticle)
 				{
+                    // Plays the landing particle effect
 					m_landing.Play();
+
+                    // Resets land bool back to false to avoid repeated playing
 					m_bLandParticle = false;
 				}
 
@@ -628,6 +631,7 @@ public class Player : MonoBehaviour
 			// Else if the player isn't moving
 			else
 			{
+                // Run particle bool resets to true so it can play again when player runs
 				m_bRunParticle = true;
 
 				// Running bool is set to false
@@ -655,34 +659,41 @@ public class Player : MonoBehaviour
 				m_animator.SetBool("Bounce", false);
 			}
 
+            // Checks if the player is recovering and health timer doesn't exceed limit
 			if (m_bRecovering && m_fHealthTimer < 0.3f)
 			{
+                // Damaged bool gets set to true in animator
 				m_animator.SetBool("Damaged", true);
 			}
+            // Else damaged bool is false
 			else
 			{
 				m_animator.SetBool("Damaged", false);
 			}
 
-			if (m_bDeath)
+            // Sets dying bool to true and respawn bool to false if player is dead
+            if (m_bDeath)
 			{
 				m_animator.SetBool("Dying", true);
-
 				m_animator.SetBool("Respawn", false);
 			}
-			else
-			{
+            // Otherwise sets dying bool to false and respawn to true
+            else
+            {
 				m_animator.SetBool("Dying", false);
-
 				m_animator.SetBool("Respawn", true);
 			}
 
+            // Checks if the player has been in idle for five seconds
 			if (m_fWaitTimer >= 5.0f)
 			{
+                // Waiting bool is set to true
 				m_animator.SetBool("Waiting", true);
 
+                // Wait timer gets set back to default zero value
 				m_fWaitTimer = 0.0f;
 			}
+            // Else waiting bool in animator is set to false
 			else
 			{
 				m_animator.SetBool("Waiting", false);
@@ -775,6 +786,7 @@ public class Player : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void Death()
 	{
+        // Death bool is set to true
 		m_bDeath = true;
 
 		// Plays the death audio using the audio source on the player
@@ -789,7 +801,9 @@ public class Player : MonoBehaviour
 		// Detects if the player has any lives left in the game
 		if (m_cm.GetLives() > 0)
 		{
+            // Delays the spawn while death animation plays
 			StartCoroutine(SpawnDelay());
+
 			// Fades out from black when respawned
 			m_deathFade.DoFadeOut();
 		}
@@ -830,19 +844,20 @@ public class Player : MonoBehaviour
 		m_bJumped = true;
 		m_bBounced = true;
 
+        // Checks if the player is bouncing from an enemy
 		if (bEnemy)
 		{
-			// Multiples Move Direction vector by speed and the bounce velocity
+			// Calculates a force that launches the player up and off of the enemy
 			m_v3Velocity = m_v3MoveDirection * m_fSpeed * 0.25f + Vector3.up * m_fVelocityY +
 						   Vector3.forward * 400.0f;
 		}
 		else
 		{
-			// Multiples Move Direction vector by speed and the bounce velocity
+			// Calculates an upward force for the player to move
 			m_v3Velocity = m_v3MoveDirection * m_fSpeed + Vector3.up * m_fVelocityY;
 		}
 
-		// Adds the bounce velocity to the CharacterController
+		// Applies the bounce velocity to the CharacterController
 		m_cc.Move(m_v3Velocity * Time.deltaTime);
 	}
 
@@ -871,12 +886,19 @@ public class Player : MonoBehaviour
 			Death();
 		}
 
+        // Calls the bounce function if the player hooks to an enemy
 		if (other.gameObject.name == "Hitbox" && m_grapplingScript.GetHooked())
 		{
 			Bounce(m_fEnemyBounce, true);
 		}
-	}
+    }
 
+    //--------------------------------------------------------------------------------
+	// Function delays the spawn of the player once they have died in game.
+	//
+	// Return:
+	//      Returns how long in seconds function waits before running more code.
+	//--------------------------------------------------------------------------------
 	IEnumerator SpawnDelay()
 	{
 		// Waits for 0.1 seconds before being called
@@ -893,6 +915,7 @@ public class Player : MonoBehaviour
 			transform.position = m_v3StartPosition;
 		}
 
+        // Sets player's health back to full and sets death bool to false again
 		m_nHealth = 2;
 		m_bDeath = false;
 
@@ -901,16 +924,29 @@ public class Player : MonoBehaviour
 		m_fullHealth.enabled = true;
 	}
 
-	public void PlayRunParticle()
+    //--------------------------------------------------------------------------------
+    // Function is called when the player on an event during the running animation.
+    //--------------------------------------------------------------------------------
+    public void PlayRunParticle()
 	{
+        // Detects if run particle bool is true and the player is grounded
 		if (m_bRunParticle && m_cc.isGrounded)
 		{
+            // Plays the particle effects for running
 			m_grass.Play();
+
+            // Resets the bool back to false to avoid repeated particle playing
 			m_bRunParticle = false;
 		}
 	}
 
-	public void SetCutscene(bool bCutscene)
+    //--------------------------------------------------------------------------------
+    // Function allows cutscene bool to be set from other scripts.
+    //
+    // Param:
+    //      bCutscene: Represents the value cutscene bool will be set to.
+    //--------------------------------------------------------------------------------
+    public void SetCutscene(bool bCutscene)
 	{
 		m_bCutscene = bCutscene;
 	}
