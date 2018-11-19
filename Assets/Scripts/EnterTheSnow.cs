@@ -44,6 +44,7 @@ public class EnterTheSnow : MonoBehaviour {
     {
         //cameraFrostScript.GetComponent<FrostEffect>().enabled = false;
         m_postBehaviour.profile = m_postProcessingProfile;
+        Destroy(this);
     }
 
     public void backToCamera()
