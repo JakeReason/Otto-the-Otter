@@ -17,6 +17,8 @@ public class EnterTheSnow : MonoBehaviour {
     public Animator frostedAnim;
     public AudioSource freeze;
     public GameObject playerCamera;
+    public GameObject blizPart;
+
 
     // Use this for initialization
     void Start () {
@@ -38,6 +40,7 @@ public class EnterTheSnow : MonoBehaviour {
         leafs.SetActive(false);
         cameraFrost.SetActive(true);
         playerCamera.SetActive(false);
+        blizPart.SetActive(false);
     }
 
     public void winterShadder()
