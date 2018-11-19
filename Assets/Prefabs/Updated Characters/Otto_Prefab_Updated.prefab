@@ -1292,7 +1292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375160584882834}
   m_LocalRotation: {x: -0, y: 0.0014988778, z: -0, w: 0.99999887}
-  m_LocalPosition: {x: 110.8, y: -30.5, z: -76.5}
+  m_LocalPosition: {x: 75.2, y: -30.5, z: 33.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4767237040241876}
@@ -2142,7 +2142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812625392093508}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -12, y: 147, z: -13}
+  m_LocalPosition: {x: 243.9, y: 24.84, z: -7.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4041876905736588}
@@ -2316,13 +2316,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090778059510614}
-  m_LocalRotation: {x: -0.7071068, y: -0.000000036554408, z: -0.00000012596136, w: 0.70710677}
+  m_LocalRotation: {x: -0.6857541, y: -0.00000025320335, z: -0.0020558059, w: 0.7278304}
   m_LocalPosition: {x: 0.0014667126, y: -0.0002746582, z: -0.0006212163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4041876905736588}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -86.586006, y: 2.7140002, z: -2.88}
 --- !u!4 &4981039723158010
 Transform:
   m_ObjectHideFlags: 1
@@ -2473,7 +2473,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.065
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3396,8 +3396,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4914939711660082}
   m_AABB:
-    m_Center: {x: 0.0052490234, y: 1.2676163, z: -0.5446272}
-    m_Extent: {x: 0.87270886, y: 0.33241305, z: 1.0325048}
+    m_Center: {x: 0.0052871704, y: 1.2676239, z: -0.5446472}
+    m_Extent: {x: 0.87271184, y: 0.33241305, z: 1.032506}
   m_DirtyAABB: 0
 --- !u!143 &143079742471203558
 CharacterController:
