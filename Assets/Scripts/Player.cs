@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------
-// Author: Matthew Le Nepveu. Editted by: Jeremy Zoitas.
+// Author: Matthew Le Nepveu. Edited by: Jeremy Zoitas.
 //--------------------------------------------------------------------------------
 
 // Accesses the plugins from Unity folder
