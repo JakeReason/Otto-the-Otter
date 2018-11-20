@@ -8,25 +8,26 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 
-// Creates a class for the HookDetector
+// Creates a class for the Hook script
 public class Hook : MonoBehaviour
 {
-	// Allows the script to access the player
+	// Allows the Hook script to access the player
     public GameObject m_player;
 
 	// Represents where the hook object is being held in
 	public GameObject m_hookHolder;
 
+    // Indicates the object that detects for all hookable objects
 	public GameObject m_detector;
 
+    // Represents the player's scarf as a GameObject
 	public GameObject m_scarf;
-
-	//public GameObject m_camera;
 
 	// Indicates an object of which the hook has hooked onto
 	[HideInInspector]
 	public GameObject m_hookedObj;
 
+    // Stores the layer of the player for collision purposes
 	public LayerMask m_playerLayer;
 
 	// Float represents the speed of the hook once launched
@@ -41,9 +42,11 @@ public class Hook : MonoBehaviour
 	// Detects if a hookable object is within a certain distance from player
 	public float m_fHookDistance = 5.0f;
 
+    // Public float used to represent the height you climb after reaching target
 	public float m_fClimbUp;
-	
-	public float m_fClimbForward;
+
+    // Float used to represent the length you climb after reaching target
+    public float m_fClimbForward;
 
 	// Lists if the hook has been fired or not
 	private bool m_bFired;
@@ -51,8 +54,10 @@ public class Hook : MonoBehaviour
 	// Bool lists if the hook has been fired or not
 	private bool m_bHooked;
 
+    // Indicates if the hook can be launched or not
 	private bool m_bLaunchable;
 
+    // Used to detect if hook is attached to an enemy
 	private bool m_bEnemyHooked;
 
 	// Represents the distance between the player and the hook
@@ -73,34 +78,39 @@ public class Hook : MonoBehaviour
 	// Collider used to switch on and off, depending on if it has been fired
 	private Collider m_collider;
 
+    // Used to access the variables and functions from the detector script
 	private Detector m_detectorScript;
 
+    // Determines the initial scale of the hook
 	private Vector3 m_v3HookScale;
 
+    // Used to access the MeshRenderer component and change its properties
 	private MeshRenderer m_mesh;
-
-	//private Transform m_prevCamTransform;
 
 	//--------------------------------------------------------------------------------
 	// Function is used for initialization.
 	//--------------------------------------------------------------------------------
 	void Awake()
     {
+        // Sets the scarf active on awake
 		m_scarf.SetActive(true);
 
+        // Gets the Mesh Renderer component from the hook
 		m_mesh = GetComponent<MeshRenderer>();
 
+        // Logs an error message in debug mode if no mesh renderer could be found
 		if (!m_mesh)
 		{
 			Debug.Log("NO MESH RENDERER ATTACHED!");
 		}
 
+        // Disables the mesh renderer
 		m_mesh.enabled = false;
 
 		// Gets the hook's collider component
 		m_collider = GetComponent<Collider>();
 
-		// Logs to the console if there is no collider on the hook
+		// Logs to the console in debug if there is no collider on the hook
         if (!m_collider)
         {
             Debug.Log("NO COLLIDER!");
@@ -121,16 +131,20 @@ public class Hook : MonoBehaviour
 		// Defines the original transform to equal the hook's transform
 		m_originalTransform = transform;
 
+        // Accesses the Detector script from the detector itself
 		m_detectorScript = m_detector.GetComponent<Detector>();
 
+        // Logs an error message in debug if the Detector script could not be found
 		if (!m_detectorScript)
 		{
 			Debug.Log("GET DETECTOR FAILED!");
 		}
 
+        // Sets both private bools to false initially
 		m_bLaunchable = false;
 		m_bEnemyHooked = false;
 
+        // Stores the localscale in the hook scale vector
 		m_v3HookScale = transform.localScale;
 	}
 
@@ -148,10 +162,13 @@ public class Hook : MonoBehaviour
 		// Checks if fired bool is set to true
 		if (m_bFired)
 		{
+            // Enables the mesh for the hook so it can be seen
 			m_mesh.enabled = true;
 
+            // Disables the player's scarf
 			m_scarf.SetActive(false);
 
+            // Enables the collider for the scarf so it can hit objects
 			m_collider.enabled = true;
 
 			// Declares the rope to have two positions
@@ -166,24 +183,31 @@ public class Hook : MonoBehaviour
 		// Else rope is not created if fired bool is false
 		else if (!m_bHooked || !m_bFired)
 		{
+            // Turns the collider off
 			m_collider.enabled = false;
 
+            // Resets the enemy hook bool back to false
 			m_bEnemyHooked = false;
 
+            // Sets the ropes position count to zero
 			m_rope.positionCount = 0;
 
+            // Accesses the target from the detector script and stores it
 			m_hookTarget = m_detectorScript.GetTarget();
 		}
 
 		// Runs if fired book is true but hooked bool is false
 		if (m_bFired && !m_bHooked)
 		{
+            // Checks if the hook has a desired target
 			if (m_hookTarget)
 			{
+                // Makes the scarf move towards the target
 				transform.position = Vector3.MoveTowards(transform.position, 
 														 m_hookTarget.position + Vector3.up * 0.5f,
 														 m_fHookTravelSpeed * Time.deltaTime);
 			}
+            // Else the scarf travels forward by speed and time
 			else
 			{
 				transform.Translate(Vector3.forward * m_fHookTravelSpeed * Time.deltaTime);
@@ -248,6 +272,7 @@ public class Hook : MonoBehaviour
 		// Waits for 0.1 seconds before being called
 		yield return new WaitForSeconds(0.1f);
 
+        // Sets the enemy hooked boolean to be true
 		m_bEnemyHooked = true;
 
 		// Calls the return hook function after yielding for 0.1 seconds
@@ -259,6 +284,7 @@ public class Hook : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	private void ReturnHook()
 	{
+        // Parent is set back to be the hook holder
 		transform.parent = m_hookHolder.transform;
 
 		// Sets the hook's transform position and rotation to equal that of the holder
@@ -272,10 +298,13 @@ public class Hook : MonoBehaviour
 		m_bFired = false;
 		m_bHooked = false;
 
+        // Resets the target back to null
 		m_hookTarget = null;
 
+        // Disables the mesh renderer for the hook
 		m_mesh.enabled = false;
 
+        // Enables the mesh of the scarf around the player
 		m_scarf.SetActive(true);
 
 		// Deletes the rope to have no positions
@@ -301,22 +330,46 @@ public class Hook : MonoBehaviour
         }
     }
 
-	public bool GetHooked()
+    //--------------------------------------------------------------------------------
+    // Function allows other scripts to get the Hooked variable.
+    //
+    // Return:
+    //		Returns the Hooked bool.
+    //--------------------------------------------------------------------------------
+    public bool GetHooked()
 	{
 		return m_bHooked;
 	}
 
-	public bool GetFired()
+    //--------------------------------------------------------------------------------
+    // Function allows other scripts to get the Fired variable.
+    //
+    // Return:
+    //		Returns the Fired bool.
+    //--------------------------------------------------------------------------------
+    public bool GetFired()
 	{
 		return m_bFired;
 	}
 
-	public void SetLaunchable(bool bLaunchable)
+    //--------------------------------------------------------------------------------
+    // Function allows other scripts to set the launchable bool to a value.
+    //
+    // Param:
+    //		bLaunchable: Represents the new value of the launchable bool.
+    //--------------------------------------------------------------------------------
+    public void SetLaunchable(bool bLaunchable)
 	{
 		m_bLaunchable = bLaunchable;
 	}
 
-	public bool GetEnemyHooked()
+    //--------------------------------------------------------------------------------
+    // Function allows other scripts to get the Enemy Hooked variable.
+    //
+    // Return:
+    //		Returns the Enemy Hooked bool.
+    //--------------------------------------------------------------------------------
+    public bool GetEnemyHooked()
 	{
 		return m_bEnemyHooked;
 	}
