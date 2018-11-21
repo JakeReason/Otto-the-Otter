@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
-
 	[SerializeField]
 	private GameObject m_pauseMenu;
-	[SerializeField]
+
+    [SerializeField]
 	private GameObject m_resumeButton;
+
 	[SerializeField]
 	private EventSystem m_eventSystem;
-
 
 	// Use this for initialization
 	void Awake()
@@ -30,8 +30,8 @@ public class Pause : MonoBehaviour
 			Time.timeScale = 0;
 			m_pauseMenu.SetActive(true);
 			m_eventSystem.SetSelectedGameObject(m_resumeButton);
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
 		}
 	}
 }
