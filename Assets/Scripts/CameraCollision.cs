@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------
-// Author: Jeremy Zoitas.
+// Author: Jeremy Zoitas. NOT BEING USED.
 //--------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -25,10 +25,6 @@ public class CameraCollision : MonoBehaviour
 
 	// Normalized local position.
 	public Vector3 dollyDir;
-
-	public float m_fDistanceFromGround = 1.0f;
-
-	public LayerMask CollisionLayers;
 
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.

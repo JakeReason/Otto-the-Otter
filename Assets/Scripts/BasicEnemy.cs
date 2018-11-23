@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------
-// Author: Jeremy Zoitas.
+// Author: Jeremy Zoitas. Edited by Matt Le Nepveu.
 //--------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -72,36 +72,53 @@ public class BasicEnemy : MonoBehaviour
 	private Player m_playerScript;
 
 	[SerializeField]
+	// Used to play the death sound.
 	private AudioClip m_enemyDeathAudioClip;
+
 	[SerializeField]
+	// Used to play the hit sound.
 	private AudioClip m_enemyHitAudioClip;
 
+	// Used to play audio for the enemy.
 	private AudioSource m_audioSource;
 
+	// The enemy model used to turn in visible.
 	public GameObject m_wolfModel;
 
+	// Used to get the detector script.
 	public GameObject m_detector;
 
+	// Used to clear the current object in the hook detector.
 	private Detector m_detectorScript;
 
+	// Used to determine if the audio has been played.
 	private bool m_bAudioPlayed;
 
+	// Used to make the object not hookable.
 	public GameObject m_hookableObj;
 
+	// A reward when the enemy dies.
 	public GameObject m_clamStack;
 
+	// Speed of the enemy when chasing the player.
 	public float m_fChaseSpeed;
 
+	// The hitbox of the enemy.
     public GameObject m_enemyHitBox;
 
+	// Stores the original speed.
 	private float m_fOriginalSpeed;
 
+	// Used to animate the enemy.
 	private Animator m_animator;
 
+	// A bool to check if the enemy is dead.
 	private bool m_bDead;
 
+	// A bool which is called at the end of the death animation.
 	private bool m_bDeathEnd;
 
+	// Used to stun the enemy.
 	private bool m_bStunned;
 
 	//--------------------------------------------------------------------------------
@@ -109,6 +126,7 @@ public class BasicEnemy : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void Awake()
 	{
+		// Gets the animator component to animate the enemy.
 		m_animator = GetComponent<Animator>();
 		// Gets the NavMeshAgent on the gameobject.
 		m_agent = GetComponent<NavMeshAgent>();
@@ -122,13 +140,14 @@ public class BasicEnemy : MonoBehaviour
 		m_fAttackCooldown = 0;
 		// Sets the playerScript reference up.
 		m_playerScript = m_player.GetComponent<Player>();
-
+		// Sets the detector script refernce up.
 		m_detectorScript = m_detector.GetComponent<Detector>();
-
+		// Gets the audio scource on the gameobject.
 		m_audioSource = GetComponent<AudioSource>();
-
+		// Stores the original speed.
 		m_fOriginalSpeed = m_agent.speed;
 
+		// Sets the enemy animation conditions to false.
 		m_animator.SetBool("Walk", false);
 		m_animator.SetBool("Run", false);
 		m_animator.SetBool("Idle", false);
@@ -172,7 +191,7 @@ public class BasicEnemy : MonoBehaviour
 	}
 
 	//--------------------------------------------------------------------------------
-	// Update is called once per frame, Updates the enemy making it patrol between 
+	// Update is called once per frame. Updates the enemy making it patrol between 
 	// waypoints or attack the player if the player is in attack range.
 	//--------------------------------------------------------------------------------
 	void Update()
@@ -184,66 +203,88 @@ public class BasicEnemy : MonoBehaviour
 		// Checks if the enemy is dead.
 		if (m_fHealth <= 0)
 		{
+			// Sets the animation conditions.
 			m_animator.SetBool("Walk", false);
 			m_animator.SetBool("Run", false);
 			m_animator.SetBool("Idle", false);
 			m_animator.SetBool("90 Spin", false);
 			m_animator.SetBool("Hit", false);
 			m_animator.SetBool("Death", true);
+			// Turns off the collider of the enemy.
 			GetComponent<BoxCollider>().enabled = false;
+			// Turns off the NavMeshAgent of the enemy.
 			GetComponent<NavMeshAgent>().enabled = false;
+			// Turns off the hookable object collider.
 			m_hookableObj.GetComponent<Collider>().enabled = false;
+			// Turns off the hit box of the enemy.
 			m_enemyHitBox.SetActive(false);
+			// Clears the current hooked/targeted object of the hook.
 			m_detectorScript.ClearTarget(m_hookableObj);
+			// Checks if the dead bool is true which is set at the start of the animation.
 			if (m_bDead)
 			{
+				// Checks if audio is playing from the audio scource and if it has been 
+				// played before.
 				if (!m_audioSource.isPlaying && !m_bAudioPlayed)
 				{
+					// Spawn a stack of clams.
 					Instantiate(m_clamStack, transform.position, transform.rotation);
+					// Plays the death audio.
 					m_audioSource.PlayOneShot(m_enemyDeathAudioClip);
+					// Sets played to true.
 					m_bAudioPlayed = true;
 				}
+				// Checks if audio is playing from the audio scource and if it has been 
+				// played before and if the end of the death animation as reached by
+				// the death end bool.
 				if (m_bAudioPlayed && !m_audioSource.isPlaying && m_bDeathEnd)
 				{
+					// Changes the hookable object tag to prevent problems whith the
+					// hook.
 					m_hookableObj.tag = "Untagged";
+					// Sets the parent to false which disables the enemy.
 					this.transform.parent.gameObject.SetActive(false);
 				}
 			}
 		}
+		// Checks if the enemy is stunned.
 		else if(!m_bStunned)
 		{
+			// Checks if the enemy is on the navmesh.
 			if (m_agent.isOnNavMesh)
 			{
 				// Choose the next destination point when the agent gets
 				// close to the current one and start a cooldown.
 				if (!m_agent.pathPending && m_agent.remainingDistance < 0.5f)
 				{
+					// Decreases the cooldown.
 					m_fCooldown -= Time.deltaTime;
+					// Sets the agents speed to the original speed.
 					m_agent.speed = m_fOriginalSpeed;
+					// Sets the animation conditions.
 					m_animator.SetBool("Walk", false);
 					m_animator.SetBool("Run", false);
 					m_animator.SetBool("Idle", true);
 					m_animator.SetBool("90 Spin", false);
-					
+					// Checks if the enemy is going backwards.
 					if (!m_bGoBackWards)
 					{
+						// Rotates the enemy towards the next waypoint.
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[1].position - transform.position);
 						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
-
-						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[1].rotation, m_fWaitRotateSpeed);
-
+						// Sets the animation conditions.
 						m_animator.SetBool("90 Spin", true);
 						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
 						m_animator.SetBool("Run", false);
 					}
+					// Checks if the enemy is going backwards.
 					if (m_bGoBackWards)
 					{
+						// Rotates the enemy towards the next waypoint.
 						var waypointRotation = Quaternion.LookRotation(m_targetPoints[0].position - transform.position);
 						transform.rotation = Quaternion.Slerp(transform.rotation, waypointRotation, m_fWaitRotateSpeed * Time.deltaTime);
-
-						//transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetPoints[0].rotation, m_fWaitRotateSpeed);
-							
+						// Sets the animation conditions.
 						m_animator.SetBool("90 Spin", true);
 						m_animator.SetBool("Idle", false);
 						m_animator.SetBool("Walk", false);
@@ -252,6 +293,7 @@ public class BasicEnemy : MonoBehaviour
 					// When the cooldown is over move to next point and resets cooldown time.
 					if (m_fCooldown <= 0)
 					{
+						// Sets the animation conditions.
 						m_animator.SetBool("Walk", true);
 						m_animator.SetBool("Run", false);
 						m_animator.SetBool("90 Spin", false);
@@ -278,6 +320,7 @@ public class BasicEnemy : MonoBehaviour
 						{
 							GoToNextPoint();
 						}
+						// Sets the cooldown time back to the original.
 						m_fCooldown = m_fOriginalCooldown;
 					}
 				}
@@ -305,44 +348,62 @@ public class BasicEnemy : MonoBehaviour
 					if (m_fAttackCooldown <= 0)
 					{
 						m_fAttackCooldown = m_fOriginalAttackCooldown;
+						// Deals damage to the player.
 						m_playerScript.Damage();
 					}
 				}
 			}
-		}
-		// Checks if the agent is on the navmesh.
-		
+		}	
 	}
 
+	//--------------------------------------------------------------------------------
+	// Updates the enemy making it patrol between 
+	// waypoints or attack the player if the player is in attack range.
+	//--------------------------------------------------------------------------------
 	public void TakeDamage()
 	{
+		// Negates health from the enemy.
 		--m_fHealth;
+		// Sets the speed to zero.
 		m_agent.speed = 0;
+		// Sets stunned to true.
 		m_bStunned = true;
+		// Checks if the health is above zero and plays the hit sound.
         if(m_fHealth > 0)
         {
 		    m_audioSource.PlayOneShot(m_enemyHitAudioClip);
 		}
+		// Calls the ResetSpeed coroutine.
 		StartCoroutine("ResetSpeed");
 	}
 
+	//--------------------------------------------------------------------------------
+	// Used to set dead to true in the animation.
+	//--------------------------------------------------------------------------------
 	public void Death()
 	{
 		m_bDead = true;
 	}
 
+	//--------------------------------------------------------------------------------
+	// Used to set the death end to true at the end of the animation.
+	//--------------------------------------------------------------------------------
 	public void DeathEnd()
 	{
 		m_bDeathEnd = true;
 	}
 
+	//--------------------------------------------------------------------------------
+	// Coroutine used to reset the speed after 1.5
+	// seconds and sets stunned to false.
+	//--------------------------------------------------------------------------------
 	IEnumerator ResetSpeed()
 	{
-		// Waits for 0.1 seconds before being called
+		// Waits for 1.5 seconds before being called
 		yield return new WaitForSeconds(1.5f);
-
+		// Sets the speed bakc to the original speed.
 		m_agent.speed = m_fOriginalSpeed;
-
+		// Sets stunned to false.
 		m_bStunned = false;
 	}
 }

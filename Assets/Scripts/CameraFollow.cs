@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------
-// Author: Jeremy Zoitas.
+// Author: Jeremy Zoitas. NOT BEING USED.
 //--------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -52,8 +52,6 @@ public class CameraFollow : MonoBehaviour
 	// Speed of the lerp rotation.
 	private float m_fLerpSpeed = 0.1f;
 
-	public float m_fTurnSmoothSpeed = 0.5f;
-
 	//--------------------------------------------------------------------------------
 	// Awake used for initialization.
 	//--------------------------------------------------------------------------------
@@ -74,40 +72,6 @@ public class CameraFollow : MonoBehaviour
 	//--------------------------------------------------------------------------------
 	void FixedUpdate ()
 	{
-		// TODO: Smooth the camera collision with teh ground.
-		// TODO: Make the camera do a smooth movetowards when the player falls.
-		// TODO: Fix the diagonal distance bug. Check if fixed should be fixed.
-		//Debug.Log("X");
-		//Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickX));
-		//Debug.Log("Y");
-		//Debug.Log(XCI.GetAxisRaw(XboxAxis.LeftStickY));
-		// TODO: Slowly rotate the camera when the player runs away left and right aswell as towards. 
-		// May not be needed if this works.
-		// Set finalinput to euqual a value so the camera slowly turns as the player runs.
-		// use velocity to determine if the player os moving.
-		// make the camera slow down when hitting the angle clamps
-		//if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0 
-		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		//{
-		//	finalInputX = -m_fTurnSmoothSpeed;
-			
-		//}
-		//else if (XCI.GetAxis(XboxAxis.LeftStickY) > 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
-		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		//{
-		//	finalInputX = m_fTurnSmoothSpeed;
-		//}
-		//else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) < 0
-		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		//{
-		//	finalInputX = -m_fTurnSmoothSpeed;
-		//}
-		//else if (XCI.GetAxis(XboxAxis.LeftStickY) < 0 && XCI.GetAxis(XboxAxis.LeftStickX) > 0
-		//	&& XCI.GetAxis(XboxAxis.RightStickX) == 0 && XCI.GetAxis(XboxAxis.RightStickY) == 0)
-		//{
-		//	finalInputX = m_fTurnSmoothSpeed;
-		//}
-
 		CameraInput();
 		SetRotation();
 		RotateCamera();
@@ -135,6 +99,9 @@ public class CameraFollow : MonoBehaviour
 		transform.position = Vector3.Lerp (transform.position, target.position, step);
 	}
 
+	//--------------------------------------------------------------------------------
+	// Sets up the input from mthe mouse and controller
+	//--------------------------------------------------------------------------------
 	void CameraInput()
 	{
 		// Setup the rotation of the right sticks axis.
@@ -148,6 +115,9 @@ public class CameraFollow : MonoBehaviour
 		finalInputZ = inputZ + mouseY;
 	}
 
+	//--------------------------------------------------------------------------------
+	// Sets the rotation of the camera based on the input.
+	//--------------------------------------------------------------------------------
 	void SetRotation()
 	{
 		// Sets the rotation based on the input and sensitivity.
@@ -157,6 +127,9 @@ public class CameraFollow : MonoBehaviour
 		rotX = Mathf.Clamp(rotX, MinClampAngleX, MaxClampAngleX);
 	}
 
+	//--------------------------------------------------------------------------------
+	// Rotates the camera.
+	//--------------------------------------------------------------------------------
 	void RotateCamera()
 	{
 		// Set localRotation to rotx and roty.
@@ -165,6 +138,9 @@ public class CameraFollow : MonoBehaviour
 		transform.rotation = Quaternion.Lerp(transform.rotation, localRotation, m_fLerpSpeed * Time.deltaTime);
 	}
 
+	//--------------------------------------------------------------------------------
+	// Resets the camera behind the player.
+	//--------------------------------------------------------------------------------
 	private void ResetCamera()
 	{
 		// If the right stick button is pressed then set the camera to be behind the player.

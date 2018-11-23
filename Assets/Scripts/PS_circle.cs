@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Max Turner. NOT BEING USED.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,51 +1,75 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Jeremy Zoitas.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class Quit : MonoBehaviour {
+public class Quit : MonoBehaviour
+{
+	// Used to animate the quit button.
+	public Animator quitButton;
 
-    public Animator quitButton;
-    public AudioClip buttonPress;
-    public AudioSource button;
-    public AudioClip woodCrash;
+	// Used to animate the button press.
+	public AudioClip buttonPress;
 
+	// Audio scource used to play a sound when the button is pressed.
+	public AudioSource button;
 
+	// Audio Clip used to play a sound when the wooden plank UI falls.
+	public AudioClip woodCrash;
 
-    public void Awake()
-    {
-        quitButton.SetBool("Exit", false);
-    }
+	//--------------------------------------------------------------------------------
+	// Awake used for initialization.
+	//--------------------------------------------------------------------------------
+	public void Awake()
+	{
+		quitButton.SetBool("Exit", false);
+	}
 
-    public void ExitAnim()
-    {
-        quitButton.SetBool("Exit", true);
-    }
-    public void Exit()
-    {
+	//--------------------------------------------------------------------------------
+	// Exits the animator.
+	//--------------------------------------------------------------------------------
+	public void ExitAnim()
+	{
+		quitButton.SetBool("Exit", true);
+	}
+
+	//--------------------------------------------------------------------------------
+	// Exits the game or the unity editor.
+	//--------------------------------------------------------------------------------
+	public void Exit()
+	{
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+		UnityEditor.EditorApplication.isPlaying = false;
 #else
 		Application.Quit();
 #endif
-    }
+	}
 
-    public void PlaySound()
-    {
-        button.PlayOneShot(buttonPress);
-    }
+	//--------------------------------------------------------------------------------
+	// Plays the button sound.
+	//--------------------------------------------------------------------------------
+	public void PlaySound()
+	{
+		button.PlayOneShot(buttonPress);
+	}
 
-    public void Crash()
-    {
-        button.PlayOneShot(woodCrash);
-    }
+	//--------------------------------------------------------------------------------
+	// Plays the crash sound.
+	//--------------------------------------------------------------------------------
+	public void Crash()
+	{
+		button.PlayOneShot(woodCrash);
+	}
 
-    public void Credits()
-    {
-        SceneManager.LoadScene("Credits");
-    }
-
-
-
+	//--------------------------------------------------------------------------------
+	// Loads the credits scene.
+	//--------------------------------------------------------------------------------
+	public void Credits()
+	{
+		SceneManager.LoadScene("Credits");
+	}
 }

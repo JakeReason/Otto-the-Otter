@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Jake Reason.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

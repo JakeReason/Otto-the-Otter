@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------
+// Author: Max Turner.
+//--------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
